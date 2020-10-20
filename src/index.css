@@ -100,3 +100,27 @@ a {
 	grid-template-columns: 50% 50%;
 }
 
+button {
+	transition-duration: 0.4s;
+	border-radius: 12px 12px 0 0;
+	width: 90%;
+	background-color: #0D0828;
+	border: none;
+	font-size: 16px;
+	cursor:pointer;
+}
+
+button:hover {
+	background-color: #F88876;
+	color: #FEEDDF;
+}
+
+.nav-button-inactive {
+	color: #FEEDDF;
+}
+
+.nav-button-active {
+	border-bottom: 3px solid #FA4D3D;
+	color: #FA4D3D;
+	font-weight: 700;
+}

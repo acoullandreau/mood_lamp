@@ -7,20 +7,33 @@ import SideNavBar from './SideNavBar.js';
 
 class App extends React.Component {
 
-	state = {
-		'modes':{0:{'name':'Éteindre', 'color':'', 'brightness':0, 'speed':0}, 
-				1:{'name':'Fête', 'color':'party', 'brightness':100, 'speed':2}, 
-				2:{'name':'Discussion', 'color':'talk', 'brightness':80, 'speed':1},
-				3:{'name':'Ambiance', 'color':{ r: 255, g: 241, b: 224 }, 'brightness':50, 'speed':0}
-		},
-		'automatismes':{},
-		'colorPicker':{target:'single'}
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			'modes':{0:{'name':'Éteindre', 'color':'', 'brightness':0, 'speed':0}, 
+					1:{'name':'Fête', 'color':'party', 'brightness':100, 'speed':2}, 
+					2:{'name':'Discussion', 'color':'talk', 'brightness':80, 'speed':1},
+					3:{'name':'Ambiance', 'color':{ r: 255, g: 241, b: 224 }, 'brightness':50, 'speed':0}
+			},
+			'automatismes':{},
+			'colorPicker':{target:'single'}
+		};
 	}
+
 
 	componentDidMount() {
 		//fetch JSON of modes
 		//fetch automatismes configuration
 	}
+
+
+	switchColorPicker = (e) => {
+		var colorPicker = this.state.colorPicker;
+		colorPicker['target'] = e.target.value;
+		this.setState({colorPicker});
+	}
+
 
 	renderModes = () => {
 		return (
@@ -34,8 +47,20 @@ class App extends React.Component {
 		return (
 			<React.Fragment>
 				<div className={["grid-row-one", "menu"].join(' ')}>
-					<button className="column-one">Couleur Unique</button>
-					<button className="column-two">Gradient</button>
+					<button 
+						value="single"
+						className={["column-one", `nav-button-${this.state.colorPicker.target === 'single' ? 'active' : 'inactive'}`].join(' ')}
+						onClick={this.switchColorPicker}
+					>
+						Couleur Unique
+					</button>
+					<button 
+						value="gradient"
+						className={["column-two", `nav-button-${this.state.colorPicker.target === 'gradient' ? 'active' : 'inactive'}`].join(' ')}
+						onClick={this.switchColorPicker}
+					>
+						Gradient
+					</button>
 				</div>
 				<div className="grid-row-two">
 					<ColorPicker params={this.state.colorPicker} />
@@ -72,16 +97,13 @@ class App extends React.Component {
 			<div className="grid-content">
 				<div className="content-one">
 					<div id='logo'>
-						<a href=""><img src={logo} alt='Maïa' /></a>
+						<a href="#modes"><img src={logo} alt='Maïa' /></a>
 					</div>
 					<div id='nav-bar'>
 						<SideNavBar/>
 					</div>
 				</div>
 				<div className={["content-two", "column-two"].join(' ')}>
-					<Route path="" >
-						{ this.renderModes() }
-					</Route>
 					<Route path="#modes" >
 						{ this.renderModes() }
 					</Route>
