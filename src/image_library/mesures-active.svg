@@ -1,6 +1,3 @@
-<svg id="Groupe_615" data-name="Groupe 615" xmlns="http://www.w3.org/2000/svg" width="66.838" height="66.838" viewBox="0 0 66.838 66.838">
-  <g id="baseline-insert_chart-24px">
-    <path id="Tracé_1295" data-name="Tracé 1295" d="M47.558,3H8.57A5.586,5.586,0,0,0,3,8.57V47.558a5.586,5.586,0,0,0,5.57,5.57H47.558a5.586,5.586,0,0,0,5.57-5.57V8.57A5.586,5.586,0,0,0,47.558,3ZM19.709,41.989H14.14V22.494h5.57Zm11.14,0h-5.57V14.14h5.57Zm11.14,0h-5.57V30.849h5.57Z" transform="translate(5.355 5.355)" fill="#fa4d3d"/>
-    <path id="Tracé_1296" data-name="Tracé 1296" d="M0,0H66.838V66.838H0Z" fill="none"/>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="53.487" height="53.487" viewBox="0 0 53.487 53.487">
+  <path id="Tracé_6347" data-name="Tracé 6347" d="M50.544,3H8.943A5.96,5.96,0,0,0,3,8.943v41.6a5.96,5.96,0,0,0,5.943,5.943h41.6a5.96,5.96,0,0,0,5.943-5.943V8.943A5.96,5.96,0,0,0,50.544,3ZM20.829,44.6H14.886V23.8h5.943Zm11.886,0H26.772V14.886h5.943Zm11.886,0H38.658V32.715H44.6Z" transform="translate(-3 -3)" fill="#fa4d3d"/>
 </svg>

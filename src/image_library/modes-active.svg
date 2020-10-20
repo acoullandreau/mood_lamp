@@ -1,6 +1,7 @@
-<svg id="baseline-bubble_chart-24px" xmlns="http://www.w3.org/2000/svg" width="71.327" height="71.327" viewBox="0 0 71.327 71.327">
-  <path id="Tracé_1238" data-name="Tracé 1238" d="M0,0H71.327V71.327H0Z" fill="none"/>
-  <circle id="Ellipse_49" data-name="Ellipse 49" cx="9.51" cy="9.51" r="9.51" transform="translate(11.888 33.286)" fill="#fa4d3d"/>
-  <circle id="Ellipse_50" data-name="Ellipse 50" cx="5.944" cy="5.944" r="5.944" transform="translate(38.041 47.551)" fill="#fa4d3d"/>
-  <circle id="Ellipse_51" data-name="Ellipse 51" cx="14.265" cy="14.265" r="14.265" transform="translate(30.908 11.888)" fill="#fa4d3d"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="59.439" height="59.439" viewBox="0 0 59.439 59.439">
+  <g id="Groupe_633" data-name="Groupe 633" transform="translate(-1166.519 -501.89)">
+    <circle id="Ellipse_49" data-name="Ellipse 49" cx="11.888" cy="11.888" r="11.888" transform="translate(1166.519 528.638)" fill="#fa4d3d"/>
+    <circle id="Ellipse_50" data-name="Ellipse 50" cx="7.43" cy="7.43" r="7.43" transform="translate(1199.211 546.47)" fill="#fa4d3d"/>
+    <circle id="Ellipse_51" data-name="Ellipse 51" cx="17.832" cy="17.832" r="17.832" transform="translate(1190.295 501.89)" fill="#fa4d3d"/>
+  </g>
 </svg>

@@ -81,24 +81,22 @@ class SideNavBar extends React.Component {
 	render () {
 		return (
 			<React.Fragment>
-				<div id='nav-bar'>
-					<a href='#modes' className={['grid-row-one', `nav-icon-${this.state.activeItem === 'modes' ? 'active' : 'inactive'}`].join(' ')}>
-						{this.fetchIconImage('modes')}
-						<p>Modes</p>
-					</a>
-					<a href='#couleurs' className={['grid-row-two', `nav-icon-${this.state.activeItem === 'couleurs' ? 'active' : 'inactive'}`].join(' ')}>
-						{this.fetchIconImage('couleurs')}
-						<p>Couleurs</p>
-					</a>
-					<a href='#mesures' className={['grid-row-three', `nav-icon-${this.state.activeItem === 'mesures' ? 'active' : 'inactive'}`].join(' ')}>
-						{this.fetchIconImage('mesures')}
-						<p>Mesures</p>
-					</a>
-					<a href='#automatismes' className={['grid-row-four', `nav-icon-${this.state.activeItem === 'automatismes' ? 'active' : 'inactive'}`].join(' ')}>
-						{this.fetchIconImage('automatismes')}
-						<p>Automatismes</p>
-					</a>
-				</div>
+				<a href='#modes' className={['grid-row-one', `nav-icon-${this.state.activeItem === 'modes' ? 'active' : 'inactive'}`].join(' ')}>
+					{this.fetchIconImage('modes')}
+					<p>Modes</p>
+				</a>
+				<a href='#couleurs' className={['grid-row-two', `nav-icon-${this.state.activeItem === 'couleurs' ? 'active' : 'inactive'}`].join(' ')}>
+					{this.fetchIconImage('couleurs')}
+					<p>Couleurs</p>
+				</a>
+				<a href='#mesures' className={['grid-row-three', `nav-icon-${this.state.activeItem === 'mesures' ? 'active' : 'inactive'}`].join(' ')}>
+					{this.fetchIconImage('mesures')}
+					<p>Mesures</p>
+				</a>
+				<a href='#automatismes' className={['grid-row-four', `nav-icon-${this.state.activeItem === 'automatismes' ? 'active' : 'inactive'}`].join(' ')}>
+					{this.fetchIconImage('automatismes')}
+					<p>Automatismes</p>
+				</a>
 			</React.Fragment>
 		);
 
