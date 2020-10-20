@@ -17,7 +17,7 @@ class App extends React.Component {
 					3:{'name':'Ambiance', 'color':{ r: 255, g: 241, b: 224 }, 'brightness':50, 'speed':0}
 			},
 			'automatismes':{},
-			'colorPicker':{target:'single'}
+			'colorPicker':{target:'single', color:{r: 255, g: 0, b: 0}}
 		};
 	}
 
@@ -31,7 +31,12 @@ class App extends React.Component {
 	switchColorPicker = (e) => {
 		var colorPicker = this.state.colorPicker;
 		colorPicker['target'] = e.target.value;
-		this.setState({colorPicker});
+		// if (e.target.value === 'single') {
+		// 	colorPicker['color'] = {r: 255, g: 0, b: 0};
+		// } else {
+		// 	colorPicker['color'] = {r: 255, g: 255, b: 0};
+		// }
+		this.setState({'colorPicker':colorPicker});
 	}
 
 
