@@ -1,5 +1,6 @@
 import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+// import 'react-tabs/style/react-tabs.css';
 import logo from './image_library/logo.svg';
 import ColorPicker from './ColorPicker.js';
 import Route from './Route.js';
@@ -19,6 +20,10 @@ class App extends React.Component {
 			},
 			'automatismes':{}
 		};
+
+		this.singleColorPicker = React.createRef();
+		this.gradientColorPicker = React.createRef();
+
 	}
 
 
@@ -37,19 +42,20 @@ class App extends React.Component {
 	}
 
 	renderCouleurs = () => {
+
 		return (
 			<React.Fragment>
-				<Tabs>
+				<Tabs forceRenderTabPanel={true} >
 					<TabList>
 						<Tab>Couleur unique</Tab>
 						<Tab>Gradient</Tab>
 					</TabList>
 
 					<TabPanel>
-						<ColorPicker target='single' />
+						<ColorPicker target='single' ref={this.singleColorPicker} />
 					</TabPanel>
 					<TabPanel>
-						<ColorPicker target='gradient' />
+						<ColorPicker target='gradient' ref={this.gradientColorPicker} />
 					</TabPanel>
 				</Tabs>
 			</React.Fragment>

@@ -5,7 +5,7 @@ import iro from '@jaames/iro';
 class IroColorPicker extends React.Component {
 
 	componentDidMount() {
-		console.trace('new colorPicker')
+		console.log('new colorPicker')
 		const { props } = this;
 		// create a new iro color picker and pass component props to it
 		this.colorPicker = new iro.ColorPicker(this.el, props.params);
@@ -29,7 +29,6 @@ class IroColorPicker extends React.Component {
 	}
 
 	render() {
-		console.log(this.props)
 		return (
 			<div ref={el => this.el = el} />
 		);
@@ -39,61 +38,47 @@ class IroColorPicker extends React.Component {
 
 class ColorPicker extends React.Component {
 
-	state = {'single':{
-		id:'single',
-		width: 250,
-		margin:100,
-		layoutDirection: 'horizontal',
-		borderWidth: 2,
-		layout: [
-			{
-				component: iro.ui.Wheel,
-				options: {
-					borderColor: '#ffffff'
+	state = {
+		'selectedColor':'#ffffff', 
+		'layoutParams':{
+			width: 250,
+			margin:100,
+			layoutDirection: 'horizontal',
+			borderWidth: 2,
+			layout: [
+				{
+					component: iro.ui.Wheel,
+					options: {
+						borderColor: '#ffffff'
+					}
+				},
+				{
+					component: iro.ui.Slider,
+					options: {
+						borderColor: '#000000'
+					}
 				}
-			},
-			{
-				component: iro.ui.Slider,
-				options: {
-					borderColor: '#000000'
-				}
-			}
-		]
-	}, 'gradient':{
-		id:'gradient',
-		width: 250,
-		margin:100,
-		layoutDirection: 'horizontal',
-		borderWidth: 2,
-		layout: [
-			{
-				component: iro.ui.Wheel,
-				options: {
-					borderColor: '#ffffff'
-				}
-			},
-			{
-				component: iro.ui.Slider,
-				options: {
-					borderColor: '#000000'
-				}
-			}
-		]
-	}}
-	
+			]
+		}
+	}
 
 	handleColorChange = (color) => {
+		// save the currently selected color
+		this.setState({'selectedColor':color.rgb});
 		// send color to the microcontroller for live update
-		console.log(color.rgb)
+		//console.log(color.rgb)
 	}
 
 	renderSingleColorPicker() {
-		console.log(this.state.single)
+		var params = this.state.layoutParams;
+		params['color'] = this.state.selectedColor;
+
+		// console.log(params['color'])
 		return (
 			<div>
 				<div>Single Color Picker </div>
 				<IroColorPicker
-					params={this.state.single}
+					params={params}
 					onColorChange={(color) => this.handleColorChange(color)}
 				/>
 			</div>
@@ -101,13 +86,14 @@ class ColorPicker extends React.Component {
 	}
 
 	renderGradientColorPicker() {
-		console.log(this.state.gradient)
-
+		var params = this.state.layoutParams;
+		params['color'] = this.state.selectedColor;
+		// console.log(params['color'])
 		return (
 			<div>
 				<div>Gradient Color Picker </div>
 				<IroColorPicker
-					params={this.state.gradient}
+					params={params}
 					onColorChange={(color) => this.handleColorChange(color)}
 				/>
 			</div>
@@ -116,7 +102,7 @@ class ColorPicker extends React.Component {
 
 
 	render() { 
-		console.log(this.props.target)
+		console.log(this.state)
 		if (this.props.target === 'single') {
 			return (
 				<React.Fragment>

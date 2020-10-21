@@ -120,38 +120,10 @@ a {
 	font-weight: 700;
 }
 
-
-
-
-/*.menu {
-	display: grid;
-	width: 30%;
-	margin-top: 7%;
-	margin-right: auto;
-	margin-left: auto;
-	grid-template-columns: 50% 50%;
+.react-tabs__tab-panel {
+    display: none;
 }
 
-button {
-	transition-duration: 0.4s;
-	border-radius: 12px 12px 0 0;
-	width: 90%;
-	background-color: #0D0828;
-	border: none;
-	font-size: 16px;
+.react-tabs__tab-panel--selected {
+    display: block;
 }
-
-button:hover {
-	background-color: #F88876;
-	color: #FEEDDF;
-}
-
-.nav-button-inactive {
-	color: #FEEDDF;
-}
-
-.nav-button-active {
-	border-bottom: 3px solid #FA4D3D;
-	color: #FA4D3D;
-	font-weight: 700;
-}*/
