@@ -1,4 +1,5 @@
 import React from 'react';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import logo from './image_library/logo.svg';
 import ColorPicker from './ColorPicker.js';
 import Route from './Route.js';
@@ -16,8 +17,7 @@ class App extends React.Component {
 					2:{'name':'Discussion', 'color':'talk', 'brightness':80, 'speed':1},
 					3:{'name':'Ambiance', 'color':{ r: 255, g: 241, b: 224 }, 'brightness':50, 'speed':0}
 			},
-			'automatismes':{},
-			'colorPicker':{target:'single', color:{r: 255, g: 0, b: 0}}
+			'automatismes':{}
 		};
 	}
 
@@ -25,18 +25,6 @@ class App extends React.Component {
 	componentDidMount() {
 		//fetch JSON of modes
 		//fetch automatismes configuration
-	}
-
-
-	switchColorPicker = (e) => {
-		var colorPicker = this.state.colorPicker;
-		colorPicker['target'] = e.target.value;
-		// if (e.target.value === 'single') {
-		// 	colorPicker['color'] = {r: 255, g: 0, b: 0};
-		// } else {
-		// 	colorPicker['color'] = {r: 255, g: 255, b: 0};
-		// }
-		this.setState({'colorPicker':colorPicker});
 	}
 
 
@@ -51,29 +39,24 @@ class App extends React.Component {
 	renderCouleurs = () => {
 		return (
 			<React.Fragment>
-				<div className={["grid-row-one", "menu"].join(' ')}>
-					<button 
-						value="single"
-						className={["column-one", `nav-button-${this.state.colorPicker.target === 'single' ? 'active' : 'inactive'}`].join(' ')}
-						onClick={this.switchColorPicker}
-					>
-						Couleur Unique
-					</button>
-					<button 
-						value="gradient"
-						className={["column-two", `nav-button-${this.state.colorPicker.target === 'gradient' ? 'active' : 'inactive'}`].join(' ')}
-						onClick={this.switchColorPicker}
-					>
-						Gradient
-					</button>
-				</div>
-				<div className="grid-row-two">
-					<ColorPicker params={this.state.colorPicker} />
-				</div>
+				<Tabs>
+					<TabList>
+						<Tab>Couleur unique</Tab>
+						<Tab>Gradient</Tab>
+					</TabList>
+
+					<TabPanel>
+						<ColorPicker target='single' />
+					</TabPanel>
+					<TabPanel>
+						<ColorPicker target='gradient' />
+					</TabPanel>
+				</Tabs>
 			</React.Fragment>
 		)
 	}
 
+				/*<div id="scroll-down"><img className="scroll-down-img" src="./image_library/icon_scroll_down.svg" alt="Scroll Icon"/></div>*/
 
 	renderMesures = () => {
 		return (
