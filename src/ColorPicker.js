@@ -51,7 +51,8 @@ class IroColorPicker extends React.Component {
 class ColorPicker extends React.Component {
 
 	state = {
-		'selectedColor':'#ffffff', 
+		'selectedColor':'#FFFFFF', 
+		'selectedColors':['#FA4D3D', '#28666E'],
 		'animationSpeed':30,
 		'layoutParams':{
 			width: this.getInitialWidth(),
@@ -84,27 +85,46 @@ class ColorPicker extends React.Component {
 		// save the currently selected color
 		this.setState({'animationSpeed':speed});
 		// send color to the microcontroller for live update
+		// #############################################
 	}
 
-
-	onColorSelect = (color) => {
+	onSingleColorSelect = (color) => {
 		// save the currently selected color
 		this.setState({'selectedColor':color.rgb});
 		// send color to the microcontroller for live update
-		//console.log(color.rgb)
+		// #############################################
+	}
+
+	onGradientColorSelect = (color) => {
+		// save the currently selected color
+		var selectedColors = this.state.selectedColors;
+		var colorIndex = color.index;
+		selectedColors[colorIndex]=color.hexString;
+		this.setState({'selectedColors':selectedColors});
+		// send color to the microcontroller for live update
+		// #############################################
+	}
+
+	addColorSelector = (event) => {
+		var selectedColors = this.state.selectedColors;
+		selectedColors.push('FFFFFF');
+		this.setState({'selectedColors':selectedColors});
+	}
+	
+	onColorClick = (event) => {
+		console.log(event)
 	}
 
 	renderSingleColorPicker() {
 		var params = this.state.layoutParams;
 		params['color'] = this.state.selectedColor;
 
-		// console.log(params['color'])
 		return (
 			<React.Fragment>
 				<div id='single-color'>
 					<IroColorPicker
 						params={params}
-						onColorChange={(color) => this.onColorSelect(color)}
+						onColorChange={(color) => this.onSingleColorSelect(color)}
 					/>
 				</div>
 				<div className='button-single-color-picker'>
@@ -117,16 +137,54 @@ class ColorPicker extends React.Component {
 		)
 	}
 
+	renderColorSelectors = () => {
+		var addSelector;
+
+		if (this.state.selectedColors.length < 10) {
+			addSelector = (
+				<button 
+					className='color-selector' 
+					id='add-selector'
+					onClick={this.addColorSelector}
+				>
+					+
+				</button>
+			)
+		} 
+
+		return (
+			<div id='selectors' className={['column-two', 'grid-row-one'].join(' ')} >
+			  	{
+					React.Children.toArray(
+						Object.keys(this.state.selectedColors).map((item, i) => {
+							var background = this.state.selectedColors[item];
+							return (
+								<button 
+									className='color-selector' 
+									style={{'backgroundColor':background}}
+									onClick={this.onColorClick}
+								></button>
+							)
+						})
+					)
+				}
+				{addSelector}
+			</div>
+		)
+	}
+
 	renderGradientColorPicker() {
 		var params = this.state.layoutParams;
-		params['color'] = this.state.selectedColor;
+		params['colors'] = this.state.selectedColors;
+
 		return (
 			<div id='gradient-color'>
 				<IroColorPicker
 					className={['column-one', 'grid-row-one'].join(' ')}
 					params={params}
-					onColorChange={(color) => this.onColorSelect(color)}
+					onColorChange={(color) => this.onGradientColorSelect(color)}
 				/>
+				{ this.renderColorSelectors() }
 				<Slider onChange={this.onSpeedChange}/>
 				<div className={['column-two', 'grid-row-two', 'button-gradient-color-picker'].join(' ')}>
 					<button className='save-button'>

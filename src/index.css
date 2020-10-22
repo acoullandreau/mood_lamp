@@ -15,6 +15,10 @@ a {
 	text-decoration:none;
 }
 
+li {
+	list-style-type: none;
+}
+
 /*General page layout*/
 
 .grid-content {
@@ -160,12 +164,52 @@ a {
 
 .save-button {
 	width: 100%;
-	height: 8vh;
+	height: 6vh;
 	background-color: #403954;
 	border-radius: 8px;
 	color: #FEEDDF;
 	font-size: 2vh;
+	cursor: pointer;
 }
+
+.save-button:hover {
+	background-color: #625780;
+}
+
+
+#selectors {
+	display:grid;
+	justify-self:center;
+	grid-template-columns: 50% 50%;
+	grid-template-rows: repeat(5, 20%);
+    margin-bottom: 5%;
+	width: 30%;
+	height: 70%;
+} 
+
+.color-selector {
+	height: 50px;
+  	width: 50px;
+  	border:1px solid #FEEDDF1A;
+	border-radius: 50%;
+	margin:5%;
+	align-self: center;
+	justify-self:center;
+}
+
+#add-selector {
+	border: 1px solid #FEEDDF;
+	background-color: transparent;
+	color: #FEEDDF;
+	font-size: 4vh;
+	text-align: center;
+	cursor: pointer;
+}
+
+#add-selector:hover {
+	background-color: #433D66;
+}
+
 
 
 /*CSS for the slider*/
@@ -180,7 +224,7 @@ a {
 }
 
 #slider {
-	width: 55%;
+	width: 75%;
 	margin-right: 2%;
 	margin-left: 2%;
 	background: linear-gradient(to right, #FEEDDF 0%, #FEEDDF 30%, #827081 30%, #827081 100%);
