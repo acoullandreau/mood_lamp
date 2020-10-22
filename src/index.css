@@ -15,6 +15,8 @@ a {
 	text-decoration:none;
 }
 
+/*General page layout*/
+
 .grid-content {
 	display: grid;
 	height: 100vh;
@@ -22,10 +24,12 @@ a {
 	grid-column-gap: 2%;
 }
 
-.content-two {
-	display: grid;
-	grid-template-rows: 18% 80%;
-	grid-row-gap: 2%;
+.column-one {
+	grid-column-start: 1;
+}
+
+.column-two {
+	grid-column-start: 2;
 }
 
 #logo {
@@ -37,6 +41,8 @@ a {
 	width: 95%;
 	min-width: 210px;
 }
+
+/*Navigation bar specific*/
 
 #nav-bar {
 	margin-top: 5vh;
@@ -83,14 +89,8 @@ a {
 	grid-row-start: 4;
 }
 
-.column-one {
-	grid-column-start: 1;
-}
 
-.column-two {
-	grid-column-start: 2;
-}
-
+/*CSS for the tabs*/
 
 .react-tabs__tab-panel {
 	padding-right:2%;
@@ -99,7 +99,7 @@ a {
 
 .react-tabs__tab-list {
 	list-style-type: none;
-	margin-top: 12vh;
+	margin-top: 10vh;
 	margin-bottom: 9vh;
 	font-size:16px;
 	width: 30%;
@@ -127,3 +127,121 @@ a {
 .react-tabs__tab-panel--selected {
     display: block;
 }
+
+
+/*CSS for the color picker page*/
+
+#single-color {
+	width: 65%;
+	float: left;
+	margin-left: 5%;
+}
+
+#gradient-color {
+	display: grid;
+	grid-template-columns: 60% 40%;
+	grid-template-rows: 87% 13%;
+	width: 100%;
+	height: 75vh;
+}
+
+.button-single-color-picker {
+	float: right;
+	width: 18%;
+	margin-right: 5%;
+	margin-top: 40%;
+}
+
+.button-gradient-color-picker {
+	width: 50%;
+	align-self: start;
+	justify-self:center;
+}
+
+.save-button {
+	width: 100%;
+	height: 8vh;
+	background-color: #403954;
+	border-radius: 8px;
+	color: #FEEDDF;
+	font-size: 2vh;
+}
+
+
+/*CSS for the slider*/
+
+.slider-img {
+	width: 4%;
+}
+
+#slider-block {
+	width: 100%;
+	align-self: center;
+}
+
+#slider {
+	width: 55%;
+	margin-right: 2%;
+	margin-left: 2%;
+	background: linear-gradient(to right, #FEEDDF 0%, #FEEDDF 30%, #827081 30%, #827081 100%);
+    border-radius: 8px;
+    height: 7px;
+    outline: none; 
+    transition: background 450ms ease-in;
+    -webkit-appearance: none;
+}
+
+#slider::-webkit-slider-thumb {
+	appearance: none;
+	cursor: pointer;
+	background-color: #FEEDDF;
+    border-radius: 0;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    -webkit-appearance: none;
+}
+
+
+
+
+/*input::-webkit-slider-runnable-track { 
+	background-color: transparent;
+}
+
+input[type="range" i]::-webkit-slider-thumb {
+	background-color: red;
+}
+
+
+#thumb {
+	color: red;
+}
+*/
+
+
+
+/*.content-two {
+	display: grid;
+	grid-template-rows: 5% 93%;
+	grid-row-gap: 2%;
+}
+
+.MuiSlider-root.MuiSlider-vertical {
+	height: 98% !important;
+	color: #FEEDDF;
+}
+
+.MuiSlider-vertical .MuiSlider-rail {
+	color: #827081;
+	width: 30% !important;
+}
+
+.MuiSlider-vertical .MuiSlider-track {
+	width: 30% !important;
+}
+
+.MuiSlider-vertical .MuiSlider-thumb {
+	width: 20px;
+	height: 20px;
+}*/

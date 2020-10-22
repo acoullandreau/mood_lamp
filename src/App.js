@@ -1,6 +1,5 @@
 import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-// import 'react-tabs/style/react-tabs.css';
 import logo from './image_library/logo.svg';
 import ColorPicker from './ColorPicker.js';
 import Route from './Route.js';
@@ -42,7 +41,6 @@ class App extends React.Component {
 	}
 
 	renderCouleurs = () => {
-
 		return (
 			<React.Fragment>
 				<Tabs forceRenderTabPanel={true} >
