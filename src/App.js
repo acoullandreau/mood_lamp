@@ -20,9 +20,6 @@ class App extends React.Component {
 			'automatismes':{}
 		};
 
-		this.singleColorPicker = React.createRef();
-		this.gradientColorPicker = React.createRef();
-
 	}
 
 
@@ -31,6 +28,9 @@ class App extends React.Component {
 		//fetch automatismes configuration
 	}
 
+	onSaveNewMode = (params) => {
+		console.log(params);
+	}
 
 	renderModes = () => {
 		return (
@@ -50,10 +50,10 @@ class App extends React.Component {
 					</TabList>
 
 					<TabPanel>
-						<ColorPicker target='single' ref={this.singleColorPicker} />
+						<ColorPicker target='single' onSaveMode={this.onSaveNewMode} />
 					</TabPanel>
 					<TabPanel>
-						<ColorPicker target='gradient' ref={this.gradientColorPicker} />
+						<ColorPicker target='gradient' onSaveMode={this.onSaveNewMode} />
 					</TabPanel>
 				</Tabs>
 			</React.Fragment>

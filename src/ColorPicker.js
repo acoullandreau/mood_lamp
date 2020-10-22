@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import iro from '@jaames/iro';
 import Slider from './Slider.js';
+import Utils from './Utils.js'
 import star from './image_library/star.svg';
 
 class IroColorPicker extends React.Component {
@@ -14,6 +15,15 @@ class IroColorPicker extends React.Component {
 		this.colorPicker.on('color:change', (color) => {
 			if (props.onColorChange) {
 				props.onColorChange(color);
+			}
+		});
+
+		this.colorPicker.on('color:setActive', function(color) {
+			if (props.params.id === 'gradient') {
+				if (props.onColorSwitch) {
+					props.onColorSwitch(color);
+				}
+
 			}
 		});
 
@@ -50,31 +60,39 @@ class IroColorPicker extends React.Component {
 
 class ColorPicker extends React.Component {
 
-	state = {
-		'selectedColor':'#FFFFFF', 
-		'selectedColors':['#FA4D3D', '#28666E'],
-		'animationSpeed':30,
-		'layoutParams':{
-			width: this.getInitialWidth(),
-			margin:80,
-			layoutDirection: 'horizontal',
-			borderWidth: 2,
-			layout: [
-				{
-					component: iro.ui.Wheel,
-					options: {
-						borderColor: '#ffffff'
+	constructor(props) {
+		super(props)
+
+		this.state = {
+			'selectedColor':'#FFFFFF', 
+			'selectedColorIndex':0,
+			'selectedColors':['#827081', '#DACEDA'],
+			'animationSpeed':30,
+			'layoutParams':{
+				width: this.getInitialWidth(),
+				margin:80,
+				layoutDirection: 'horizontal',
+				borderWidth: 2,
+				layout: [
+					{
+						component: iro.ui.Wheel,
+						options: {
+							borderColor: '#ffffff'
+						}
+					},
+					{
+						component: iro.ui.Slider,
+						options: {
+							borderColor: '#000000'
+						}
 					}
-				},
-				{
-					component: iro.ui.Slider,
-					options: {
-						borderColor: '#000000'
-					}
-				}
-			]
+				]
+			}
 		}
+
+		this.gradientPickerRef = React.createRef();
 	}
+
 
 	getInitialWidth() {
 		//console.log(0.6 * window.innerHeight, 0.6 * window.innerWidth)
@@ -96,11 +114,16 @@ class ColorPicker extends React.Component {
 	}
 
 	onGradientColorSelect = (color) => {
-		// save the currently selected color
+		// save the currently selected color and the current array of colors
 		var selectedColors = this.state.selectedColors;
 		var colorIndex = color.index;
 		selectedColors[colorIndex]=color.hexString;
-		this.setState({'selectedColors':selectedColors});
+		this.setState({
+			'selectedColors':selectedColors, 
+			'selectedColor':color.hexString,
+			'selectedColorIndex':colorIndex
+		});
+
 		// send color to the microcontroller for live update
 		// #############################################
 	}
@@ -109,14 +132,41 @@ class ColorPicker extends React.Component {
 		var selectedColors = this.state.selectedColors;
 		selectedColors.push('FFFFFF');
 		this.setState({'selectedColors':selectedColors});
+		this.gradientPickerRef.current.colorPicker.addColor('FFFFFF');
 	}
-	
+
 	onColorClick = (event) => {
-		console.log(event)
+		var indexColorToRemove = event.target.value;
+		if (indexColorToRemove > 1) {
+			var selectedColors = this.state.selectedColors;
+			selectedColors.splice(indexColorToRemove, 1);
+			this.setState({'selectedColors':selectedColors});
+			this.gradientPickerRef.current.colorPicker.removeColor(indexColorToRemove);
+		}
+
+	}
+
+	saveMode = () => {
+		var modeParams;
+		if (this.props.target === 'single') {
+			// we save only the selected color
+			modeParams = {'type':'single', 'color':this.state.selectedColor};
+		} else if (this.props.target === 'gradient') {
+			var selectedColorsRGB = [];
+			for (var i = 0; i < this.state.selectedColors.length; i++) {
+				var rgbColor = Utils.convertHexToRGB(this.state.selectedColors[i]);
+				selectedColorsRGB.push(rgbColor);
+			}
+			// we save the array of selected Colors and the animation speed
+			modeParams = {'type':'gradient', 'color':selectedColorsRGB, 'speed':this.state.animationSpeed};
+		}
+
+		this.props.onSaveMode(modeParams);
 	}
 
 	renderSingleColorPicker() {
 		var params = this.state.layoutParams;
+		params['id'] = 'single';
 		params['color'] = this.state.selectedColor;
 
 		return (
@@ -128,7 +178,7 @@ class ColorPicker extends React.Component {
 					/>
 				</div>
 				<div className='button-single-color-picker'>
-					<button className='save-button'>
+					<button className='save-button' onClick={this.saveMode}>
 						<img style={{marginRight:'7%'}} src={star} alt='Enregistrer'/>
 						Enregistrer mode
 					</button>
@@ -158,10 +208,16 @@ class ColorPicker extends React.Component {
 					React.Children.toArray(
 						Object.keys(this.state.selectedColors).map((item, i) => {
 							var background = this.state.selectedColors[item];
+							var borderColor = '1px solid #FEEDDF1A';
+							if (parseInt(item) === this.state.selectedColorIndex) {
+								borderColor = '5px solid #FEEDDF';
+							}
+
 							return (
 								<button 
+									value={item}
 									className='color-selector' 
-									style={{'backgroundColor':background}}
+									style={{'backgroundColor':background, 'border':borderColor}}
 									onClick={this.onColorClick}
 								></button>
 							)
@@ -175,6 +231,7 @@ class ColorPicker extends React.Component {
 
 	renderGradientColorPicker() {
 		var params = this.state.layoutParams;
+		params['id'] = 'gradient';
 		params['colors'] = this.state.selectedColors;
 
 		return (
@@ -183,11 +240,13 @@ class ColorPicker extends React.Component {
 					className={['column-one', 'grid-row-one'].join(' ')}
 					params={params}
 					onColorChange={(color) => this.onGradientColorSelect(color)}
+					onColorSwitch={(color) => this.onGradientColorSelect(color)}
+					ref={this.gradientPickerRef}
 				/>
 				{ this.renderColorSelectors() }
 				<Slider onChange={this.onSpeedChange}/>
 				<div className={['column-two', 'grid-row-two', 'button-gradient-color-picker'].join(' ')}>
-					<button className='save-button'>
+					<button className='save-button' onClick={this.saveMode} >
 						<img style={{marginRight:'7%'}} src={star} alt='Enregistrer'/>
 						Enregistrer mode
 					</button>
@@ -221,7 +280,8 @@ class ColorPicker extends React.Component {
 
 // props validation
 ColorPicker.propTypes = {
-	target:PropTypes.string.isRequired
+	target:PropTypes.string.isRequired,
+	onSaveMode:PropTypes.func.isRequired,
 }
 
 export default ColorPicker;
