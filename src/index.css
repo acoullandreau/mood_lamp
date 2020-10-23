@@ -4,8 +4,8 @@ body {
 	font-weight: 400;
 	color:#FEEDDF;
 	min-height:700px;
-	min-width:1245px;
-	overflow:scroll;
+	min-width:1024px;
+	margin:0px;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
@@ -23,7 +23,8 @@ li {
 
 .grid-content {
 	display: grid;
-	height: 100vh;
+	height: 98vh;
+	width: 99vw;
 	grid-template-columns: 18% 80%;
 	grid-column-gap: 2%;
 }
@@ -37,8 +38,8 @@ li {
 }
 
 #logo {
-	margin-top:1%;
-	margin-left:1%;
+	margin-top:2vh;
+	margin-left:1vh;
 }
 
 #logo img{
@@ -105,8 +106,8 @@ li {
 	list-style-type: none;
 	margin-top: 10vh;
 	margin-bottom: 9vh;
-	font-size:16px;
-	width: 30%;
+	font-size:max(2.1vh, 16px);
+	max-width: 40%;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -180,7 +181,8 @@ li {
 #selectors {
 	display:grid;
 	justify-self:center;
-	grid-template-columns: 50% 50%;
+	grid-template-columns: 49% 49%;
+	column-gap: 2%;
 	grid-template-rows: repeat(5, 20%);
     margin-bottom: 5%;
 	width: 30%;
@@ -188,9 +190,8 @@ li {
 } 
 
 .color-selector {
-	height: 50px;
-  	width: 50px;
-  	/*border:1px solid #FEEDDF1A;*/
+	height: 6vh;
+  	width: 6vh;
 	border-radius: 50%;
 	margin:5%;
 	align-self: center;

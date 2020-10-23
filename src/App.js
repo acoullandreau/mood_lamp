@@ -12,10 +12,10 @@ class App extends React.Component {
 		super(props);
 
 		this.state = {
-			'modes':{0:{'name':'Éteindre', 'color':'', 'brightness':0, 'speed':0}, 
-					1:{'name':'Fête', 'color':'party', 'brightness':100, 'speed':2}, 
-					2:{'name':'Discussion', 'color':'talk', 'brightness':80, 'speed':1},
-					3:{'name':'Ambiance', 'color':{ r: 255, g: 241, b: 224 }, 'brightness':50, 'speed':0}
+			'modes':{0:{'name':'Éteindre', 'color':'', 'speed':0}, 
+					1:{'name':'Fête', 'color':'party', 'speed':80}, 
+					2:{'name':'Discussion', 'color':'talk', 'speed':30},
+					3:{'name':'Ambiance', 'color':{ r: 255, g: 241, b: 224 },'speed':0}
 			},
 			'automatismes':{}
 		};
