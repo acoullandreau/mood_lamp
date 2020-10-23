@@ -46,7 +46,7 @@ class IroColorPicker extends React.Component {
 	}
 
 	onWindowResize = () => {
-		var newWidth = 0.2 * window.innerWidth + 0.2 * window.innerHeight;
+		var newWidth = 0.1 * window.innerWidth + 0.37 * window.innerHeight;
 		this.colorPicker.resize(newWidth);
 	}
 
@@ -95,7 +95,7 @@ class ColorPicker extends React.Component {
 
 
 	getInitialWidth() {
-		var width = 0.2 * window.innerWidth + 0.2 * window.innerHeight;
+		var width = 0.1 * window.innerWidth + 0.37 * window.innerHeight;
 		return width;
 	}
 
@@ -171,17 +171,18 @@ class ColorPicker extends React.Component {
 
 		return (
 			<React.Fragment>
-				<div id='single-color'>
+				<div className='color-grid'>
 					<IroColorPicker
+						className={['column-one', 'grid-row-one'].join(' ')}
 						params={params}
 						onColorChange={(color) => this.onSingleColorSelect(color)}
 					/>
-				</div>
-				<div className='button-single-color-picker'>
-					<button className='save-button' onClick={this.saveMode}>
-						<img style={{marginRight:'7%'}} src={star} alt='Enregistrer'/>
-						Enregistrer mode
-					</button>
+					<div className={['column-two', 'grid-row-two', 'button-color-picker'].join(' ')}>
+						<button className='save-button' onClick={this.saveMode}>
+							<img style={{marginRight:'7%'}} src={star} alt='Enregistrer'/>
+							Enregistrer mode
+						</button>
+					</div>
 				</div>
 			</React.Fragment>
 		)
@@ -235,7 +236,7 @@ class ColorPicker extends React.Component {
 		params['colors'] = this.state.selectedColors;
 
 		return (
-			<div id='gradient-color'>
+			<div className='color-grid'>
 				<IroColorPicker
 					className={['column-one', 'grid-row-one'].join(' ')}
 					params={params}
@@ -245,7 +246,7 @@ class ColorPicker extends React.Component {
 				/>
 				{ this.renderColorSelectors() }
 				<Slider onChange={this.onSpeedChange}/>
-				<div className={['column-two', 'grid-row-two', 'button-gradient-color-picker'].join(' ')}>
+				<div className={['column-two', 'grid-row-two', 'button-color-picker'].join(' ')}>
 					<button className='save-button' onClick={this.saveMode} >
 						<img style={{marginRight:'7%'}} src={star} alt='Enregistrer'/>
 						Enregistrer mode

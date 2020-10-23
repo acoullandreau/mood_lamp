@@ -20,16 +20,39 @@ class App extends React.Component {
 			'automatismes':{}
 		};
 
+		this.onWindowResize();
 	}
 
 
 	componentDidMount() {
+		window.addEventListener('resize', this.onWindowResize);
+
 		//fetch JSON of modes
 		//fetch automatismes configuration
 	}
 
+
+	onWindowResize() {
+		var screenRatio = window.innerHeight/window.innerWidth;
+		if (screenRatio < 0.65) {
+			var width = 100 - (window.innerHeight / 0.65)/window.innerWidth;
+			document.getElementById('root').style.width = width + '%' ;
+		}
+	}
+
+
 	onSaveNewMode = (params) => {
 		console.log(params);
+	}
+
+	renderHome = () => {
+		return (
+			<div className="grid-row-two">
+				Home
+				<button>Connect</button>
+				<button>Disconnect</button>
+			</div>
+		)
 	}
 
 	renderModes = () => {
@@ -89,13 +112,16 @@ class App extends React.Component {
 			<div className="grid-content">
 				<div className="content-one">
 					<div id='logo'>
-						<a href="#modes"><img src={logo} alt='Maïa' /></a>
+						<a href=''><img src={logo} alt='Maïa' /></a>
 					</div>
 					<div id='nav-bar'>
 						<SideNavBar/>
 					</div>
 				</div>
 				<div className={["content-two", "column-two"].join(' ')}>
+					<Route path='' >
+						{ this.renderHome() }
+					</Route>
 					<Route path="#modes" >
 						{ this.renderModes() }
 					</Route>
