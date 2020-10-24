@@ -11,7 +11,7 @@ import automatismes from './image_library/automatismes.svg';
 
 class SideNavBar extends React.Component {
 
-	state = { activeItem: 'modes',  'matchPages':{'':'modes', '#modes':'modes', '#couleurs':'couleurs', '#mesures':'mesures', '#automatismes':'automatismes'} };
+	state = { activeItem: '',  'matchPages':{'#':'', '#modes':'modes', '#couleurs':'couleurs', '#mesures':'mesures', '#automatismes':'automatismes'} };
 
 	componentDidMount() {
 		this.onLocationChange();

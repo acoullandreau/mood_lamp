@@ -102,6 +102,22 @@ li {
 	grid-row-start: 4;
 }
 
+#disconnect-button {
+	/*display: none;*/
+	position: absolute;
+	top: 30px;
+	right: 15px;
+	width: 12%;
+	height: 5%;
+	border-radius: 8px;
+	border: 1px solid transparent;
+	background-color: #F88876;
+	cursor: pointer;
+	font-size: 1.6vh;
+	font-weight: 700;
+	color: #0D0828;
+}
+
 
 /*CSS for the tabs*/
 
@@ -259,19 +275,11 @@ li {
 	height: 8vh;
 	border-radius: 8px;
 	font-size: 4vh;
-}
-
-.button-home-active {
 	background-color: #403954;
 	color: #FEEDDF;
 	cursor: pointer;
 }
 
-.button-home-active:hover {
+.button-home:hover {
 	background-color: #433D66;
-}
-
-.button-home-inactive {
-	background-color: #46465080;
-	color: #BCBCBC;
 }

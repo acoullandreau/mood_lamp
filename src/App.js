@@ -21,6 +21,7 @@ class App extends React.Component {
 			'automatismes':{}
 		};
 
+		// this.sideNavBarRef = React.createRef();
 		this.onWindowResize();
 	}
 
@@ -51,31 +52,29 @@ class App extends React.Component {
 	}
 
 	onConnect = (event) => {
-		console.log(event)
-		if (event.target.value === 'connect') {
+		if (this.state.isConnected === false) {
 			this.setState({'isConnected':true});
+			window.history.pushState({}, '', '#modes');
+			const navEvent = new PopStateEvent('popstate');
+			window.dispatchEvent(navEvent);
 		} else {
 			this.setState({'isConnected':false});
+			window.history.pushState({}, '', '#');
+			const navEvent = new PopStateEvent('popstate');
+			window.dispatchEvent(navEvent);
 		}
 	}
+
 
 	renderHome = () => {
 		return (
 			<div id='home'>
 				<button 
-					type="button"
-					value='connect'
-					className={['column-one', 'button-home', `button-home-${this.state.isConnected === false ? 'active' : 'inactive'}`].join(' ')}
-					disabled={this.state.isConnected}
+					className={['column-one', 'button-home'].join(' ')}
 					onClick={this.onConnect}
-				>Connect</button>
-				<button 
-					type="button"
-					value='disconnect'
-					className={['column-two', 'button-home', `button-home-${this.state.isConnected === true ? 'active' : 'inactive'}`].join(' ')}
-					disabled={!this.state.isConnected}
-					onClick={this.onConnect}
-				>Disconnect</button>
+				>
+					{this.state.isConnected === false ? 'Connect' : 'Disconnect' }
+				</button>
 			</div>
 		)
 	}
@@ -133,16 +132,32 @@ class App extends React.Component {
 	}
 
 	render() {
+
+		//logic to display/hide the disconnect button
+		var disconnectDisplay;
+		if (window.location.hash !== '') {
+			disconnectDisplay = { 'display':this.state.isConnected === true ? 'block':'none' };
+		} else {
+			disconnectDisplay = { 'display':'none' };
+		}
+
 		return (
 			<div className="grid-content">
 				<div className="content-one">
 					<div id='logo'>
-						<a href=''><img src={logo} alt='Maïa' /></a>
+						<a href='#'><img src={logo} alt='Maïa' /></a>
 					</div>
 					<div id='nav-bar'>
 						<SideNavBar/>
 					</div>
+					<button 
+						id='disconnect-button'
+						style={disconnectDisplay}
+						value='disconnect'
+						onClick={this.onConnect}
+					>Disconnect</button>
 				</div>
+
 				<div className={["content-two", "column-two"].join(' ')}>
 					<Route path='' >
 						{ this.renderHome() }
@@ -171,5 +186,6 @@ class App extends React.Component {
 
   }
 }
+
 
 export default App;
