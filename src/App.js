@@ -12,6 +12,7 @@ class App extends React.Component {
 		super(props);
 
 		this.state = {
+			'isConnected':false,
 			'modes':{0:{'name':'Éteindre', 'color':'', 'speed':0}, 
 					1:{'name':'Fête', 'color':'party', 'speed':80}, 
 					2:{'name':'Discussion', 'color':'talk', 'speed':30},
@@ -40,6 +41,7 @@ class App extends React.Component {
 		if (screenRatio < 0.75) {
 			var width = window.innerHeight / 0.75;
 			document.getElementById('root').style.width = width + 'px' ;
+			document.getElementById('root').style.height = window.innerHeight + 'px' ;
 		}
 	}
 
@@ -48,12 +50,32 @@ class App extends React.Component {
 		console.log(params);
 	}
 
+	onConnect = (event) => {
+		console.log(event)
+		if (event.target.value === 'connect') {
+			this.setState({'isConnected':true});
+		} else {
+			this.setState({'isConnected':false});
+		}
+	}
+
 	renderHome = () => {
 		return (
-			<div className="grid-row-two">
-				Home
-				<button>Connect</button>
-				<button>Disconnect</button>
+			<div id='home'>
+				<button 
+					type="button"
+					value='connect'
+					className={['column-one', 'button-home', `button-home-${this.state.isConnected === false ? 'active' : 'inactive'}`].join(' ')}
+					disabled={this.state.isConnected}
+					onClick={this.onConnect}
+				>Connect</button>
+				<button 
+					type="button"
+					value='disconnect'
+					className={['column-two', 'button-home', `button-home-${this.state.isConnected === true ? 'active' : 'inactive'}`].join(' ')}
+					disabled={!this.state.isConnected}
+					onClick={this.onConnect}
+				>Disconnect</button>
 			</div>
 		)
 	}
