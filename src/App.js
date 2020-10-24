@@ -2,9 +2,9 @@ import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import logo from './image_library/logo.svg';
 import ColorPicker from './ColorPicker.js';
+import Overlay from './Overlay.js';
 import Route from './Route.js';
 import SideNavBar from './SideNavBar.js';
-
 
 class App extends React.Component {
 
@@ -13,15 +13,17 @@ class App extends React.Component {
 
 		this.state = {
 			'isConnected':false,
+			'overlay':false,
 			'modes':{0:{'name':'Éteindre', 'color':'', 'speed':0}, 
 					1:{'name':'Fête', 'color':'party', 'speed':80}, 
 					2:{'name':'Discussion', 'color':'talk', 'speed':30},
-					3:{'name':'Ambiance', 'color':{ r: 255, g: 241, b: 224 },'speed':0}
+					3:{'name':'Ambiance', 'color':[{ r: 255, g: 241, b: 224 }],'speed':0}
 			},
 			'automatismes':{}
 		};
 
-		// this.sideNavBarRef = React.createRef();
+		this.singleColorPickerRef = React.createRef();
+		this.gradientColorPickerRef = React.createRef();
 		this.onWindowResize();
 	}
 
@@ -46,9 +48,28 @@ class App extends React.Component {
 		}
 	}
 
+	displayOverlay = (source) => {
+		var overlay = {...this.state.overlay};
+		overlay['display'] = !overlay['display'];
+		overlay['source'] = source;
+		this.setState({ overlay });
+	}
 
-	onSaveNewMode = (params) => {
-		console.log(params);
+
+	onSaveNewMode = (modeName) => {
+		var modeParams;
+		if (this.state.overlay.source === 'single') {
+			modeParams = this.singleColorPickerRef.current.getModeParams();
+		} else {
+			modeParams = this.gradientColorPickerRef.current.getModeParams();
+		}
+
+		var newMode = {'name':modeName, 'color':modeParams.color, 'speed':modeParams.speed};
+		var modeIndex = Object.keys(this.state.modes).length;
+		var modes = {...this.state.modes};
+		modes[modeIndex] = newMode;
+		this.setState({ modes }, () => console.log(this.state.modes));
+
 	}
 
 	onConnect = (event) => {
@@ -73,7 +94,7 @@ class App extends React.Component {
 					className={['column-one', 'button-home'].join(' ')}
 					onClick={this.onConnect}
 				>
-					{this.state.isConnected === false ? 'Connect' : 'Disconnect' }
+					{this.state.isConnected === false ? 'Connecter' : 'Déconnecter' }
 				</button>
 			</div>
 		)
@@ -97,17 +118,15 @@ class App extends React.Component {
 					</TabList>
 
 					<TabPanel>
-						<ColorPicker target='single' onSaveMode={this.onSaveNewMode} />
+						<ColorPicker target='single' onSaveMode={this.displayOverlay} ref={this.singleColorPickerRef} />
 					</TabPanel>
 					<TabPanel>
-						<ColorPicker target='gradient' onSaveMode={this.onSaveNewMode} />
+						<ColorPicker target='gradient' onSaveMode={this.displayOverlay} ref={this.gradientColorPickerRef} />
 					</TabPanel>
 				</Tabs>
 			</React.Fragment>
 		)
 	}
-
-				/*<div id="scroll-down"><img className="scroll-down-img" src="./image_library/icon_scroll_down.svg" alt="Scroll Icon"/></div>*/
 
 	renderMesures = () => {
 		return (
@@ -141,47 +160,65 @@ class App extends React.Component {
 			disconnectDisplay = { 'display':'none' };
 		}
 
-		return (
-			<div className="grid-content">
-				<div className="content-one">
-					<div id='logo'>
-						<a href='#'><img src={logo} alt='Maïa' /></a>
-					</div>
-					<div id='nav-bar'>
-						<SideNavBar/>
-					</div>
-					<button 
-						id='disconnect-button'
-						style={disconnectDisplay}
-						value='disconnect'
-						onClick={this.onConnect}
-					>Disconnect</button>
+		let overlay;
+		if (this.state.overlay.display) {
+			overlay = (
+				<div style={{display:'block'}}>
+					<Overlay onClose={this.displayOverlay} onSave={this.onSaveNewMode}/>
 				</div>
+			)
+		} else {
+			overlay = (
+				<div style={{display:'none'}}>
+					<Overlay onClose={this.displayOverlay} onSave={this.onSaveNewMode}/>
+				</div>
+			)
+		}
 
-				<div className={["content-two", "column-two"].join(' ')}>
-					<Route path='' >
-						{ this.renderHome() }
-					</Route>
-					<Route path="#modes" >
-						{ this.renderModes() }
-					</Route>
-					<Route path="#couleurs" >
-						<React.Fragment>
-							{ this.renderCouleurs() }
-						</React.Fragment>
-					</Route>
-					<Route path="#mesures">
-						<React.Fragment>
-							{ this.renderMesures() }
-						</React.Fragment>
-					</Route>
-					<Route path="#automatismes">
-						<React.Fragment>
-							{ this.renderAutomatismes() }
-						</React.Fragment>
-					</Route>
+		return (
+			<React.Fragment>
+				{ overlay }
+				<div className="grid-content">
+					<div className="content-one">
+						<div id='logo'>
+							<a href='#'><img src={logo} alt='Maïa' /></a>
+						</div>
+						<div id='nav-bar'>
+							<SideNavBar/>
+						</div>
+						<button 
+							id='disconnect-button'
+							style={disconnectDisplay}
+							value='disconnect'
+							onClick={this.onConnect}
+						>Déconnecter</button>
+					</div>
+
+					<div className={["content-two", "column-two"].join(' ')}>
+						<Route path='' >
+							{ this.renderHome() }
+						</Route>
+						<Route path="#modes" >
+							{ this.renderModes() }
+						</Route>
+						<Route path="#couleurs" >
+							<React.Fragment>
+								{ this.renderCouleurs() }
+							</React.Fragment>
+						</Route>
+						<Route path="#mesures">
+							<React.Fragment>
+								{ this.renderMesures() }
+							</React.Fragment>
+						</Route>
+						<Route path="#automatismes">
+							<React.Fragment>
+								{ this.renderAutomatismes() }
+							</React.Fragment>
+						</Route>
+					</div>
 				</div>
-			</div>
+			</React.Fragment>
 		);
 
   }

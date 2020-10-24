@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import iro from '@jaames/iro';
 import Slider from './Slider.js';
-import Utils from './Utils.js'
 import star from './image_library/star.svg';
+import Utils from './Utils.js';
 
 class IroColorPicker extends React.Component {
 
@@ -146,22 +146,25 @@ class ColorPicker extends React.Component {
 
 	}
 
-	saveMode = () => {
-		var modeParams;
-		if (this.props.target === 'single') {
-			// we save only the selected color
-			modeParams = {'type':'single', 'color':this.state.selectedColor};
-		} else if (this.props.target === 'gradient') {
-			var selectedColorsRGB = [];
-			for (var i = 0; i < this.state.selectedColors.length; i++) {
-				var rgbColor = Utils.convertHexToRGB(this.state.selectedColors[i]);
-				selectedColorsRGB.push(rgbColor);
-			}
-			// we save the array of selected Colors and the animation speed
-			modeParams = {'type':'gradient', 'color':selectedColorsRGB, 'speed':this.state.animationSpeed};
-		}
+	onSave = () => {
+		this.props.onSaveMode(this.props.target);
+	}
 
-		this.props.onSaveMode(modeParams);
+	getModeParams = () => {
+		var modeParams = {'color':[], 'speed':0};
+
+		if (this.props.target === 'single') {
+			modeParams.color = this.state.selectedColor;
+		} else if (this.props.target === 'gradient') {
+			var colors = this.state.selectedColors;
+			for (var i = 0; i < colors.length; i++) {
+				var rgbColor = Utils.convertHexToRGB(colors[i]);
+				modeParams.color.push(rgbColor);
+			}
+			modeParams.speed = this.state.animationSpeed;
+		} 
+
+		return modeParams;
 	}
 
 	renderSingleColorPicker() {
@@ -178,7 +181,7 @@ class ColorPicker extends React.Component {
 						onColorChange={(color) => this.onSingleColorSelect(color)}
 					/>
 					<div className={['column-two', 'grid-row-two', 'button-color-picker'].join(' ')}>
-						<button className='save-button' onClick={this.saveMode}>
+						<button className='save-button' onClick={this.onSave}>
 							<img style={{marginRight:'7%'}} src={star} alt='Enregistrer'/>
 							Enregistrer mode
 						</button>
@@ -247,7 +250,7 @@ class ColorPicker extends React.Component {
 				{ this.renderColorSelectors() }
 				<Slider onChange={this.onSpeedChange}/>
 				<div className={['column-two', 'grid-row-two', 'button-color-picker'].join(' ')}>
-					<button className='save-button' onClick={this.saveMode} >
+					<button className='save-button' onClick={this.onSave} >
 						<img style={{marginRight:'7%'}} src={star} alt='Enregistrer'/>
 						Enregistrer mode
 					</button>
