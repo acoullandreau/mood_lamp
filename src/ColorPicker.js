@@ -46,7 +46,7 @@ class IroColorPicker extends React.Component {
 	}
 
 	onWindowResize = () => {
-		var newWidth = 0.1 * window.innerWidth + 0.37 * window.innerHeight;
+		var newWidth = 0.5 * window.innerHeight;
 		this.colorPicker.resize(newWidth);
 	}
 
@@ -95,7 +95,7 @@ class ColorPicker extends React.Component {
 
 
 	getInitialWidth() {
-		var width = 0.1 * window.innerWidth + 0.37 * window.innerHeight;
+		var width = 0.5 * window.innerHeight;
 		return width;
 	}
 

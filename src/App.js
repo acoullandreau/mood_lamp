@@ -31,12 +31,15 @@ class App extends React.Component {
 		//fetch automatismes configuration
 	}
 
+	componentWillUnmount() {
+		window.removeEventListener('resize', this.onWindowResize);
+	}
 
 	onWindowResize() {
 		var screenRatio = window.innerHeight/window.innerWidth;
-		if (screenRatio < 0.65) {
-			var width = 100 - (window.innerHeight / 0.65)/window.innerWidth;
-			document.getElementById('root').style.width = width + '%' ;
+		if (screenRatio < 0.75) {
+			var width = window.innerHeight / 0.75;
+			document.getElementById('root').style.width = width + 'px' ;
 		}
 	}
 

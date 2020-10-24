@@ -2,6 +2,7 @@ body {
 	background-color: #0D0828;
 	font-family: 'Roboto', sans-serif;
 	font-weight: 400;
+	font-size:max(1.8vh, 15px);
 	color:#FEEDDF;
 	min-height:700px;
 	min-width:1024px;
@@ -21,10 +22,9 @@ li {
 
 #root {
 	width: 100%;
+	height: 100%;
 	margin-right: auto;
 	margin-left: auto;
-	max-height:768px;
-	max-width:1024px;
 }
 
 /*General page layout*/
@@ -114,7 +114,6 @@ li {
 	list-style-type: none;
 	margin-top: 10vh;
 	margin-bottom: 9vh;
-	font-size:max(2.1vh, 16px);
 	width: 40%;
 	margin-left: auto;
 	margin-right: auto;
@@ -149,7 +148,7 @@ li {
 	grid-template-columns: 75% 25%;
 	grid-template-rows: 75% 25%;
 	width: 100%;
-	height: 75vh;
+	min-height: 75vh;
 }
 
 .button-color-picker {
@@ -243,45 +242,9 @@ li {
 }
 
 
-
-
-/*input::-webkit-slider-runnable-track { 
-	background-color: transparent;
-}
-
-input[type="range" i]::-webkit-slider-thumb {
-	background-color: red;
-}
-
-
-#thumb {
-	color: red;
-}
-*/
+/*CSS for the Home page*/
 
 
 
-/*.content-two {
-	display: grid;
-	grid-template-rows: 5% 93%;
-	grid-row-gap: 2%;
-}
 
-.MuiSlider-root.MuiSlider-vertical {
-	height: 98% !important;
-	color: #FEEDDF;
-}
 
-.MuiSlider-vertical .MuiSlider-rail {
-	color: #827081;
-	width: 30% !important;
-}
-
-.MuiSlider-vertical .MuiSlider-track {
-	width: 30% !important;
-}
-
-.MuiSlider-vertical .MuiSlider-thumb {
-	width: 20px;
-	height: 20px;
-}*/
