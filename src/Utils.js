@@ -34,6 +34,13 @@ class Utils {
 
 	}
 
+	static convertRGBToString(rgb) {
+
+		var rgbString = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`
+		return rgbString;
+
+	}
+
 }
 
 export default Utils;

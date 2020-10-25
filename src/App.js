@@ -1,6 +1,7 @@
 import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import ColorPicker from './ColorPicker.js';
+import Modes from './Modes.js';
 import Overlay from './Overlay.js';
 import Route from './Route.js';
 import SideNavBar from './SideNavBar.js';
@@ -14,10 +15,9 @@ class App extends React.Component {
 			'isConnected':false,
 			'overlay':false,
 			'disconnectDisplay':{ 'display':'none' },
-			'modes':{0:{'name':'Éteindre', 'color':'', 'speed':0}, 
-					1:{'name':'Fête', 'color':'party', 'speed':80}, 
-					2:{'name':'Discussion', 'color':'talk', 'speed':30},
-					3:{'name':'Ambiance', 'color':[{ r: 255, g: 241, b: 224 }],'speed':0}
+			'modes':{0:{'name':'Éteindre', 'color':[{ r: 0, g: 0, b: 0 }], 'speed':0}, 
+					1:{'name':'Fête', 'color':[{ r: 10, g: 241, b: 135 }], 'speed':80}, 
+					2:{'name':'Discussion', 'color':[{ r: 125, g: 125, b: 125 }], 'speed':30}
 			},
 			'automatismes':{}
 		};
@@ -48,7 +48,6 @@ class App extends React.Component {
 			document.getElementById('root').style.height = window.innerHeight + 'px' ;
 		}
 	}
-
 
 	onLocationChange = () => {
 		//logic to display/hide the disconnect button
@@ -85,7 +84,7 @@ class App extends React.Component {
 		var modeIndex = Object.keys(this.state.modes).length;
 		var modes = {...this.state.modes};
 		modes[modeIndex] = newMode;
-		this.setState({ modes }, () => console.log(this.state.modes));
+		this.setState({ modes });
 
 	}
 
@@ -120,8 +119,8 @@ class App extends React.Component {
 
 	renderModes = () => {
 		return (
-			<div className="grid-row-two">
-				Modes
+			<div className='grid-row-two'>
+				<Modes modesList={this.state.modes} />
 			</div>
 		)
 	}
