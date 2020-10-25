@@ -251,7 +251,7 @@ class ColorPicker extends React.Component {
 				<Slider onChange={this.onSpeedChange}/>
 				<div className={['column-two', 'grid-row-two', 'button-color-picker'].join(' ')}>
 					<button className='save-button' onClick={this.onSave} >
-						<img style={{marginRight:'7%'}} src={star} alt='Enregistrer'/>
+						<img style={{marginRight:'7%'}} src='{star}' alt='Enregistrer'/>
 						Enregistrer mode
 					</button>
 				</div>

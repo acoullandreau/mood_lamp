@@ -14,6 +14,7 @@ class App extends React.Component {
 		this.state = {
 			'isConnected':false,
 			'overlay':false,
+			'disconnectDisplay':{ 'display':'none' },
 			'modes':{0:{'name':'Éteindre', 'color':'', 'speed':0}, 
 					1:{'name':'Fête', 'color':'party', 'speed':80}, 
 					2:{'name':'Discussion', 'color':'talk', 'speed':30},
@@ -30,14 +31,15 @@ class App extends React.Component {
 
 	componentDidMount() {
 		window.addEventListener('resize', this.onWindowResize);
-
+		window.addEventListener('popstate', this.onLocationChange);
 		//fetch JSON of modes
 		//fetch automatismes configuration
 	}
 
-	componentWillUnmount() {
-		window.removeEventListener('resize', this.onWindowResize);
-	}
+	// componentWillUnmount() {
+	// 	window.removeEventListener('resize', this.onWindowResize);
+	// 	window.removeEventListener('popstate', this.onLocationChange);
+	// }
 
 	onWindowResize() {
 		var screenRatio = window.innerHeight/window.innerWidth;
@@ -47,6 +49,22 @@ class App extends React.Component {
 			document.getElementById('root').style.height = window.innerHeight + 'px' ;
 		}
 	}
+
+
+	onLocationChange = () => {
+		//logic to display/hide the disconnect button
+		// setState accepts a function 
+		if (window.location.hash !== '') {
+			this.setState((state) => ({
+				disconnectDisplay:{'display':state.isConnected === true ? 'block':'none'}
+			}));
+
+		} else {
+			this.setState({disconnectDisplay:{'display':'none'}});
+
+		}
+	}
+
 
 	displayOverlay = (source) => {
 		var overlay = {...this.state.overlay};
@@ -72,7 +90,7 @@ class App extends React.Component {
 
 	}
 
-	onConnect = (event) => {
+	onConnect = () => {
 		if (this.state.isConnected === false) {
 			this.setState({'isConnected':true});
 			window.history.pushState({}, '', '#modes');
@@ -84,6 +102,7 @@ class App extends React.Component {
 			const navEvent = new PopStateEvent('popstate');
 			window.dispatchEvent(navEvent);
 		}
+
 	}
 
 
@@ -152,13 +171,14 @@ class App extends React.Component {
 
 	render() {
 
-		//logic to display/hide the disconnect button
-		var disconnectDisplay;
-		if (window.location.hash !== '') {
-			disconnectDisplay = { 'display':this.state.isConnected === true ? 'block':'none' };
-		} else {
-			disconnectDisplay = { 'display':'none' };
-		}
+		let disconnectDisplay = this.state.disconnectDisplay;
+		// let disconnectDisplay;
+		// if (window.location.hash !== '') {
+		// 	disconnectDisplay = { 'display':this.state.isConnected === true ? 'block':'none' };
+		// } else {
+		// 	disconnectDisplay = { 'display':'none' };
+		// }
+		// console.log('render', disconnectDisplay)
 
 		let overlay;
 		if (this.state.overlay.display) {
@@ -174,6 +194,7 @@ class App extends React.Component {
 				</div>
 			)
 		}
+
 
 		return (
 			<React.Fragment>
