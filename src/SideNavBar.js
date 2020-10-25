@@ -1,13 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import modesActive from './image_library/modes-active.svg';
-import modes from './image_library/modes.svg';
-import couleursActive from './image_library/couleurs-active.svg';
-import couleurs from './image_library/couleurs.svg';
-import mesuresActive from './image_library/mesures-active.svg';
-import mesures from './image_library/mesures.svg';
-import automatismesActive from './image_library/automatismes-active.svg';
-import automatismes from './image_library/automatismes.svg';
 
 class SideNavBar extends React.Component {
 
@@ -47,30 +39,30 @@ class SideNavBar extends React.Component {
 		switch (target) {
 			case 'couleurs':
 				if (active) {
-					return <img src={couleursActive} alt="Couleurs" />
+					return <img src={`${process.env.PUBLIC_URL}/assets/images/couleurs-active.svg`} alt="Couleurs" />
 				} else {
-					return <img src={couleurs} alt="Couleurs" />
+					return <img src={`${process.env.PUBLIC_URL}/assets/images/couleurs.svg`} alt="Couleurs" />
 				}
 				// break;
 			case 'mesures':
 				if (active) {
-					return <img src={mesuresActive} alt="Mesures" />
+					return <img src={`${process.env.PUBLIC_URL}/assets/images/mesures-active.svg`} alt="Mesures" />
 				} else {
-					return <img src={mesures} alt="Mesures" />
+					return <img src={`${process.env.PUBLIC_URL}/assets/images/mesures.svg`} alt="Mesures" />
 				}
 				// break;
 			case 'automatismes':
 				if (active) {
-					return <img src={automatismesActive} alt="Automatismes" />
+					return <img src={`${process.env.PUBLIC_URL}/assets/images/automatismes-active.svg`} alt="Automatismes" />
 				} else {
-					return <img src={automatismes} alt="Automatismes" />
+					return <img src={`${process.env.PUBLIC_URL}/assets/images/automatismes.svg`} alt="Automatismes" />
 				}
 				// break;
 			default:
 				if (active) {
-					return <img src={modesActive} alt="Modes" />
+					return <img src={`${process.env.PUBLIC_URL}/assets/images/modes-active.svg`} alt="Modes" />
 				} else {
-					return <img src={modes} alt="Modes" />
+					return <img src={`${process.env.PUBLIC_URL}/assets/images/modes.svg`} alt="Modes" />
 				}
 				// break;
 		}

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import logo from './image_library/logo.svg';
 import ColorPicker from './ColorPicker.js';
 import Overlay from './Overlay.js';
 import Route from './Route.js';
@@ -36,10 +35,10 @@ class App extends React.Component {
 		//fetch automatismes configuration
 	}
 
-	// componentWillUnmount() {
-	// 	window.removeEventListener('resize', this.onWindowResize);
-	// 	window.removeEventListener('popstate', this.onLocationChange);
-	// }
+	componentWillUnmount() {
+		window.removeEventListener('resize', this.onWindowResize);
+		window.removeEventListener('popstate', this.onLocationChange);
+	}
 
 	onWindowResize() {
 		var screenRatio = window.innerHeight/window.innerWidth;
@@ -53,7 +52,7 @@ class App extends React.Component {
 
 	onLocationChange = () => {
 		//logic to display/hide the disconnect button
-		// setState accepts a function 
+		// setState accepts a function rather than an object that receives the state as an argument to be able to use previous state to get new state
 		if (window.location.hash !== '') {
 			this.setState((state) => ({
 				disconnectDisplay:{'display':state.isConnected === true ? 'block':'none'}
@@ -172,14 +171,6 @@ class App extends React.Component {
 	render() {
 
 		let disconnectDisplay = this.state.disconnectDisplay;
-		// let disconnectDisplay;
-		// if (window.location.hash !== '') {
-		// 	disconnectDisplay = { 'display':this.state.isConnected === true ? 'block':'none' };
-		// } else {
-		// 	disconnectDisplay = { 'display':'none' };
-		// }
-		// console.log('render', disconnectDisplay)
-
 		let overlay;
 		if (this.state.overlay.display) {
 			overlay = (
@@ -195,14 +186,13 @@ class App extends React.Component {
 			)
 		}
 
-
 		return (
 			<React.Fragment>
 				{ overlay }
 				<div className="grid-content">
 					<div className="content-one">
 						<div id='logo'>
-							<a href='#'><img src={logo} alt='Maïa' /></a>
+							<a href='/#'><img src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`} alt='Maïa' /></a>
 						</div>
 						<div id='nav-bar'>
 							<SideNavBar/>

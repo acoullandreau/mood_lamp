@@ -1,8 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import slow from './image_library/slow.svg';
-import fast from './image_library/fast.svg';
-
 
 class Slider extends React.Component {
 	constructor() {
@@ -19,7 +16,7 @@ class Slider extends React.Component {
  	render() {
 		return (
 	    	<div id="slider-block" className={['column-one', 'grid-row-two'].join(' ')}>
-	      		<img className='slider-img' src={slow} alt='Lent' />
+	      		<img className='slider-img' src={`${process.env.PUBLIC_URL}/assets/images/slow.svg`} alt='Lent' />
 				<input 
 					id="slider" 
 					type="range" 
@@ -28,7 +25,7 @@ class Slider extends React.Component {
 					onChange={this.handleChange}
 					step="1"
 				/>
-				<img className='slider-img' src={fast} alt='Rapide' />
+				<img className='slider-img' src={`${process.env.PUBLIC_URL}/assets/images/fast.svg`} alt='Rapide' />
 	    	</div>
 	    );
 	}

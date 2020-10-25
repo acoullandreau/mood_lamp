@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import iro from '@jaames/iro';
 import Slider from './Slider.js';
-import star from './image_library/star.svg';
 import Utils from './Utils.js';
 
 class IroColorPicker extends React.Component {
@@ -182,7 +181,7 @@ class ColorPicker extends React.Component {
 					/>
 					<div className={['column-two', 'grid-row-two', 'button-color-picker'].join(' ')}>
 						<button className='save-button' onClick={this.onSave}>
-							<img style={{marginRight:'7%'}} src={star} alt='Enregistrer'/>
+							<img style={{marginRight:'7%'}} src={`${process.env.PUBLIC_URL}/assets/images/star.svg`}  alt='Enregistrer'/>
 							Enregistrer mode
 						</button>
 					</div>
@@ -251,7 +250,7 @@ class ColorPicker extends React.Component {
 				<Slider onChange={this.onSpeedChange}/>
 				<div className={['column-two', 'grid-row-two', 'button-color-picker'].join(' ')}>
 					<button className='save-button' onClick={this.onSave} >
-						<img style={{marginRight:'7%'}} src='{star}' alt='Enregistrer'/>
+						<img style={{marginRight:'7%'}} src={`${process.env.PUBLIC_URL}/assets/images/star.svg`} alt='Enregistrer'/>
 						Enregistrer mode
 					</button>
 				</div>
