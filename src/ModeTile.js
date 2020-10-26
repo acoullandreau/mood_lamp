@@ -14,11 +14,12 @@ class ModeTile extends React.Component {
 	}
 
 
-	launchMode = (event) => {
-		this.setState({'launchedMode':event.target.value}, () => {
-			//execute the mode
-			console.log(this.state.launchedMode)
-		})
+	launchMode = () => {
+		console.log(this.state.id)
+		// this.setState({'launchedMode':event.target.value}, () => {
+		// 	//execute the mode
+		// 	console.log(this.state.launchedMode)
+		// })
 	}
 
 	onEdit = (event) => {
@@ -30,7 +31,22 @@ class ModeTile extends React.Component {
 	}
 
 	getThumbnail = (colors) => {
-		return Utils.convertRGBToString(colors[0]);
+
+		if (this.state.category === 'sound') {
+			var specialGradient = Utils.getSpecialGradient(this.props.model.name);
+			return { 'background':specialGradient };
+
+		} else {
+			var initialColor = Utils.convertRGBToString(colors[0]);
+
+			if (colors.length > 1) {
+				var gradient = Utils.getGradient(colors);
+				return { 'background':initialColor, 'background':gradient };
+			} 
+
+			return {'backgroundColor': initialColor};
+		}
+
 
 	}
 
@@ -62,8 +78,29 @@ class ModeTile extends React.Component {
 
 	renderMode = () => {
 
-		var mode = this.props.model;
-		var background = this.getThumbnail(mode.colors);
+		let mode = this.props.model;
+		let style = this.getThumbnail(mode.colors);
+		let thumbnailButton;
+
+		if (this.state.category === 'off') {
+			thumbnailButton = (
+				<button
+					className={["mode-button", "grid-row-one"].join(' ')}
+					style={{'backgroundColor': '#000000'}}
+					onClick={this.launchMode} 
+				>
+					<img src={`${process.env.PUBLIC_URL}/assets/images/off.svg`} alt='Off' />
+				</button>
+			)
+		} else {
+			thumbnailButton = (
+				<button
+					className={["mode-button", "grid-row-one"].join(' ')}
+					style={style}
+					onClick={this.launchMode} 
+				></button>
+			)
+		} 
 
 		return (
 			<div 
@@ -71,11 +108,7 @@ class ModeTile extends React.Component {
 				onMouseEnter={(e) => this.onHover(e, true)}
 				onMouseLeave={(e) => this.onHover(e, false)}
 			>
-				<button
-					className={["mode-button", "grid-row-one"].join(' ')}
-					style={{'backgroundColor':background}}
-					onClick={this.launchMode} 
-				></button>
+				{ thumbnailButton }
 				<div className={["mode-text", "grid-row-two"].join(' ')}>
 					<p className="colum-two">{mode.name}</p>
 					<div className="colum-two">

@@ -41,6 +41,45 @@ class Utils {
 
 	}
 
+	static getGradient(colors) {
+		var gradient = [];
+
+		for (var k=0 ; k < colors.length ; k++) {
+			var item = Utils.convertRGBToString(colors[k]);
+			gradient.push(item)
+		}
+		var linearGradient = `linear-gradient(45deg, ${gradient.join(',')})`;
+
+		return linearGradient;
+
+	}
+
+	static getSpecialGradient(name) {
+		var gradient;
+		if (name === 'Fête') {
+			gradient =`
+				linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
+            	linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),
+            	linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%)
+			`
+		} else {
+			gradient = `
+				linear-gradient( 
+					217deg,
+					rgba(222,168,248,1) 0%, 
+					rgba(168,222,258,1) 21.9%, 
+					rgba(189,250,205,1) 35.6%, 
+					rgba(243,250,189,1) 53.9%, 
+					rgba(250,227,189,1) 66.8%, 
+					rgba(248,172,171,1) 95%, 
+					rgba(254,170,212,1) 99.9% 
+				)
+			`
+		}
+
+		return gradient;
+	}
+
 }
 
 export default Utils;
