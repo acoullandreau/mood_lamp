@@ -17,11 +17,11 @@ class App extends React.Component {
 			'numDefaultModes':1,
 			'overlay':false,
 			'disconnectDisplay':{ 'display':'none' },
-			'modesList':[],
-			'automatismes':{}
+			'automatismes':{},
+			'modesList':[]
 		};
 
-		this.elemRefs = {};
+		this.modeListRef = React.createRef();
 		this.singleColorPickerRef = React.createRef();
 		this.gradientColorPickerRef = React.createRef();
 		this.onWindowResize();
@@ -48,7 +48,7 @@ class App extends React.Component {
 	}
 
 	componentDidUpdate() {
-		this.serializeModes();
+		//this.serializeModes();
 	}
 
 	componentWillUnmount() {
@@ -86,7 +86,8 @@ class App extends React.Component {
 			const mode = ModeModel.deserialize(modesArray[i]);
 			modesList.push(mode);
 		}
-		this.setState({ modesList });
+
+		this.modeListRef.current.setModesList(modesList);
 	}
 
 	createModeRef = (ref, i) => {
@@ -94,12 +95,7 @@ class App extends React.Component {
 	}
 
 	serializeModes = () => {
-		for (const mode in this.elemRefs) {
-			console.log(this.elemRefs[mode])
-			// if (this.elemRefs[mode] !== null) {
-			// 	console.log(this.elemRefs[mode].state);
-			// }
-		} 
+
 	}
 
 	displayOverlay = (source) => {
@@ -124,13 +120,6 @@ class App extends React.Component {
 		// modes[modeIndex] = newMode;
 		// this.setState({ modes });
 
-	}
-
-	onModeDelete = (modeId) => {
-		//delete this.elemRefs[`mode${modeId}`];
-		var modesList = this.state.modesList ;
-		modesList.splice(modeId, 1);
-		this.setState({ modesList }, console.log(this.state));
 	}
 
 	onConnect = () => {
@@ -166,7 +155,7 @@ class App extends React.Component {
 
 		return (
 			<div className='grid-row-two'>
-				<ModesList modesList={this.state.modesList}/>
+				<ModesList ref={this.modeListRef} />
 			</div>
 		)
 	}

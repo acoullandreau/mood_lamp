@@ -1,45 +1,35 @@
 import React from 'react';
 import ModeTile from './ModeTile.js';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 class ModesList extends React.Component {
 
-	// state = {'selectedMode':''}; 
+	state = {'modesList':[]};
 
-	componentDidMount() {
+	componentDidUpdate() {
 		// we ensure that we have a grid the right size
-		var numRows = Math.ceil(Object.keys(this.props.modesList).length / 3)
+		var numRows = Math.ceil(Object.keys(this.state.modesList).length / 3)
 		document.getElementById("mode-grid").style['grid-template-rows'] = `repeat(${numRows}, 23vh)`;
 	}
 
-	onHover = (event, bool) => {
-		if (event.target.id === '') {
-			console.log(event.target)
-		}
+	onModeDelete = (modeId) => {
+		var modesList = this.state.modesList ;
+		modesList.splice(modeId, 1);
+		this.setState({ modesList });
+	}
 
-
-		if (bool) {
-			this.setState({'selectedMode':event.target.value, 'idemId':event.target.id}, () => {
-				var id = this.state.idemId;
-				document.getElementsByClassName("mode-hover")[id].style.display = 'block';
-			})
-		} else {
-			var id = this.state.idemId;
-			// console.log(id)
-			document.getElementsByClassName("mode-hover")[id].style.display = 'none';
-
-		}
-
-	}	
-
+	setModesList = (modesList) => {
+		this.setState({ modesList })
+	}
+	
 	renderListItems = () => {
 		return (
 			<div id="mode-grid">
 			  	{
 					React.Children.toArray(
-						Object.keys(this.props.modesList).map((item, i) => {
+						Object.keys(this.state.modesList).map((item, i) => {
 							return (
-								<ModeTile model={this.props.modesList[item]} />
+								<ModeTile id={i} model={this.state.modesList[item]} onModeDelete={this.onModeDelete} />
 							);
 
 						})
@@ -59,8 +49,8 @@ class ModesList extends React.Component {
 	}
 }
 
-ModesList.propTypes = {
-	modesList:PropTypes.array.isRequired
-}
+// ModesList.propTypes = {
+// 	modesList:PropTypes.array.isRequired
+// }
 
 export default ModesList;

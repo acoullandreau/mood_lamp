@@ -8,7 +8,8 @@ class ModeTile extends React.Component {
 		super(props);
 		this.state = {
 			'isDefault':this.props.model.isOriginMode,
-			'category':this.props.model.category
+			'category':this.props.model.category,
+			'id':this.props.id
 		}; 
 	}
 
@@ -110,6 +111,7 @@ class ModeTile extends React.Component {
 
 ModeTile.propTypes = {
 	model:PropTypes.object.isRequired,
+	id:PropTypes.number.isRequired
 }
 
 export default ModeTile;
