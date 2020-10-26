@@ -1,7 +1,8 @@
 import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import ColorPicker from './ColorPicker.js';
-import Modes from './Modes.js';
+import Mode from './Mode.js';
+import ModesList from './ModesList.js';
 import Overlay from './Overlay.js';
 import Route from './Route.js';
 import SideNavBar from './SideNavBar.js';
@@ -15,10 +16,7 @@ class App extends React.Component {
 			'isConnected':false,
 			'overlay':false,
 			'disconnectDisplay':{ 'display':'none' },
-			'modes':{0:{'name':'Éteindre', 'color':[{ r: 0, g: 0, b: 0 }], 'speed':0}, 
-					1:{'name':'Fête', 'color':[{ r: 10, g: 241, b: 135 }], 'speed':80}, 
-					2:{'name':'Discussion', 'color':[{ r: 125, g: 125, b: 125 }], 'speed':30}
-			},
+			'modesList':[],
 			'automatismes':{}
 		};
 
@@ -31,7 +29,16 @@ class App extends React.Component {
 	componentDidMount() {
 		window.addEventListener('resize', this.onWindowResize);
 		window.addEventListener('popstate', this.onLocationChange);
+		
 		//fetch JSON of modes
+		var modesArray = [
+			{'name':'Éteindre', 'color':[{ r: 0, g: 0, b: 0 }], 'speed':0},
+			{'name':'Fête', 'color':[{ r: 10, g: 241, b: 135 }], 'speed':80}, 
+			{'name':'Discussion', 'color':[{ r: 125, g: 125, b: 125 }], 'speed':30}
+		];
+		// deserialize the JSON
+		this.deserializeModes(modesArray);
+
 		//fetch automatismes configuration
 	}
 
@@ -61,6 +68,15 @@ class App extends React.Component {
 			this.setState({disconnectDisplay:{'display':'none'}});
 
 		}
+	}
+
+	deserializeModes = (modesArray) => {
+		var modesList = [];
+		for (var i=0 ; i < modesArray.length ; i++) {
+			var mode = (<Mode params={modesArray[i]} id={i} />);
+			modesList.push(mode);
+		}
+		this.setState({ modesList });
 	}
 
 
@@ -120,7 +136,7 @@ class App extends React.Component {
 	renderModes = () => {
 		return (
 			<div className='grid-row-two'>
-				<Modes modesList={this.state.modes} />
+				<ModesList modesList={this.state.modesList}/>
 			</div>
 		)
 	}
