@@ -14,6 +14,7 @@ class App extends React.Component {
 
 		this.state = {
 			'isConnected':false,
+			'numDefaultModes':2,
 			'overlay':false,
 			'disconnectDisplay':{ 'display':'none' },
 			'modesList':[],
@@ -73,10 +74,15 @@ class App extends React.Component {
 	deserializeModes = (modesArray) => {
 		var modesList = [];
 		for (var i=0 ; i < modesArray.length ; i++) {
-			var mode = (<Mode params={modesArray[i]} id={i} />);
+			let mode ;
+			if (i < this.state.numDefaultModes) {
+				mode = (<Mode params={modesArray[i]} id={i} onModeDelete={this.onModeDelete} isDefault={true}/>);
+			} else {
+				mode = (<Mode params={modesArray[i]} id={i} onModeDelete={this.onModeDelete} isDefault={false}/>);
+			}
 			modesList.push(mode);
 		}
-		this.setState({ modesList });
+		this.setState({ modesList }, () => console.log(this.state));
 	}
 
 
@@ -89,19 +95,25 @@ class App extends React.Component {
 
 
 	onSaveNewMode = (modeName) => {
-		var modeParams;
-		if (this.state.overlay.source === 'single') {
-			modeParams = this.singleColorPickerRef.current.getModeParams();
-		} else {
-			modeParams = this.gradientColorPickerRef.current.getModeParams();
-		}
+		// var modeParams;
+		// if (this.state.overlay.source === 'single') {
+		// 	modeParams = this.singleColorPickerRef.current.getModeParams();
+		// } else {
+		// 	modeParams = this.gradientColorPickerRef.current.getModeParams();
+		// }
 
-		var newMode = {'name':modeName, 'color':modeParams.color, 'speed':modeParams.speed};
-		var modeIndex = Object.keys(this.state.modes).length;
-		var modes = {...this.state.modes};
-		modes[modeIndex] = newMode;
-		this.setState({ modes });
+		// var newMode = {'name':modeName, 'color':modeParams.color, 'speed':modeParams.speed};
+		// var modeIndex = Object.keys(this.state.modes).length;
+		// var modes = {...this.state.modes};
+		// modes[modeIndex] = newMode;
+		// this.setState({ modes });
 
+	}
+
+	onModeDelete = (modeId) => {
+		var modesList = [...this.state.modesList] ;
+		modesList.splice(modeId, 1);
+		this.setState({ modesList });
 	}
 
 	onConnect = () => {

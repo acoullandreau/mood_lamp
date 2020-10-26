@@ -6,7 +6,13 @@ class Mode extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {'name':'', 'color':[], 'speed':0}; 
+		this.state = {
+			'id':this.props.id, 
+			'isDefault':this.props.isDefault,
+			'name':this.props.params.name, 
+			'color':this.props.params.color, 
+			'speed':this.props.params.speed
+		}; 
 	}
 
 
@@ -17,13 +23,13 @@ class Mode extends React.Component {
 		})
 	}
 
-	// onEdit = (event) => {
+	onEdit = (event) => {
 
-	// }
+	}
 
-	// onDelete = (event) => {
-
-	// }
+	onDelete = () => {
+		this.props.onModeDelete(this.state.id);
+	}
 
 	getThumbnail = (item) => {
 		return Utils.convertRGBToString(item.color[0]);
@@ -31,13 +37,15 @@ class Mode extends React.Component {
 	}
 
 	onHover = (event, bool) => {
-		var id = event.currentTarget.id;
-
-		if (bool) {
-			document.getElementsByClassName("mode-hover")[id].style.display = 'block';
-		} else {
-			document.getElementsByClassName("mode-hover")[id].style.display = 'none';
+		if (this.state.isDefault === false) {
+			var id = event.currentTarget.id;
+			if (bool) {
+				document.getElementById(`hover-${id}`).style.display = 'block';
+			} else {
+				document.getElementById(`hover-${id}`).style.display = 'none';
+			}
 		}
+
 
 	}	
 
@@ -61,14 +69,14 @@ class Mode extends React.Component {
 				></button>
 				<div className={["mode-text", "grid-row-two"].join(' ')}>
 					<p className="colum-two">{mode.name}</p>
-					<div className={["mode-hover", "colum-two"].join(' ')}>
-						<button className="edit-button">
+					<div id={`hover-${id}`} className={["mode-hover", "colum-two"].join(' ')}>
+						<button className="edit-button" onClick={this.onEdit} >
 							<img 
 								src={`${process.env.PUBLIC_URL}/assets/images/edit.svg`} 
 								alt="Éditer"
 							/>
 						</button>
-						<button className="edit-button">
+						<button className="edit-button" onClick={this.onDelete}>
 							<img 
 								src={`${process.env.PUBLIC_URL}/assets/images/delete.svg`} 
 								alt="Supprimer"
@@ -94,7 +102,9 @@ class Mode extends React.Component {
 
 Mode.propTypes = {
 	params:PropTypes.object.isRequired,
-	id:PropTypes.number.isRequired
+	isDefault:PropTypes.bool.isRequired,
+	id:PropTypes.number.isRequired,
+	onModeDelete:PropTypes.func.isRequired
 }
 
 export default Mode;
