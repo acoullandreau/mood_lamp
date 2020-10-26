@@ -1,6 +1,6 @@
 import React from 'react';
-//import Utils from './Utils.js';
-//import PropTypes from 'prop-types';
+import ModeTile from './ModeTile.js';
+import PropTypes from 'prop-types';
 
 class ModesList extends React.Component {
 
@@ -38,7 +38,9 @@ class ModesList extends React.Component {
 			  	{
 					React.Children.toArray(
 						Object.keys(this.props.modesList).map((item, i) => {
-							return this.props.modesList[item];
+							return (
+								<ModeTile model={this.props.modesList[item]} />
+							);
 
 						})
 					)
@@ -58,7 +60,7 @@ class ModesList extends React.Component {
 }
 
 ModesList.propTypes = {
-   // onEditMode:PropTypes.func.isRequired
+	modesList:PropTypes.array.isRequired
 }
 
 export default ModesList;

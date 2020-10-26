@@ -2,16 +2,13 @@ import React from 'react';
 import Utils from './Utils.js';
 import PropTypes from 'prop-types';
 
-class Mode extends React.Component {
+class ModeTile extends React.Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			'id':this.props.id, 
-			'isDefault':this.props.isDefault,
-			'name':this.props.params.name, 
-			'color':this.props.params.color, 
-			'speed':this.props.params.speed
+			'isDefault':this.props.model.isOriginMode,
+			'category':this.props.model.category
 		}; 
 	}
 
@@ -31,34 +28,45 @@ class Mode extends React.Component {
 		this.props.onModeDelete(this.state.id);
 	}
 
-	getThumbnail = (item) => {
-		return Utils.convertRGBToString(item.color[0]);
+	getThumbnail = (colors) => {
+		return Utils.convertRGBToString(colors[0]);
 
 	}
 
 	onHover = (event, bool) => {
-		if (this.state.isDefault === false) {
-			var id = event.currentTarget.id;
-			if (bool) {
-				document.getElementById(`hover-${id}`).style.display = 'block';
-			} else {
-				document.getElementById(`hover-${id}`).style.display = 'none';
-			}
+
+		let hoverDisplay;
+		if (bool) {
+			hoverDisplay = 'inline-block';
+		} else {
+			hoverDisplay = 'none';
 		}
 
+		if (this.state.category !== 'off') {
+			let hoverTargetDelete;
+			let hoverTargetEdit;
+			if (this.state.isDefault !== false) {
+				hoverTargetDelete = event.currentTarget.childNodes[1].childNodes[1].childNodes[0];
+				hoverTargetDelete.style.display = hoverDisplay;
+			} else {
+				hoverTargetEdit= event.currentTarget.childNodes[1].childNodes[1].childNodes[0];
+				hoverTargetDelete = event.currentTarget.childNodes[1].childNodes[1].childNodes[1];
+				hoverTargetEdit.style.display = hoverDisplay;
+				hoverTargetDelete.style.display = hoverDisplay;
+			}
+
+		}
 
 	}	
 
 	renderMode = () => {
 
-		var mode = this.props.params;
-		var id = this.props.id;
-		var background = this.getThumbnail(mode);
+		var mode = this.props.model;
+		var background = this.getThumbnail(mode.colors);
 
 		return (
 			<div 
 				className='mode-sub-grid'
-				id={id}
 				onMouseEnter={(e) => this.onHover(e, true)}
 				onMouseLeave={(e) => this.onHover(e, false)}
 			>
@@ -69,14 +77,14 @@ class Mode extends React.Component {
 				></button>
 				<div className={["mode-text", "grid-row-two"].join(' ')}>
 					<p className="colum-two">{mode.name}</p>
-					<div id={`hover-${id}`} className={["mode-hover", "colum-two"].join(' ')}>
-						<button className="edit-button" onClick={this.onEdit} >
+					<div className="colum-two">
+						<button className={["hover-button", "edit-button"].join(' ')} onClick={this.onEdit} >
 							<img 
 								src={`${process.env.PUBLIC_URL}/assets/images/edit.svg`} 
 								alt="Éditer"
 							/>
 						</button>
-						<button className="edit-button" onClick={this.onDelete}>
+						<button className={["hover-button", "delete-button"].join(' ')} onClick={this.onDelete}>
 							<img 
 								src={`${process.env.PUBLIC_URL}/assets/images/delete.svg`} 
 								alt="Supprimer"
@@ -100,11 +108,8 @@ class Mode extends React.Component {
 	}
 }
 
-Mode.propTypes = {
-	params:PropTypes.object.isRequired,
-	isDefault:PropTypes.bool.isRequired,
-	id:PropTypes.number.isRequired,
-	onModeDelete:PropTypes.func.isRequired
+ModeTile.propTypes = {
+	model:PropTypes.object.isRequired,
 }
 
-export default Mode;
+export default ModeTile;

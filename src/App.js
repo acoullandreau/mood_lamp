@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import ColorPicker from './ColorPicker.js';
-import Mode from './Mode.js';
+import ModeModel from './ModeModel.js';
 import ModesList from './ModesList.js';
 import Overlay from './Overlay.js';
 import Route from './Route.js';
@@ -14,13 +14,14 @@ class App extends React.Component {
 
 		this.state = {
 			'isConnected':false,
-			'numDefaultModes':2,
+			'numDefaultModes':1,
 			'overlay':false,
 			'disconnectDisplay':{ 'display':'none' },
 			'modesList':[],
 			'automatismes':{}
 		};
 
+		this.elemRefs = {};
 		this.singleColorPickerRef = React.createRef();
 		this.gradientColorPickerRef = React.createRef();
 		this.onWindowResize();
@@ -33,14 +34,21 @@ class App extends React.Component {
 		
 		//fetch JSON of modes
 		var modesArray = [
-			{'name':'Éteindre', 'color':[{ r: 0, g: 0, b: 0 }], 'speed':0},
-			{'name':'Fête', 'color':[{ r: 10, g: 241, b: 135 }], 'speed':80}, 
-			{'name':'Discussion', 'color':[{ r: 125, g: 125, b: 125 }], 'speed':30}
+			{'name':'Éteindre', 'isOriginMode':true, 'category':'off', 'color':[{ r: 0, g: 0, b: 0 }], 'speed':0},
+			{'name':'Fête', 'isOriginMode':true, 'category':'sound', 'color':[{ r: 10, g: 241, b: 135 }], 'speed':0}, 
+			{'name':'Discussion', 'isOriginMode':true, 'category':'sound', 'color':[{ r: 125, g: 125, b: 125 }], 'speed':0},
+			{'name':'Temperature Ambiance', 'isOriginMode':true, 'category':'temperature', 'color':[{ r: 25, g: 25, b: 25 }], 'speed':0},
+			{'name':'Humidity Ambiance', 'isOriginMode':true, 'category':'humidity', 'color':[{ r: 250, g: 250, b: 250 }], 'speed':0},
+			{'name':'Saved Mode', 'isOriginMode':false, 'category':'gradient', 'color':[{ r: 30, g: 40, b: 50 }, { r: 100, g: 120, b: 140 }], 'speed':80}
 		];
 		// deserialize the JSON
 		this.deserializeModes(modesArray);
 
 		//fetch automatismes configuration
+	}
+
+	componentDidUpdate() {
+		this.serializeModes();
 	}
 
 	componentWillUnmount() {
@@ -73,18 +81,26 @@ class App extends React.Component {
 
 	deserializeModes = (modesArray) => {
 		var modesList = [];
-		for (var i=0 ; i < modesArray.length ; i++) {
-			let mode ;
-			if (i < this.state.numDefaultModes) {
-				mode = (<Mode params={modesArray[i]} id={i} onModeDelete={this.onModeDelete} isDefault={true}/>);
-			} else {
-				mode = (<Mode params={modesArray[i]} id={i} onModeDelete={this.onModeDelete} isDefault={false}/>);
-			}
+
+		for (let i=0 ; i < modesArray.length ; i++) {
+			const mode = ModeModel.deserialize(modesArray[i]);
 			modesList.push(mode);
 		}
-		this.setState({ modesList }, () => console.log(this.state));
+		this.setState({ modesList });
 	}
 
+	createModeRef = (ref, i) => {
+		this.elemRefs[`mode${i}`] = ref;
+	}
+
+	serializeModes = () => {
+		for (const mode in this.elemRefs) {
+			console.log(this.elemRefs[mode])
+			// if (this.elemRefs[mode] !== null) {
+			// 	console.log(this.elemRefs[mode].state);
+			// }
+		} 
+	}
 
 	displayOverlay = (source) => {
 		var overlay = {...this.state.overlay};
@@ -111,9 +127,10 @@ class App extends React.Component {
 	}
 
 	onModeDelete = (modeId) => {
-		var modesList = [...this.state.modesList] ;
+		//delete this.elemRefs[`mode${modeId}`];
+		var modesList = this.state.modesList ;
 		modesList.splice(modeId, 1);
-		this.setState({ modesList });
+		this.setState({ modesList }, console.log(this.state));
 	}
 
 	onConnect = () => {
@@ -146,6 +163,7 @@ class App extends React.Component {
 	}
 
 	renderModes = () => {
+
 		return (
 			<div className='grid-row-two'>
 				<ModesList modesList={this.state.modesList}/>

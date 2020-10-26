@@ -333,12 +333,7 @@ li {
 	cursor: pointer;
 }
 
-.mode-hover {
-	display: none;
-	height:100%;
-}
-
-.edit-button {
+.hover-button {
 	display: inline-block;
 	width: 30%;
 	border: 1px solid transparent;
@@ -349,9 +344,19 @@ li {
 	cursor:pointer;
 }
 
-.edit-button img {
+.hover-button img {
 	width: 90%;
 }
+
+.edit-button {
+	display: none;
+}
+
+.delete-button {
+	display: none;
+
+}
+
 
 
 /*CSS for the overlay window*/
