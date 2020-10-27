@@ -1,6 +1,6 @@
 import React from 'react';
 import ModeTile from './ModeTile.js';
-// import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 
 class ModesList extends React.Component {
 
@@ -20,6 +20,12 @@ class ModesList extends React.Component {
 
 	setModesList = (modesList) => {
 		this.setState({ modesList })
+	}
+
+	addNewMode = (newMode) => {
+		var modesList = this.state.modesList ;
+		modesList.push(newMode);
+		this.setState({ modesList });
 	}
 	
 	renderListItems = () => {

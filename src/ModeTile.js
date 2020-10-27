@@ -24,7 +24,7 @@ class ModeTile extends React.Component {
 	}
 
 	onEdit = (event) => {
-
+		//open a color picker instance
 	}
 
 	onDelete = () => {

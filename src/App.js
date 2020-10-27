@@ -14,10 +14,8 @@ class App extends React.Component {
 
 		this.state = {
 			'isConnected':false,
-			'numDefaultModes':1,
-			'overlay':false,
+			'overlay':{'display':false, 'source':'', 'title':'', 'message':'', 'modeName':''},
 			'disconnectDisplay':{ 'display':'none' },
-			'automatismes':{},
 			'modesList':[]
 		};
 
@@ -76,23 +74,22 @@ class App extends React.Component {
 		this.modeListRef.current.setModesList(modesList);
 	}
 
-	createModeRef = (ref, i) => {
-		this.elemRefs[`mode${i}`] = ref;
-	}
-
 	serializeModes = () => {
 
 	}
 
-	displayOverlay = (source) => {
+	displayOverlay = (parameters) => {
 		var overlay = {...this.state.overlay};
-		overlay['display'] = !overlay['display'];
-		overlay['source'] = source;
+		overlay['display'] = parameters.display;
+		overlay['source'] = parameters.source;
+		overlay['title'] = parameters.title;
+		overlay['message'] = parameters.message;
 		this.setState({ overlay });
 	}
 
-
 	onSaveNewMode = (modeName) => {
+
+		
 		// var modeParams;
 		// if (this.state.overlay.source === 'single') {
 		// 	modeParams = this.singleColorPickerRef.current.getModeParams();
@@ -100,11 +97,17 @@ class App extends React.Component {
 		// 	modeParams = this.gradientColorPickerRef.current.getModeParams();
 		// }
 
-		// var newMode = {'name':modeName, 'color':modeParams.color, 'speed':modeParams.speed};
-		// var modeIndex = Object.keys(this.state.modes).length;
-		// var modes = {...this.state.modes};
-		// modes[modeIndex] = newMode;
-		// this.setState({ modes });
+		// var newMode = {
+		// 	'name':modeName, 
+		// 	'isOriginMode':false, 
+		// 	'isEditable':true, 
+		// 	'category':this.state.overlay.source, 
+		// 	'colors':modeParams.colors, 
+		// 	'speed':modeParams.speed
+		// }
+
+		// var modeModel = ModeModel.createNewModeModel(newMode);
+		//this.modeListRef.current.addNewMode(modeModel);
 
 	}
 
@@ -113,12 +116,12 @@ class App extends React.Component {
 			this.setState({'isConnected':true}, () => {
 				//fetch JSON of modes
 				var modesArray = [
-					{'name':'Éteindre', 'isOriginMode':true, 'isEditable':false, 'category':'off', 'color':[{ r: 0, g: 0, b: 0 }], 'speed':0},
-					{'name':'Fête', 'isOriginMode':true, 'isEditable':false, 'category':'sound', 'color':[{ r: 10, g: 241, b: 135 }], 'speed':0}, 
-					{'name':'Discussion', 'isOriginMode':true, 'isEditable':false, 'category':'sound', 'color':[{ r: 125, g: 125, b: 125 }], 'speed':0},
-					{'name':'Temperature Ambiance', 'isOriginMode':true, 'isEditable':true, 'category':'temperature', 'color':[{ r: 67, g: 138, b: 168 }, { r: 204, g: 219, b: 254 }, { r: 245, g: 160, b: 64 }], 'speed':0},
-					{'name':'Humidity Ambiance', 'isOriginMode':true, 'isEditable':true, 'category':'humidity', 'color':[{ r: 46, g: 113, b: 8 }, { r: 246, g: 215, b: 176 }], 'speed':0},
-					{'name':'Saved Mode', 'isOriginMode':false, 'isEditable':true, 'category':'gradient', 'color':[{ r: 30, g: 40, b: 50 }, { r: 100, g: 120, b: 140 }, { r: 200, g: 220, b: 240 }], 'speed':80}
+					{'name':'Éteindre', 'isOriginMode':true, 'isEditable':false, 'category':'off', 'colors':[{ r: 0, g: 0, b: 0 }], 'speed':0},
+					{'name':'Fête', 'isOriginMode':true, 'isEditable':false, 'category':'sound', 'colors':[{ r: 10, g: 241, b: 135 }], 'speed':0}, 
+					{'name':'Discussion', 'isOriginMode':true, 'isEditable':false, 'category':'sound', 'colors':[{ r: 125, g: 125, b: 125 }], 'speed':0},
+					{'name':'Temperature Ambiance', 'isOriginMode':true, 'isEditable':true, 'category':'temperature', 'colors':[{ r: 67, g: 138, b: 168 }, { r: 204, g: 219, b: 254 }, { r: 245, g: 160, b: 64 }], 'speed':0},
+					{'name':'Humidity Ambiance', 'isOriginMode':true, 'isEditable':true, 'category':'humidity', 'colors':[{ r: 46, g: 113, b: 8 }, { r: 246, g: 215, b: 176 }], 'speed':0},
+					{'name':'Saved Mode', 'isOriginMode':false, 'isEditable':true, 'category':'gradient', 'colors':[{ r: 30, g: 40, b: 50 }, { r: 100, g: 120, b: 140 }, { r: 200, g: 220, b: 240 }], 'speed':80}
 				];
 				// deserialize the JSON
 				this.deserializeModes(modesArray);
@@ -152,65 +155,87 @@ class App extends React.Component {
 	}
 
 	renderModes = () => {
-		return (
-			<div className='grid-row-two'>
-				<ModesList ref={this.modeListRef} />
-			</div>
-		)
+		if (this.state.isConnected) {	
+			return (
+				<div className='grid-row-two'>
+					<ModesList ref={this.modeListRef} />
+				</div>
+			)
+		}
+		return null;
 	}
 
 	renderCouleurs = () => {
-		return (
-			<React.Fragment>
-				<Tabs forceRenderTabPanel={true} >
-					<TabList>
-						<Tab>Couleur unique</Tab>
-						<Tab>Gradient</Tab>
-					</TabList>
+		if (this.state.isConnected) { 
+			var modeSingle = { 
+				'isOriginMode':false, 
+				'isEditable':true, 
+				'category':'single', 
+				'colors':['#FFFFFF'], 
+				'speed':0
+			}
+			var modeGradient = {
+				'isOriginMode':false, 
+				'isEditable':true, 
+				'category':'gradient', 
+				'colors':['#827081', '#DACEDA'], 
+				'speed':30
+			}
+			return (
+				<React.Fragment>
+					<Tabs forceRenderTabPanel={true} >
+						<TabList>
+							<Tab>Couleur unique</Tab>
+							<Tab>Gradient</Tab>
+						</TabList>
 
-					<TabPanel>
-						<ColorPicker 
-							target='single' 
-							initialColors={['#FFFFFF']}
-							initialSpeed={0}
-							onSaveMode={this.displayOverlay} 
-							ref={this.singleColorPickerRef} 
-						/>
-					</TabPanel>
-					<TabPanel>
-						<ColorPicker 
-							target='gradient' 
-							initialColors={['#827081', '#DACEDA']}
-							initialSpeed={30}
-							onSaveMode={this.displayOverlay} 
-							ref={this.gradientColorPickerRef} 
-						/>
-					</TabPanel>
-				</Tabs>
-			</React.Fragment>
-		)
+						<TabPanel>
+							<ColorPicker 
+								modeModel={ModeModel.createNewModeModel(modeSingle)}
+								onSaveMode={this.displayOverlay} 
+								ref={this.singleColorPickerRef} 
+							/>
+						</TabPanel>
+						<TabPanel>
+							<ColorPicker 
+								modeModel={ModeModel.createNewModeModel(modeGradient)}
+								onSaveMode={this.displayOverlay} 
+								ref={this.gradientColorPickerRef} 
+							/>
+						</TabPanel>
+					</Tabs>
+				</React.Fragment>
+			)
+		}
+		return null;
 	}
 
 	renderMesures = () => {
-		return (
-			<React.Fragment>
-				<div className="grid-row-one">
-					Rafraîchir
-				</div>
-				<div className="grid-row-two">
-					Mesures
-				</div>
-			</React.Fragment>
-		)
+		if (this.state.isConnected) {	
+			return (
+				<React.Fragment>
+					<div className="grid-row-one">
+						Rafraîchir
+					</div>
+					<div className="grid-row-two">
+						Mesures
+					</div>
+				</React.Fragment>
+			)
+		}
+		return null;
 	}
 
 
 	renderAutomatismes = () => {
-		return (
-			<div className="grid-row-two">
-				Automatismes
-			</div>
-		)
+		if (this.state.isConnected) {	
+			return (
+				<div className="grid-row-two">
+					Automatismes
+				</div>
+			)
+		}
+		return null;
 	}
 
 	render() {
@@ -220,13 +245,13 @@ class App extends React.Component {
 		if (this.state.overlay.display) {
 			overlay = (
 				<div style={{display:'block'}}>
-					<Overlay onClose={this.displayOverlay} onSave={this.onSaveNewMode}/>
+					<Overlay settings={this.state.overlay} onClose={this.displayOverlay} onSave={this.onSaveNewMode}/>
 				</div>
 			)
 		} else {
 			overlay = (
 				<div style={{display:'none'}}>
-					<Overlay onClose={this.displayOverlay} onSave={this.onSaveNewMode}/>
+					<Overlay settings={this.state.overlay} onClose={this.displayOverlay} onSave={this.onSaveNewMode}/>
 				</div>
 			)
 		}

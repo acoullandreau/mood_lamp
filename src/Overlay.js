@@ -5,8 +5,8 @@ class Overlay extends React.Component {
 
 	state = { 
 		'display': false, 
-		'title':'Nouveau mode', 
-		'message':'Enregistrer cette configuration comme nouveau mode préconfiguré.',
+		'title':'', 
+		'message':'',
 		'modeName':''
 	};
 
@@ -27,16 +27,18 @@ class Overlay extends React.Component {
 	}
 
 	render() {
+
 		return (
 			<div>
 				<div className="Blur" onClick={() => this.closeModal()}></div>
 				<div className='OverlayWindow'>
-					<div id="overlay-title">{this.state.title}</div>
-					<div id="overlay-text">{this.state.message}</div>
+					<div id="overlay-title">{this.props.settings.title}</div>
+					<div id="overlay-text">{this.props.settings.message}</div>
 					<input 
 						className="overlay-input" 
 						type="text" 
 						placeholder="Nom du mode" 
+						value={this.state.modeName || ''}
 						onChange={this.onInputChange} 
 					/>
 					<div id="overlay-buttons">
@@ -52,8 +54,9 @@ class Overlay extends React.Component {
 
 
 Overlay.propTypes = {
-   onClose:PropTypes.func.isRequired,
-   onSave:PropTypes.func.isRequired
+	settings:PropTypes.object.isRequired,
+	onClose:PropTypes.func.isRequired,
+	onSave:PropTypes.func.isRequired
 }
 
 export default Overlay;

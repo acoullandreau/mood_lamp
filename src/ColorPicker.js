@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import iro from '@jaames/iro';
+import ModeModel from './ModeModel.js';
 import Slider from './Slider.js';
 import Utils from './Utils.js';
 
@@ -64,8 +65,8 @@ class ColorPicker extends React.Component {
 
 		this.state = {
 			'selectedColorIndex':0,
-			'selectedColors':this.props.initialColors,
-			'animationSpeed':this.props.initialSpeed,
+			'selectedColors':this.props.modeModel.colors,
+			'animationSpeed':this.props.modeModel.speed,
 			'layoutParams':{
 				width: this.getInitialWidth(),
 				margin:80,
@@ -88,33 +89,6 @@ class ColorPicker extends React.Component {
 			}
 		}
 
-		// this.state = {
-		// 	'selectedColor':'#FFFFFF', 
-		// 	'selectedColorIndex':0,
-		// 	'selectedColors':['#827081', '#DACEDA'],
-		// 	'animationSpeed':30,
-		// 	'layoutParams':{
-		// 		width: this.getInitialWidth(),
-		// 		margin:80,
-		// 		layoutDirection: 'horizontal',
-		// 		borderWidth: 2,
-		// 		layout: [
-		// 			{
-		// 				component: iro.ui.Wheel,
-		// 				options: {
-		// 					borderColor: '#ffffff'
-		// 				}
-		// 			},
-		// 			{
-		// 				component: iro.ui.Slider,
-		// 				options: {
-		// 					borderColor: '#000000'
-		// 				}
-		// 			}
-		// 		]
-		// 	}
-		// }
-
 		this.gradientPickerRef = React.createRef();
 	}
 
@@ -133,7 +107,7 @@ class ColorPicker extends React.Component {
 
 	onSingleColorSelect = (color) => {
 		// save the currently selected color
-		var selectedColors = [color.rgb];
+		var selectedColors = [color.hexString];
 		this.setState({ selectedColors });
 		// send color to the microcontroller for live update
 		// #############################################
@@ -172,22 +146,32 @@ class ColorPicker extends React.Component {
 	}
 
 	onSave = () => {
-		this.props.onSaveMode(this.props.target);
+		// if (this.props.editingMode === false) {
+		// 	this.props.onSaveMode({
+		// 		'display':true, 
+		// 		'source':this.props.target, 
+		// 		'title':'Nouveau mode', 
+		// 		'message':'Enregistrer cette configuration comme nouveau mode préconfiguré.'
+		// 	});
+		// } else {
+		// 	this.props.onSaveMode({
+		// 		'display':true, 
+		// 		'source':this.props.target, 
+		// 		'title':'Éditer mode', 
+		// 		'message':'Enregistrer cette nouvelle configuration.',
+		// 		'modeName':this.props.modeName
+		// 	});
+		// }
 	}
 
 	getModeParams = () => {
-		var modeParams = {'color':[], 'speed':0};
-
-		if (this.props.target === 'single') {
-			modeParams.color.push(this.state.selectedColors[0]);
-		} else if (this.props.target === 'gradient') {
-			var colors = this.state.selectedColors;
-			for (var i = 0; i < colors.length; i++) {
-				var rgbColor = Utils.convertHexToRGB(colors[i]);
-				modeParams.color.push(rgbColor);
-			}
-			modeParams.speed = this.state.animationSpeed;
-		} 
+		var modeParams = {'colors':[], 'speed':0};
+		var colors = this.state.selectedColors;
+		for (var i = 0; i < colors.length; i++) {
+			var rgbColor = Utils.convertHexToRGB(colors[i]);
+			modeParams.colors.push(rgbColor);
+		}
+		modeParams.speed = this.state.animationSpeed;
 
 		return modeParams;
 	}
@@ -288,13 +272,13 @@ class ColorPicker extends React.Component {
 
 	render() { 
 
-		if (this.props.target === 'single') {
+		if (this.props.modeModel.category === 'single') {
 			return (
 				<React.Fragment>
 					{this.renderSingleColorPicker()}
 				</React.Fragment>
 			)
-		} else if (this.props.target === 'gradient') {
+		} else if (this.props.modeModel.category === 'gradient') {
 			return (
 				<React.Fragment>
 					{this.renderGradientColorPicker()}
@@ -307,14 +291,11 @@ class ColorPicker extends React.Component {
 }
 
 
-
-
 // props validation
 ColorPicker.propTypes = {
-	target:PropTypes.string.isRequired,
-	initialColors:PropTypes.array.isRequired,
-	initialSpeed:PropTypes.number.isRequired,
+	modeModel:PropTypes.instanceOf(ModeModel).isRequired,
 	onSaveMode:PropTypes.func.isRequired,
+
 }
 
 export default ColorPicker;

@@ -14,7 +14,7 @@ class ModeModel {
 		this.category = properties.category;
 		this.isOriginMode = properties.isOriginMode;
 		this.isEditable=properties.isEditable;
-		this.colors = properties.color;
+		this.colors = properties.colors;
 		this.speed = properties.speed;
 	}
  
