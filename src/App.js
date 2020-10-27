@@ -172,6 +172,7 @@ class App extends React.Component {
 						<ColorPicker 
 							target='single' 
 							initialColors={['#FFFFFF']}
+							initialSpeed={0}
 							onSaveMode={this.displayOverlay} 
 							ref={this.singleColorPickerRef} 
 						/>
@@ -180,6 +181,7 @@ class App extends React.Component {
 						<ColorPicker 
 							target='gradient' 
 							initialColors={['#827081', '#DACEDA']}
+							initialSpeed={30}
 							onSaveMode={this.displayOverlay} 
 							ref={this.gradientColorPickerRef} 
 						/>

@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class Slider extends React.Component {
-	constructor() {
-		super()
-		this.state = {value: 30}
+	constructor(props) {
+		super(props)
+		this.state = {value: this.props.initialSpeed}
 	}
 
 	handleChange = (event) => {
@@ -14,6 +14,7 @@ class Slider extends React.Component {
 	}
 
  	render() {
+
 		return (
 	    	<div id="slider-block" className={['column-one', 'grid-row-two'].join(' ')}>
 	      		<img className='slider-img' src={`${process.env.PUBLIC_URL}/assets/images/slow.svg`} alt='Lent' />
@@ -33,6 +34,7 @@ class Slider extends React.Component {
 
 // props validation
 Slider.propTypes = {
+	initialSpeed:PropTypes.number.isRequired,
 	onChange:PropTypes.func.isRequired
 }
 
