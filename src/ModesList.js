@@ -40,6 +40,7 @@ class ModesList extends React.Component {
 	}
 
 	render() {
+
 		return (
 			<React.Fragment>
 				{this.renderListItems()}

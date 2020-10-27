@@ -8,6 +8,7 @@ class ModeTile extends React.Component {
 		super(props);
 		this.state = {
 			'isDefault':this.props.model.isOriginMode,
+			'isEditable':this.props.model.isEditable,
 			'category':this.props.model.category,
 			'id':this.props.id
 		}; 
@@ -59,7 +60,7 @@ class ModeTile extends React.Component {
 			hoverDisplay = 'none';
 		}
 
-		if (this.state.category !== 'off') {
+		if (this.state.isEditable !== false) {
 			let hoverTargetDelete;
 			let hoverTargetEdit;
 			if (this.state.isDefault !== false) {

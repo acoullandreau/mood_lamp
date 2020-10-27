@@ -169,7 +169,7 @@ class ColorPicker extends React.Component {
 	renderSingleColorPicker() {
 		var params = this.state.layoutParams;
 		params['id'] = 'single';
-		params['color'] = this.state.selectedColor;
+		params['color'] = this.props.initialColors[0];
 
 		return (
 			<React.Fragment>
@@ -235,7 +235,8 @@ class ColorPicker extends React.Component {
 	renderGradientColorPicker() {
 		var params = this.state.layoutParams;
 		params['id'] = 'gradient';
-		params['colors'] = this.state.selectedColors;
+		//params['colors'] = this.state.selectedColors;
+		params['colors'] = this.props.initialColors;
 
 		return (
 			<div className='color-grid'>
@@ -284,6 +285,7 @@ class ColorPicker extends React.Component {
 // props validation
 ColorPicker.propTypes = {
 	target:PropTypes.string.isRequired,
+	initialColors:PropTypes.array.isRequired,
 	onSaveMode:PropTypes.func.isRequired,
 }
 

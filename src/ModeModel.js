@@ -13,6 +13,7 @@ class ModeModel {
 		this.name = properties.name;
 		this.category = properties.category;
 		this.isOriginMode = properties.isOriginMode;
+		this.isEditable=properties.isEditable;
 		this.colors = properties.color;
 		this.speed = properties.speed;
 	}
@@ -21,6 +22,7 @@ class ModeModel {
 		var modeDetails = {
 			'name':this.name,
 			'isOriginMode':this.isOriginMode, 
+			'isEditable':this.isEditable,
 			'category':this.category, 
 			'color':this.colors, 
 			'speed':this.speed
