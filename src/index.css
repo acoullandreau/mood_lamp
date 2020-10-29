@@ -125,7 +125,7 @@ li {
 
 /*CSS for the tabs*/
 
-.react-tabs__tab-panel {
+/*.react-tabs__tab-panel {
 	padding-right:2%;
 	padding-left:2%;
 }
@@ -158,7 +158,7 @@ li {
 
 .react-tabs__tab-panel--selected {
     display: block;
-}
+}*/
 
 
 /*CSS for the color picker page*/
@@ -167,8 +167,11 @@ li {
 	display: grid;
 	grid-template-columns: 75% 25%;
 	grid-template-rows: 75% 25%;
-	width: 100%;
+	width: 90%;
 	min-height: 75vh;
+	margin-top: 20vh;
+	padding-right:2%;
+	padding-left:2%;
 }
 
 .button-color-picker {

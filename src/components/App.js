@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+// import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import { fetchModes } from '../actions';
 import ColorPicker from './ColorPicker.js';
@@ -155,46 +155,65 @@ class App extends React.Component {
 	}
 
 	renderCouleurs = () => {
-		// if (this.state.isConnected) { 
-			var modeSingle = { 
-				'isOriginMode':false, 
-				'isEditable':true, 
-				'category':'single', 
-				'colors':['#FFFFFF'], 
-				'speed':0
-			}
-			var modeGradient = {
-				'isOriginMode':false, 
-				'isEditable':true, 
-				'category':'gradient', 
-				'colors':['#827081', '#DACEDA'], 
-				'speed':30
-			}
-			return (
-				<React.Fragment>
-					<Tabs forceRenderTabPanel={true} >
-						<TabList>
-							<Tab>Couleur unique</Tab>
-							<Tab>Gradient</Tab>
-						</TabList>
 
-						<TabPanel>
-							<ColorPicker 
-								modeModel={ModeModel.createNewModeModel(modeSingle)}
-								onSaveMode={this.displayOverlay} 
-								ref={this.singleColorPickerRef} 
-							/>
-						</TabPanel>
-						<TabPanel>
-							<ColorPicker 
-								modeModel={ModeModel.createNewModeModel(modeGradient)}
-								onSaveMode={this.displayOverlay} 
-								ref={this.gradientColorPickerRef} 
-							/>
-						</TabPanel>
-					</Tabs>
-				</React.Fragment>
-			)
+		var mode = {
+			'isOriginMode':false, 
+			'isEditable':true, 
+			'category':'single', 
+			'colors':['#FFFFFF'], 
+			'speed':0
+		}
+
+		var modeModel = ModeModel.createNewModeModel(mode);
+
+		return (
+			<React.Fragment>
+				<ColorPicker 
+					modeModel={modeModel}
+					onSaveMode={this.displayOverlay}
+				/>
+			</React.Fragment>
+		)
+		// if (this.state.isConnected) { 
+			// var mode = { 
+			// 	'isOriginMode':false, 
+			// 	'isEditable':true, 
+			// 	'category':'single', 
+			// 	'colors':['#FFFFFF'], 
+			// 	'speed':0
+			// }
+			// var modeGradient = {
+			// 	'isOriginMode':false, 
+			// 	'isEditable':true, 
+			// 	'category':'gradient', 
+			// 	'colors':['#827081', '#DACEDA'], 
+			// 	'speed':30
+			// }
+			// return (
+			// 	<React.Fragment>
+			// 		<Tabs forceRenderTabPanel={true} >
+			// 			<TabList>
+			// 				<Tab>Couleur unique</Tab>
+			// 				<Tab>Gradient</Tab>
+			// 			</TabList>
+
+			// 			<TabPanel>
+			// 				<ColorPicker 
+			// 					modeModel={ModeModel.createNewModeModel(modeSingle)}
+			// 					onSaveMode={this.displayOverlay} 
+			// 					ref={this.singleColorPickerRef} 
+			// 				/>
+			// 			</TabPanel>
+			// 			<TabPanel>
+			// 				<ColorPicker 
+			// 					modeModel={ModeModel.createNewModeModel(modeGradient)}
+			// 					onSaveMode={this.displayOverlay} 
+			// 					ref={this.gradientColorPickerRef} 
+			// 				/>
+			// 			</TabPanel>
+			// 		</Tabs>
+			// 	</React.Fragment>
+			// )
 		// }
 		// return null;
 	}

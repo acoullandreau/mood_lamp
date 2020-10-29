@@ -34,6 +34,7 @@ class Slider extends React.Component {
 
 // props validation
 Slider.propTypes = {
+	isDisabled:PropTypes.bool.isRequired,
 	initialSpeed:PropTypes.string.isRequired,
 	onChange:PropTypes.func.isRequired
 }
