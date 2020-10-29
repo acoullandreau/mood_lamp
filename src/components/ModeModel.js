@@ -15,7 +15,7 @@ class ModeModel {
 		this.isOriginMode = properties.isOriginMode;
 		this.isEditable=properties.isEditable;
 		this.colors = properties.colors;
-		this.speed = properties.speed;
+		this.speed = String(properties.speed);
 	}
  
 	serialize() {

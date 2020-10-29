@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import iro from '@jaames/iro';
 import ModeModel from './ModeModel.js';
 import Slider from './Slider.js';
-import Utils from './Utils.js';
+import Utils from '../Utils.js';
 
 class IroColorPicker extends React.Component {
 

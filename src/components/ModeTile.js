@@ -1,6 +1,8 @@
 import React from 'react';
-import Utils from './Utils.js';
+import { connect } from 'react-redux';
+import Utils from '../Utils.js';
 import PropTypes from 'prop-types';
+import { editMode, deleteMode } from '../actions';
 
 class ModeTile extends React.Component {
 
@@ -23,12 +25,14 @@ class ModeTile extends React.Component {
 		// })
 	}
 
-	onEdit = (event) => {
-		//open a color picker instance
+	onEdit = () => {
+		//lauch the mode
+		this.props.editMode(this.props.model)
+		//open a color picker instance with the parameters of the modeModel associated
 	}
 
 	onDelete = () => {
-		this.props.onModeDelete(this.state.id);
+		this.props.deleteMode(this.props.model)
 	}
 
 	getThumbnail = (colors) => {
@@ -42,7 +46,7 @@ class ModeTile extends React.Component {
 
 			if (colors.length > 1) {
 				var gradient = Utils.getGradient(colors);
-				return { 'background':initialColor, 'background':gradient };
+				return { 'backgroundColor':initialColor, 'background':gradient };
 			} 
 
 			return {'backgroundColor': initialColor};
@@ -148,4 +152,4 @@ ModeTile.propTypes = {
 	id:PropTypes.number.isRequired
 }
 
-export default ModeTile;
+export default connect(null, { editMode, deleteMode })(ModeTile);
