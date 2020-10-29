@@ -161,7 +161,7 @@ class App extends React.Component {
 			'isEditable':true, 
 			'category':'single', 
 			'colors':['#FFFFFF'], 
-			'speed':0
+			'speed':30
 		}
 
 		var modeModel = ModeModel.createNewModeModel(mode);

@@ -168,6 +168,8 @@ li {
 	grid-template-columns: 75% 25%;
 	grid-template-rows: 75% 25%;
 	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
 	min-height: 75vh;
 	margin-top: 20vh;
 	padding-right:2%;

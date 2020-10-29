@@ -15,8 +15,13 @@ class Slider extends React.Component {
 
  	render() {
 
+ 		var style = {};
+ 		if (this.props.isDisabled) {
+ 			var style = {'opacity':'0.3'};
+		} 
+
 		return (
-	    	<div id="slider-block" className={['column-one', 'grid-row-two'].join(' ')}>
+	    	<div id="slider-block" style={style} className={['column-one', 'grid-row-two'].join(' ')}>
 	      		<img className='slider-img' src={`${process.env.PUBLIC_URL}/assets/images/slow.svg`} alt='Lent' />
 				<input 
 					id="slider" 
@@ -28,7 +33,8 @@ class Slider extends React.Component {
 				/>
 				<img className='slider-img' src={`${process.env.PUBLIC_URL}/assets/images/fast.svg`} alt='Rapide' />
 	    	</div>
-	    );
+    	);
+
 	}
 }
 
