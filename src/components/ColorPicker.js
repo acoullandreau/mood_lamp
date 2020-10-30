@@ -55,7 +55,7 @@ class ColorPicker extends React.Component {
 		this.state = {
 			'selectedColorIndex':0,
 			'showDelete':0,
-			'selectedColors':this.props.modeModel.colors,
+			'selectedColors':this.getInitialColors(),
 			'animationSpeed':this.props.modeModel.speed,
 			'sliderDisabled':true,
 			'layoutParams':{
@@ -87,6 +87,16 @@ class ColorPicker extends React.Component {
 	getInitialWidth() {
 		var width = 0.5 * window.innerHeight;
 		return width;
+	}
+
+	getInitialColors() {
+		var initialColors = [];
+		var colors = this.props.modeModel.colors;
+		for (var i = 0; i < colors.length; i++) {
+			var hexColor = Utils.convertRGBStringtoHex(colors[i]);
+			initialColors.push(hexColor);
+		}
+		return initialColors;
 	}
 
 	onSpeedChange = (speed) => {
@@ -159,7 +169,7 @@ class ColorPicker extends React.Component {
 
 	}
 
-	onSave = () => {
+	onSaveNewMode = () => {
 		// add state to modeModel
 		var modeColors = [];
 		var selectedColors = this.state.selectedColors;
@@ -275,7 +285,7 @@ class ColorPicker extends React.Component {
 		return (
 			<React.Fragment>
 				<div className={['column-two', 'grid-row-two', 'button-color-picker'].join(' ')}>
-					<button className='save-button' onClick={this.onSave} >
+					<button className='save-button' onClick={this.onSaveNewMode} >
 						<img style={{marginRight:'7%'}} src={`${process.env.PUBLIC_URL}/assets/images/star.svg`} alt='Enregistrer'/>
 						Enregistrer mode
 					</button>

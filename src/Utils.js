@@ -34,11 +34,18 @@ class Utils {
 
 	}
 
-	static convertRGBToString(rgb) {
+	static componentToHex(c) {
+		var hex = c.toString(16);
+		return hex.length === 1 ? "0" + hex : hex;
+	}
 
+	static convertRGBStringtoHex(rgb) {
+		return "#" + Utils.componentToHex(rgb.r) + Utils.componentToHex(rgb.g) + Utils.componentToHex(rgb.b);
+	}
+
+	static convertRGBToString(rgb) {
 		var rgbString = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`
 		return rgbString;
-
 	}
 
 	static convertHextoHSV(hex) {

@@ -1,11 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ModeTile from './ModeTile.js';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 class ModesList extends React.Component {
-
-	// state = {'modesList':[]};
 
 	componentDidUpdate() {
 		// we ensure that we have a grid the right size
@@ -13,22 +11,6 @@ class ModesList extends React.Component {
 		document.getElementById("mode-grid").style['grid-template-rows'] = `repeat(${numRows}, 23vh)`;
 	}
 
-	// onModeDelete = (modeId) => {
-	// 	var modesList = this.state.modesList ;
-	// 	modesList.splice(modeId, 1);
-	// 	this.setState({ modesList });
-	// }
-
-	// setModesList = (modesList) => {
-	// 	this.setState({ modesList })
-	// }
-
-	// addNewMode = (newMode) => {
-	// 	var modesList = this.state.modesList ;
-	// 	modesList.push(newMode);
-	// 	this.setState({ modesList });
-	// }
-	
 	renderListItems = () => {
 		return (
 			<div id="mode-grid">
@@ -36,7 +18,7 @@ class ModesList extends React.Component {
 					React.Children.toArray(
 						Object.keys(this.props.modesList).map((item, i) => {
 							return (
-								<ModeTile id={i} model={this.props.modesList[item]} />
+								<ModeTile id={i} onEditMode={this.props.onEditMode} model={this.props.modesList[item]} />
 							);
 
 						})
@@ -61,8 +43,8 @@ const mapStateToProps = (state) => {
 }
 
 
-// ModesList.propTypes = {
-// 	modesList:PropTypes.array.isRequired
-// }
+ModesList.propTypes = {
+	onEditMode:PropTypes.func.isRequired
+}
 
 export default connect(mapStateToProps)(ModesList);

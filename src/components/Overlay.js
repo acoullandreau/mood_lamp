@@ -1,14 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ColorPicker from './ColorPicker.js';
 
 class Overlay extends React.Component {
 
-	state = { 
-		'display': false, 
-		'title':'', 
-		'message':'',
-		'modeName':''
-	};
+	constructor(props) {
+		super(props);
+
+		this.state = { 
+			'display': false, 
+			'title':'', 
+			'message':'',
+			'modeName':""
+		};
+
+	}
 
 	closeModal() {
 		// object passed to displayOverlay function of App through props 
@@ -27,16 +33,14 @@ class Overlay extends React.Component {
 		} 
 	}
 
-	render() {
-
+	renderNameInputOverlay = () => {
 		return (
-			<div>
-				<div className="Blur" onClick={() => this.closeModal()}></div>
-				<div className='OverlayWindow'>
+			<React.Fragment>
+				<div className='OverlayInputWindow'>
 					<div id="overlay-title">{this.props.settings.title}</div>
 					<div id="overlay-text">{this.props.settings.message}</div>
 					<input 
-						className="overlay-input" 
+						id="overlay-input" 
 						type="text" 
 						placeholder="Nom du mode" 
 						value={this.state.modeName || ''}
@@ -47,8 +51,51 @@ class Overlay extends React.Component {
 						<button className="overlay-button"onClick={() => this.saveMode()}>Enregistrer</button>
 					</div>
 				</div>
-			</div>
-		) 
+			</React.Fragment>
+		)
+	}
+
+	renderEditModeOverlay = () => {
+
+		return (
+			<React.Fragment>
+				<div className='OverlayEditWindow'>
+					<input 
+						type="text" 
+						placeholder={this.props.settings.modeInstance.name}
+						value={this.state.modeName || this.props.settings.modeInstance.name}
+						onChange={this.onInputChange} 
+					/>
+					<ColorPicker 
+						modeModel={this.props.settings.modeInstance}
+						onSaveMode={this.saveMode}
+					/>
+				</div>
+			</React.Fragment>
+		)
+
+	}
+
+	render() {
+
+		if (this.props.settings.type === 'new') {
+			return (
+				<React.Fragment>
+					<div className="Blur" onClick={() => this.closeModal()}></div>
+					{this.renderNameInputOverlay()}
+				</React.Fragment>
+			) 
+		} else if (this.props.settings.type === 'edit') {
+			return (
+				<React.Fragment>
+					<div className="Blur" onClick={() => this.closeModal()}></div>
+					{this.renderEditModeOverlay()}
+				</React.Fragment>
+			)
+		}
+
+		return null;
+
 
 	}
 }

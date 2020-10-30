@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Utils from '../Utils.js';
 import PropTypes from 'prop-types';
-import { editMode, deleteMode } from '../actions';
+import { deleteMode } from '../actions';
 
 class ModeTile extends React.Component {
 
@@ -27,7 +27,7 @@ class ModeTile extends React.Component {
 
 	onEdit = () => {
 		//lauch the mode
-		this.props.editMode(this.props.model)
+		this.props.onEditMode(this.props.model)
 		//open a color picker instance with the parameters of the modeModel associated
 	}
 
@@ -149,7 +149,8 @@ class ModeTile extends React.Component {
 
 ModeTile.propTypes = {
 	model:PropTypes.object.isRequired,
-	id:PropTypes.number.isRequired
+	id:PropTypes.number.isRequired,
+	onEditMode:PropTypes.func.isRequired
 }
 
-export default connect(null, { editMode, deleteMode })(ModeTile);
+export default connect(null, { deleteMode })(ModeTile);

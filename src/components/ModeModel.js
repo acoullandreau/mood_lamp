@@ -10,7 +10,11 @@ class ModeModel {
 	}
 
 	constructor(properties) {
-		this.name = properties.name;
+		if (properties.name === undefined) {
+			this.name = ""
+		} else {
+			this.name = properties.name;
+		}
 		this.category = properties.category;
 		this.isOriginMode = properties.isOriginMode;
 		this.isEditable=properties.isEditable;

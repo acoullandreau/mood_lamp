@@ -65,12 +65,13 @@ class App extends React.Component {
 	}
 
 	displayOverlay = (parameters) => {
-		var overlay = {...this.state.overlay};
-		overlay['type'] = parameters.type;
-		overlay['display'] = parameters.display;
-		overlay['title'] = parameters.title;
-		overlay['message'] = parameters.message;
-		overlay['modeInstance'] = parameters.modeInstance;
+		var overlay = parameters;
+		// var overlay = {...this.state.overlay};
+		// overlay['type'] = parameters.type;
+		// overlay['display'] = parameters.display;
+		// overlay['title'] = parameters.title;
+		// overlay['message'] = parameters.message;
+		// overlay['modeInstance'] = parameters.modeInstance;
 		this.setState({ overlay });
 	}
 
@@ -82,6 +83,17 @@ class App extends React.Component {
 			console.log(modeInstance)
 
 		}
+	}
+
+	onEditMode = (modeInstance) => {
+		// display overlay with color picker
+		var params = {
+			'type':'edit',
+			'display':true,
+			'title':'Éditer mode', 
+			'modeInstance':modeInstance
+		};
+		this.displayOverlay(params);
 	}
 
 
@@ -135,7 +147,7 @@ class App extends React.Component {
 		if (this.state.isConnected) {	
 			return (
 				<div className='grid-row-two'>
-					<ModesList />
+					<ModesList onEditMode={this.onEditMode} />
 				</div>
 			)
 		}
@@ -148,7 +160,7 @@ class App extends React.Component {
 			'isOriginMode':false, 
 			'isEditable':true, 
 			'category':'single', 
-			'colors':['#FFFFFF'], 
+			'colors':[{ r: 255, g: 255, b: 255 }], 
 			'speed':30
 		}
 
