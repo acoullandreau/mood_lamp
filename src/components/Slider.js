@@ -29,6 +29,7 @@ class Slider extends React.Component {
 					min="0" max="100" 
 					value={this.state.value} 
 					onChange={this.handleChange}
+					onClick={this.handleChange}
 					step="1"
 				/>
 				<img className='slider-img' src={`${process.env.PUBLIC_URL}/assets/images/fast.svg`} alt='Rapide' />
