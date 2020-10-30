@@ -159,22 +159,28 @@ class ColorPicker extends React.Component {
 
 	}
 
-
 	onSave = () => {
-		this.props.onSaveMode(this.props.modeModel, this.state);
-	}
-
-	getModeParams = () => {
-		var modeParams = {'colors':[], 'speed':0};
-		var colors = this.state.selectedColors;
-		for (var i = 0; i < colors.length; i++) {
-			var rgbColor = Utils.convertHexToRGB(colors[i]);
-			modeParams.colors.push(rgbColor);
+		// add state to modeModel
+		var modeColors = [];
+		var selectedColors = this.state.selectedColors;
+		for (var i = 0; i < selectedColors.length; i++) {
+			var rgbColor = Utils.convertHexToRGB(selectedColors[i]);
+			modeColors.push(rgbColor);
 		}
-		modeParams.speed = this.state.animationSpeed;
+		this.props.modeModel.setColors(modeColors);
+		this.props.modeModel.setSpeed(this.state.animationSpeed);
 
-		return modeParams;
+		// send the modeModel reference back to the App
+		var params = {
+			'type':'new',
+			'display':true,
+			'title':'Nouveau mode', 
+			'message':'Enregistrer cette configuration comme nouveau mode préconfiguré.',
+			'modeInstance':this.props.modeModel
+		};
+		this.props.onSaveMode(params);
 	}
+
 
 	renderDeleteIcon = (index, background) => {
 		var hsvColor = Utils.convertHextoHSV(background);
@@ -258,6 +264,7 @@ class ColorPicker extends React.Component {
 		)
 	}
 
+
 	renderSlider() {
 		return (
 			<Slider isDisabled={this.state.sliderDisabled} initialSpeed={this.state.animationSpeed} onChange={this.onSpeedChange}/>
@@ -289,28 +296,6 @@ class ColorPicker extends React.Component {
 	}
 
 }
-
-
-
-// 	onSave = () => {
-// 		// if (this.props.editingMode === false) {
-// 		// 	this.props.onSaveMode({
-// 		// 		'display':true, 
-// 		// 		'source':this.props.target, 
-// 		// 		'title':'Nouveau mode', 
-// 		// 		'message':'Enregistrer cette configuration comme nouveau mode préconfiguré.'
-// 		// 	});
-// 		// } else {
-// 		// 	this.props.onSaveMode({
-// 		// 		'display':true, 
-// 		// 		'source':this.props.target, 
-// 		// 		'title':'Éditer mode', 
-// 		// 		'message':'Enregistrer cette nouvelle configuration.',
-// 		// 		'modeName':this.props.modeName
-// 		// 	});
-// 		// }
-// 	}
-
 
 // props validation
 ColorPicker.propTypes = {

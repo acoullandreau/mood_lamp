@@ -31,6 +31,17 @@ class ModeModel {
 		return modeDetails;
 	}
 
+	setColors = (colors) => {
+		this.colors = colors;
+	}
+
+	setSpeed = (speed) => {
+		this.speed = speed;
+	}
+
+	setName = (name) => {
+		this.name = name;
+	}
 
 }
 

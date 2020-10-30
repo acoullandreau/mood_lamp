@@ -21,7 +21,8 @@ class Overlay extends React.Component {
 
 	saveMode = () => {
 		if (this.state.modeName !== '') {
-			this.props.onSave(this.state.modeName);
+			this.props.settings.modeInstance.setName(this.state.modeName);
+			this.props.onSave(this.props.settings.type, this.props.settings.modeInstance);
 			this.closeModal();
 		} 
 	}

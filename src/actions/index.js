@@ -24,6 +24,13 @@ export const fetchModes = () => {
 
 };
 
+export const addMode = (mode) => {
+	return {
+		type:'ADD_MODE',
+		payload:mode
+	}
+}
+
 
 export const editMode = (mode) => {
 	return {

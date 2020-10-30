@@ -1,8 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-
-import { fetchModes } from '../actions';
+import { fetchModes, addMode } from '../actions';
 import ColorPicker from './ColorPicker.js';
 import ModeModel from '../components/ModeModel.js';
 import ModesList from './ModesList.js';
@@ -17,11 +15,12 @@ class App extends React.Component {
 
 		this.state = {
 			'isConnected':false,
-			'overlay':{'display':false, 'source':'', 'title':'', 'message':'', 'modeName':''},
+			'overlay':{'display':false, 'title':'', 'message':'', 'modeName':''},
 			'disconnectDisplay':{ 'display':'none' },
 			'modesList':[]
 		};
 
+		this.overlayRef = React.createRef();
 		this.singleColorPickerRef = React.createRef();
 		this.gradientColorPickerRef = React.createRef();
 		this.onWindowResize();
@@ -67,35 +66,22 @@ class App extends React.Component {
 
 	displayOverlay = (parameters) => {
 		var overlay = {...this.state.overlay};
+		overlay['type'] = parameters.type;
 		overlay['display'] = parameters.display;
-		overlay['source'] = parameters.source;
 		overlay['title'] = parameters.title;
 		overlay['message'] = parameters.message;
+		overlay['modeInstance'] = parameters.modeInstance;
 		this.setState({ overlay });
 	}
 
-	onSaveNewMode = (modeInstance, modeDetails) => {
-		console.log(modeInstance)
-		console.log(modeDetails)
-		// var modeParams;
-		// if (this.state.overlay.source === 'single') {
-		// 	modeParams = this.singleColorPickerRef.current.getModeParams();
-		// } else {
-		// 	modeParams = this.gradientColorPickerRef.current.getModeParams();
-		// }
 
-		// var newMode = {
-		// 	'name':modeName, 
-		// 	'isOriginMode':false, 
-		// 	'isEditable':true, 
-		// 	'category':this.state.overlay.source, 
-		// 	'colors':modeParams.colors, 
-		// 	'speed':modeParams.speed
-		// }
+	onSaveMode = (type, modeInstance) => {
+		if (type === 'new') {
+			this.props.addMode(modeInstance);
+		} else if (type === 'edit') {
+			console.log(modeInstance)
 
-		// var modeModel = ModeModel.createNewModeModel(newMode);
-		//this.modeListRef.current.addNewMode(modeModel);
-
+		}
 	}
 
 
@@ -172,50 +158,11 @@ class App extends React.Component {
 			<React.Fragment>
 				<ColorPicker 
 					modeModel={modeModel}
-					onSaveMode={this.onSaveNewMode}
+					onSaveMode={this.displayOverlay}
 				/>
 			</React.Fragment>
 		)
 		// if (this.state.isConnected) { 
-			// var mode = { 
-			// 	'isOriginMode':false, 
-			// 	'isEditable':true, 
-			// 	'category':'single', 
-			// 	'colors':['#FFFFFF'], 
-			// 	'speed':0
-			// }
-			// var modeGradient = {
-			// 	'isOriginMode':false, 
-			// 	'isEditable':true, 
-			// 	'category':'gradient', 
-			// 	'colors':['#827081', '#DACEDA'], 
-			// 	'speed':30
-			// }
-			// return (
-			// 	<React.Fragment>
-			// 		<Tabs forceRenderTabPanel={true} >
-			// 			<TabList>
-			// 				<Tab>Couleur unique</Tab>
-			// 				<Tab>Gradient</Tab>
-			// 			</TabList>
-
-			// 			<TabPanel>
-			// 				<ColorPicker 
-			// 					modeModel={ModeModel.createNewModeModel(modeSingle)}
-			// 					onSaveMode={this.displayOverlay} 
-			// 					ref={this.singleColorPickerRef} 
-			// 				/>
-			// 			</TabPanel>
-			// 			<TabPanel>
-			// 				<ColorPicker 
-			// 					modeModel={ModeModel.createNewModeModel(modeGradient)}
-			// 					onSaveMode={this.displayOverlay} 
-			// 					ref={this.gradientColorPickerRef} 
-			// 				/>
-			// 			</TabPanel>
-			// 		</Tabs>
-			// 	</React.Fragment>
-			// )
 		// }
 		// return null;
 	}
@@ -255,13 +202,13 @@ class App extends React.Component {
 		if (this.state.overlay.display) {
 			overlay = (
 				<div style={{display:'block'}}>
-					<Overlay settings={this.state.overlay} onClose={this.displayOverlay} onSave={this.onSaveNewMode}/>
+					<Overlay settings={this.state.overlay} onClose={this.displayOverlay} onSave={this.onSaveMode} ref={this.overlayRef} />
 				</div>
 			)
 		} else {
 			overlay = (
 				<div style={{display:'none'}}>
-					<Overlay settings={this.state.overlay} onClose={this.displayOverlay} onSave={this.onSaveNewMode}/>
+					<Overlay settings={this.state.overlay} onClose={this.displayOverlay} onSave={this.onSaveMode} ref={this.overlayRef} />
 				</div>
 			)
 		}
@@ -316,4 +263,4 @@ class App extends React.Component {
 }
 
 
-export default connect(null, { fetchModes })(App);
+export default connect(null, { fetchModes, addMode })(App);
