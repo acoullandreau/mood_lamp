@@ -41,6 +41,46 @@ class Utils {
 
 	}
 
+	static convertHextoHSV(hex) {
+		var rgb = Utils.convertHexToRGB(hex);
+
+		var r = rgb.r / 255;
+		var g = rgb.g / 255;
+		var b = rgb.b / 255;
+		var max = Math.max(r, g, b);
+		var min = Math.min(r, g, b);
+		var delta = max - min;
+		var hue = 0;
+		var value = max;
+		var saturation = max === 0 ? 0 : delta / max;
+
+		switch (max) {
+		case min:
+			hue = 0; // achromatic
+			break;
+		case r:
+			hue = (g - b) / delta + (g < b ? 6 : 0);
+			break;
+		case g:
+			hue = (b - r) / delta + 2;
+			break;
+		case b:
+			hue = (r - g) / delta + 4;
+			break;
+		}
+
+		return {
+			h: hue * 60 % 360,
+			s: Utils.clamp(saturation * 100, 0, 100),
+			v: Utils.clamp(value * 100, 0, 100)
+		};
+
+	}
+
+	static clamp(num, min, max) {
+		return Math.min(Math.max(num, min), max);
+	}
+
 	static getGradient(colors) {
 		var gradient = [];
 

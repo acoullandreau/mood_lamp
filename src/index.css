@@ -123,44 +123,6 @@ li {
 }
 
 
-/*CSS for the tabs*/
-
-/*.react-tabs__tab-panel {
-	padding-right:2%;
-	padding-left:2%;
-}
-
-.react-tabs__tab-list {
-	list-style-type: none;
-	margin-top: 10vh;
-	margin-bottom: 9vh;
-	width: 40%;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.react-tabs__tab {
-	display:inline;
-	padding:10%;
-	padding-bottom: 5%;
-	cursor:pointer;
-}
-
-.react-tabs__tab--selected {
-	border-bottom:3px solid #FA4D3D;
-	color: #FA4D3D;
-	font-weight: 700;
-}
-
-.react-tabs__tab-panel {
-    display: none;
-}
-
-.react-tabs__tab-panel--selected {
-    display: block;
-}*/
-
-
 /*CSS for the color picker page*/
 
 .color-grid {
@@ -230,6 +192,10 @@ li {
 	background-color: #433D66;
 }
 
+#color-select-delete{
+	width: 50%;
+	filter: invert(1);
+}
 
 
 /*CSS for the slider*/

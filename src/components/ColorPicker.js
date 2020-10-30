@@ -64,6 +64,7 @@ class ColorPicker extends React.Component {
 
 		this.state = {
 			'selectedColorIndex':0,
+			'showDelete':0,
 			'selectedColors':this.props.modeModel.colors,
 			'animationSpeed':this.props.modeModel.speed,
 			'sliderDisabled':true,
@@ -119,11 +120,18 @@ class ColorPicker extends React.Component {
 	}
 
 	onColorClick = (event) => {
-		var selectedIndex = parseInt(event.target.value);
-		this.setState({'selectedColorIndex':selectedIndex}, () => {
-			var color = this.state.selectedColors[selectedIndex];
-			this.colorPickerRef.current.colorPicker.color.set(color);
-		});
+		var selectedIndex = parseInt(event.currentTarget.value);
+
+		if (selectedIndex > 0 && selectedIndex === this.state.showDelete) {
+			this.removeColorSelector(selectedIndex);
+		} else {
+			var showDeleteIndex = selectedIndex === 0 ? null : selectedIndex;;
+			this.setState({'selectedColorIndex':selectedIndex, 'showDelete':showDeleteIndex}, () => {
+				var color = this.state.selectedColors[selectedIndex];
+				this.colorPickerRef.current.colorPicker.color.set(color);
+			});
+		}
+
 	}
 
 	addColorSelector = (event) => {
@@ -133,20 +141,21 @@ class ColorPicker extends React.Component {
 		this.setState({
 			'selectedColors':selectedColors, 
 			'selectedColorIndex':selectedColorIndex, 
-			'sliderDisabled':false
+			'sliderDisabled':false,
+			'showDelete':selectedColorIndex
 		}, () => {
 			this.colorPickerRef.current.colorPicker.color.set('FFFFFF');
 		});
 	}
 
-	removeColorSelector = (event) => {
-		var indexColorToRemove = event.target.value;
-		if (indexColorToRemove > 1) {
+	removeColorSelector = (indexColorToRemove) => {
+		if (indexColorToRemove > 0) {
 			var selectedColors = this.state.selectedColors;
 			selectedColors.splice(indexColorToRemove, 1);
-			var sliderDisabled = indexColorToRemove === 1 ? true : false;
+			var sliderDisabled = selectedColors.length === 1 ? true : false;
 			this.setState({'selectedColors':selectedColors, 'sliderDisabled':sliderDisabled});
 		}
+
 	}
 
 
@@ -163,6 +172,28 @@ class ColorPicker extends React.Component {
 		modeParams.speed = this.state.animationSpeed;
 
 		return modeParams;
+	}
+
+	renderDeleteIcon = (index, background) => {
+		var hsvColor = Utils.convertHextoHSV(background);
+		var style;
+		if (hsvColor.v < 50) {
+			style = {'filter':'invert(0)'};
+		} else {
+			style = {'filter':'invert(1)'};
+		}
+
+		if (index !== 0) {
+			if (this.state.showDelete === index) {
+				return (
+					<React.Fragment>
+						<img id="color-select-delete" style={style} src={`${process.env.PUBLIC_URL}/assets/images/delete.svg`} alt='Supprimer' />
+					</React.Fragment>
+				)
+			}
+		}
+
+		return null;
 	}
 
 	renderColorSelectors = () => {
@@ -198,6 +229,7 @@ class ColorPicker extends React.Component {
 									style={{'backgroundColor':background, 'border':borderColor}}
 									onClick={this.onColorClick}
 								>
+									{this.renderDeleteIcon(parseInt(item), background)}
 								</button>
 							)
 						})
@@ -244,8 +276,6 @@ class ColorPicker extends React.Component {
 	}
 
 	render() { 
-
-		console.log(this.state.selectedColorIndex, this.state.selectedColors)
 		return (
 			<div className='color-grid'>
 				{ this.renderColorPicker() }
