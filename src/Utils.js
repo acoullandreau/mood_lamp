@@ -67,6 +67,8 @@ class Utils {
 		case b:
 			hue = (r - g) / delta + 4;
 			break;
+		default:
+			break;
 		}
 
 		return {

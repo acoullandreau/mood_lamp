@@ -3,20 +3,19 @@ export default (state = [], action) => {
 	switch(action.type) {
 		case 'FETCH_MODES':
 			return action.payload;
-			break;
+			//break;
 		case 'ADD_MODE':
 			return [...state, action.payload];
-			break;
+			//break;
 		case 'EDIT_MODE':
 			console.log(action.payload);
 			//edit a mode
 			return state;
-			break;
+			//break;
 		case 'DELETE_MODE':
 			return state.filter(mode => mode !== action.payload);
-			break;
+			//break;
 		default:
 			return state;
-			break;
 	}
 }

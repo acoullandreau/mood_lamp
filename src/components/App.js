@@ -74,7 +74,9 @@ class App extends React.Component {
 		this.setState({ overlay });
 	}
 
-	onSaveNewMode = (modeName) => {
+	onSaveNewMode = (modeInstance, modeDetails) => {
+		console.log(modeInstance)
+		console.log(modeDetails)
 		// var modeParams;
 		// if (this.state.overlay.source === 'single') {
 		// 	modeParams = this.singleColorPickerRef.current.getModeParams();
@@ -170,7 +172,7 @@ class App extends React.Component {
 			<React.Fragment>
 				<ColorPicker 
 					modeModel={modeModel}
-					onSaveMode={this.displayOverlay}
+					onSaveMode={this.onSaveNewMode}
 				/>
 			</React.Fragment>
 		)

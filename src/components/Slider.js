@@ -17,7 +17,7 @@ class Slider extends React.Component {
 
  		var style = {};
  		if (this.props.isDisabled) {
- 			var style = {'opacity':'0.3'};
+ 			style.opacity = '0.3';
 		} 
 
 		return (

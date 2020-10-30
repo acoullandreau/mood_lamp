@@ -25,6 +25,10 @@ li {
 	list-style-type: none;
 }
 
+button {
+	outline:none;
+}
+
 #root {
 	width: 100vw;
 	height: 100vh;
