@@ -135,11 +135,19 @@ button {
 	margin-left: auto;
 	margin-right: auto;
 	grid-template-columns: 75% 25%;
-	grid-template-rows: 75% 25%;
+	grid-template-rows: 85% 15%;
 	padding-right:2%;
 	padding-left:2%;
+}
+
+.color-new {
 	min-height: 75vh;
-	margin-top: 20vh;
+	margin-top: 15vh;
+}
+
+.color-edit {
+	height: 90%;
+	margin-top: 2vh;
 }
 
 .button-color-picker {
@@ -217,7 +225,6 @@ button {
 	width: 75%;
 	margin-right: 2%;
 	margin-left: 2%;
-	background: linear-gradient(to right, #FEEDDF 0%, #FEEDDF 30%, #827081 30%, #827081 100%);
     border-radius: 8px;
     height: 7px;
     outline: none; 
@@ -341,6 +348,8 @@ button {
 	-webkit-backdrop-filter: blur(5px);
 	backdrop-filter: blur(5px);
 	position: fixed;
+	top: 0;
+	left: 0;
 	height:100%;
 	width: 100%;
 	z-index: 80;
@@ -363,8 +372,9 @@ button {
 
 .OverlayEditWindow {
 	border-radius: 15px;
-	background-color:#4039548F;
+	background-color:#403954DF;
 	position: absolute;
+	min-height: 75vh;
 	height:600px;
 	width:925px;
 	padding: 1%;
@@ -397,7 +407,27 @@ button {
 	width: 90%;
 	height: 13%;
 	border-radius: 4px;
+	outline: none;
 }
+
+#overlay-edit {
+	margin-top: 1%;
+	padding-right:2%;
+	padding-left:2%;
+	background-color:transparent;
+	border:none;
+	border-bottom:1px solid #FEEDDF1F;
+	color:#FEEDDF;
+	border-radius: 4px;
+	font-size: 17px;
+	height: 5%;
+	outline: none;
+}
+
+#overlay-edit-img {
+	width:2%;
+}
+
 
 #overlay-buttons {
 	position: absolute;

@@ -11,9 +11,15 @@ class Overlay extends React.Component {
 			'display': false, 
 			'title':'', 
 			'message':'',
-			'modeName':""
+			'modeName':''
 		};
 
+	}
+
+	componentDidMount() {
+		if (this.props.settings.type === 'edit') {
+			this.setState({'modeName':this.props.settings.modeInstance.name});
+		};
 	}
 
 	closeModal() {
@@ -60,13 +66,18 @@ class Overlay extends React.Component {
 		return (
 			<React.Fragment>
 				<div className='OverlayEditWindow'>
-					<input 
-						type="text" 
-						placeholder={this.props.settings.modeInstance.name}
-						value={this.state.modeName || this.props.settings.modeInstance.name}
-						onChange={this.onInputChange} 
-					/>
+					<div>
+						<input 
+							id="overlay-edit"
+							type="text" 
+							placeholder={this.props.settings.modeInstance.name}
+							value={this.state.modeName || this.props.settings.modeInstance.name}
+							onChange={this.onInputChange} 
+						/>
+						<img id="overlay-edit-img" src={`${process.env.PUBLIC_URL}/assets/images/edit.svg`} alt="Éditer"/>
+					</div>
 					<ColorPicker 
+						type='edit'
 						modeModel={this.props.settings.modeInstance}
 						onSaveMode={this.saveMode}
 					/>

@@ -169,6 +169,7 @@ class App extends React.Component {
 		return (
 			<React.Fragment>
 				<ColorPicker 
+					type='new'
 					modeModel={modeModel}
 					onSaveMode={this.displayOverlay}
 				/>

@@ -42,7 +42,7 @@ class IroColorPicker extends React.Component {
 
 	render() {
 		return (
-			<div ref={el => this.el = el} />
+			<div style={{'alignSelf': 'center'}} ref={el => this.el = el} />
 		);
 	}
 }
@@ -57,7 +57,7 @@ class ColorPicker extends React.Component {
 			'showDelete':0,
 			'selectedColors':this.getInitialColors(),
 			'animationSpeed':this.props.modeModel.speed,
-			'sliderDisabled':true,
+			'sliderDisabled':this.getInitialSliderDisabled(),
 			'layoutParams':{
 				width: this.getInitialWidth(),
 				margin:80,
@@ -97,6 +97,14 @@ class ColorPicker extends React.Component {
 			initialColors.push(hexColor);
 		}
 		return initialColors;
+	}
+
+	getInitialSliderDisabled() {
+		if (this.props.modeModel.colors.length > 1) {
+			return false;
+		}
+
+		return true;
 	}
 
 	onSpeedChange = (speed) => {
@@ -260,7 +268,7 @@ class ColorPicker extends React.Component {
 
 	renderColorPicker() {
 		var params = this.state.layoutParams;
-		params['colors'] = this.state.selectedColors;
+		params['color'] = this.state.selectedColors[0];
 
 		return (
 			<React.Fragment>
@@ -282,12 +290,25 @@ class ColorPicker extends React.Component {
 	} 
 
 	renderButton() {
+		var buttonContent;
+		if (this.props.type === 'new') {
+			buttonContent = (
+				<React.Fragment>
+					<img style={{marginRight:'7%'}} src={`${process.env.PUBLIC_URL}/assets/images/star.svg`} alt='Enregistrer'/>
+					<React.Fragment>Enregistrer mode</React.Fragment>
+				</React.Fragment>
+			)
+		} else {
+			buttonContent = (
+				<React.Fragment>Enregistrer</React.Fragment>
+			)
+		}
+
 		return (
 			<React.Fragment>
 				<div className={['column-two', 'grid-row-two', 'button-color-picker'].join(' ')}>
 					<button className='save-button' onClick={this.onSaveNewMode} >
-						<img style={{marginRight:'7%'}} src={`${process.env.PUBLIC_URL}/assets/images/star.svg`} alt='Enregistrer'/>
-						Enregistrer mode
+						{buttonContent}
 					</button>
 				</div>
 			</React.Fragment>
@@ -296,7 +317,7 @@ class ColorPicker extends React.Component {
 
 	render() { 
 		return (
-			<div className='color-grid'>
+			<div className={['color-grid', `color-${this.props.type}`].join(' ')}>
 				{ this.renderColorPicker() }
 				{ this.renderSlider() }
 				{ this.renderColorSelectors() }
@@ -309,6 +330,7 @@ class ColorPicker extends React.Component {
 
 // props validation
 ColorPicker.propTypes = {
+	type:PropTypes.string.isRequired,
 	modeModel:PropTypes.instanceOf(ModeModel).isRequired,
 	onSaveMode:PropTypes.func.isRequired,
 
