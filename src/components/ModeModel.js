@@ -28,11 +28,17 @@ class ModeModel {
 			'isOriginMode':this.isOriginMode, 
 			'isEditable':this.isEditable,
 			'category':this.category, 
-			'color':this.colors, 
+			'colors':this.colors, 
 			'speed':this.speed
 		};
 
 		return modeDetails;
+	}
+
+	cloneInstance() {
+		var modeDetails = this.serialize();
+		var clone = ModeModel.createNewModeModel(modeDetails);
+		return clone;
 	}
 
 	setColors = (colors) => {

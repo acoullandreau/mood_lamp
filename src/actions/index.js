@@ -32,10 +32,10 @@ export const addMode = (mode) => {
 }
 
 
-export const editMode = (mode) => {
+export const editMode = (mode, refMode) => {
 	return {
 		type:'EDIT_MODE',
-		payload:mode
+		payload:{'mode':mode, 'refMode':refMode}
 	}
 }
 

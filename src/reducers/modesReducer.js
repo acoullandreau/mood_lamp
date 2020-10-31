@@ -8,9 +8,15 @@ export default (state = [], action) => {
 			return [...state, action.payload];
 			//break;
 		case 'EDIT_MODE':
-			console.log(action.payload);
-			//edit a mode
-			return state;
+			var newState = [...state];
+			var refMode = action.payload.refMode;
+			var editedMode = action.payload.mode;
+			for (var i = 0 ; i < newState.length ; i++ ) {
+				if (newState[i] === refMode) {
+					newState[i] = editedMode
+				}
+			} 
+			return newState;
 			//break;
 		case 'DELETE_MODE':
 			return state.filter(mode => mode !== action.payload);

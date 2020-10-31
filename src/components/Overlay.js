@@ -6,20 +6,15 @@ class Overlay extends React.Component {
 
 	constructor(props) {
 		super(props);
-
-		this.state = { 
-			'display': false, 
-			'title':'', 
-			'message':'',
-			'modeName':''
-		};
+		this.state = { 'modeName':''};
 
 	}
 
-	componentDidMount() {
-		if (this.props.settings.type === 'edit') {
-			this.setState({'modeName':this.props.settings.modeInstance.name});
-		};
+	componentDidUpdate(prevProps) {
+		if (this.props !== prevProps) {
+			this.setState({'modeName':''});
+		}
+
 	}
 
 	closeModal() {
@@ -34,7 +29,7 @@ class Overlay extends React.Component {
 	saveMode = () => {
 		if (this.state.modeName !== '') {
 			this.props.settings.modeInstance.setName(this.state.modeName);
-			this.props.onSave(this.props.settings.type, this.props.settings.modeInstance);
+			this.props.onSave(this.props.settings);
 			this.closeModal();
 		} 
 	}
@@ -49,7 +44,7 @@ class Overlay extends React.Component {
 						id="overlay-input" 
 						type="text" 
 						placeholder="Nom du mode" 
-						value={this.state.modeName || ''}
+						value={this.state.valueDisplayed}
 						onChange={this.onInputChange} 
 					/>
 					<div id="overlay-buttons">
@@ -63,15 +58,19 @@ class Overlay extends React.Component {
 
 	renderEditModeOverlay = () => {
 
+		var valueDisplayed = this.state.modeName;
+		if (this.state.modeName === '') {
+			valueDisplayed = this.props.settings.modeInstance.name;
+		} 
+
 		return (
 			<React.Fragment>
 				<div className='OverlayEditWindow'>
 					<div>
 						<input 
 							id="overlay-edit"
-							type="text" 
-							placeholder={this.props.settings.modeInstance.name}
-							value={this.state.modeName || this.props.settings.modeInstance.name}
+							type="text"
+							value={valueDisplayed}
 							onChange={this.onInputChange} 
 						/>
 						<img id="overlay-edit-img" src={`${process.env.PUBLIC_URL}/assets/images/edit.svg`} alt="Éditer"/>
@@ -88,7 +87,6 @@ class Overlay extends React.Component {
 	}
 
 	render() {
-
 		if (this.props.settings.type === 'new') {
 			return (
 				<React.Fragment>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchModes, addMode } from '../actions';
+import { fetchModes, addMode, editMode } from '../actions';
 import ColorPicker from './ColorPicker.js';
 import ModeModel from '../components/ModeModel.js';
 import ModesList from './ModesList.js';
@@ -15,7 +15,7 @@ class App extends React.Component {
 
 		this.state = {
 			'isConnected':false,
-			'overlay':{'display':false, 'title':'', 'message':'', 'modeName':''},
+			'overlay':{'type':'', 'display':false, 'title':'', 'message':'', 'modeName':''},
 			'disconnectDisplay':{ 'display':'none' },
 			'modesList':[]
 		};
@@ -66,32 +66,31 @@ class App extends React.Component {
 
 	displayOverlay = (parameters) => {
 		var overlay = parameters;
-		// var overlay = {...this.state.overlay};
-		// overlay['type'] = parameters.type;
-		// overlay['display'] = parameters.display;
-		// overlay['title'] = parameters.title;
-		// overlay['message'] = parameters.message;
-		// overlay['modeInstance'] = parameters.modeInstance;
 		this.setState({ overlay });
 	}
 
 
-	onSaveMode = (type, modeInstance) => {
+	onSaveMode = (parameters) => {
+		var type = parameters.type;
+		var modeInstance = parameters.modeInstance;
 		if (type === 'new') {
 			this.props.addMode(modeInstance);
 		} else if (type === 'edit') {
-			console.log(modeInstance)
-
+			var refModeInstance = parameters.refModeInstance;
+			this.props.editMode(modeInstance, refModeInstance);
 		}
 	}
 
 	onEditMode = (modeInstance) => {
+		// to keep track of the changes, we clone the modeInstance
+		var clonedModeModel = modeInstance.cloneInstance();
 		// display overlay with color picker
 		var params = {
 			'type':'edit',
 			'display':true,
 			'title':'Éditer mode', 
-			'modeInstance':modeInstance
+			'refModeInstance':modeInstance,
+			'modeInstance':clonedModeModel
 		};
 		this.displayOverlay(params);
 	}
@@ -276,4 +275,4 @@ class App extends React.Component {
 }
 
 
-export default connect(null, { fetchModes, addMode })(App);
+export default connect(null, { fetchModes, addMode, editMode })(App);
