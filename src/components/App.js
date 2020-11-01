@@ -82,7 +82,6 @@ class App extends React.Component {
 
 
 	onSaveMode = (parameters) => {
-		console.log(parameters)
 		var type = parameters.type;
 		var modeInstance = parameters.modeInstance;
 		if (type === 'new') {

@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
 import modesReducer from './modesReducer.js';
+import selectModeReducer from './selectModeReducer.js';
 
 export default combineReducers({
-	modes: modesReducer
+	modes: modesReducer,
+	selectedMode: selectModeReducer
 });

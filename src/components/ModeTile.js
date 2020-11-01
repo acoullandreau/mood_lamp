@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Utils from '../Utils.js';
 import PropTypes from 'prop-types';
-import { deleteMode } from '../actions';
+import { deleteMode, selectMode } from '../actions';
 
 class ModeTile extends React.Component {
 
@@ -18,7 +18,9 @@ class ModeTile extends React.Component {
 
 
 	launchMode = () => {
-		console.log(this.state.id)
+		this.props.selectMode(this.state.id);
+		//this.props.onTileSelect(this.state.id)
+
 		// this.setState({'launchedMode':event.target.value}, () => {
 		// 	//execute the mode
 		// 	console.log(this.state.launchedMode)
@@ -28,7 +30,6 @@ class ModeTile extends React.Component {
 	onEdit = () => {
 		//lauch the mode
 		this.props.onEditMode(this.props.model)
-		//open a color picker instance with the parameters of the modeModel associated
 	}
 
 	onDelete = () => {
@@ -84,20 +85,25 @@ class ModeTile extends React.Component {
 	renderMode = () => {
 
 		let mode = this.props.model;
-		let style = this.getThumbnail(mode.colors);
 		let thumbnailButton;
+		let borderStyle = this.props.selectedMode === this.state.id ? '6px solid #FA4D3DCA' : 'none';
+		let style;
 
 		if (this.state.category === 'off') {
+
+			style = {'backgroundColor': '#000000', 'border':borderStyle};
 			thumbnailButton = (
 				<button
 					className={["mode-button", "grid-row-one"].join(' ')}
-					style={{'backgroundColor': '#000000'}}
+					style={style}
 					onClick={this.launchMode} 
 				>
 					<img src={`${process.env.PUBLIC_URL}/assets/images/off.svg`} alt='Off' />
 				</button>
 			)
 		} else {
+			style = this.getThumbnail(mode.colors);
+			style['border'] = borderStyle;
 			thumbnailButton = (
 				<button
 					className={["mode-button", "grid-row-one"].join(' ')}
@@ -147,10 +153,14 @@ class ModeTile extends React.Component {
 	}
 }
 
+const mapStateToProps = (state) => {
+	return { selectedMode : state.selectedMode };
+}
+
 ModeTile.propTypes = {
 	model:PropTypes.object.isRequired,
 	id:PropTypes.number.isRequired,
-	onEditMode:PropTypes.func.isRequired
+	onEditMode:PropTypes.func.isRequired,
 }
 
-export default connect(null, { deleteMode })(ModeTile);
+export default connect(mapStateToProps, { deleteMode, selectMode })(ModeTile);

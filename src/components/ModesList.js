@@ -22,7 +22,12 @@ class ModesList extends React.Component {
 							Object.keys(this.props.modesList).map((item, i) => {
 								if (this.props.modesList[item].isOriginMode === false) {
 									return (
-										<ModeTile id={i} onEditMode={this.props.onEditMode} model={this.props.modesList[item]} />
+										<ModeTile 
+											id={i} 
+											onEditMode={this.props.onEditMode} 
+											model={this.props.modesList[item]} 
+											onTileSelect={this.selectTile}
+										/>
 									);
 								}
 								return null;
@@ -38,9 +43,13 @@ class ModesList extends React.Component {
 				  	{
 						React.Children.toArray(
 							Object.keys(this.props.modesList).map((item, i) => {
-								if (this.props.modesList[item].isOriginMode) {
+								if (this.props.modesList[item].isOriginMode) {			
 									return (
-										<ModeTile id={i} onEditMode={this.props.onEditMode} model={this.props.modesList[item]} />
+										<ModeTile 
+											id={i} 
+											onEditMode={this.props.onEditMode} 
+											model={this.props.modesList[item]} 
+										/>
 									);
 								}
 								return null;

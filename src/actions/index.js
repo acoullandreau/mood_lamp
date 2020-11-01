@@ -31,7 +31,6 @@ export const addMode = (mode) => {
 	}
 }
 
-
 export const editMode = (mode, refMode) => {
 	return {
 		type:'EDIT_MODE',
@@ -45,3 +44,15 @@ export const deleteMode = (mode) => {
 		payload:mode
 	}
 }
+
+export const selectMode = (mode) => {
+	return {
+		type:'SELECT_MODE',
+		payload:mode
+	}
+}
+
+
+
+
+

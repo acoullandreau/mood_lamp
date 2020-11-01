@@ -283,7 +283,7 @@ button {
 	grid-template-columns: repeat(3, 25%);
 	grid-template-rows: repeat(10, 23vh);
 	grid-column-gap: 8%;
-	grid-row-gap: 8%;
+	grid-row-gap: 6%;
 	overflow-y: scroll;
 }
 
@@ -291,7 +291,7 @@ button {
 	display: grid;
 	width: 100%;
 	height: 100%;
-	grid-template-rows: 90% 10%;
+	grid-template-rows: 83% 15%;
 	grid-row-gap: 2%;
 	border: 1px solid transparent;
 }
@@ -304,6 +304,7 @@ button {
 	background-color: #0D0828;
 	color:#FEEDDF;
 	justify-self:center;
+	margin-bottom: 20%;
 }
 
 .mode-button {
