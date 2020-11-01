@@ -90,6 +90,10 @@ class App extends React.Component {
 			var refModeInstance = parameters.refModeInstance;
 			this.props.editMode(modeInstance, refModeInstance);
 		}
+		
+		window.history.pushState({}, '', '#modes');
+		const navEvent = new PopStateEvent('popstate');
+		window.dispatchEvent(navEvent);
 	}
 
 	onEditMode = (modeInstance) => {

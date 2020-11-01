@@ -219,7 +219,7 @@ class ColorPicker extends React.Component {
 		let borderStyle;
 
 		if (hsvColor.s < 50 || (hsvColor.h > 40 && hsvColor.h < 190)) {
-			borderColor = '#FA4D3D';//#FA4D3D
+			borderColor = '#FA4D3D';
 		} else {
 			borderColor = '#FEEDDF';
 		}

@@ -85,6 +85,7 @@ class Overlay extends React.Component {
 							onChange={this.onInputChange} 
 						/>
 						<img id="overlay-edit-img" src={`${process.env.PUBLIC_URL}/assets/images/edit.svg`} alt="Éditer"/>
+						<button id="overlay-edit-close" onClick={() => this.closeModal()}>x</button>
 					</div>
 					<ColorPicker 
 						type='edit'

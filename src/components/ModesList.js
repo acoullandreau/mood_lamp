@@ -12,6 +12,25 @@ class ModesList extends React.Component {
 		document.getElementById("mode-grid").style['grid-template-rows'] = `repeat(${numRows}, 23vh)`;
 	}
 
+
+	addMode() {
+		window.history.pushState({}, '', '#couleurs');
+		const navEvent = new PopStateEvent('popstate');
+		window.dispatchEvent(navEvent);
+	}
+
+	renderAddModeButton() {
+		return (
+			<button 
+				id='add-mode'
+				onClick={this.addMode}
+			>
+				+
+			</button>
+		)
+
+	}
+
 	renderListItems = (target) => {
 
 		if (target === 'custom') {
@@ -35,6 +54,8 @@ class ModesList extends React.Component {
 							})
 						)
 					}
+					
+					{this.renderAddModeButton()}
 				</div>
 			)
 		} else if (target === 'default') {

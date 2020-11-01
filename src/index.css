@@ -300,11 +300,19 @@ button {
 	display: grid;
 	grid-template-columns: 65% 35%;
 	width: 100%;
-	height: auto;
+	height: 30px;
 	background-color: #0D0828;
 	color:#FEEDDF;
 	justify-self:center;
 	margin-bottom: 20%;
+}
+
+.mode-text p {
+	display: inline-block;
+	overflow: hidden;
+	max-width: 50ch;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .mode-button {
@@ -339,6 +347,25 @@ button {
 	display: none;
 
 }
+
+#add-mode {
+	border: 1px solid #FEEDDF;
+	border-radius: 8%;
+	background-color: transparent;
+	height: 20vh;
+  	width: 20vh;
+	margin:5%;
+	align-self: center;
+	justify-self:center;
+	color: #FEEDDF;
+	font-size: 15vh;
+	cursor: pointer;
+}
+
+#add-mode:hover {
+	background-color: #433D66;
+}
+
 
 
 
@@ -429,6 +456,17 @@ button {
 	width:2%;
 }
 
+#overlay-edit-close {
+	position: relative;
+	z-index: 100;
+	float: right;
+	background-color:transparent;
+	outline: none;
+	font-size: 25px;
+	border:none;
+	color:#FEEDDF;
+	cursor: pointer;
+}
 
 #overlay-buttons {
 	position: absolute;

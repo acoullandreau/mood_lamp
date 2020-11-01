@@ -86,7 +86,7 @@ class ModeTile extends React.Component {
 
 		let mode = this.props.model;
 		let thumbnailButton;
-		let borderStyle = this.props.selectedMode === this.state.id ? '6px solid #FA4D3DCA' : 'none';
+		let borderStyle = this.props.selectedMode === this.state.id ? '6px solid #FEEDDF' : 'none';
 		let style;
 
 		if (this.state.category === 'off') {
@@ -121,7 +121,7 @@ class ModeTile extends React.Component {
 			>
 				{ thumbnailButton }
 				<div className={["mode-text", "grid-row-two"].join(' ')}>
-					<p className="colum-two">{mode.name}</p>
+					<p className="colum-one">{mode.name}</p>
 					<div className="colum-two">
 						<button className={["hover-button", "edit-button"].join(' ')} onClick={this.onEdit} >
 							<img 
