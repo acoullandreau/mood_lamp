@@ -177,7 +177,7 @@ class ColorPicker extends React.Component {
 
 	}
 
-	onSaveNewMode = () => {
+	onSaveMode = () => {
 		// add state to modeModel
 		var modeColors = [];
 		var selectedColors = this.state.selectedColors;
@@ -187,16 +187,22 @@ class ColorPicker extends React.Component {
 		}
 		this.props.modeModel.setColors(modeColors);
 		this.props.modeModel.setSpeed(this.state.animationSpeed);
+ 
+		if (this.props.type === 'new') {
+			// send the modeModel reference back to the App
+			var params = {
+				'type':'new',
+				'display':true,
+				'title':'Nouveau mode', 
+				'message':'Enregistrer cette configuration comme nouveau mode préconfiguré.',
+				'modeInstance':this.props.modeModel
+			};
+			this.props.onSaveNewMode(params);
+		} else if (this.props.type === 'edit') {
+			this.props.onSaveEditMode(this.props.modeModel);
+		}
 
-		// send the modeModel reference back to the App
-		var params = {
-			'type':'new',
-			'display':true,
-			'title':'Nouveau mode', 
-			'message':'Enregistrer cette configuration comme nouveau mode préconfiguré.',
-			'modeInstance':this.props.modeModel
-		};
-		this.props.onSaveMode(params);
+
 	}
 
 
@@ -307,7 +313,7 @@ class ColorPicker extends React.Component {
 		return (
 			<React.Fragment>
 				<div className={['column-two', 'grid-row-two', 'button-color-picker'].join(' ')}>
-					<button className='save-button' onClick={this.onSaveNewMode} >
+					<button className='save-button' onClick={this.onSaveMode} >
 						{buttonContent}
 					</button>
 				</div>
@@ -332,7 +338,8 @@ class ColorPicker extends React.Component {
 ColorPicker.propTypes = {
 	type:PropTypes.string.isRequired,
 	modeModel:PropTypes.instanceOf(ModeModel).isRequired,
-	onSaveMode:PropTypes.func.isRequired,
+	onSaveNewMode:PropTypes.func,
+	onSaveEditMode:PropTypes.func
 
 }
 

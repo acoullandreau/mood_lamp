@@ -26,6 +26,17 @@ class Overlay extends React.Component {
 		this.setState({'modeName':input.target.value});
 	}
 
+
+	saveEditMode = (mode) => {
+		if (this.state.modeName !== '') {
+			mode.setName(this.state.modeName);
+		}
+		var parameters = {...this.props.settings};
+		parameters.modeInstance = mode;
+		this.props.onSave(parameters);
+		this.closeModal();
+	}
+
 	saveMode = () => {
 		if (this.state.modeName !== '') {
 			this.props.settings.modeInstance.setName(this.state.modeName);
@@ -78,7 +89,7 @@ class Overlay extends React.Component {
 					<ColorPicker 
 						type='edit'
 						modeModel={this.props.settings.modeInstance}
-						onSaveMode={this.saveMode}
+						onSaveEditMode={this.saveEditMode}
 					/>
 				</div>
 			</React.Fragment>

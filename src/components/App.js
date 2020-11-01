@@ -71,6 +71,7 @@ class App extends React.Component {
 
 
 	onSaveMode = (parameters) => {
+		console.log(parameters)
 		var type = parameters.type;
 		var modeInstance = parameters.modeInstance;
 		if (type === 'new') {
@@ -170,7 +171,7 @@ class App extends React.Component {
 				<ColorPicker 
 					type='new'
 					modeModel={modeModel}
-					onSaveMode={this.displayOverlay}
+					onSaveNewMode={this.displayOverlay}
 				/>
 			</React.Fragment>
 		)
