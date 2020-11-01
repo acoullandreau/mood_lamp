@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ModeTile from './ModeTile.js';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import PropTypes from 'prop-types';
+import ModeTile from './ModeTile.js';
 
 class ModesList extends React.Component {
 
@@ -11,27 +12,63 @@ class ModesList extends React.Component {
 		document.getElementById("mode-grid").style['grid-template-rows'] = `repeat(${numRows}, 23vh)`;
 	}
 
-	renderListItems = () => {
-		return (
-			<div id="mode-grid">
-			  	{
-					React.Children.toArray(
-						Object.keys(this.props.modesList).map((item, i) => {
-							return (
-								<ModeTile id={i} onEditMode={this.props.onEditMode} model={this.props.modesList[item]} />
-							);
+	renderListItems = (target) => {
 
-						})
-					)
-				}
-			</div>
-		)
+		if (target === 'custom') {
+			return (
+				<div id="mode-grid">
+				  	{
+						React.Children.toArray(
+							Object.keys(this.props.modesList).map((item, i) => {
+								if (this.props.modesList[item].isOriginMode === false) {
+									return (
+										<ModeTile id={i} onEditMode={this.props.onEditMode} model={this.props.modesList[item]} />
+									);
+								}
+								return null;
+
+							})
+						)
+					}
+				</div>
+			)
+		} else if (target === 'default') {
+			return (
+				<div id="mode-grid">
+				  	{
+						React.Children.toArray(
+							Object.keys(this.props.modesList).map((item, i) => {
+								if (this.props.modesList[item].isOriginMode) {
+									return (
+										<ModeTile id={i} onEditMode={this.props.onEditMode} model={this.props.modesList[item]} />
+									);
+								}
+								return null;
+
+							})
+						)
+					}
+				</div>
+			)
+		}
 	}
 
 	render() {
 		return (
 			<React.Fragment>
-				{this.renderListItems()}
+				<Tabs forceRenderTabPanel={true} >
+					<TabList>
+					<Tab>Interactifs</Tab>
+					<Tab>Personalisés</Tab>
+					</TabList>
+
+					<TabPanel>
+						{this.renderListItems('default')}
+					</TabPanel>
+					<TabPanel>
+						{this.renderListItems('custom')}
+					</TabPanel>
+				</Tabs>
 			</React.Fragment>
 		) 
 

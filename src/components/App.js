@@ -8,6 +8,17 @@ import Overlay from './Overlay.js';
 import Route from './Route.js';
 import SideNavBar from './SideNavBar.js';
 
+
+
+// Automatismes page
+// Readings page
+// Mobile version (user Agent, replace hover and click with hold and tap, vertical layout)
+// ReadMe (Chrome only, improvements possible)
+	// native app (iOS)
+	// other languages
+	// OTA menu
+
+
 class App extends React.Component {
 
 	constructor(props) {
@@ -100,26 +111,24 @@ class App extends React.Component {
 	onConnectClick = () =>  {
 		// try to connect to the micro-controller
 		// once the connection is established, call onConnect
+		this.onConnect();
+
 	}
 
 	onDisconnectClick = () =>  {
 		// serialize the store
 		// send the new state to the micro-controller?
 		// once the disconnection is confirmed, call onDisconnect
+		this.onDisconnect();
 	}
 
 	onConnect = () => {
-		if (this.state.isConnected === false) {
-			this.setState({'isConnected':true}, () => {
-				this.props.fetchModes();
-			});
-			window.history.pushState({}, '', '#modes');
-			const navEvent = new PopStateEvent('popstate');
-			window.dispatchEvent(navEvent);
-
-		} else {
-		}
-
+		this.setState({'isConnected':true}, () => {
+			this.props.fetchModes();
+		});
+		window.history.pushState({}, '', '#modes');
+		const navEvent = new PopStateEvent('popstate');
+		window.dispatchEvent(navEvent);
 	}
 
 	onDisconnect = () =>  {
@@ -135,7 +144,7 @@ class App extends React.Component {
 			<div id='home'>
 				<button 
 					className={['column-one', 'button-home'].join(' ')}
-					onClick={this.onConnect}
+					onClick={this.state.isConnected === false ? this.onConnectClick : this.onDisconnectClick }
 				>
 					{this.state.isConnected === false ? 'Connecter' : 'Déconnecter' }
 				</button>
@@ -241,7 +250,7 @@ class App extends React.Component {
 							id='disconnect-button'
 							style={disconnectDisplay}
 							value='disconnect'
-							onClick={this.onConnect}
+							onClick={this.onDisconnectClick}
 						>Déconnecter</button>
 					</div>
 

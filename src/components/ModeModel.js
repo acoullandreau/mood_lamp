@@ -43,6 +43,11 @@ class ModeModel {
 
 	setColors = (colors) => {
 		this.colors = colors;
+		if (colors.length > 1 && this.category === 'single') {
+			this.category = 'gradient';
+		} else if (colors.length === 1 && this.category === 'gradient') {
+			this.single = 'gradient';
+		}
 	}
 
 	setSpeed = (speed) => {
