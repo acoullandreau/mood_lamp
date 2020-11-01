@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { selectMode } from '../actions';
 import iro from '@jaames/iro';
 import ModeModel from './ModeModel.js';
 import Slider from './Slider.js';
@@ -125,6 +127,12 @@ class ColorPicker extends React.Component {
 
 		// send color to the microcontroller for live update
 		// #############################################
+
+		// if the color picker is not editing a saved mode, the selectedMode from the redux store should be cleared
+		if (this.props.type === 'new') {
+			this.props.selectMode('');
+		}
+
 	}
 
 	onColorClick = (event) => {
@@ -190,7 +198,7 @@ class ColorPicker extends React.Component {
  
 		if (this.props.type === 'new') {
 			// send the modeModel reference back to the App
-			var params = {
+			let params = {
 				'type':'new',
 				'display':true,
 				'title':'Nouveau mode', 
@@ -205,6 +213,25 @@ class ColorPicker extends React.Component {
 
 	}
 
+	getSelectedBorder = (index, background) => {
+		let hsvColor = Utils.convertHextoHSV(background);
+		let borderColor;
+		let borderStyle;
+
+		if (hsvColor.s < 50 || (hsvColor.h > 40 && hsvColor.h < 190)) {
+			borderColor = '#FA4D3D';//#FA4D3D
+		} else {
+			borderColor = '#FEEDDF';
+		}
+
+		if (parseInt(index) === this.state.selectedColorIndex) {
+			borderStyle = `5px solid ${borderColor}`;
+		} else {
+			borderStyle = `1px solid ${borderColor}1A`;
+		}
+
+		return borderStyle;
+	}
 
 	renderDeleteIcon = (index, background) => {
 		var hsvColor = Utils.convertHextoHSV(background);
@@ -248,17 +275,14 @@ class ColorPicker extends React.Component {
 			  	{
 					React.Children.toArray(
 						Object.keys(this.state.selectedColors).map((item, i) => {
-							var background = this.state.selectedColors[item];
-							var borderColor = '1px solid #FEEDDF1A';
-							if (parseInt(item) === this.state.selectedColorIndex) {
-								borderColor = '5px solid #FEEDDF';
-							}
+							let background = this.state.selectedColors[item];
+							let borderStyle = this.getSelectedBorder(item, background);
 
 							return (
 								<button 
 									value={item}
 									className='color-selector' 
-									style={{'backgroundColor':background, 'border':borderColor}}
+									style={{'backgroundColor':background, 'border':borderStyle}}
 									onClick={this.onColorClick}
 								>
 									{this.renderDeleteIcon(parseInt(item), background)}
@@ -273,7 +297,7 @@ class ColorPicker extends React.Component {
 	}
 
 	renderColorPicker() {
-		var params = this.state.layoutParams;
+		let params = this.state.layoutParams;
 		params['color'] = this.state.selectedColors[0];
 
 		return (
@@ -343,4 +367,4 @@ ColorPicker.propTypes = {
 
 }
 
-export default ColorPicker;
+export default connect(null, {selectMode})(ColorPicker);

@@ -47,7 +47,7 @@ class ModeTile extends React.Component {
 
 			if (colors.length > 1) {
 				var gradient = Utils.getGradient(colors);
-				return { 'backgroundColor':initialColor, 'background':gradient };
+				return { 'background':gradient };
 			} 
 
 			return {'backgroundColor': initialColor};

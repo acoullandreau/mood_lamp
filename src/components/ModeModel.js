@@ -46,7 +46,7 @@ class ModeModel {
 		if (colors.length > 1 && this.category === 'single') {
 			this.category = 'gradient';
 		} else if (colors.length === 1 && this.category === 'gradient') {
-			this.single = 'gradient';
+			this.category = 'single';
 		}
 	}
 
