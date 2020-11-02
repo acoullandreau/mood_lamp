@@ -2,7 +2,7 @@ import ModeModel from '../components/ModeModel.js';
 
 export const fetchModes = () => {
 	return (dispatch) => {
-		//fetch JSON of modes
+		//fetch JSON of modes and selected mode
 
 		const modesArray = [
 			{'name':'Éteindre', 'isOriginMode':true, 'isEditable':false, 'category':'off', 'colors':[{ r: 0, g: 0, b: 0 }], 'speed':0},
@@ -19,7 +19,9 @@ export const fetchModes = () => {
 			modesList.push(mode);
 		}
 
-		dispatch({type:'FETCH_MODES', payload:modesList })
+		var selectedMode = 3;
+
+		dispatch({type:'FETCH_MODES', payload:{'list':modesList, 'selectedMode':selectedMode} })
 	}
 
 };

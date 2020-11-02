@@ -12,7 +12,6 @@ class ModesList extends React.Component {
 		document.getElementById("mode-grid").style['grid-template-rows'] = `repeat(${numRows}, 25vh)`;
 	}
 
-
 	addMode() {
 		window.history.pushState({}, '', '#couleurs');
 		const navEvent = new PopStateEvent('popstate');
@@ -20,13 +19,16 @@ class ModesList extends React.Component {
 	}
 
 	renderAddModeButton() {
-		return (
-			<button 
-				id='add-mode'
-				onClick={this.addMode}
-			>
-				+
-			</button>
+		return (	
+			<div className='mode-sub-grid'>
+				<button 
+					id='add-mode'
+					className= "grid-row-one"
+					onClick={this.addMode}
+				>
+					+
+				</button>
+			</div>
 		)
 
 	}
@@ -43,7 +45,8 @@ class ModesList extends React.Component {
 									return (
 										<ModeTile 
 											id={i} 
-											onEditMode={this.props.onEditMode} 
+											onEditMode={this.props.onEditMode}
+											onDeleteMode={this.props.onDeleteMode}
 											model={this.props.modesList[item]} 
 											onTileSelect={this.selectTile}
 										/>
@@ -69,6 +72,7 @@ class ModesList extends React.Component {
 										<ModeTile 
 											id={i} 
 											onEditMode={this.props.onEditMode} 
+											onDeleteMode={this.props.onDeleteMode}
 											model={this.props.modesList[item]} 
 										/>
 									);
@@ -84,9 +88,10 @@ class ModesList extends React.Component {
 	}
 
 	render() {
+
 		return (
 			<React.Fragment>
-				<Tabs forceRenderTabPanel={true} >
+				<Tabs forceRenderTabPanel={true} defaultIndex={this.props.index}>
 					<TabList>
 					<Tab>Interactifs</Tab>
 					<Tab>Personalisés</Tab>
@@ -111,7 +116,9 @@ const mapStateToProps = (state) => {
 
 
 ModesList.propTypes = {
-	onEditMode:PropTypes.func.isRequired
+	index:PropTypes.number.isRequired,
+	onEditMode:PropTypes.func.isRequired,
+	onDeleteMode:PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps)(ModesList);

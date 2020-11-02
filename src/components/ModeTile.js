@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Utils from '../Utils.js';
 import PropTypes from 'prop-types';
-import { deleteMode, selectMode } from '../actions';
+import { selectMode } from '../actions';
 
 class ModeTile extends React.Component {
 
@@ -19,21 +19,17 @@ class ModeTile extends React.Component {
 
 	launchMode = () => {
 		this.props.selectMode(this.state.id);
-		//this.props.onTileSelect(this.state.id)
-
-		// this.setState({'launchedMode':event.target.value}, () => {
-		// 	//execute the mode
-		// 	console.log(this.state.launchedMode)
-		// })
+		// send the info to the microcontroller
 	}
 
 	onEdit = () => {
 		//lauch the mode
+		this.launchMode();
 		this.props.onEditMode(this.props.model)
 	}
 
 	onDelete = () => {
-		this.props.deleteMode(this.props.model)
+		this.props.onDeleteMode(this.props.model);
 	}
 
 	getThumbnail = (colors) => {
@@ -162,6 +158,7 @@ ModeTile.propTypes = {
 	model:PropTypes.object.isRequired,
 	id:PropTypes.number.isRequired,
 	onEditMode:PropTypes.func.isRequired,
+	onDeleteMode:PropTypes.func.isRequired,
 }
 
-export default connect(mapStateToProps, { deleteMode, selectMode })(ModeTile);
+export default connect(mapStateToProps, { selectMode })(ModeTile);

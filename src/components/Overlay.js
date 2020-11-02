@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { deleteMode } from '../actions';
 import ColorPicker from './ColorPicker.js';
 
 class Overlay extends React.Component {
@@ -44,6 +46,11 @@ class Overlay extends React.Component {
 			this.closeModal();
 		} 
 	}
+
+	deleteMode = () => {
+		this.props.deleteMode(this.props.settings.modeInstance);
+		this.closeModal();
+	} 
 
 	renderNameInputOverlay = () => {
 		return (
@@ -98,6 +105,23 @@ class Overlay extends React.Component {
 
 	}
 
+	renderDeletetModeOverlay = () => {
+		return (
+			<React.Fragment>
+				<div className='OverlayInputWindow'>
+					<div id="overlay-title">{this.props.settings.title}</div>
+					<div id="overlay-text">{this.props.settings.message}</div>
+					<div id="overlay-buttons">
+						<button className="overlay-button" onClick={() => this.closeModal()}>Annuler</button>
+						<button className="overlay-button"onClick={() => this.deleteMode()}>Supprimer</button>
+					</div>
+				</div>
+			</React.Fragment>
+		)
+
+	}
+
+
 	render() {
 		if (this.props.settings.type === 'new') {
 			return (
@@ -113,6 +137,13 @@ class Overlay extends React.Component {
 					{this.renderEditModeOverlay()}
 				</React.Fragment>
 			)
+		} else if (this.props.settings.type === 'delete') {
+			return (
+				<React.Fragment>
+					<div className="Blur" onClick={() => this.closeModal()}></div>
+					{this.renderDeletetModeOverlay()}
+				</React.Fragment>
+			)
 		}
 
 		return null;
@@ -125,7 +156,8 @@ class Overlay extends React.Component {
 Overlay.propTypes = {
 	settings:PropTypes.object.isRequired,
 	onClose:PropTypes.func.isRequired,
-	onSave:PropTypes.func.isRequired
+	onSave:PropTypes.func.isRequired,
 }
 
-export default Overlay;
+
+export default connect(null, { deleteMode })(Overlay);

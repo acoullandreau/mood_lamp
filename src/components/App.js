@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchModes, addMode, editMode } from '../actions';
+import { fetchModes, addMode, editMode, selectMode } from '../actions';
 import ColorPicker from './ColorPicker.js';
 import ModeModel from '../components/ModeModel.js';
 import ModesList from './ModesList.js';
@@ -28,10 +28,9 @@ class App extends React.Component {
 			'isConnected':false,
 			'overlay':{'type':'', 'display':false, 'title':'', 'message':'', 'modeName':''},
 			'disconnectDisplay':{ 'display':'none' },
-			'modesList':[]
+			'tabIndex':0
 		};
 
-		this.overlayRef = React.createRef();
 		this.singleColorPickerRef = React.createRef();
 		this.gradientColorPickerRef = React.createRef();
 		this.onWindowResize();
@@ -86,14 +85,18 @@ class App extends React.Component {
 		var modeInstance = parameters.modeInstance;
 		if (type === 'new') {
 			this.props.addMode(modeInstance);
+			this.props.selectMode(this.props.modesList.length);
 		} else if (type === 'edit') {
 			var refModeInstance = parameters.refModeInstance;
 			this.props.editMode(modeInstance, refModeInstance);
 		}
-		
-		window.history.pushState({}, '', '#modes');
-		const navEvent = new PopStateEvent('popstate');
-		window.dispatchEvent(navEvent);
+
+		this.setState({'tabIndex':1}, () => {
+			window.history.pushState({}, '', '#modes');
+			const navEvent = new PopStateEvent('popstate');
+			window.dispatchEvent(navEvent);
+		})
+
 	}
 
 	onEditMode = (modeInstance) => {
@@ -110,6 +113,17 @@ class App extends React.Component {
 		this.displayOverlay(params);
 	}
 
+	onDeleteMode = (modeInstance) => {
+		var params = {
+			'type':'delete',
+			'display':true,
+			'title':'Supprimer le mode', 
+			'message':'Êtes-vous sûr(e) de vouloir supprimer ce mode ? Cette action est irréversible.',
+			'modeInstance':modeInstance
+		};
+		this.displayOverlay(params);
+	}
+
 
 	onConnectClick = () =>  {
 		// try to connect to the micro-controller
@@ -122,6 +136,7 @@ class App extends React.Component {
 		// serialize the store
 		// send the new state to the micro-controller?
 		// once the disconnection is confirmed, call onDisconnect
+		this.setState({'tabIndex':0});
 		this.onDisconnect();
 	}
 
@@ -159,7 +174,11 @@ class App extends React.Component {
 		if (this.state.isConnected) {	
 			return (
 				<div className='grid-row-two'>
-					<ModesList onEditMode={this.onEditMode} />
+					<ModesList 
+						onEditMode={this.onEditMode} 
+						onDeleteMode={this.onDeleteMode}
+						index={this.state.tabIndex}
+					/>
 				</div>
 			)
 		}
@@ -227,13 +246,13 @@ class App extends React.Component {
 		if (this.state.overlay.display) {
 			overlay = (
 				<div style={{display:'block'}}>
-					<Overlay settings={this.state.overlay} onClose={this.displayOverlay} onSave={this.onSaveMode} ref={this.overlayRef} />
+					<Overlay settings={this.state.overlay} onClose={this.displayOverlay} onSave={this.onSaveMode} />
 				</div>
 			)
 		} else {
 			overlay = (
 				<div style={{display:'none'}}>
-					<Overlay settings={this.state.overlay} onClose={this.displayOverlay} onSave={this.onSaveMode} ref={this.overlayRef} />
+					<Overlay settings={this.state.overlay} onClose={this.displayOverlay} onSave={this.onSaveMode} />
 				</div>
 			)
 		}
@@ -287,5 +306,9 @@ class App extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => {
+	return { modesList : state.modes };
+}
 
-export default connect(null, { fetchModes, addMode, editMode })(App);
+
+export default connect(mapStateToProps, { fetchModes, addMode, editMode, selectMode })(App);

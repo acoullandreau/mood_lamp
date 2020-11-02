@@ -316,6 +316,11 @@ button {
 	white-space: nowrap;
 }
 
+.mode-text p:hover {
+	overflow: visible;
+	white-space: normal;
+}
+
 .mode-button {
 	padding:0;
 	position: relative;

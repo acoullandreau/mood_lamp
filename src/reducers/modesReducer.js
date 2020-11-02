@@ -2,7 +2,7 @@
 export default (state = [], action) => {
 	switch(action.type) {
 		case 'FETCH_MODES':
-			return action.payload;
+			return action.payload.list;
 			//break;
 		case 'ADD_MODE':
 			return [...state, action.payload];
