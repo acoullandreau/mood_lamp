@@ -55,7 +55,7 @@ class Overlay extends React.Component {
 	renderNameInputOverlay = () => {
 		return (
 			<React.Fragment>
-				<div className='OverlayInputWindow'>
+				<div className={['OverlayWindow', 'OverlayInputWindow'].join(' ')}>
 					<div id="overlay-title">{this.props.settings.title}</div>
 					<div id="overlay-text">{this.props.settings.message}</div>
 					<input 
@@ -83,7 +83,7 @@ class Overlay extends React.Component {
 
 		return (
 			<React.Fragment>
-				<div className='OverlayEditWindow'>
+				<div className={['OverlayWindow', 'OverlayEditWindow'].join(' ')}>
 					<div>
 						<input 
 							id="overlay-edit"
@@ -108,7 +108,7 @@ class Overlay extends React.Component {
 	renderDeletetModeOverlay = () => {
 		return (
 			<React.Fragment>
-				<div className='OverlayInputWindow'>
+				<div className={['OverlayWindow', 'OverlayDeleteWindow'].join(' ')}>
 					<div id="overlay-title">{this.props.settings.title}</div>
 					<div id="overlay-text">{this.props.settings.message}</div>
 					<div id="overlay-buttons">
