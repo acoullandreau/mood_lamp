@@ -54,6 +54,12 @@ export const selectMode = (mode) => {
 	}
 }
 
+export const getFactorySettings = (jsonFile) => {
+	return {
+		type:'GET_FACTORY_SETTINGS',
+		payload:jsonFile
+	}
+}
 
 
 

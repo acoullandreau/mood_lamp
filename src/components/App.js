@@ -1,14 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchModes, addMode, editMode, selectMode } from '../actions';
+import { fetchModes, addMode, editMode, getFactorySettings, selectMode } from '../actions';
 import ColorPicker from './ColorPicker.js';
 import ModeModel from '../components/ModeModel.js';
 import ModesList from './ModesList.js';
 import Overlay from './Overlay.js';
 import Route from './Route.js';
 import SideNavBar from './SideNavBar.js';
-
-
+import factoryModesJSON from '../factoryModes.json';
 
 // Automatismes page
 // Readings page
@@ -28,7 +27,7 @@ class App extends React.Component {
 			'isConnected':false,
 			'overlay':{'type':'', 'display':false, 'title':'', 'message':'', 'modeName':''},
 			'disconnectDisplay':{ 'display':'none' },
-			'tabIndex':0
+			'tabIndex':0,
 		};
 
 
@@ -39,8 +38,15 @@ class App extends React.Component {
 
 
 	componentDidMount() {
+		// add the factoryModes JSON to the redux store
+		this.props.getFactorySettings(factoryModesJSON);
+
+
+		//add event listeners
 		window.addEventListener('resize', this.onWindowResize);
 		window.addEventListener('popstate', this.onLocationChange);
+
+		// redirect to the home page
 		window.history.pushState({}, '', '#');
 		const navEvent = new PopStateEvent('popstate');
 		window.dispatchEvent(navEvent);
@@ -385,4 +391,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, { fetchModes, addMode, editMode, selectMode })(App);
+export default connect(mapStateToProps, { fetchModes, addMode, editMode, getFactorySettings, selectMode })(App);

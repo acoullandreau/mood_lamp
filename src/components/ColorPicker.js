@@ -336,7 +336,7 @@ class ColorPicker extends React.Component {
 
 		return (
 			<React.Fragment>
-				<div className={['column-two', 'grid-row-two', 'button-color-picker'].join(' ')}>
+				<div className={['column-two', 'grid-row-two', 'button-color-picker'].join(' ')}>				
 					<button className='save-button' onClick={this.onSaveMode} >
 						{buttonContent}
 					</button>

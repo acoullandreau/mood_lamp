@@ -159,7 +159,8 @@ button {
 .save-button {
 	width: 100%;
 	height: 6vh;
-	background-color: #403954;
+	background-color: #625780;
+	border:1px solid #FEEDDF1F;
 	border-radius: 8px;
 	color: #FEEDDF;
 	font-size: 2vh;
@@ -167,7 +168,7 @@ button {
 }
 
 .save-button:hover {
-	background-color: #625780;
+	background-color: #8378A2;
 }
 
 
@@ -489,6 +490,27 @@ button {
 	border:none;
 	color:#FEEDDF;
 	cursor: pointer;
+}
+
+#overlay-reset-button {
+	margin-left: 3%;
+	width: 10%;
+	height: 4vh;
+	font-size: 2vh;
+	color:#FEEDDF;
+	background-color:transparent;
+	/*background-color: #403954;*/
+	border:1px solid #FEEDDF1F;
+	border-radius: 8px;
+	cursor: pointer;
+}	
+
+#overlay-reset-button:hover {
+	background-color: #625780;
+}
+
+#overlay-reset-button:disabled{
+	opacity:0.3;
 }
 
 #overlay-buttons {

@@ -47,10 +47,69 @@ class Overlay extends React.Component {
 		} 
 	}
 
+	onResetMode = (event) => {
+		var initialSetting = this.props.factoryModesSettings[this.props.settings.modeInstance.name];
+		console.log(initialSetting, this.props.settings.modeInstance)
+		//this.props.settings.modeInstance.setColors(initialSetting)
+		// console.log(this.props.settings.modeInstance)
+	} 
+
 	deleteMode = () => {
 		this.props.deleteMode(this.props.settings.modeInstance);
 		this.closeModal();
 	} 
+
+
+	renderResetButton() {
+		if (this.props.settings.modeInstance.isOriginMode) {
+			var initialSetting = this.props.factoryModesSettings[this.props.settings.modeInstance.name];
+			var currentSetting = this.props.settings.modeInstance.colors;
+			var buttonDisabled = JSON.stringify(initialSetting)===JSON.stringify(currentSetting) ? true : false;
+
+			return (
+				<button 
+					id='overlay-reset-button' 
+					disabled={buttonDisabled}
+					onClick={this.onResetMode} 
+				>
+					Reset
+				</button>
+			);
+		} else {
+			return null;
+		}
+	}
+
+	renderInputField() {
+		var valueDisplayed = this.state.modeName;
+		if (this.state.modeName === '') {
+			valueDisplayed = this.props.settings.modeInstance.name;
+		} 
+
+		if (this.props.settings.modeInstance.isOriginMode) {
+			return (
+				<input 
+					id="overlay-edit"
+					type="text"
+					value={valueDisplayed}
+					disabled={true}
+				/>
+			)
+		} else {
+			return (
+				<React.Fragment>
+					<input 
+						id="overlay-edit"
+						type="text"
+						value={valueDisplayed}
+						onChange={this.onInputChange} 
+					/>
+					<img id="overlay-edit-img" src={`${process.env.PUBLIC_URL}/assets/images/edit.svg`} alt="Éditer"/>
+				</React.Fragment>
+			)
+
+		}
+	}
 
 	renderNameInputOverlay = () => {
 		return (
@@ -76,22 +135,12 @@ class Overlay extends React.Component {
 
 	renderEditModeOverlay = () => {
 
-		var valueDisplayed = this.state.modeName;
-		if (this.state.modeName === '') {
-			valueDisplayed = this.props.settings.modeInstance.name;
-		} 
-
 		return (
 			<React.Fragment>
 				<div className={['OverlayWindow', 'OverlayEditWindow'].join(' ')}>
 					<div>
-						<input 
-							id="overlay-edit"
-							type="text"
-							value={valueDisplayed}
-							onChange={this.onInputChange} 
-						/>
-						<img id="overlay-edit-img" src={`${process.env.PUBLIC_URL}/assets/images/edit.svg`} alt="Éditer"/>
+						{this.renderInputField()}
+						{this.renderResetButton()}
 						<button id="overlay-edit-close" onClick={() => this.closeModal()}>x</button>
 					</div>
 					<ColorPicker 
@@ -152,6 +201,9 @@ class Overlay extends React.Component {
 	}
 }
 
+const mapStateToProps = (state) => {
+	return { factoryModesSettings : state.factorySettings };
+}
 
 Overlay.propTypes = {
 	settings:PropTypes.object.isRequired,
@@ -159,6 +211,6 @@ Overlay.propTypes = {
 	onSave:PropTypes.func.isRequired,
 }
 
-export default connect(null, { deleteMode })(Overlay);
+export default connect(mapStateToProps, { deleteMode })(Overlay);
 
 
