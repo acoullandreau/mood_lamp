@@ -279,9 +279,10 @@ button {
 	height: 60vh;
 	margin-right: auto;
 	margin-left: auto;
-	margin-top: 15vh;
+	padding:2%;
+	margin-top: 12vh;
 	grid-template-columns: repeat(3, 25%);
-	grid-template-rows: repeat(10, 23vh);
+	grid-template-rows: repeat(10, 25vh);
 	grid-column-gap: 8%;
 	grid-row-gap: 6%;
 	overflow-y: scroll;
@@ -322,6 +323,19 @@ button {
 	border-radius: 8px;
 	border: 1px solid rgba(254, 237, 223, 0.1);
 	cursor: pointer;
+}
+
+
+.mode-button:after {
+	content: '';
+	display: block;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	border-radius: 5px;
+	/*border: 2px solid #ccc;*/
 }
 
 .hover-button {

@@ -86,11 +86,11 @@ class ModeTile extends React.Component {
 
 		let mode = this.props.model;
 		let thumbnailButton;
-		let borderStyle = this.props.selectedMode === this.state.id ? '6px solid #FEEDDF' : 'none';
+		let borderStyle = this.props.selectedMode === this.state.id ? '3px solid #FEEDDF' : '1px solid rgba(254, 237, 223, 0.1)';
+		let outerBorderStyle = this.props.selectedMode === this.state.id ? '0 0 5px 5px #FA4D3D' : 'none'; //'3px solid #FA4D3DDF' inset 
 		let style;
 
 		if (this.state.category === 'off') {
-
 			style = {'backgroundColor': '#000000', 'border':borderStyle};
 			thumbnailButton = (
 				<button
@@ -104,6 +104,7 @@ class ModeTile extends React.Component {
 		} else {
 			style = this.getThumbnail(mode.colors);
 			style['border'] = borderStyle;
+			style['WebkitBoxShadow'] = outerBorderStyle;
 			thumbnailButton = (
 				<button
 					className={["mode-button", "grid-row-one"].join(' ')}
