@@ -159,5 +159,6 @@ Overlay.propTypes = {
 	onSave:PropTypes.func.isRequired,
 }
 
-
 export default connect(null, { deleteMode })(Overlay);
+
+

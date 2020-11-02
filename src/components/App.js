@@ -31,6 +31,7 @@ class App extends React.Component {
 			'tabIndex':0
 		};
 
+
 		this.singleColorPickerRef = React.createRef();
 		this.gradientColorPickerRef = React.createRef();
 		this.onWindowResize();
@@ -40,6 +41,9 @@ class App extends React.Component {
 	componentDidMount() {
 		window.addEventListener('resize', this.onWindowResize);
 		window.addEventListener('popstate', this.onLocationChange);
+		window.history.pushState({}, '', '#');
+		const navEvent = new PopStateEvent('popstate');
+		window.dispatchEvent(navEvent);
 	}
 
 	componentDidUpdate() {
@@ -171,18 +175,15 @@ class App extends React.Component {
 	}
 
 	renderModes = () => {
-		if (this.state.isConnected) {	
-			return (
-				<div className='grid-row-two'>
-					<ModesList 
-						onEditMode={this.onEditMode} 
-						onDeleteMode={this.onDeleteMode}
-						index={this.state.tabIndex}
-					/>
-				</div>
-			)
-		}
-		return null;
+		return (
+			<div className='grid-row-two'>
+				<ModesList 
+					onEditMode={this.onEditMode} 
+					onDeleteMode={this.onDeleteMode}
+					index={this.state.tabIndex}
+				/>
+			</div>
+		)
 	}
 
 	renderCouleurs = () => {
@@ -206,41 +207,50 @@ class App extends React.Component {
 				/>
 			</React.Fragment>
 		)
-		// if (this.state.isConnected) { 
-		// }
-		// return null;
 	}
 
 	renderMesures = () => {
-		if (this.state.isConnected) {	
-			return (
-				<React.Fragment>
-					<div className="grid-row-one">
-						Rafraîchir
-					</div>
-					<div className="grid-row-two">
-						Mesures
-					</div>
-				</React.Fragment>
-			)
-		}
-		return null;
+		return (
+			<React.Fragment>
+				<div className="grid-row-one">
+					Rafraîchir
+				</div>
+				<div className="grid-row-two">
+					Mesures
+				</div>
+			</React.Fragment>
+		)
 	}
 
 
 	renderAutomatismes = () => {
-		if (this.state.isConnected) {	
-			return (
-				<div className="grid-row-two">
-					Automatismes
-				</div>
-			)
-		}
-		return null;
+		return (
+			<div className="grid-row-two">
+				Automatismes
+			</div>
+		)
 	}
 
-	render() {
 
+	renderDisconnected() {
+		return (
+			<React.Fragment>
+				<div className="grid-content">
+					<div className="content-one">
+						<div id='logo'>
+							<a href='/#'><img src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`} alt='Maïa' /></a>
+						</div>
+					</div>
+					<div className={["content-two", "column-two"].join(' ')}>
+						{ this.renderHome() }
+					</div>
+				</div>
+			</React.Fragment>
+		);
+	}
+
+
+	renderConnected() {
 		let disconnectDisplay = this.state.disconnectDisplay;
 		let overlay;
 		if (this.state.overlay.display) {
@@ -302,6 +312,70 @@ class App extends React.Component {
 				</div>
 			</React.Fragment>
 		);
+	}
+
+	render() {
+
+		if (this.state.isConnected) {
+			return (
+				<React.Fragment>
+					{this.renderConnected()}
+				</React.Fragment>
+			);
+		} else {
+			return (
+				<React.Fragment>
+					{this.renderDisconnected()}
+				</React.Fragment>
+			);
+		}
+
+
+		// return (
+		// 	<React.Fragment>
+		// 		{ overlay }
+		// 		<div className="grid-content">
+		// 			<div className="content-one">
+		// 				<div id='logo'>
+		// 					<a href='/#'><img src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`} alt='Maïa' /></a>
+		// 				</div>
+		// 				<div id='nav-bar'>
+		// 					<SideNavBar/>
+		// 				</div>
+		// 				<button 
+		// 					id='disconnect-button'
+		// 					style={disconnectDisplay}
+		// 					value='disconnect'
+		// 					onClick={this.onDisconnectClick}
+		// 				>Déconnecter</button>
+		// 			</div>
+
+		// 			<div className={["content-two", "column-two"].join(' ')}>
+		// 				<Route path='' >
+		// 					{ this.renderHome() }
+		// 				</Route>
+		// 				<Route path="#modes" >
+		// 					{ this.renderModes() }
+		// 				</Route>
+		// 				<Route path="#couleurs" >
+		// 					<React.Fragment>
+		// 						{ this.renderCouleurs() }
+		// 					</React.Fragment>
+		// 				</Route>
+		// 				<Route path="#mesures">
+		// 					<React.Fragment>
+		// 						{ this.renderMesures() }
+		// 					</React.Fragment>
+		// 				</Route>
+		// 				<Route path="#automatismes">
+		// 					<React.Fragment>
+		// 						{ this.renderAutomatismes() }
+		// 					</React.Fragment>
+		// 				</Route>
+		// 			</div>
+		// 		</div>
+		// 	</React.Fragment>
+		// );
 
   }
 }
