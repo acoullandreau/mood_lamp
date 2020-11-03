@@ -92,11 +92,13 @@ class ColorPicker extends React.Component {
 	}
 
 	getInitialSliderDisabled() {
-		if (this.props.modeModel.colors.length > 1) {
-			return false;
+		if (this.props.modeModel.colors.length === 1) {
+			return true;
+		} else if (this.props.modeModel.isOriginMode) {
+			return true;
 		}
 
-		return true;
+		return false;
 	}
 
 	getInitialColors() {
