@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchModes, addMode, editMode, getFactorySettings, selectMode } from '../actions';
+import { fetchModes, fetchRules, addMode, editMode, getFactorySettings, selectMode } from '../actions';
 import ColorPicker from './ColorPicker.js';
 import ModeModel from '../components/ModeModel.js';
 import ModesList from './ModesList.js';
 import Overlay from './Overlay.js';
 import Route from './Route.js';
+import Rules from './Rules.js';
 import SideNavBar from './SideNavBar.js';
 import factoryModesJSON from '../factoryModes.json';
 
@@ -40,7 +41,6 @@ class App extends React.Component {
 	componentDidMount() {
 		// add the factoryModes JSON to the redux store
 		this.props.getFactorySettings(factoryModesJSON);
-
 
 		//add event listeners
 		window.addEventListener('resize', this.onWindowResize);
@@ -153,6 +153,7 @@ class App extends React.Component {
 	onConnect = () => {
 		this.setState({'isConnected':true}, () => {
 			this.props.fetchModes();
+			this.props.fetchRules();
 		});
 		window.history.pushState({}, '', '#modes');
 		const navEvent = new PopStateEvent('popstate');
@@ -231,9 +232,7 @@ class App extends React.Component {
 
 	renderAutomatismes = () => {
 		return (
-			<div className="grid-row-two">
-				Automatismes
-			</div>
+			<Rules />
 		)
 	}
 
@@ -335,54 +334,6 @@ class App extends React.Component {
 				</React.Fragment>
 			);
 		}
-
-
-		// return (
-		// 	<React.Fragment>
-		// 		{ overlay }
-		// 		<div className="grid-content">
-		// 			<div className="content-one">
-		// 				<div id='logo'>
-		// 					<a href='/#'><img src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`} alt='Maïa' /></a>
-		// 				</div>
-		// 				<div id='nav-bar'>
-		// 					<SideNavBar/>
-		// 				</div>
-		// 				<button 
-		// 					id='disconnect-button'
-		// 					style={disconnectDisplay}
-		// 					value='disconnect'
-		// 					onClick={this.onDisconnectClick}
-		// 				>Déconnecter</button>
-		// 			</div>
-
-		// 			<div className={["content-two", "column-two"].join(' ')}>
-		// 				<Route path='' >
-		// 					{ this.renderHome() }
-		// 				</Route>
-		// 				<Route path="#modes" >
-		// 					{ this.renderModes() }
-		// 				</Route>
-		// 				<Route path="#couleurs" >
-		// 					<React.Fragment>
-		// 						{ this.renderCouleurs() }
-		// 					</React.Fragment>
-		// 				</Route>
-		// 				<Route path="#mesures">
-		// 					<React.Fragment>
-		// 						{ this.renderMesures() }
-		// 					</React.Fragment>
-		// 				</Route>
-		// 				<Route path="#automatismes">
-		// 					<React.Fragment>
-		// 						{ this.renderAutomatismes() }
-		// 					</React.Fragment>
-		// 				</Route>
-		// 			</div>
-		// 		</div>
-		// 	</React.Fragment>
-		// );
-
   }
 }
 
@@ -391,4 +342,14 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, { fetchModes, addMode, editMode, getFactorySettings, selectMode })(App);
+export default connect(
+	mapStateToProps, 
+	{ 
+		fetchModes, 
+		fetchRules, 
+		addMode, 
+		editMode, 
+		getFactorySettings, 
+		selectMode
+	}
+	)(App);
