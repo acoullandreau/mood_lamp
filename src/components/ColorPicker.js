@@ -172,10 +172,11 @@ class ColorPicker extends React.Component {
 		var selectedColors = this.state.selectedColors;
 		selectedColors.push('FFFFFF');
 		var selectedColorIndex = this.state.selectedColors.length - 1;
+		var sliderDisabled = this.props.modeModel.isOriginMode ? true : false;
 		this.setState({
 			'selectedColors':selectedColors, 
 			'selectedColorIndex':selectedColorIndex, 
-			'sliderDisabled':false,
+			'sliderDisabled':sliderDisabled,
 			'showDelete':selectedColorIndex
 		}, () => {
 			this.colorPickerRef.current.colorPicker.color.set('FFFFFF');
