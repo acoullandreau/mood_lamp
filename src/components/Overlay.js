@@ -9,7 +9,7 @@ class Overlay extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = { 'modeName':''};
-
+		this.colorPickerRef = React.createRef();
 	}
 
 	componentDidUpdate(prevProps) {
@@ -49,9 +49,9 @@ class Overlay extends React.Component {
 
 	onResetMode = (event) => {
 		var initialSetting = this.props.factoryModesSettings[this.props.settings.modeInstance.name];
-		console.log(initialSetting, this.props.settings.modeInstance)
-		//this.props.settings.modeInstance.setColors(initialSetting)
-		// console.log(this.props.settings.modeInstance)
+		this.props.settings.modeInstance.setColors(initialSetting)
+		// rerender the color picker
+		this.colorPickerRef.current.resetColors(initialSetting);
 	} 
 
 	deleteMode = () => {
@@ -134,7 +134,6 @@ class Overlay extends React.Component {
 	}
 
 	renderEditModeOverlay = () => {
-
 		return (
 			<React.Fragment>
 				<div className={['OverlayWindow', 'OverlayEditWindow'].join(' ')}>
@@ -147,6 +146,7 @@ class Overlay extends React.Component {
 						type='edit'
 						modeModel={this.props.settings.modeInstance}
 						onSaveEditMode={this.saveEditMode}
+						ref={this.colorPickerRef}
 					/>
 				</div>
 			</React.Fragment>

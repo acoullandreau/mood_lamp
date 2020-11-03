@@ -91,9 +91,22 @@ class ColorPicker extends React.Component {
 		return width;
 	}
 
+	getInitialSliderDisabled() {
+		if (this.props.modeModel.colors.length > 1) {
+			return false;
+		}
+
+		return true;
+	}
+
 	getInitialColors() {
-		var initialColors = [];
 		var colors = this.props.modeModel.colors;
+		return this.getHexColors(colors);
+	}
+
+	getHexColors(colors) {
+		var initialColors = [];
+		
 		for (var i = 0; i < colors.length; i++) {
 			var hexColor = Utils.convertRGBStringtoHex(colors[i]);
 			initialColors.push(hexColor);
@@ -101,12 +114,9 @@ class ColorPicker extends React.Component {
 		return initialColors;
 	}
 
-	getInitialSliderDisabled() {
-		if (this.props.modeModel.colors.length > 1) {
-			return false;
-		}
-
-		return true;
+	resetColors = (initialColors) => {
+		//convert the initialColors to hex and update the state
+		this.setState({'selectedColors':this.getHexColors(initialColors)});
 	}
 
 	onSpeedChange = (speed) => {
@@ -367,4 +377,4 @@ ColorPicker.propTypes = {
 
 }
 
-export default connect(null, {selectMode})(ColorPicker);
+export default connect(null, {selectMode}, null, {forwardRef:true})(ColorPicker);
