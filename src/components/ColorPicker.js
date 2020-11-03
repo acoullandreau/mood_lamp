@@ -60,6 +60,7 @@ class ColorPicker extends React.Component {
 			'selectedColors':this.getInitialColors(),
 			'animationSpeed':this.props.modeModel.speed,
 			'sliderDisabled':this.getInitialSliderDisabled(),
+			'minNumberColors':this.getMinNumberColors(),
 			'layoutParams':{
 				width: this.getInitialWidth(),
 				margin:80,
@@ -91,6 +92,7 @@ class ColorPicker extends React.Component {
 		return width;
 	}
 
+
 	getInitialSliderDisabled() {
 		if (this.props.modeModel.colors.length === 1) {
 			return true;
@@ -114,6 +116,14 @@ class ColorPicker extends React.Component {
 			initialColors.push(hexColor);
 		}
 		return initialColors;
+	}
+
+	getMinNumberColors() {
+		var minNumberColors = 0;
+		if (this.props.modeModel.isOriginMode) {
+			minNumberColors = 1;
+		}
+		return minNumberColors;
 	}
 
 	resetColors = (initialColors) => {
@@ -181,10 +191,11 @@ class ColorPicker extends React.Component {
 	} 
 
 	removeColorSelector = (indexColorToRemove) => {
-		if (indexColorToRemove > 0) {
+
+		if (indexColorToRemove > this.state.minNumberColors) {
 			var selectedColors = this.state.selectedColors;
 			selectedColors.splice(indexColorToRemove, 1);
-			var sliderDisabled = selectedColors.length === 1 ? true : false;
+			var sliderDisabled = (selectedColors.length === 1 || this.props.modeModel.isOriginMode) ? true : false;
 			var selectedIndex = indexColorToRemove - 1;
 			this.setState({
 				'selectedColors':selectedColors, 
@@ -246,6 +257,9 @@ class ColorPicker extends React.Component {
 	}
 
 	renderDeleteIcon = (index, background) => {
+
+		// this.props.modeModel.isOriginMode ?
+
 		var hsvColor = Utils.convertHextoHSV(background);
 		var style;
 		if (hsvColor.v < 50) {
@@ -254,7 +268,7 @@ class ColorPicker extends React.Component {
 			style = {'filter':'invert(1)'};
 		}
 
-		if (index !== 0) {
+		if (index > this.state.minNumberColors) {
 			if (this.state.showDelete === index) {
 				return (
 					<React.Fragment>
