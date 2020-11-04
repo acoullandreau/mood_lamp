@@ -4,8 +4,15 @@ export const fetchRules = () => {
 	return (dispatch) => {
 		//fetch JSON of rules
 		const rulesConfig = {
-			'dayTimeAuto':false,
-			'silentAutoOff':false,
+			'dayTimeAuto': 
+			{
+				'active':false
+			},
+			'silentAutoOff':
+			{
+				'active':false,
+				'duration':null
+			},
 			'autoOn':{
 				'onLightLevel':{
 					'active':true, 

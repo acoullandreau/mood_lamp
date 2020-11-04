@@ -596,9 +596,29 @@ button {
 .rule-text {
 	display: inline-block;
 	margin-left: 1%;
-	/*height: 100%;*/
 	vertical-align: middle;
 } 
+
+
+/*CSS for the time picker*/
+.react-time-picker__wrapper {
+	border:none !important;
+	border-bottom: 1px solid #FEEDDF1A !important;
+}
+
+.react-time-picker__inputGroup {
+	min-width: 0px !important;
+	color:#FEEDDF !important;
+	/*font-size:max(3.5vh, 30px);*/
+	font-size:25px !important;
+}
+
+.react-time-picker__inputGroup__input{
+	color:#FEEDDF !important;
+	font-size:25px !important;
+}
+
+
 
 /*CSS for the switch*/
 
