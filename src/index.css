@@ -111,6 +111,10 @@ button {
 	grid-row-start: 4;
 }
 
+.display-inline {
+	display:inline-block;
+}
+
 #disconnect-button {
 	position: absolute;
 	top: 3%;
@@ -574,24 +578,23 @@ button {
 
 /*CSS for the rules*/
 
-#rules-grid {
-	display: grid;
+#rules-page {
 	width: 90%;
 	height: 60vh;
 	margin-right: auto;
 	margin-left: auto;
 	padding:2%;
 	margin-top: 20vh;
-	grid-template-columns: repeat(2, 46%);
-	grid-template-rows: repeat(8, 1fr);
-	grid-column-gap: 8%;
-	grid-row-gap: 2%;
 	overflow-y: scroll;
 }
 
-.span-row {
-	grid-column-start: span 2;
+.rules-div {
+	min-width: 50%;
+	margin-top: 5vh;
 }
+
+
+
 
 .rule-text {
 	display: inline-block;
@@ -599,17 +602,32 @@ button {
 	vertical-align: middle;
 } 
 
+input[type=number]::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+}
+
+#number-input {
+	background-color:transparent;
+	border:none;
+	border-bottom: 1px solid #FEEDDF3A;
+	font-size:20px;
+	color:#FEEDDF;
+	width: 35px;
+	text-align: center;
+}
+
+
 
 /*CSS for the time picker*/
 .react-time-picker__wrapper {
 	border:none !important;
-	border-bottom: 1px solid #FEEDDF1A !important;
+	border-bottom: 1px solid #FEEDDF3A !important;
 }
 
 .react-time-picker__inputGroup {
+	width: 30%;
 	min-width: 0px !important;
 	color:#FEEDDF !important;
-	/*font-size:max(3.5vh, 30px);*/
 	font-size:25px !important;
 }
 
@@ -618,7 +636,11 @@ button {
 	font-size:25px !important;
 }
 
-
+.time-picker {
+	display:inline-block;
+	margin-left: 1%;
+	width:30%;
+}
 
 /*CSS for the switch*/
 
@@ -663,7 +685,7 @@ button {
 }
 
 input:checked + .slider {
-  background-color: #2196F3;
+  background-color: #FA4D3D;
 }
 
 input:focus + .slider {

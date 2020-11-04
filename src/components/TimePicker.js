@@ -5,15 +5,14 @@ function Picker({ time }) {
 	const [value, onChange] = useState(time);
 
 	return (
-		<div>
-			<TimePicker
-				disableClock={true}
-				clearIcon={null}
-				format={"HH:mm"}
-				onChange={onChange}
-				value={value}
-			/>
-		</div>
+		<TimePicker
+			className="time-picker"
+			disableClock={true}
+			clearIcon={null}
+			format={"HH:mm"}
+			onChange={onChange}
+			value={value}
+		/>
 	);
 }
 

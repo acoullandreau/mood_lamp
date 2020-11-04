@@ -11,23 +11,23 @@ export const fetchRules = () => {
 			'silentAutoOff':
 			{
 				'active':false,
-				'duration':null
+				'duration':12
 			},
 			'autoOn':{
 				'onLightLevel':{
 					'active':true, 
-					'startTime':null
+					'startTime':'20:00'
 				},
 				'onSchedule':{
 					'active':false, 
-					'startTime':null,
-					'startDimmingTime':null
+					'startTime':'20:00',
+					'startDimmingTime':'19:45'
 				},
 			},
 			'autoOff':{
 				'onLightLevel':{
 					'active':false, 
-					'startTime':null
+					'startTime':'23:00'
 				},
 				'onSchedule':{
 					'active':true, 
