@@ -14,6 +14,7 @@ export const fetchRules = () => {
 				'duration':12
 			},
 			'autoOn':{
+				'active':false,
 				'onLightLevel':{
 					'active':true, 
 					'startTime':'20:00'
@@ -25,6 +26,7 @@ export const fetchRules = () => {
 				},
 			},
 			'autoOff':{
+				'active':true,
 				'onLightLevel':{
 					'active':false, 
 					'startTime':'23:00'
