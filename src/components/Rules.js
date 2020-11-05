@@ -21,24 +21,22 @@ class Rules extends React.Component {
 			},
 			'autoOn':{
 				'active':this.props.rulesConfig.autoOn.active,
+				'activeOption':this.getActiveOption('autoOn'),
 				'onLightLevel':{
-					'active':this.props.rulesConfig.autoOn.onLightLevel.active, 
 					'startTime':this.props.rulesConfig.autoOn.onLightLevel.startTime
 				},
 				'onSchedule':{
-					'active':this.props.rulesConfig.autoOn.onSchedule.active, 
 					'startTime':this.props.rulesConfig.autoOn.onSchedule.startTime,
 					'startDimmingTime':this.props.rulesConfig.autoOn.onSchedule.startDimmingTime
 				},
 			},
 			'autoOff':{
 				'active':this.props.rulesConfig.autoOff.active,
+				'activeOption':this.getActiveOption('autoOff'),
 				'onLightLevel':{
-					'active':this.props.rulesConfig.autoOff.onLightLevel.active, 
 					'startTime':this.props.rulesConfig.autoOff.onLightLevel.startTime
 				},
 				'onSchedule':{
-					'active':this.props.rulesConfig.autoOff.onSchedule.active, 
 					'startTime':this.props.rulesConfig.autoOff.onSchedule.startTime,
 					'startDimmingTime':this.props.rulesConfig.autoOff.onSchedule.startDimmingTime
 				},
@@ -46,6 +44,13 @@ class Rules extends React.Component {
 		};
 	}
 
+	getActiveOption = (category) => {
+		if (this.props.rulesConfig[category].onLightLevel.active) {
+			return 'onLightLevel';
+		} else {
+			return 'onSchedule';
+		}
+	}
 
 	handleSwitchChange = (event, target) => {
 		var targets = target.split('.');
@@ -55,11 +60,18 @@ class Rules extends React.Component {
 		} else {
 			currentState[targets[0]]['active'] = !this.state[targets[0]]['active'];
 		}
-		this.setState(currentState, () => console.log(this.state));
+		this.setState(currentState);
+	}
+
+	handleOptionChange = (event) => {
+		var currentState = {...this.state};
+		currentState[event.target.name].activeOption = event.target.value;
+		this.setState(currentState);
 	}
 
 	handleNumberInputChange = (event) => {
 		var silentAutoOff = {...this.state.silentAutoOff};
+		silentAutoOff['active'] = true;
 		silentAutoOff['duration'] = event.target.value;
 		this.setState({silentAutoOff});
 	}
@@ -94,7 +106,10 @@ class Rules extends React.Component {
 					<div>
 						<input 
 							name="autoOn"
+							value='onLightLevel'
 							type="radio" 
+							checked={this.state.autoOn.activeOption === 'onLightLevel'}
+							onChange={this.handleOptionChange}
 							className="display-inline"
 						/>
 						<p className="display-inline">Allumer si le niveau lumineux est bas </p>
@@ -109,7 +124,10 @@ class Rules extends React.Component {
 					<div>
 						<input 
 							name="autoOn"
+							value='onSchedule'
 							type="radio"
+							checked={this.state.autoOn.activeOption === 'onSchedule'}
+							onChange={this.handleOptionChange}
 							className="display-inline"
 						/>
 						<p className="display-inline">Allumer chaque jour à </p>
@@ -135,6 +153,14 @@ class Rules extends React.Component {
 				</div>
 				<div>
 					<div>
+						<input 
+							name="autoOff"
+							value='onLightLevel'
+							type="radio" 
+							checked={this.state.autoOff.activeOption === 'onLightLevel'}
+							onChange={this.handleOptionChange}
+							className="display-inline"
+						/>
 						<p className="display-inline">Éteindre si le niveau lumineux est haut </p>
 					</div>
 					<div>
@@ -145,6 +171,14 @@ class Rules extends React.Component {
 				</div>
 				<div>
 					<div>
+						<input 
+							name="autoOff"
+							value='onSchedule'
+							type="radio"
+							checked={this.state.autoOff.activeOption === 'onSchedule'}
+							onChange={this.handleOptionChange}
+							className="display-inline"
+						/>
 						<p className="display-inline">Éteindre chaque jour à </p>
 						<TimePicker time={"20:30"}/>
 					</div>
