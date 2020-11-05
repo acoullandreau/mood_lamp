@@ -76,6 +76,16 @@ class Rules extends React.Component {
 		this.setState({silentAutoOff});
 	}
 
+	onTimeChange = (value, target) => {
+		var targets = target.split('.');
+		var category = targets[0];
+		var subsection = targets[1];
+		var item = targets[2];
+		var currentState = {...this.state};
+		currentState[category][subsection][item] = value;
+		this.setState(currentState);
+	}
+
 	renderSwitch = (target) => {
 		var targets = target.split('.');
 		var stateTarget;
@@ -102,7 +112,7 @@ class Rules extends React.Component {
 					{this.renderSwitch('autoOn')}
 					<p className="rule-text">Allumage automatique</p>
 				</div>
-				<div>
+				<div className="subsection">
 					<div>
 						<input 
 							name="autoOn"
@@ -114,13 +124,13 @@ class Rules extends React.Component {
 						/>
 						<p className="display-inline">Allumer si le niveau lumineux est bas </p>
 					</div>
-					<div>
+					<div className="subsection-sublevel">
 						{this.renderSwitch('autoOn.onLightLevel')}
 						<p className="rule-text">Allumer après</p>
-						<TimePicker time={"20:15"}/>
+						<TimePicker target="autoOn.onLightLevel.startTime" time={this.state.autoOn.onLightLevel.startTime} onTimeChange={this.onTimeChange}/>
 					</div>
 				</div>
-				<div>
+				<div className="subsection">
 					<div>
 						<input 
 							name="autoOn"
@@ -131,12 +141,12 @@ class Rules extends React.Component {
 							className="display-inline"
 						/>
 						<p className="display-inline">Allumer chaque jour à </p>
-						<TimePicker time={"20:30"}/>
+						<TimePicker target="autoOn.onSchedule.startTime" time={this.state.autoOn.onSchedule.startTime} onTimeChange={this.onTimeChange}/>
 					</div>
-					<div>
+					<div className="subsection-sublevel">
 						{this.renderSwitch('autoOn.onSchedule')}
 						<p className="rule-text">Grader à partir de</p>
-						<TimePicker time={"20:15"}/>
+						<TimePicker target="autoOn.onSchedule.startDimmingTime" time={this.state.autoOn.onSchedule.startDimmingTime} onTimeChange={this.onTimeChange}/>
 					</div>
 				</div>
 			</div>
@@ -151,7 +161,7 @@ class Rules extends React.Component {
 					{this.renderSwitch('autoOff')}
 					<p className="rule-text">Extinction automatique</p>
 				</div>
-				<div>
+				<div className="subsection">
 					<div>
 						<input 
 							name="autoOff"
@@ -163,13 +173,13 @@ class Rules extends React.Component {
 						/>
 						<p className="display-inline">Éteindre si le niveau lumineux est haut </p>
 					</div>
-					<div>
+					<div className="subsection-sublevel">
 						{this.renderSwitch('autoOff.onLightLevel')}
 						<p className="rule-text">Éteindre après</p>
-						<TimePicker time={"20:15"}/>
+						<TimePicker target="autoOff.onLightLevel.startTime" time={this.state.autoOff.onLightLevel.startTime} onTimeChange={this.onTimeChange}/>
 					</div>
 				</div>
-				<div>
+				<div className="subsection">
 					<div>
 						<input 
 							name="autoOff"
@@ -180,19 +190,17 @@ class Rules extends React.Component {
 							className="display-inline"
 						/>
 						<p className="display-inline">Éteindre chaque jour à </p>
-						<TimePicker time={"20:30"}/>
+						<TimePicker target="autoOff.onSchedule.startTime" time={this.state.autoOff.onSchedule.startTime} onTimeChange={this.onTimeChange}/>
 					</div>
-					<div>
+					<div className="subsection-sublevel">
 						{this.renderSwitch('autoOff.onSchedule')}
 						<p className="rule-text">Grader à partir de</p>
-						<TimePicker time={"20:15"}/>
+						<TimePicker target="autoOff.onSchedule.startDimmingTime" time={this.state.autoOff.onSchedule.startDimmingTime} onTimeChange={this.onTimeChange} />
 					</div>
 				</div>
 			</div>
 		)
 	}
-
-								// onChange={ e => this.handleAutoOnOffChange(e, 'onLightLevel') } 
 
 	render() {
 
@@ -204,16 +212,15 @@ class Rules extends React.Component {
 				</div>
 				<div className="rules-div">
 					{this.renderSwitch('silentAutoOff')}
-					<div className="rule-text">
-						<p style={{display:'inline-block'}}>Désactiver les automatismes si aucun son pendant plus de </p>
+					<div className="rule-text" >
+						<p className="rule-text">Désactiver les automatismes si aucun son pendant plus de </p>
 						<input 
 							id="number-input"
-							style={{display:'inline-block'}}
 							type="number" 
 							value={this.state.silentAutoOff.duration} 
 							onChange={this.handleNumberInputChange}
 						/>
-						<p style={{display:'inline-block'}}>heures</p>
+						<p className="rule-text" style={{marginLeft:'0px'}}>heures</p>
 					</div>	
 				</div>
 				{this.renderAutoOnSection()}

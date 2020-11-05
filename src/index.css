@@ -503,7 +503,6 @@ button {
 	font-size: 2vh;
 	color:#FEEDDF;
 	background-color:transparent;
-	/*background-color: #403954;*/
 	border:1px solid #FEEDDF1F;
 	border-radius: 8px;
 	cursor: pointer;
@@ -588,17 +587,26 @@ button {
 	overflow-y: scroll;
 }
 
+#rules-page p {
+	margin-left: 2%;
+}
+
 .rules-div {
 	min-width: 50%;
 	margin-top: 5vh;
 }
 
+.subsection {
+	margin-top: 10%;
+	margin-left: 5%;
+}
 
-
+.subsection-sublevel {
+	margin-left: 5%;
+}
 
 .rule-text {
 	display: inline-block;
-	margin-left: 1%;
 	vertical-align: middle;
 } 
 
@@ -629,11 +637,13 @@ input[type=number]::-webkit-inner-spin-button {
 	min-width: 0px !important;
 	color:#FEEDDF !important;
 	font-size:25px !important;
+	text-align: center !important;
 }
 
 .react-time-picker__inputGroup__input{
 	color:#FEEDDF !important;
 	font-size:25px !important;
+	text-align: center !important;
 }
 
 .time-picker {
