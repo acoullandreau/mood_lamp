@@ -5,12 +5,12 @@ import ColorPicker from './ColorPicker.js';
 import ModeModel from '../components/ModeModel.js';
 import ModesList from './ModesList.js';
 import Overlay from './Overlay.js';
+import Readings from './Readings.js';
 import Route from './Route.js';
 import Rules from './Rules.js';
 import SideNavBar from './SideNavBar.js';
 import factoryModesJSON from '../factoryModes.json';
 
-// Automatismes page
 // Readings page
 // Mobile version (user Agent, replace hover and click with hold and tap, vertical layout)
 // ReadMe (Chrome only, improvements possible)
@@ -218,14 +218,7 @@ class App extends React.Component {
 
 	renderMesures = () => {
 		return (
-			<React.Fragment>
-				<div className="grid-row-one">
-					Rafraîchir
-				</div>
-				<div className="grid-row-two">
-					Mesures
-				</div>
-			</React.Fragment>
+			<Readings />
 		)
 	}
 

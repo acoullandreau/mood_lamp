@@ -57,18 +57,35 @@ class Rules extends React.Component {
 	getOpacity = (target) => {
 		var targets = target.split('.');
 		var category = targets[0];
-		var subsection = targets[1];
+		// var subsection = targets[1];
 		var opacity = 1;
-		if (this.state[category].active) {
-			if (targets.length === 2) {
-				if (this.state[category].activeOption !== subsection) {
-					opacity = 0.3;
-				} 
-			} 
-		} else {
+		// if (this.state[category].active) {
+		// 	if (targets.length === 2) {
+		// 		if (this.state[category].activeOption !== subsection) {
+		// 			opacity = 0.3;
+		// 		} 
+		// 	} 
+		// } else {
+		// 	opacity = 0.3;
+		// } 
+
+
+		if (this.state[category].active === false) {
 			opacity = 0.3;
 		} 
+
 		return opacity;
+	}
+
+	isDisabled = (target) => {
+		var targetArray = target.split('.');
+		var isDisabled = false;
+		if (this.state[targetArray[0]]['active'] === false) {
+			isDisabled = true;
+		} else if (this.state[targetArray[0]].activeOption !== targetArray[1]) {
+			isDisabled = true;
+		}
+		return isDisabled;
 	}
 
 	onSave = () => {
@@ -147,6 +164,7 @@ class Rules extends React.Component {
 	renderSwitch = (target) => {
 		var targets = target.split('.');
 		var stateTarget;
+
 		if (targets.length === 2) {
 			if (targets[1] === 'onLightLevel') {
 				stateTarget = this.state[targets[0]]['onLightLevel']['withStartTime'];
@@ -159,7 +177,12 @@ class Rules extends React.Component {
 
 		return (
 			<label className="switch" name={target} value={target}>
-				<input type="checkbox" checked={ stateTarget } onChange={ e => this.handleSwitchChange(e, target) } />
+				<input 
+					type="checkbox" 
+					checked={ stateTarget } 
+					disabled={ this.isDisabled(target) }
+					onChange={ e => this.handleSwitchChange(e, target) } 
+				/>
 				<span className="slider round"></span>
 			</label>
 		)
@@ -186,10 +209,15 @@ class Rules extends React.Component {
 						/>
 						<p className="display-inline">Allumer si le niveau lumineux est bas </p>
 					</div>
-					<div className="subsection-sublevel" style={{'opacity':this.state.autoOn.onLightLevel.withStartTime ? '1':'0.5'}}>
+					<div className="subsection-sublevel" style={{'opacity':this.state.autoOn.activeOption === 'onLightLevel' ? '1 !important':'0.5 !important'}}>
 						{this.renderSwitch('autoOn.onLightLevel')}
 						<p className="rule-text">Allumer après</p>
-						<TimePicker target="autoOn.onLightLevel.startTime" time={this.state.autoOn.onLightLevel.startTime} onTimeChange={this.onTimeChange}/>
+						<TimePicker 
+							target="autoOn.onLightLevel.startTime" 
+							disabled={ this.isDisabled("autoOn.onLightLevel") }
+							time={this.state.autoOn.onLightLevel.startTime} 
+							onTimeChange={this.onTimeChange}
+						/>
 					</div>
 				</div>
 				<div className="subsection" style={{'opacity':this.getOpacity('autoOn.onSchedule')}}>
@@ -204,12 +232,21 @@ class Rules extends React.Component {
 							className="display-inline"
 						/>
 						<p className="display-inline">Allumer chaque jour à </p>
-						<TimePicker target="autoOn.onSchedule.startTime" time={this.state.autoOn.onSchedule.startTime} onTimeChange={this.onTimeChange}/>
+						<TimePicker 
+							target="autoOn.onSchedule.startTime" 
+							time={this.state.autoOn.onSchedule.startTime} 
+							onTimeChange={this.onTimeChange}
+						/>
 					</div>
-					<div className="subsection-sublevel" style={{'opacity':this.state.autoOn.onSchedule.withStartDimmingTime ? '1':'0.5'}}>
+					<div className="subsection-sublevel" style={{'opacity':this.state.autoOn.activeOption === 'onSchedule' ? '1 !important':'0.5 !important'}}>
 						{this.renderSwitch('autoOn.onSchedule')}
 						<p className="rule-text">Grader à partir de</p>
-						<TimePicker target="autoOn.onSchedule.startDimmingTime" time={this.state.autoOn.onSchedule.startDimmingTime} onTimeChange={this.onTimeChange}/>
+						<TimePicker 
+							target="autoOn.onSchedule.startDimmingTime" 
+							disabled={ this.isDisabled('autoOn.onSchedule') }
+							time={this.state.autoOn.onSchedule.startDimmingTime} 
+							onTimeChange={this.onTimeChange}
+						/>
 					</div>
 				</div>
 			</div>
@@ -237,10 +274,15 @@ class Rules extends React.Component {
 						/>
 						<p className="display-inline">Éteindre si le niveau lumineux est haut </p>
 					</div>
-					<div className="subsection-sublevel" style={{'opacity':this.state.autoOff.onLightLevel.withStartTime ? '1':'0.5'}}>
+					<div className="subsection-sublevel" style={{'opacity':this.state.autoOff.activeOption === 'onLightLevel' ? '1 !important':'0.5 !important'}}>
 						{this.renderSwitch('autoOff.onLightLevel')}
 						<p className="rule-text">Éteindre après</p>
-						<TimePicker target="autoOff.onLightLevel.startTime" time={this.state.autoOff.onLightLevel.startTime} onTimeChange={this.onTimeChange}/>
+						<TimePicker 
+							target="autoOff.onLightLevel.startTime" 
+							disabled={ this.isDisabled("autoOff.onLightLevel") }
+							time={this.state.autoOff.onLightLevel.startTime} 
+							onTimeChange={this.onTimeChange}
+						/>
 					</div>
 				</div>
 				<div className="subsection" style={{'opacity':this.getOpacity('autoOff.onSchedule')}}>
@@ -255,12 +297,21 @@ class Rules extends React.Component {
 							className="display-inline"
 						/>
 						<p className="display-inline">Éteindre chaque jour à </p>
-						<TimePicker target="autoOff.onSchedule.startTime" time={this.state.autoOff.onSchedule.startTime} onTimeChange={this.onTimeChange}/>
+						<TimePicker 
+							target="autoOff.onSchedule.startTime" 
+							time={this.state.autoOff.onSchedule.startTime} 
+							onTimeChange={this.onTimeChange}
+						/>
 					</div>
-					<div className="subsection-sublevel" style={{'opacity':this.state.autoOff.onSchedule.withStartDimmingTime ? '1':'0.5'}}>
+					<div className="subsection-sublevel" style={{'opacity':this.state.autoOff.activeOption === 'onSchedule' ? '1 !important':'0.5 !important'}}>
 						{this.renderSwitch('autoOff.onSchedule')}
 						<p className="rule-text">Grader à partir de</p>
-						<TimePicker target="autoOff.onSchedule.startDimmingTime" time={this.state.autoOff.onSchedule.startDimmingTime} onTimeChange={this.onTimeChange} />
+						<TimePicker 
+							target="autoOff.onSchedule.startDimmingTime" 
+							disabled={ this.isDisabled("autoOff.onSchedule") }
+							time={this.state.autoOff.onSchedule.startDimmingTime} 
+							onTimeChange={this.onTimeChange} 
+						/>
 					</div>
 				</div>
 			</div>

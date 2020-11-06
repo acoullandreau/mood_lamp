@@ -2,10 +2,11 @@ import React from 'react';
 import TimePicker from 'react-time-picker';
 
 function Picker(props) {
-	const { target, time, onTimeChange } = props;
+	const { disabled, target, time, onTimeChange } = props;
 	return (
 		<TimePicker
 			className="time-picker"
+			disabled={disabled}
 			disableClock={true}
 			clearIcon={null}
 			format={"HH:mm"}

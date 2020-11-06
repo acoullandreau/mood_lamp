@@ -633,6 +633,7 @@ input[type=number]::-webkit-inner-spin-button {
 	color:#FEEDDF;
 	width: 35px;
 	text-align: center;
+	outline: none;
 }
 
 /*CSS for the radio checkbox*/
@@ -676,6 +677,14 @@ input[type="radio"]:checked {
 	font-size:25px !important;
 	text-align: center !important;
 }
+
+.react-time-picker--disabled {
+	background-color:transparent !important;
+	color:#FEEDDF !important;
+	opacity: 0.5;
+
+}
+
 
 .time-picker {
 	display:inline-block;
