@@ -17,11 +17,13 @@ export const fetchRules = () => {
 				'active':false,
 				'onLightLevel':{
 					'active':true, 
+					'withStartTime':false,
 					'startTime':'20:00'
 				},
 				'onSchedule':{
 					'active':false, 
 					'startTime':'20:00',
+					'withStartDimmingTime':false,
 					'startDimmingTime':'19:45'
 				},
 			},
@@ -29,11 +31,13 @@ export const fetchRules = () => {
 				'active':true,
 				'onLightLevel':{
 					'active':false, 
+					'withStartTime':false,
 					'startTime':'23:00'
 				},
 				'onSchedule':{
 					'active':true, 
 					'startTime':'23:00',
+					'withStartDimmingTime':false,
 					'startDimmingTime':'22:30'
 				},
 			},
