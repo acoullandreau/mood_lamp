@@ -277,15 +277,16 @@ class Rules extends React.Component {
 				</div>
 				<div className="rules-div">
 					{this.renderSwitch('silentAutoOff')}
-					<div className="rule-text" style={{'opacity':this.getOpacity('silentAutoOff')}}>
-						<p className="rule-text">Désactiver les automatismes si aucun son pendant plus de </p>
+					<div className="rule-text" style={{'minWidth': '90%', 'opacity':this.getOpacity('silentAutoOff')}}>
+						<p style={{display:'inline-block'}}>Désactiver les automatismes si aucun son pendant plus de </p>
 						<input 
 							id="number-input"
 							type="number" 
+							style={{display:'inline-block'}}
 							value={this.state.silentAutoOff.duration} 
 							onChange={this.handleNumberInputChange}
 						/>
-						<p className="rule-text" style={{marginLeft:'0px'}}>heures</p>
+						<label style={{'display':'inline-block'}}>heures</label>
 					</div>	
 				</div>
 				{this.renderAutoOnSection()}
@@ -300,6 +301,7 @@ class Rules extends React.Component {
 	}
 }
 		
+
 const mapStateToProps = (state) => {
 	return { rulesConfig : state.rules };
 }
