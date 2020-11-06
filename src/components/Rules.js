@@ -1,9 +1,7 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TimePicker from './TimePicker.js';
-// import Dropdown from './Dropdown.js';
-// import { editRules } from '../actions';
+import { editRules } from '../actions';
 
 class Rules extends React.Component {
 
@@ -49,10 +47,10 @@ class Rules extends React.Component {
 	}
 
 	getActiveOption = (category) => {
-		if (this.props.rulesConfig[category].onLightLevel.active) {
-			return 'onLightLevel';
-		} else {
+		if (this.props.rulesConfig[category].onSchedule.active) {
 			return 'onSchedule';
+		} else {
+			return 'onLightLevel';
 		}
 	}
 
@@ -74,7 +72,38 @@ class Rules extends React.Component {
 	}
 
 	onSave = () => {
-		console.log("Saving")
+		// Object.assign only does a shallow copy, so if there are nested objects they can be altered in the source from the target!!
+		var rules = {};
+		rules.dayTimeAuto = Object.assign({}, this.state.dayTimeAuto);
+		rules.silentAutoOff = Object.assign({}, this.state.silentAutoOff);
+		rules.autoOn = {
+			'active':this.state.autoOn.active, 
+			'onLightLevel':Object.assign({}, this.state.autoOn.onLightLevel), 
+			'onSchedule':Object.assign({}, this.state.autoOn.onSchedule)
+		};
+		rules.autoOff = {
+			'active':this.state.autoOff.active, 
+			'onLightLevel':Object.assign({}, this.state.autoOff.onLightLevel), 
+			'onSchedule':Object.assign({}, this.state.autoOff.onSchedule)
+		};
+
+		if (this.state.autoOn.activeOption === 'onLightLevel') {
+			rules.autoOn.onLightLevel.active = true;
+			rules.autoOn.onSchedule.active = false;
+		} else {
+			rules.autoOn.onLightLevel.active = false;
+			rules.autoOn.onSchedule.active = true;
+		};
+
+		if (this.state.autoOff.activeOption === 'onLightLevel') {
+			rules.autoOff.onLightLevel.active = true;
+			rules.autoOff.onSchedule.active = false;
+		} else {
+			rules.autoOff.onLightLevel.active = false;
+			rules.autoOff.onSchedule.active = true;
+		};
+
+		this.props.editRules(rules);
 	}
 
 	handleSwitchChange = (event, target) => {
@@ -120,13 +149,12 @@ class Rules extends React.Component {
 		var stateTarget;
 		if (targets.length === 2) {
 			if (targets[1] === 'onLightLevel') {
-				stateTarget = this.state[targets[0]][targets[1]]['withStartTime'];
+				stateTarget = this.state[targets[0]]['onLightLevel']['withStartTime'];
 			} else {
-				stateTarget = this.state[targets[0]][targets[1]]['withStartDimmingTime'];
+				stateTarget = this.state[targets[0]]['onSchedule']['withStartDimmingTime'];
 			}
 		} else {
 			stateTarget = this.state[targets[0]]['active'];
-
 		}
 
 		return (
@@ -241,24 +269,15 @@ class Rules extends React.Component {
 
 	render() {
 
-		var opacitydayTimeAuto = 1;
-		var opacitysilentAutoOff = 1;
-		if (this.state.dayTimeAuto.active === false) {
-			opacitydayTimeAuto = 0.3;
-		}
-		if (this.state.silentAutoOff.active === false) {
-			opacitysilentAutoOff = 0.3;
-		}
-
 		return (
 			<div id="rules-page">
 				<div className="rules-div">
 					{this.renderSwitch('dayTimeAuto')}
-					<p className="rule-text" style={{'opacity':opacitydayTimeAuto}}>Choisir automatiquement le mode actif en fonction du moment de la journée</p>
+					<p className="rule-text" style={{'opacity':this.getOpacity('dayTimeAuto')}}>Choisir automatiquement le mode actif en fonction du moment de la journée</p>
 				</div>
 				<div className="rules-div">
 					{this.renderSwitch('silentAutoOff')}
-					<div className="rule-text" style={{'opacity':opacitysilentAutoOff}}>
+					<div className="rule-text" style={{'opacity':this.getOpacity('silentAutoOff')}}>
 						<p className="rule-text">Désactiver les automatismes si aucun son pendant plus de </p>
 						<input 
 							id="number-input"
@@ -285,11 +304,6 @@ const mapStateToProps = (state) => {
 	return { rulesConfig : state.rules };
 }
 
-// Rules.propTypes = {
-// 	settings:PropTypes.object.isRequired,
-// 	onClose:PropTypes.func.isRequired,
-// 	onSave:PropTypes.func.isRequired,
-// }
 
-export default connect(mapStateToProps)(Rules);
+export default connect(mapStateToProps, { editRules })(Rules);
 

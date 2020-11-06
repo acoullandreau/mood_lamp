@@ -4,9 +4,8 @@ export default (state = {}, action) => {
 		case 'FETCH_RULES':
 			return action.payload;
 			//break;
-		case 'EDIT_RULE':
-			console.log(action.payload)
-			return state;
+		case 'EDIT_RULES':
+			return action.payload;
 			//break;
 		default:
 			return state;

@@ -47,3 +47,12 @@ export const fetchRules = () => {
 	}
 
 };
+
+export const editRules = (rules) => {
+	return (
+		{
+			type:'EDIT_RULES', 
+			payload:rules
+		}
+	)
+}
