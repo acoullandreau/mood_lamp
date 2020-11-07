@@ -31,7 +31,7 @@ class Readings extends React.Component {
 		.then(measures => {
 			this.setState({ 'lastUpdate':Date.now(), measures: {...measures} });
 			// call getReadings() again in 5 seconds
-			//this.intervalID = setTimeout(this.getReadings, 5000);
+			this.intervalID = setTimeout(this.getReadings, 5000);
 		})
 	}
 
@@ -41,12 +41,17 @@ class Readings extends React.Component {
 		var unit = configJSON.readingsSettings[item]['unit'];
 		var img = configJSON.readingsSettings[item]['img'];
 
+		var fontSize = '5em';
+		if ((measure+' '+unit).length > 5) {
+			fontSize = '3em';
+		}
+
 		return (
 			<div className="reading-tile">
 				<div className={["reading-title", "grid-row-one"].join(' ')}>{title}</div>
 				<div className="reading-measure">
 					<div className={["reading-icon", "column-one"].join(' ')}><img  src={`${process.env.PUBLIC_URL}/assets/images/${item}.svg`} alt={title} /></div>
-					<div className="column-two">{measure} {unit}</div>
+					<div className={["reading-text", "column-two"].join(' ')}style={{'fontSize':fontSize}} >{measure} {unit}</div>
 				</div>
 			</div>
 		)

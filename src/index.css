@@ -788,14 +788,17 @@ input:checked + .slider:before {
 
 .reading-measure {
 	display: grid;
-	grid-template-columns: 32% 70%;
+	grid-template-columns: 32% 60%;
 	grid-column-gap: 4%;
-	font-size:70px;
 	margin-top:10%;
 	margin-left:4%;
+	align-items: center;	
+}
+
+.reading-text {
+	justify-self: center;	
 }
 
 .reading-icon {
 	justify-self: center;
-
 }
