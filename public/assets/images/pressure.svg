@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80">
+  <g id="Groupe_648" data-name="Groupe 648" transform="translate(-4343 -3760)">
+    <g id="Groupe_643" data-name="Groupe 643" transform="translate(304.654 -1364)">
+      <line id="Ligne_35" data-name="Ligne 35" x2="72.346" transform="translate(4042.5 5189.659)" fill="none" stroke="#feeddf" stroke-linecap="round" stroke-width="5"/>
+      <line id="Ligne_36" data-name="Ligne 36" x2="53.226" transform="translate(4053.868 5180.357)" fill="none" stroke="#feeddf" stroke-linecap="round" stroke-width="5"/>
+      <path id="Tracé_6358" data-name="Tracé 6358" d="M-4.348,0s-5.52.019-7.36,3.654a15.4,15.4,0,0,0-1.538,7.153,9.362,9.362,0,0,0,1.223,3.94,7.207,7.207,0,0,0,1.605,1.848s-1-1.214.005,0c.684.83,2.871,1.628,4,2.007.3.1-.318-.16,0,0" transform="translate(4060.284 5161.754)" fill="none" stroke="#feeddf" stroke-linecap="round" stroke-width="5"/>
+      <path id="Tracé_6360" data-name="Tracé 6360" d="M8.927,0s-5.52.019-7.36,3.654A15.4,15.4,0,0,0,.029,10.807a9.362,9.362,0,0,0,1.223,3.94,7.207,7.207,0,0,0,1.605,1.848s-1-1.214.005,0c.684.83,2.871,1.628,4,2.007.3.1-.318-.16,0,0" transform="matrix(-0.995, 0.105, -0.105, -0.995, 4112.178, 5170.046)" fill="none" stroke="#feeddf" stroke-linecap="round" stroke-width="5"/>
+      <line id="Ligne_37" data-name="Ligne 37" x2="38.24" transform="translate(4064.721 5171.055)" fill="none" stroke="#feeddf" stroke-linecap="round" stroke-width="5"/>
+      <line id="Ligne_38" data-name="Ligne 38" y2="23.254" transform="translate(4078.673 5138.5)" fill="none" stroke="#feeddf" stroke-linecap="round" stroke-width="5"/>
+      <line id="Ligne_39" data-name="Ligne 39" x2="9.302" y2="9.302" transform="translate(4069.371 5152.453)" fill="none" stroke="#feeddf" stroke-linecap="round" stroke-width="5"/>
+      <line id="Ligne_40" data-name="Ligne 40" x1="9.302" y2="9.302" transform="translate(4078.673 5152.453)" fill="none" stroke="#feeddf" stroke-linecap="round" stroke-width="5"/>
+    </g>
+    <rect id="Rectangle_1160" data-name="Rectangle 1160" width="80" height="80" transform="translate(4343 3760)" fill="none"/>
+  </g>
+</svg>

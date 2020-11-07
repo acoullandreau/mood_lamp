@@ -754,3 +754,48 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+
+/* CSS for the readings page*/
+
+#readings-grid {
+	display: grid;
+	width: 90%;
+	height: 60vh;
+	margin-right: auto;
+	margin-left: auto;
+	padding:2%;
+	margin-top: 20vh;
+	grid-template-columns: repeat(2, 48%);
+	grid-template-rows: repeat(10, 25vh);
+	grid-column-gap: 4%;
+	grid-row-gap: 6%;
+	overflow-y: scroll;
+}
+
+
+.reading-tile {
+	background-color: #FEEDDF40;
+	border-radius: 13px;
+}
+
+.reading-title {
+	color:#FAD1BE;
+	font-size: 30px;
+	margin-left:5%;
+	margin-top:5%;
+}
+
+.reading-measure {
+	display: grid;
+	grid-template-columns: 32% 70%;
+	grid-column-gap: 4%;
+	font-size:70px;
+	margin-top:10%;
+	margin-left:4%;
+}
+
+.reading-icon {
+	justify-self: center;
+
+}

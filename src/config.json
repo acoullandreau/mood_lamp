@@ -1,0 +1,40 @@
+{
+	"factoryModes":{
+		"Temperature Ambiance":[
+			{ "r": 67, "g": 138, "b": 168 }, 
+			{ "r": 204, "g": 219, "b": 254 }, 
+			{ "r": 245, "g": 160, "b": 64 }
+		],
+		"Humidity Ambiance":[
+			{ "r": 46, "g": 113, "b": 8 }, 
+			{ "r": 246, "g": 215, "b": 176 }
+		]
+	},
+	"readingsSettings":{
+		"temperature":{
+			"title":"Température",
+			"unit":"°C",
+			"img":"`${process.env.PUBLIC_URL}/assets/images/temperature.svg`"
+		},
+		"humidity":{
+			"title":"Humidité",
+			"unit":"%",
+			"img":"`${process.env.PUBLIC_URL}/assets/images/humidity.svg`"
+		},
+		"pressure":{
+			"title":"Pression atm.",
+			"unit":"hPa",
+			"img":"`${process.env.PUBLIC_URL}/assets/images/pressure.svg`"
+		},
+		"noise":{
+			"title":"Niveau de bruit",
+			"unit":"dB",
+			"img":"`${process.env.PUBLIC_URL}/assets/images/noise.svg`"
+		},
+		"battery":{
+			"title":"Batterie RTC",
+			"unit":"",
+			"img":"`${process.env.PUBLIC_URL}/assets/images/battery.svg`"
+		}
+	}
+}

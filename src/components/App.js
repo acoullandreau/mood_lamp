@@ -9,7 +9,7 @@ import Readings from './Readings.js';
 import Route from './Route.js';
 import Rules from './Rules.js';
 import SideNavBar from './SideNavBar.js';
-import factoryModesJSON from '../factoryModes.json';
+import configJSON from '../config.json';
 
 // Readings page
 // Mobile version (user Agent, replace hover and click with hold and tap, vertical layout)
@@ -17,6 +17,8 @@ import factoryModesJSON from '../factoryModes.json';
 	// native app (iOS)
 	// other languages
 	// OTA menu
+	// add options : auto turn on with noise
+	// offer possibility to turn off auto after minutes (instead of hours)
 
 
 class App extends React.Component {
@@ -40,7 +42,7 @@ class App extends React.Component {
 
 	componentDidMount() {
 		// add the factoryModes JSON to the redux store
-		this.props.getFactorySettings(factoryModesJSON);
+		this.props.getFactorySettings(configJSON.factoryModes);
 
 		//add event listeners
 		window.addEventListener('resize', this.onWindowResize);
