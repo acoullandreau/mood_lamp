@@ -158,6 +158,11 @@ class Rules extends React.Component {
 		var item = targets[2];
 		var currentState = {...this.state};
 		currentState[category][subsection][item] = value;
+		if (subsection === 'onLightLevel') {
+			currentState[category][subsection]['withStartTime'] = true;
+		} else if (subsection === 'onSchedule') {
+			currentState[category][subsection]['withStartDimmingTime'] = true;
+		}
 		this.setState(currentState);
 	}
 
