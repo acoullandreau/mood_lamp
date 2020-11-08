@@ -2,7 +2,20 @@ import BluetoothService from './BluetoothService.js';
 
 class MaiaService {
 	
+	getModes() {
+		
+	}
+
+	executeMode() {
+
+	}
+
+	saveModes() {
+
+	}
+
 	getReadings() {
+		// this method is in charge of collecting the measurements from the micro-controller (through BluetoothService)
 		var promises = [
 			this.getTemperature(),
 			this.getHumidity(),
@@ -10,8 +23,6 @@ class MaiaService {
 			this.getNoiseLevel(),
 			this.getBatteryLevel(),
 		]
-
-		// console.log(promises)
 
 		var p = new Promise((resolve, reject) => {
 			Promise.all(promises).then(results => {
@@ -119,11 +130,11 @@ class MaiaService {
 		return batteryPromise;
 	}
 
-	getModes() {
+	getRules() {
 
 	}
 
-	getRules() {
+	saveRules() {
 
 	}
 

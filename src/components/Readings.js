@@ -19,11 +19,13 @@ class Readings extends React.Component {
 	}
 
 	componentWillUnmount() {
+		//clear the timeout
 		clearTimeout(this.intervalID);
 	}
 
 
 	getReadings = () => {
+		//this function runs every 500 ms
 		MaiaService.getReadings()
 		.then(measures => {
 			this.setState({ 'lastUpdate':Date.now(), measures: {...measures} });

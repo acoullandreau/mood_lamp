@@ -86,6 +86,7 @@ class Rules extends React.Component {
 
 	parseStateToRules = () => {
 		// Object.assign only does a shallow copy, so if there are nested objects they can be altered in the source from the target!!
+		// this function is in charge of converting the state of the component into an object that matches the format of the redux store Rules object
 		var rules = {};
 		rules.dayTimeAuto = Object.assign({}, this.state.dayTimeAuto);
 		rules.silentAutoOff = Object.assign({}, this.state.silentAutoOff);

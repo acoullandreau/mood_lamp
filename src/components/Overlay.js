@@ -39,7 +39,7 @@ class Overlay extends React.Component {
 		this.closeModal();
 	}
 
-	saveMode = () => {
+	saveNewMode = () => {
 		if (this.state.modeName !== '') {
 			this.props.settings.modeInstance.setName(this.state.modeName);
 			this.props.onSave(this.props.settings);
@@ -126,7 +126,7 @@ class Overlay extends React.Component {
 					/>
 					<div id="overlay-buttons">
 						<button className="overlay-button" onClick={() => this.closeModal()}>Annuler</button>
-						<button className="overlay-button"onClick={() => this.saveMode()}>Enregistrer</button>
+						<button className="overlay-button"onClick={() => this.saveNewMode()}>Enregistrer</button>
 					</div>
 				</div>
 			</React.Fragment>

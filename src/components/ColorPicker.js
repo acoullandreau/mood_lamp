@@ -158,6 +158,7 @@ class ColorPicker extends React.Component {
 	}
 
 	onColorClick = (event) => {
+		// this method is called when the user clicks on a color circle from the colors selectors grid on the right
 		var selectedIndex = parseInt(event.currentTarget.value);
 
 		if (selectedIndex > 0 && selectedIndex === this.state.showDelete) {
@@ -169,6 +170,7 @@ class ColorPicker extends React.Component {
 	}
 
 	addColorSelector = (event) => {
+		// this method is called when the user clicks on the + button of the colors selectors grid on the right
 		var selectedColors = this.state.selectedColors;
 		selectedColors.push('FFFFFF');
 		var selectedColorIndex = this.state.selectedColors.length - 1;
@@ -184,6 +186,7 @@ class ColorPicker extends React.Component {
 	}
 
 	selectColor = (index) => {
+		// this methods selects the color clicked on on the color wheel
 		var showDeleteIndex = index === 0 ? null : index;;
 		this.setState({'selectedColorIndex':index, 'showDelete':showDeleteIndex}, () => {
 			var color = this.state.selectedColors[index];
@@ -192,7 +195,7 @@ class ColorPicker extends React.Component {
 	} 
 
 	removeColorSelector = (indexColorToRemove) => {
-
+		// this method removes the color from the grid and the list of selected colors
 		if (indexColorToRemove > this.state.minNumberColors) {
 			var selectedColors = this.state.selectedColors;
 			selectedColors.splice(indexColorToRemove, 1);
@@ -258,9 +261,6 @@ class ColorPicker extends React.Component {
 	}
 
 	renderDeleteIcon = (index, background) => {
-
-		// this.props.modeModel.isOriginMode ?
-
 		var hsvColor = Utils.convertHextoHSV(background);
 		var style;
 		if (hsvColor.v < 50) {
