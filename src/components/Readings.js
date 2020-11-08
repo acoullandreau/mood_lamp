@@ -27,7 +27,7 @@ class Readings extends React.Component {
 		MaiaService.getReadings()
 		.then(measures => {
 			this.setState({ 'lastUpdate':Date.now(), measures: {...measures} });
-			//this.intervalID = setTimeout(this.getReadings, 500);
+			this.intervalID = setTimeout(this.getReadings, 500);
 		})
 	}
 
@@ -37,17 +37,12 @@ class Readings extends React.Component {
 		var unit = configJSON.readingsSettings[item]['unit'];
 		var img = configJSON.readingsSettings[item]['img'];
 
-		var fontSize = '3em';
-		// if ((measure+' '+unit).length > 5) {
-		// 	fontSize = '3em';
-		// }
-
 		return (
 			<div className="reading-tile">
 				<div className={["reading-title", "grid-row-one"].join(' ')}>{title}</div>
 				<div className="reading-measure">
 					<div className={["reading-icon", "column-one"].join(' ')}><img  src={`${process.env.PUBLIC_URL}/assets/images/${item}.svg`} alt={title} /></div>
-					<div className={["reading-text", "column-two"].join(' ')}style={{'fontSize':fontSize}} >{measure} {unit}</div>
+					<div className={["reading-text", "column-two"].join(' ')}>{measure} {unit}</div>
 				</div>
 			</div>
 		)

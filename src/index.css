@@ -759,7 +759,7 @@ input:checked + .slider:before {
 	margin-left: auto;
 	padding:2%;
 	margin-top: 20vh;
-	grid-template-columns: repeat(2, 48%);
+	grid-template-columns: repeat(2, 46%);
 	grid-template-rows: repeat(10, 20vh);
 	grid-column-gap: 4%;
 	grid-row-gap: 6%;
@@ -783,9 +783,10 @@ input:checked + .slider:before {
 	display: grid;
 	grid-template-columns: 32% 60%;
 	grid-column-gap: 4%;
-	margin-top:7%;
+	margin-top:6%;
 	margin-left:4%;
 	align-items: center;	
+	font-size: min(5vh, 8vw);
 }
 
 .reading-text {
@@ -794,4 +795,8 @@ input:checked + .slider:before {
 
 .reading-icon {
 	justify-self: center;
+}
+
+.reading-icon img{
+	width: 80%;
 }
