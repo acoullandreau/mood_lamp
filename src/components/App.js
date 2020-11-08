@@ -11,7 +11,6 @@ import Rules from './Rules.js';
 import SideNavBar from './SideNavBar.js';
 import configJSON from '../config.json';
 
-// Readings page
 // Mobile version (user Agent, replace hover and click with hold and tap, vertical layout)
 // ReadMe (Chrome only, improvements possible)
 	// native app (iOS)

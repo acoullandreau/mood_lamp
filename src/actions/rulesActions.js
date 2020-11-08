@@ -16,29 +16,29 @@ export const fetchRules = () => {
 			'autoOn':{
 				'active':false,
 				'onLightLevel':{
-					'active':true, 
+					'startTime':'20:00',
 					'withStartTime':false,
-					'startTime':'20:00'
+					'active':true
 				},
 				'onSchedule':{
-					'active':false, 
 					'startTime':'20:00',
 					'withStartDimmingTime':false,
-					'startDimmingTime':'19:45'
+					'startDimmingTime':'19:45',
+					'active':false
 				},
 			},
 			'autoOff':{
 				'active':true,
 				'onLightLevel':{
-					'active':false, 
+					'startTime':'23:00',
 					'withStartTime':false,
-					'startTime':'23:00'
+					'active':false
 				},
 				'onSchedule':{
-					'active':true, 
 					'startTime':'23:00',
 					'withStartDimmingTime':false,
-					'startDimmingTime':'22:30'
+					'startDimmingTime':'22:30',
+					'active':true
 				},
 			},
 		}

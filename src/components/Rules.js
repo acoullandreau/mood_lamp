@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import TimePicker from './TimePicker.js';
 import { editRules } from '../actions';
+import TimePicker from './TimePicker.js';
 
 class Rules extends React.Component {
 
@@ -57,18 +57,7 @@ class Rules extends React.Component {
 	getOpacity = (target) => {
 		var targets = target.split('.');
 		var category = targets[0];
-		// var subsection = targets[1];
 		var opacity = 1;
-		// if (this.state[category].active) {
-		// 	if (targets.length === 2) {
-		// 		if (this.state[category].activeOption !== subsection) {
-		// 			opacity = 0.3;
-		// 		} 
-		// 	} 
-		// } else {
-		// 	opacity = 0.3;
-		// } 
-
 
 		if (this.state[category].active === false) {
 			opacity = 0.3;
@@ -78,17 +67,19 @@ class Rules extends React.Component {
 	}
 
 	isDisabled = (target) => {
-		var targetArray = target.split('.');
 		var isDisabled = false;
-		if (this.state[targetArray[0]]['active'] === false) {
-			isDisabled = true;
-		} else if (this.state[targetArray[0]].activeOption !== targetArray[1]) {
-			isDisabled = true;
+		var targetArray = target.split('.');
+		if (targetArray.length > 1) {
+			if (this.state[targetArray[0]]['active'] === false) {
+				isDisabled = true;
+			} else if (this.state[targetArray[0]].activeOption !== targetArray[1]) {
+				isDisabled = true;
+			}
 		}
 		return isDisabled;
 	}
 
-	onSave = () => {
+	parseStateToRules = () => {
 		// Object.assign only does a shallow copy, so if there are nested objects they can be altered in the source from the target!!
 		var rules = {};
 		rules.dayTimeAuto = Object.assign({}, this.state.dayTimeAuto);
@@ -135,20 +126,26 @@ class Rules extends React.Component {
 		} else {
 			currentState[targets[0]]['active'] = !this.state[targets[0]]['active'];
 		}
-		this.setState(currentState);
+		this.setState(currentState, () => {
+			this.parseStateToRules();
+		});
 	}
 
 	handleOptionChange = (event) => {
 		var currentState = {...this.state};
 		currentState[event.target.name].activeOption = event.target.value;
-		this.setState(currentState);
+		this.setState(currentState, () => {
+			this.parseStateToRules();
+		});
 	}
 
 	handleNumberInputChange = (event) => {
 		var silentAutoOff = {...this.state.silentAutoOff};
 		silentAutoOff['active'] = true;
 		silentAutoOff['duration'] = event.target.value;
-		this.setState({silentAutoOff});
+		this.setState({silentAutoOff}, () => {
+			this.parseStateToRules();
+		});
 	}
 
 	onTimeChange = (value, target) => {
@@ -163,7 +160,9 @@ class Rules extends React.Component {
 		} else if (subsection === 'onSchedule') {
 			currentState[category][subsection]['withStartDimmingTime'] = true;
 		}
-		this.setState(currentState);
+		this.setState(currentState, () => {
+			this.parseStateToRules();
+		});
 	}
 
 	renderSwitch = (target) => {
@@ -214,7 +213,10 @@ class Rules extends React.Component {
 						/>
 						<p className="display-inline">Allumer si le niveau lumineux est bas </p>
 					</div>
-					<div className="subsection-sublevel" style={{'opacity':this.state.autoOn.activeOption === 'onLightLevel' ? '1 !important':'0.5 !important'}}>
+					<div 
+						className="subsection-sublevel" 
+						style={{'opacity':this.state.autoOn.activeOption === 'onLightLevel' ? 1 : 0.5 }}
+					>
 						{this.renderSwitch('autoOn.onLightLevel')}
 						<p className="rule-text">Allumer après</p>
 						<TimePicker 
@@ -239,11 +241,15 @@ class Rules extends React.Component {
 						<p className="display-inline">Allumer chaque jour à </p>
 						<TimePicker 
 							target="autoOn.onSchedule.startTime" 
+							disabled={ this.isDisabled('autoOn.onSchedule') }
 							time={this.state.autoOn.onSchedule.startTime} 
 							onTimeChange={this.onTimeChange}
 						/>
 					</div>
-					<div className="subsection-sublevel" style={{'opacity':this.state.autoOn.activeOption === 'onSchedule' ? '1 !important':'0.5 !important'}}>
+					<div 
+						className="subsection-sublevel" 
+						style={{'opacity':this.state.autoOn.activeOption === 'onSchedule' ? 1 : 0.5 }}
+					>
 						{this.renderSwitch('autoOn.onSchedule')}
 						<p className="rule-text">Grader à partir de</p>
 						<TimePicker 
@@ -279,7 +285,10 @@ class Rules extends React.Component {
 						/>
 						<p className="display-inline">Éteindre si le niveau lumineux est haut </p>
 					</div>
-					<div className="subsection-sublevel" style={{'opacity':this.state.autoOff.activeOption === 'onLightLevel' ? '1 !important':'0.5 !important'}}>
+					<div 
+						className="subsection-sublevel" 
+						style={{'opacity':this.state.autoOff.activeOption === 'onLightLevel' ? 1 :0.5 }}
+					>
 						{this.renderSwitch('autoOff.onLightLevel')}
 						<p className="rule-text">Éteindre après</p>
 						<TimePicker 
@@ -304,11 +313,15 @@ class Rules extends React.Component {
 						<p className="display-inline">Éteindre chaque jour à </p>
 						<TimePicker 
 							target="autoOff.onSchedule.startTime" 
+							disabled={ this.isDisabled("autoOff.onSchedule") }
 							time={this.state.autoOff.onSchedule.startTime} 
 							onTimeChange={this.onTimeChange}
 						/>
 					</div>
-					<div className="subsection-sublevel" style={{'opacity':this.state.autoOff.activeOption === 'onSchedule' ? '1 !important':'0.5 !important'}}>
+					<div 
+						className="subsection-sublevel" 
+						style={{'opacity':this.state.autoOff.activeOption === 'onSchedule' ? 1 : 0.5}}
+					>
 						{this.renderSwitch('autoOff.onSchedule')}
 						<p className="rule-text">Grader à partir de</p>
 						<TimePicker 
@@ -322,6 +335,8 @@ class Rules extends React.Component {
 			</div>
 		)
 	}
+
+
 
 	render() {
 
@@ -347,10 +362,6 @@ class Rules extends React.Component {
 				</div>
 				{this.renderAutoOnSection()}
 				{this.renderAutoOffSection()}
-				<button className={['save-button', 'rules-button'].join(' ')} onClick={this.onSave} >
-					Enregistrer
-				</button>
-
 			</div>
 		)
 

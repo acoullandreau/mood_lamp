@@ -614,13 +614,6 @@ button {
 	vertical-align: middle;
 } 
 
-.rules-button {
-	float: right;
-	width: 20%;
-	margin-top: 7%;
-}
-
-
 input[type=number]::-webkit-inner-spin-button {
 	-webkit-appearance: none;
 }
@@ -767,7 +760,7 @@ input:checked + .slider:before {
 	padding:2%;
 	margin-top: 20vh;
 	grid-template-columns: repeat(2, 48%);
-	grid-template-rows: repeat(10, 25vh);
+	grid-template-rows: repeat(10, 20vh);
 	grid-column-gap: 4%;
 	grid-row-gap: 6%;
 	overflow-y: scroll;
@@ -781,7 +774,7 @@ input:checked + .slider:before {
 
 .reading-title {
 	color:#FAD1BE;
-	font-size: 30px;
+	font-size: 25px;
 	margin-left:5%;
 	margin-top:5%;
 }
@@ -790,7 +783,7 @@ input:checked + .slider:before {
 	display: grid;
 	grid-template-columns: 32% 60%;
 	grid-column-gap: 4%;
-	margin-top:10%;
+	margin-top:7%;
 	margin-left:4%;
 	align-items: center;	
 }

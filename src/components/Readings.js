@@ -7,9 +7,6 @@ class Readings extends React.Component {
 	intervalID;
 	state = {'lastUpdate':'', 'measures':{}};
 
-//automatic refresh every x seconds
-// wheck if measurement is old
-
 	componentDidMount() {
 		//fetch the current values of the measurements
 		this.getReadings();
@@ -18,7 +15,7 @@ class Readings extends React.Component {
 	componentDidUpdate() {
 		// we ensure that we have a grid the right size
 		var numRows = Math.ceil(Object.keys(this.state.measures).length / 2)
-		document.getElementById("readings-grid").style['grid-template-rows'] = `repeat(${numRows}, 25vh)`;
+		document.getElementById("readings-grid").style['grid-template-rows'] = `repeat(${numRows}, 20vh)`;
 	}
 
 	componentWillUnmount() {
@@ -30,8 +27,7 @@ class Readings extends React.Component {
 		MaiaService.getReadings()
 		.then(measures => {
 			this.setState({ 'lastUpdate':Date.now(), measures: {...measures} });
-			// call getReadings() again in 5 seconds
-			this.intervalID = setTimeout(this.getReadings, 5000);
+			//this.intervalID = setTimeout(this.getReadings, 500);
 		})
 	}
 
@@ -41,10 +37,10 @@ class Readings extends React.Component {
 		var unit = configJSON.readingsSettings[item]['unit'];
 		var img = configJSON.readingsSettings[item]['img'];
 
-		var fontSize = '5em';
-		if ((measure+' '+unit).length > 5) {
-			fontSize = '3em';
-		}
+		var fontSize = '3em';
+		// if ((measure+' '+unit).length > 5) {
+		// 	fontSize = '3em';
+		// }
 
 		return (
 			<div className="reading-tile">
