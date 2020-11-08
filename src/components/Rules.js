@@ -54,15 +54,20 @@ class Rules extends React.Component {
 		}
 	}
 
-	getOpacity = (target) => {
+	getOpacity = (target, isSubLevel) => {
 		var targetArray = target.split('.');
 		var category = targetArray[0];
+		var subcategory = targetArray[1];
 		var opacity = 1;
-		if (targetArray.length > 1) {
-			if (this.state[category].active === false) {
-				opacity = 0.3;
-			} 
-		};
+		if (isSubLevel) {
+			if (this.state[category].activeOption !== subcategory) {
+				opacity = 0.5;
+			}
+		}
+		if (this.state[category].active === false) {
+			opacity = 0.5;
+		} 
+
 		return opacity;
 	}
 
@@ -200,7 +205,7 @@ class Rules extends React.Component {
 					{this.renderSwitch('autoOn')}
 					<p className="rule-text">Allumage automatique</p>
 				</div>
-				<div className="subsection" style={{'opacity':this.getOpacity('autoOn.onLightLevel')}}> 
+				<div className="subsection" style={{'opacity':this.getOpacity('autoOn.onLightLevel', false)}}> 
 					<div>
 						<input 
 							name="autoOn"
@@ -215,7 +220,7 @@ class Rules extends React.Component {
 					</div>
 					<div 
 						className="subsection-sublevel" 
-						style={{'opacity':this.state.autoOn.activeOption === 'onLightLevel' ? 1 : 0.5 }}
+						style={{'opacity':this.getOpacity('autoOn.onLightLevel', true)}}
 					>
 						{this.renderSwitch('autoOn.onLightLevel')}
 						<p className="rule-text">Allumer après</p>
@@ -227,7 +232,7 @@ class Rules extends React.Component {
 						/>
 					</div>
 				</div>
-				<div className="subsection" style={{'opacity':this.getOpacity('autoOn.onSchedule')}}>
+				<div className="subsection" style={{'opacity':this.getOpacity('autoOn.onSchedule', false)}}>
 					<div>
 						<input 
 							name="autoOn"
@@ -248,7 +253,7 @@ class Rules extends React.Component {
 					</div>
 					<div 
 						className="subsection-sublevel" 
-						style={{'opacity':this.state.autoOn.activeOption === 'onSchedule' ? 1 : 0.5 }}
+						style={{'opacity':this.getOpacity('autoOn.onSchedule', true) }}
 					>
 						{this.renderSwitch('autoOn.onSchedule')}
 						<p className="rule-text">Grader à partir de</p>
@@ -272,7 +277,7 @@ class Rules extends React.Component {
 					{this.renderSwitch('autoOff')}
 					<p className="rule-text">Extinction automatique</p>
 				</div>
-				<div className="subsection" style={{'opacity':this.getOpacity('autoOff.onLightLevel')}}>
+				<div className="subsection" style={{'opacity':this.getOpacity('autoOff.onLightLevel', false)}}>
 					<div>
 						<input 
 							name="autoOff"
@@ -287,7 +292,7 @@ class Rules extends React.Component {
 					</div>
 					<div 
 						className="subsection-sublevel" 
-						style={{'opacity':this.state.autoOff.activeOption === 'onLightLevel' ? 1 :0.5 }}
+						style={{'opacity':this.getOpacity('autoOff.onLightLevel', true) }}
 					>
 						{this.renderSwitch('autoOff.onLightLevel')}
 						<p className="rule-text">Éteindre après</p>
@@ -299,7 +304,7 @@ class Rules extends React.Component {
 						/>
 					</div>
 				</div>
-				<div className="subsection" style={{'opacity':this.getOpacity('autoOff.onSchedule')}}>
+				<div className="subsection" style={{'opacity':this.getOpacity('autoOff.onSchedule', false)}}>
 					<div>
 						<input 
 							name="autoOff"
@@ -320,7 +325,7 @@ class Rules extends React.Component {
 					</div>
 					<div 
 						className="subsection-sublevel" 
-						style={{'opacity':this.state.autoOff.activeOption === 'onSchedule' ? 1 : 0.5}}
+						style={{'opacity':this.getOpacity('autoOff.onSchedule', true)}}
 					>
 						{this.renderSwitch('autoOff.onSchedule')}
 						<p className="rule-text">Grader à partir de</p>
@@ -344,11 +349,11 @@ class Rules extends React.Component {
 			<div id="rules-page">
 				<div className="rules-div">
 					{this.renderSwitch('dayTimeAuto')}
-					<p className="rule-text" style={{'opacity':this.getOpacity('dayTimeAuto')}}>Choisir automatiquement le mode actif en fonction du moment de la journée</p>
+					<p className="rule-text">Choisir automatiquement le mode actif en fonction du moment de la journée</p>
 				</div>
 				<div className="rules-div">
 					{this.renderSwitch('silentAutoOff')}
-					<div className="rule-text" style={{'minWidth': '90%', 'opacity':this.getOpacity('silentAutoOff')}}>
+					<div className="rule-text" style={{'minWidth': '90%'}}>
 						<p style={{display:'inline-block'}}>Désactiver les automatismes si aucun son pendant plus de </p>
 						<input 
 							id="number-input"
