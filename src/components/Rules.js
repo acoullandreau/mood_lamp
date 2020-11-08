@@ -55,14 +55,14 @@ class Rules extends React.Component {
 	}
 
 	getOpacity = (target) => {
-		var targets = target.split('.');
-		var category = targets[0];
+		var targetArray = target.split('.');
+		var category = targetArray[0];
 		var opacity = 1;
-
-		if (this.state[category].active === false) {
-			opacity = 0.3;
-		} 
-
+		if (targetArray.length > 1) {
+			if (this.state[category].active === false) {
+				opacity = 0.3;
+			} 
+		};
 		return opacity;
 	}
 
