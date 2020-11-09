@@ -31,7 +31,20 @@ class BrowserWarning extends React.Component {
 		return (
 			<div id="browser-warning">
 				<img src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`} alt='Maïa' />
-				<p>Ce service n'est pas conçu pour fonctionner sur un autre navigateur que <b><a href='https://www.google.com/chrome/' target="_blank">Chrome</a></b> !</p>
+				<p>
+					Ce service n'est pas conçu pour fonctionner sur un autre navigateur que
+					<span> </span>
+					<a href='https://www.google.com/chrome/' target="_blank">
+						<span style={{'color': '#4386F4'}}>C</span>
+						<span style={{'color': '#EA483A'}}>h</span>
+						<span style={{'color': '#FBBD28'}}>r</span>
+						<span style={{'color': '#4386F4'}}>o</span>
+						<span style={{'color': '#34A853'}}>m</span>
+						<span style={{'color': '#EA483A'}}>e</span>
+					</a>
+					<span> </span>
+					!
+				</p>
 			</div>
 		)
 	}

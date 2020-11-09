@@ -44,7 +44,7 @@ button {
 
 /*Specific to the non-Chrome browsers*/
 #browser-warning {
-	width: 40%;
+	width: 45%;
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 5%;
@@ -52,6 +52,12 @@ button {
 
 #browser-warning img {
 	width: 100%;
+}
+
+#browser-warning a {
+	text-decoration: underline;
+	text-decoration-color:#FEEDDF;
+	text-decoration-thickness:1px;
 }
 
 #browser-warning p {

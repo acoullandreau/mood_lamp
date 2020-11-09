@@ -203,6 +203,12 @@ class App extends React.Component {
 				>
 					{this.state.isConnected === false ? 'Connecter' : 'Déconnecter' }
 				</button>
+				<h3>À propos</h3>
+				<p>
+					Cette application est conçue pour vous permettre de piloter une lampe d'ambiance nommée Maïa !
+					Le projet est développé par <a href="https://acoullandreau.com" target="_blank">Alexina Coullandreau</a> et <a href="https://gbuzogany.com" target="_blank">Gustavo Buzogany</a>. 
+					Jetez un oeil au <a href="https://github.com/acoullandreau/mood_lamp" target="_blank">code source de cette page</a>, ou encore au projet de lampe, et n'hésitez pas à nous contacter !
+				</p>
 			</div>
 		)
 	}
