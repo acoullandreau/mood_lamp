@@ -88,6 +88,11 @@ class App extends React.Component {
 	}
 
 
+	onSaveRules = () => {
+		this.syncRulesStateWithLamp();
+	}
+
+
 	onSaveMode = (parameters) => {
 		var type = parameters.type;
 		var modeInstance = parameters.modeInstance;
@@ -100,6 +105,7 @@ class App extends React.Component {
 		}
 
 		this.setState({'tabIndex':1}, () => {
+			this.syncModesStateWithLamp();
 			window.history.pushState({}, '', '#modes');
 			const navEvent = new PopStateEvent('popstate');
 			window.dispatchEvent(navEvent);
@@ -245,7 +251,7 @@ class App extends React.Component {
 
 	renderAutomatismes = () => {
 		return (
-			<Rules />
+			<Rules onSaveRules={this.onSaveRules} />
 		)
 	}
 

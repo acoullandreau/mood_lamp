@@ -179,7 +179,19 @@ class MaiaService {
 	}
 
 	getRules() {
+		//get the rules config object
+		var rulesPromise = new Promise((resolve, reject) => {
+			BluetoothService.getRules()
+			.then(rulesConfig => {
+				resolve(rulesConfig);
+			})
+			.catch((err) => {
+				console.warn(err); 
+				reject({});
+			})
+		});
 
+		return rulesPromise;
 	}
 
 	saveRules(rulesObject) {
