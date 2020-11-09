@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import iro from '@jaames/iro';
 import { connect } from 'react-redux';
 import { selectMode } from '../actions';
-import iro from '@jaames/iro';
+import MaiaService from './MaiaService.js';
 import ModeModel from './ModeModel.js';
 import Slider from './Slider.js';
-import Utils from '../Utils.js';
+import Utils from './Utils.js';
 
 class IroColorPicker extends React.Component {
 
@@ -131,11 +132,19 @@ class ColorPicker extends React.Component {
 		this.setState({'selectedColors':this.getHexColors(initialColors)});
 	}
 
+	executeCurrentMode = () => {
+		var serializedMode = this.props.modeModel.serialize();
+		MaiaService.executeMode(serializedMode);
+	}
+
 	onSpeedChange = (speed) => {
 		// save the currently selected color
-		this.setState({'animationSpeed':speed});
-		// send color to the microcontroller for live update
-		// #############################################
+		this.setState({'animationSpeed':speed}, () => {
+			// update the modeModel
+			this.props.modeModel.setSpeed(this.state.animationSpeed);
+			// send color to the microcontroller for live update
+			this.executeCurrentMode();
+		});
 	}
 
 	onColorSelect = (color) => {
@@ -148,7 +157,8 @@ class ColorPicker extends React.Component {
 		});
 
 		// send color to the microcontroller for live update
-		// #############################################
+		this.editModeModel()
+		this.executeCurrentMode();
 
 		// if the color picker is not editing a saved mode, the selectedMode from the redux store should be cleared
 		if (this.props.type === 'new') {
@@ -212,7 +222,7 @@ class ColorPicker extends React.Component {
 
 	}
 
-	onSaveMode = () => {
+	editModeModel = () => {
 		// add state to modeModel
 		var modeColors = [];
 		var selectedColors = this.state.selectedColors;
@@ -221,8 +231,12 @@ class ColorPicker extends React.Component {
 			modeColors.push(rgbColor);
 		}
 		this.props.modeModel.setColors(modeColors);
-		this.props.modeModel.setSpeed(this.state.animationSpeed);
- 
+		//this.props.modeModel.setSpeed(this.state.animationSpeed);
+	}
+
+	onSaveMode = () => {
+ 		this.editModeModel();
+
 		if (this.props.type === 'new') {
 			// send the modeModel reference back to the App
 			let params = {
@@ -236,7 +250,6 @@ class ColorPicker extends React.Component {
 		} else if (this.props.type === 'edit') {
 			this.props.onSaveEditMode(this.props.modeModel);
 		}
-
 
 	}
 

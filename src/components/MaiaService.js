@@ -3,15 +3,63 @@ import BluetoothService from './BluetoothService.js';
 class MaiaService {
 	
 	getModes() {
-		
+		var promises = [
+			this.getModesArray(),
+			this.getSelectedMode()
+		]
+
+		var p = new Promise((resolve, reject) => {
+			Promise.all(promises).then(results => {
+				var modes = {
+					'modesArray':results[0],
+					'selectedMode':results[1]
+				}
+				resolve(modes)
+			})
+		});
+		return p;
 	}
 
-	executeMode() {
+	getModesArray() {
+		//get the list of saved modes
+		var modesPromise = new Promise((resolve, reject) => {
+			BluetoothService.getModes()
+			.then(modeArray => {
+				resolve(modeArray);
+			})
+			.catch((err) => {
+				console.warn(err); 
+				reject([]);
+			})
+		});
+
+		return modesPromise;
 
 	}
 
-	saveModes() {
+	getSelectedMode() {
+		//get the index of the currently selected mode
+		var selectedModePromise = new Promise((resolve, reject) => {
+			BluetoothService.getSelectedMode()
+			.then(modeIndex => {
+				resolve(modeIndex);
+			})
+			.catch((err) => {
+				console.warn(err); 
+				reject(null);
+			})
+		});
 
+		return selectedModePromise;
+	}
+
+	executeMode(modeConfig) {
+		BluetoothService.setMode(modeConfig);
+	}
+
+	saveModes(modesObject) {
+		//modesObject contains the array of saved modes and the currently selected mode 
+		BluetoothService.saveModes(modesObject);
 	}
 
 	getReadings() {
@@ -134,10 +182,9 @@ class MaiaService {
 
 	}
 
-	saveRules() {
-
+	saveRules(rulesObject) {
+		BluetoothService.saveRules(rulesObject);
 	}
-
 
 
 }

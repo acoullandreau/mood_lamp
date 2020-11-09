@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchModes, fetchRules, addMode, editMode, getFactorySettings, selectMode } from '../actions';
+import configJSON from '../config.json';
 import ColorPicker from './ColorPicker.js';
+import MaiaService from './MaiaService.js';
 import ModeModel from '../components/ModeModel.js';
 import ModesList from './ModesList.js';
 import Overlay from './Overlay.js';
@@ -9,7 +11,6 @@ import Readings from './Readings.js';
 import Route from './Route.js';
 import Rules from './Rules.js';
 import SideNavBar from './SideNavBar.js';
-import configJSON from '../config.json';
 
 // Mobile version (user Agent, replace hover and click with hold and tap, vertical layout)
 // ReadMe (Chrome only, improvements possible)
@@ -53,21 +54,17 @@ class App extends React.Component {
 		window.dispatchEvent(navEvent);
 	}
 
-	componentDidUpdate() {
-		//this.serializeModes();
-	}
-
 	componentWillUnmount() {
 		window.removeEventListener('resize', this.onWindowResize);
 		window.removeEventListener('popstate', this.onLocationChange);
 	}
 
 	onWindowResize() {
-		var screenRatio = window.innerHeight/window.innerWidth;
+		var screenRatio = window.visualViewport.height/window.visualViewport.width;
 		if (screenRatio < 0.75) {
-			var width = window.innerHeight / 0.75;
+			var width = window.visualViewport.height / 0.75;
 			document.getElementById('root').style.width = width + 'px' ;
-			document.getElementById('root').style.height = window.innerHeight + 'px' ;
+			document.getElementById('root').style.height = window.visualViewport.height + 'px' ;
 		}
 	}
 
@@ -144,8 +141,10 @@ class App extends React.Component {
 	}
 
 	onDisconnectClick = () =>  {
-		// serialize the store
-		// send the new state to the micro-controller?
+		// save the changes on the micro-controller
+		this.syncModesStateWithLamp();
+		this.syncRulesStateWithLamp();
+		// close the connection to the lamp
 		// once the disconnection is confirmed, call onDisconnect
 		this.setState({'tabIndex':0});
 		this.onDisconnect();
@@ -168,6 +167,26 @@ class App extends React.Component {
 		window.dispatchEvent(navEvent);
 
 	}
+
+	serializeModes() {
+		var modesArray = [];
+		for (var i = 0; i < this.props.modesList.length; i++) {
+			var serializedModeModel = this.props.modesList[i].serialize();
+			modesArray.push(serializedModeModel);
+		}
+		return modesArray;
+	}
+
+	syncModesStateWithLamp() {
+		var modesArray = this.serializeModes();
+		var modesObject = {'modesArray':modesArray, 'selectedMode':this.props.selectedMode};
+		MaiaService.saveModes(modesObject);
+	}
+
+	syncRulesStateWithLamp() {
+		MaiaService.saveRules(this.props.rules);
+	}
+
 
 	renderHome = () => {
 		return (
@@ -332,7 +351,11 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-	return { modesList : state.modes };
+	return { 
+		modesList : state.modes, 
+		selectedMode:state.selectedMode,
+		rules : state.rules
+	};
 }
 
 

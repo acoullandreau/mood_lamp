@@ -1,8 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import Utils from '../Utils.js';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { selectMode } from '../actions';
+import MaiaService from './MaiaService.js';
+import Utils from './Utils.js';
 
 class ModeTile extends React.Component {
 
@@ -20,6 +21,8 @@ class ModeTile extends React.Component {
 	launchMode = () => {
 		this.props.selectMode(this.state.id);
 		// send the info to the microcontroller
+		var serializedMode = this.props.model.serialize();
+		MaiaService.executeMode(serializedMode);
 	}
 
 	onEdit = () => {
