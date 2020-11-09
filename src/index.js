@@ -6,6 +6,7 @@ import thunk from 'redux-thunk';
 import * as serviceWorker from './serviceWorker';
 import './index.css';
 import App from './components/App.js';
+import BrowserWarning from './components/BrowserWarning.js';
 import reducers from './reducers';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -14,10 +15,18 @@ const store = createStore(
 	composeEnhancers(applyMiddleware(thunk))
 );
 
+
+var contentToRender;
+if (/chrome/i.test( navigator.userAgent )) {
+	contentToRender = (<App/>);
+} else {
+	contentToRender = (<BrowserWarning/>);
+}
+
 ReactDOM.render(
   <React.StrictMode>
   	<Provider store={store}>
-    	<App />
+    	{contentToRender}
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

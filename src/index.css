@@ -40,6 +40,28 @@ button {
 	margin-left: auto;
 }
 
+
+
+/*Specific to the non-Chrome browsers*/
+#browser-warning {
+	width: 40%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 5%;
+}
+
+#browser-warning img {
+	width: 100%;
+}
+
+#browser-warning p {
+	font-size: 5vh;
+	text-align: center;
+	text-justify: inter-word;
+}
+
+
+
 /*General page layout*/
 
 .grid-content {
