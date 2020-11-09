@@ -170,6 +170,28 @@ class Overlay extends React.Component {
 
 	}
 
+	renderAboutOverlay = () => {
+		return (
+			<React.Fragment>
+				<div id='about' className={['OverlayWindow'].join(' ')}>
+					<button id="overlay-edit-close" onClick={() => this.closeModal()}>x</button>
+					<div id="overlay-title">{this.props.settings.title}</div>
+					<div id="overlay-text">
+						Cette application est conçue pour vous permettre de piloter une lampe d'ambiance nommée Maïa ! <br/> <br/>
+						Le projet est développé par 
+						<a href="https://acoullandreau.com" target="_blank" rel="noopener noreferrer"> Alexina Coullandreau </a> 
+						<span> et </span> 
+						<a href="https://gbuzogany.com" target="_blank" rel="noopener noreferrer"> Gustavo Buzogany</a>.  <br/>
+						Jetez un oeil au 
+						<a href="https://github.com/acoullandreau/mood_lamp" target="_blank" rel="noopener noreferrer"> code source de cette page</a>, 
+						ou encore au <a href="https://github.com/gbuzogany" target="_blank" rel="noopener noreferrer"> projet de lampe</a>, 
+						et n'hésitez pas à nous contacter !
+					</div>
+				</div>
+			</React.Fragment>
+		)
+
+	}
 
 	render() {
 		if (this.props.settings.type === 'new') {
@@ -191,6 +213,13 @@ class Overlay extends React.Component {
 				<React.Fragment>
 					<div className="Blur" onClick={() => this.closeModal()}></div>
 					{this.renderDeletetModeOverlay()}
+				</React.Fragment>
+			)
+		} else if (this.props.settings.type === 'about') {
+			return (
+				<React.Fragment>
+					<div className="Blur" onClick={() => this.closeModal()}></div>
+					{this.renderAboutOverlay()}
 				</React.Fragment>
 			)
 		}

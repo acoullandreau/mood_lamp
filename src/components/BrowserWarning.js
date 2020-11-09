@@ -34,7 +34,7 @@ class BrowserWarning extends React.Component {
 				<p>
 					Ce service n'est pas conçu pour fonctionner sur un autre navigateur que
 					<span> </span>
-					<a href='https://www.google.com/chrome/' target="_blank">
+					<a href='https://www.google.com/chrome/' target="_blank" rel="noopener noreferrer">
 						<span style={{'color': '#4386F4'}}>C</span>
 						<span style={{'color': '#EA483A'}}>h</span>
 						<span style={{'color': '#FBBD28'}}>r</span>

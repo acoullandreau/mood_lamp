@@ -138,6 +138,16 @@ class App extends React.Component {
 		this.displayOverlay(params);
 	}
 
+	showAbout = () => {
+		var params = {
+			'type':'about',
+			'display':true,
+			'title':'À propos', 
+			'message':'',
+			'modeInstance':''
+		};
+		this.displayOverlay(params);
+	}
 
 	onConnectClick = () =>  {
 		// try to connect to the micro-controller
@@ -195,23 +205,38 @@ class App extends React.Component {
 
 
 	renderHome = () => {
+		var homeButton;
+
+		if (this.state.isConnected === false) {
+			homeButton = (
+				<button 
+					className="button-home"
+					onClick={this.onConnectClick}
+				>
+					Connecter
+				</button>
+			)
+		} else {
+			homeButton = (
+				<button 
+					className="button-home"
+					onClick={this.onDisconnectClick}
+				>
+					Déconnecter
+				</button>
+			)
+		}
+
+
 		return (
 			<div id='home'>
-				<button 
-					className={['column-one', 'button-home'].join(' ')}
-					onClick={this.state.isConnected === false ? this.onConnectClick : this.onDisconnectClick }
-				>
-					{this.state.isConnected === false ? 'Connecter' : 'Déconnecter' }
-				</button>
-				<h3>À propos</h3>
-				<p>
-					Cette application est conçue pour vous permettre de piloter une lampe d'ambiance nommée Maïa !
-					Le projet est développé par <a href="https://acoullandreau.com" target="_blank">Alexina Coullandreau</a> et <a href="https://gbuzogany.com" target="_blank">Gustavo Buzogany</a>. 
-					Jetez un oeil au <a href="https://github.com/acoullandreau/mood_lamp" target="_blank">code source de cette page</a>, ou encore au projet de lampe, et n'hésitez pas à nous contacter !
-				</p>
+				{homeButton}
 			</div>
 		)
 	}
+
+
+
 
 	renderModes = () => {
 		return (
@@ -282,24 +307,10 @@ class App extends React.Component {
 
 	renderConnected() {
 		let disconnectDisplay = this.state.disconnectDisplay;
-		let overlay;
-		if (this.state.overlay.display) {
-			overlay = (
-				<div style={{display:'block'}}>
-					<Overlay settings={this.state.overlay} onClose={this.displayOverlay} onSave={this.onSaveMode} />
-				</div>
-			)
-		} else {
-			overlay = (
-				<div style={{display:'none'}}>
-					<Overlay settings={this.state.overlay} onClose={this.displayOverlay} onSave={this.onSaveMode} />
-				</div>
-			)
-		}
 
 		return (
 			<React.Fragment>
-				{ overlay }
+				
 				<div className="grid-content">
 					<div className="content-one">
 						<div id='logo'>
@@ -346,19 +357,37 @@ class App extends React.Component {
 
 	render() {
 
+		let contentToRender;
 		if (this.state.isConnected) {
-			return (
-				<React.Fragment>
-					{this.renderConnected()}
-				</React.Fragment>
-			);
+			contentToRender = this.renderConnected();
 		} else {
-			return (
-				<React.Fragment>
-					{this.renderDisconnected()}
-				</React.Fragment>
-			);
+			contentToRender = this.renderDisconnected();
 		}
+
+		let overlay;
+		if (this.state.overlay.display) {
+			overlay = (
+				<div style={{display:'block'}}>
+					<Overlay settings={this.state.overlay} onClose={this.displayOverlay} onSave={this.onSaveMode} />
+				</div>
+			)
+		} else {
+			overlay = (
+				<div style={{display:'none'}}>
+					<Overlay settings={this.state.overlay} onClose={this.displayOverlay} onSave={this.onSaveMode} />
+				</div>
+			)
+		}
+		
+		return (
+			<React.Fragment>
+				{ overlay }	
+				{contentToRender}
+				<button className="about-icon" onClick={this.showAbout}>
+					i
+				</button>
+			</React.Fragment>
+		)
   }
 }
 
