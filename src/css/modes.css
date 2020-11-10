@@ -1,0 +1,153 @@
+/*CSS for the modes page*/
+
+#mode-grid {
+	display: grid;
+	width: 90%;
+	height: 60vh;
+	margin-right: auto;
+	margin-left: auto;
+	padding:2%;
+	margin-top: 12vh;
+	grid-template-columns: repeat(3, 25%);
+	grid-template-rows: repeat(10, 25vh);
+	grid-column-gap: 8%;
+	grid-row-gap: 6%;
+	overflow-y: scroll;
+}
+
+.mode-sub-grid {
+	display: grid;
+	width: 100%;
+	height: 100%;
+	grid-template-rows: 83% 15%;
+	grid-row-gap: 2%;
+	border: 1px solid transparent;
+}
+
+.mode-text {
+	display: grid;
+	grid-template-columns: 65% 35%;
+	width: 100%;
+	height: 30px;
+	background-color: #0D0828;
+	color:#FEEDDF;
+	justify-self:center;
+	margin-bottom: 20%;
+}
+
+.mode-text p {
+	display: inline-block;
+	overflow: hidden;
+	max-width: 50ch;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.mode-text p:hover {
+	overflow: visible;
+	white-space: normal;
+}
+
+.mode-button {
+	padding:0;
+	position: relative;
+	z-index: 1;
+	border-radius: 8px;
+	border: 1px solid rgba(254, 237, 223, 0.1);
+	cursor: pointer;
+}
+
+
+.mode-button:after {
+	content: '';
+	display: block;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	border-radius: 5px;
+	/*border: 2px solid #ccc;*/
+}
+
+.hover-button {
+	display: inline-block;
+	width: 30%;
+	border: 1px solid transparent;
+	background-color: transparent;
+	padding:0;
+	margin-left: 5%;
+	margin-right: 5%;
+	cursor:pointer;
+}
+
+.hover-button img {
+	width: 90%;
+}
+
+.edit-button {
+	display: none;
+}
+
+.delete-button {
+	display: none;
+
+}
+
+#add-mode {
+	border: 1px solid #FEEDDF;
+	border-radius: 8%;
+	background-color: transparent;
+	height: 20vh;
+	width: 20vh;
+	margin:5%;
+	align-self: center;
+	justify-self:center;
+	color: #FEEDDF;
+	font-size: 15vh;
+	cursor: pointer;
+}
+
+#add-mode:hover {
+	background-color: #433D66;
+}
+
+
+
+/*CSS for the tabs*/
+
+.react-tabs__tab-panel {
+	padding-right:2%;
+	padding-left:2%;
+}
+
+.react-tabs__tab-list {
+	list-style-type: none;
+	margin-top: 10vh;
+	margin-bottom: 9vh;
+	width: 40%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.react-tabs__tab {
+	display:inline;
+	padding:10%;
+	padding-bottom: 5%;
+	cursor:pointer;
+}
+
+.react-tabs__tab--selected {
+	border-bottom:3px solid #FA4D3D;
+	color: #FA4D3D;
+	font-weight: 700;
+}
+
+.react-tabs__tab-panel {
+	display: none;
+}
+
+.react-tabs__tab-panel--selected {
+	display: block;
+}
+

@@ -1,0 +1,196 @@
+/*CSS for the about overlay*/
+
+.about-icon {
+	position: absolute;
+	bottom: 3%;
+	right: 3%;
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	background-color: transparent;
+	/*border:none;*/
+	font-size: 25px;
+	text-align: center;
+	cursor: pointer;
+	border: 1px solid #FEEDDF;
+	background-color: transparent;
+	color: #FEEDDF;
+}
+
+#about-icon:hover {
+	background-color: #433D66;
+}
+
+#about-title {
+	font-size: 20px;
+	font-weight: 700;
+	margin-bottom: 5%;
+	text-align: center;
+	margin-top: 3%;
+}
+
+#about-text {
+	font-size: 15px;
+	position: relative;
+	width: 90%;
+	top: 5%;
+	left: 50%;
+	transform: translate(-50%, -5%); 
+	text-align: center;
+}
+
+#about-text a {
+	font-weight: 700;
+	text-decoration: underline;
+	text-decoration-color:#FEEDDF;
+	text-decoration-thickness:1px;
+}
+
+/*CSS for the overlay window*/
+
+
+.Blur {
+	-webkit-backdrop-filter: blur(5px);
+	backdrop-filter: blur(5px);
+	position: fixed;
+	top: 0;
+	left: 0;
+	height:100%;
+	width: 100%;
+	z-index: 80;
+}
+
+
+.OverlayWindow {
+	border-radius: 15px;
+	background-color:#403954;
+	position: absolute;
+	z-index: 90;
+	filter: drop-shadow(0px 0px 25px rgba(0, 0, 0, 0.24));
+	/*to center the div with position absolute, position top corner and translation of center of div where top corner is*/
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%); 
+	padding: 1%;
+}
+
+.OverlayInputWindow {
+	width: 25%;
+	height: 25%;
+}
+
+.OverlayDeleteWindow {
+	width: 22%;
+	height: 20%;
+}
+
+.OverlayEditWindow {
+	min-height: 75vh;
+	height:550px;
+	width:733px;
+}
+
+.OverlayAboutWindow {
+	min-height: 25vh;
+	height:250px;
+	width:333px;
+}
+
+#overlay-title {
+	font-size: 17px;
+	font-weight: 700;
+	text-align: center;
+	margin-bottom: 4%;
+	margin-top: 3%;
+}
+
+#overlay-text {
+	position: relative;
+	width: 90%;
+	top: 5%;
+	left: 50%;
+	transform: translate(-50%, -5%); 
+	font-size:13px;
+	text-align: center;
+}
+
+#overlay-input {
+	position: relative;
+	left: 50%;
+	top: 20%;
+	transform: translate(-50%, -20%); 
+	width: 80%;
+	height: 13%;
+	border-radius: 4px;
+	outline: none;
+}
+
+#overlay-edit {
+	margin-top: 1%;
+	padding-right:2%;
+	padding-left:2%;
+	background-color:transparent;
+	border:none;
+	border-bottom:1px solid #FEEDDF1F;
+	color:#FEEDDF;
+	border-radius: 4px;
+	font-size: 17px;
+	height: 5%;
+	outline: none;
+}
+
+#overlay-edit-img {
+	width:2%;
+}
+
+#overlay-edit-close {
+	position: relative;
+	z-index: 100;
+	float: right;
+	background-color:transparent;
+	outline: none;
+	font-size: 25px;
+	border:none;
+	color:#FEEDDF;
+	cursor: pointer;
+}
+
+#overlay-reset-button {
+	margin-left: 3%;
+	width: 10%;
+	height: 4vh;
+	font-size: 2vh;
+	color:#FEEDDF;
+	background-color:transparent;
+	border:1px solid #FEEDDF1F;
+	border-radius: 8px;
+	cursor: pointer;
+}	
+
+#overlay-reset-button:hover {
+	background-color: #625780;
+}
+
+#overlay-reset-button:disabled{
+	opacity:0.3;
+}
+
+#overlay-buttons {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	display: inline-block;
+	width: 100%;
+	height: max(1.7vh, 40px);
+}
+
+.overlay-button {
+	width: 50%;
+	height: 100%;
+	background-color:#403954;
+	border:1px solid #FEEDDF1F;
+	border-radius: 0 0 4px 4px ;
+	color: #FEEDDF;
+	font-size: 15px;
+	cursor: pointer;
+}

@@ -1,0 +1,215 @@
+@import "colorPicker.css";
+@import "modes.css";
+@import "overlay.css";
+@import "readings.css";
+@import "rules.css";
+
+
+body {
+	background-color: #0D0828;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+	font-size:max(1.8vh, 15px);
+	color:#FEEDDF;
+	min-height:700px;
+	min-width:933px;
+	margin:0px;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+a {
+	color:#FEEDDF;
+	text-decoration:none;
+}
+
+p {
+	margin: 0px;
+	line-height: 1.5;
+}
+
+li {
+	list-style-type: none;
+}
+
+button {
+	outline:none;
+}
+
+.float-left {
+	float: left;
+}
+
+#root {
+	width: 100vw;
+	height: 100vh;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+
+
+/*Specific to the non-Chrome browsers*/
+#browser-warning {
+	width: 45%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 5%;
+}
+
+#browser-warning img {
+	width: 100%;
+}
+
+#browser-warning a {
+	text-decoration: underline;
+	text-decoration-color:#FEEDDF;
+	text-decoration-thickness:1px;
+}
+
+#browser-warning p {
+	font-size: 5vh;
+	text-align: center;
+	text-justify: inter-word;
+}
+
+
+
+/*General page layout*/
+
+.grid-content {
+	display: grid;
+	height: 98%;
+	width: 99%;
+	grid-template-columns: 18% 80%;
+	grid-column-gap: 2%;
+}
+
+.column-one {
+	grid-column-start: 1;
+}
+
+.column-two {
+	grid-column-start: 2;
+}
+
+#logo {
+	margin-top:2vh;
+	margin-left:1vh;
+}
+
+#logo img{
+	width: 95%;
+	min-width: 210px;
+}
+
+/*Navigation bar specific*/
+
+#nav-bar {
+	margin-top: 5vh;
+	margin-left: 3vh;
+	display:grid;
+	width: 8vw;
+	height: 65vh;
+	min-height: 490px;
+	grid-template-rows: repeat(4, 25%);
+}
+
+#nav-bar img {
+	width: 60%;
+}
+
+.nav-icon-active {
+	color:#FA4D3D;
+	width: 80%;
+	margin-right: auto;
+	margin-left: auto;
+	text-align: center;
+}
+
+.nav-icon-inactive {
+	width: 80%;
+	margin-right: auto;
+	margin-left: auto;
+	text-align: center;
+}
+
+.grid-row-one {
+	grid-row-start: 1;
+}
+
+.grid-row-two {
+	grid-row-start: 2;
+}
+
+.grid-row-three {
+	grid-row-start: 3;
+}
+
+.grid-row-four {
+	grid-row-start: 4;
+}
+
+.display-inline {
+	display:inline-block;
+}
+
+#disconnect-button {
+	position: absolute;
+	top: 3%;
+	right: 3%;
+	width: 12%;
+	height: 5%;
+	border-radius: 8px;
+	border: 1px solid transparent;
+	background-color: #F88876;
+	cursor: pointer;
+	font-size: 1.6vh;
+	font-weight: 700;
+	color: #0D0828;
+}
+
+#disconnect-button:hover {
+	background-color: #FA4D3D;
+	color: #FEEDDF;
+}
+
+
+/*CSS for the Home page*/
+
+
+.button-home {
+	width: 50%;
+	height: 8vh;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%); 
+	padding: 1%;
+	background-color: #FA4D3D;
+	border:1px solid #FEEDDF1F;
+	border-radius: 8px;
+	color: #FEEDDF;
+	font-size: 4vh;
+	cursor: pointer;
+}
+
+
+.button-home:hover {
+	background-color: #F08F84;
+	color: #0D0828;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,116 @@
+/*CSS for the color picker page*/
+
+.color-grid {
+	display: grid;
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+	grid-template-columns: 75% 25%;
+	grid-template-rows: 85% 15%;
+	padding-right:2%;
+	padding-left:2%;
+}
+
+.color-new {
+	min-height: 75vh;
+	margin-top: 15vh;
+}
+
+.color-edit {
+	height: 90%;
+	margin-top: 2vh;
+}
+
+.button-color-picker {
+	width: 100%;
+	align-self: center;
+	justify-self:start;
+}
+
+.save-button {
+	width: 100%;
+	height: 6vh;
+	background-color: #625780;
+	border:1px solid #FEEDDF1F;
+	border-radius: 8px;
+	color: #FEEDDF;
+	font-size: 2vh;
+	cursor: pointer;
+}
+
+.save-button:hover {
+	background-color: #8378A2;
+}
+
+
+#selectors {
+	display:grid;
+	justify-self:center;
+	grid-template-columns: 49% 49%;
+	column-gap: 2%;
+	grid-template-rows: repeat(5, 20%);
+	margin-bottom: 5%;
+	width: 60%;
+	height: 70%;
+} 
+
+.color-selector {
+	height: 6vh;
+	width: 6vh;
+	border-radius: 50%;
+	margin:5%;
+	align-self: center;
+	justify-self:center;
+}
+
+#add-selector {
+	border: 1px solid #FEEDDF;
+	background-color: transparent;
+	color: #FEEDDF;
+	font-size: 4vh;
+	text-align: center;
+	cursor: pointer;
+}
+
+#add-selector:hover {
+	background-color: #433D66;
+}
+
+#color-select-delete{
+	width: 50%;
+	filter: invert(1);
+}
+
+
+/*CSS for the slider*/
+
+.slider-img {
+	width: 4%;
+}
+
+#slider-block {
+	width: 100%;
+	align-self: center;
+}
+
+#slider {
+	width: 75%;
+	margin-right: 2%;
+	margin-left: 2%;
+	border-radius: 8px;
+	height: 7px;
+	outline: none; 
+	transition: background 450ms ease-in;
+	-webkit-appearance: none;
+}
+
+#slider::-webkit-slider-thumb {
+	appearance: none;
+	cursor: pointer;
+	background-color: #FEEDDF;
+	border-radius: 0;
+	height: 25px;
+	width: 25px;
+	border-radius: 50%;
+	-webkit-appearance: none;
+}

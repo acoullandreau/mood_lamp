@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import * as serviceWorker from './serviceWorker';
-import './index.css';
+import './css/index.css';
 import App from './components/App.js';
 import BrowserWarning from './components/BrowserWarning.js';
 import reducers from './reducers';

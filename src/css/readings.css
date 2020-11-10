@@ -1,0 +1,51 @@
+/* CSS for the readings page*/
+
+#readings-grid {
+	display: grid;
+	width: 90%;
+	height: 60vh;
+	margin-right: auto;
+	margin-left: auto;
+	padding:2%;
+	margin-top: 20vh;
+	grid-template-columns: repeat(2, 46%);
+	grid-template-rows: repeat(10, 20vh);
+	grid-column-gap: 4%;
+	grid-row-gap: 6%;
+	overflow-y: scroll;
+}
+
+
+.reading-tile {
+	background-color: #FEEDDF40;
+	border-radius: 13px;
+}
+
+.reading-title {
+	color:#FAD1BE;
+	font-size: 25px;
+	margin-left:5%;
+	margin-top:5%;
+}
+
+.reading-measure {
+	display: grid;
+	grid-template-columns: 32% 60%;
+	grid-column-gap: 4%;
+	margin-top:6%;
+	margin-left:4%;
+	align-items: center;	
+	font-size: min(5vh, 8vw);
+}
+
+.reading-text {
+	justify-self: center;	
+}
+
+.reading-icon {
+	justify-self: center;
+}
+
+.reading-icon img{
+	width: 80%;
+}
