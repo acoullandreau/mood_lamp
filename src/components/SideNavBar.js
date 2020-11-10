@@ -1,12 +1,25 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 class SideNavBar extends React.Component {
 
-	state = { activeItem: '',  'matchPages':{'#':'', '#modes':'modes', '#couleurs':'couleurs', '#mesures':'mesures', '#automatismes':'automatismes'} };
+	state = { 
+		'activeItem': '',  
+		'matchPages':{
+			'#':'', 
+			'#modes':'modes', 
+			'#couleurs':'couleurs', 
+			'#mesures':'mesures', 
+			'#automatismes':'automatismes'
+		} 
+	};
 
-	componentDidMount() {
+	componentDidMount = () => {
 		this.onLocationChange();
+	}
+
+	componentWillUnmount() {
+		window.removeEventListener('popstate', this.onLocationChange);
 	}
 
 	componentDidUpdate() {
@@ -96,9 +109,9 @@ class SideNavBar extends React.Component {
 }
 
 // props validation
-SideNavBar.propTypes = {
-   selection: PropTypes.string
-}
+// SideNavBar.propTypes = {
+//    selection: PropTypes.string.isRequired
+// }
 
 export default SideNavBar;
 
