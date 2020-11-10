@@ -335,24 +335,30 @@ button {
 	background-color: #433D66;
 }
 
-#about a {
+#about-title {
+	font-size: 20px;
+	font-weight: 700;
+	margin-bottom: 5%;
+	text-align: center;
+	margin-top: 3%;
+}
+
+#about-text {
+	font-size: 15px;
+	position: relative;
+	width: 90%;
+	top: 5%;
+	left: 50%;
+	transform: translate(-50%, -5%); 
+	text-align: center;
+}
+
+#about-text a {
 	font-weight: 700;
 	text-decoration: underline;
 	text-decoration-color:#FEEDDF;
 	text-decoration-thickness:1px;
-
 }
-
-/*#home {
-	margin-top: 30vh;
-	width: 80%;
-	margin-right: auto;
-	margin-left: auto;
-	color:#F08F84;
-	font-size:13px;
-}*/
-
-
 
 
 /*CSS for the modes page*/
@@ -512,8 +518,14 @@ button {
 
 .OverlayEditWindow {
 	min-height: 75vh;
-	height:600px;
-	width:925px;
+	height:550px;
+	width:733px;
+}
+
+.OverlayAboutWindow {
+	min-height: 25vh;
+	height:250px;
+	width:333px;
 }
 
 #overlay-title {
