@@ -103,6 +103,7 @@ button {
 	min-width: 210px;
 }
 
+
 /*Navigation bar specific*/
 
 #nav-bar {
@@ -204,7 +205,29 @@ button {
 
 
 
+@media screen and (max-width:930px){
+	body {
+		min-height:640px;
+		min-width:360px;
+		text-size-adjust:none;
+	}
 
+	#top-section {
+		position: absolute;
+		background-color: #DACEDA40;
+		height: 85px;
+		width: 100%;
+		top: 0px;
+	}
+
+	#logo {
+		position: absolute;
+		left: 40%;
+		top: 20%;
+		transform: translate(-40%, -20%); 
+	}
+
+}
 
 
 

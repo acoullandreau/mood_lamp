@@ -15,9 +15,9 @@ const store = createStore(
 	composeEnhancers(applyMiddleware(thunk))
 );
 
-
 var contentToRender;
-if (/chrome/i.test( navigator.userAgent )) {
+if (/chrome/i.test( navigator.userAgent ) || (navigator.userAgent.match('CriOS'))) {
+	// if not supported on IoS, remove CriOS !!!!
 	contentToRender = (<App/>);
 } else {
 	contentToRender = (<BrowserWarning/>);

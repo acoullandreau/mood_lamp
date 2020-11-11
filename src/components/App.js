@@ -60,6 +60,7 @@ class App extends React.Component {
 	}
 
 	onWindowResize() {
+		console.log(window.devicePixelRatio)
 		var screenRatio = window.visualViewport.height/window.visualViewport.width;
 		if (screenRatio < 0.75) {
 			var width = window.visualViewport.height / 0.75;
@@ -287,81 +288,136 @@ class App extends React.Component {
 	}
 
 
-	renderDisconnected() {
-		return (
-			<React.Fragment>
-				<div className="grid-content">
-					<div className="content-one">
+	renderDisconnected(target) {
+		if (target === 'desktop') {
+			return (
+				<React.Fragment>
+					<div className="grid-content">
+						<div className="content-one">
+							<div id='logo'>
+								<a href='/#'><img src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`} alt='Maïa' /></a>
+							</div>
+						</div>
+						<div className={["content-two", "column-two"].join(' ')}>
+							{ this.renderHome() }
+						</div>
+					</div>
+				</React.Fragment>
+			);
+		} else {
+			return (
+				<React.Fragment>
+					<div className="grid-content">
 						<div id='logo'>
 							<a href='/#'><img src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`} alt='Maïa' /></a>
 						</div>
+						<div className={["content-two", "column-two"].join(' ')}>
+							{ this.renderHome() }
+						</div>
 					</div>
-					<div className={["content-two", "column-two"].join(' ')}>
-						{ this.renderHome() }
-					</div>
-				</div>
-			</React.Fragment>
-		);
+				</React.Fragment>
+			);
+		}
 	}
 
 
-	renderConnected() {
+	renderConnected(target) {
 		let disconnectDisplay = this.state.disconnectDisplay;
 
-		return (
-			<React.Fragment>
-				
-				<div className="grid-content">
-					<div className="content-one">
+
+		if (target === 'desktop') {
+			return (
+				<React.Fragment>
+					<div className="grid-content">
+						<div className="content-one">
+							<div id='logo'>
+								<a href='/#'><img src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`} alt='Maïa' /></a>
+							</div>
+							<div id='nav-bar'>
+								<SideNavBar/>
+							</div>
+							<button 
+								id='disconnect-button'
+								style={disconnectDisplay}
+								value='disconnect'
+								onClick={this.onDisconnectClick}
+							>Déconnecter</button>
+						</div>
+
+						<div className={["content-two", "column-two"].join(' ')}>
+							<Route path='' >
+								{ this.renderHome() }
+							</Route>
+							<Route path="#modes" >
+								{ this.renderModes() }
+							</Route>
+							<Route path="#couleurs" >
+								<React.Fragment>
+									{ this.renderCouleurs() }
+								</React.Fragment>
+							</Route>
+							<Route path="#mesures">
+								<React.Fragment>
+									{ this.renderMesures() }
+								</React.Fragment>
+							</Route>
+							<Route path="#automatismes">
+								<React.Fragment>
+									{ this.renderAutomatismes() }
+								</React.Fragment>
+							</Route>
+						</div>
+					</div>
+				</React.Fragment>
+			);
+		} else {
+			return (
+				<React.Fragment>
+					<div className="grid-content">
 						<div id='logo'>
 							<a href='/#'><img src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`} alt='Maïa' /></a>
 						</div>
 						<div id='nav-bar'>
 							<SideNavBar/>
 						</div>
-						<button 
-							id='disconnect-button'
-							style={disconnectDisplay}
-							value='disconnect'
-							onClick={this.onDisconnectClick}
-						>Déconnecter</button>
-					</div>
 
-					<div className={["content-two", "column-two"].join(' ')}>
-						<Route path='' >
-							{ this.renderHome() }
-						</Route>
-						<Route path="#modes" >
-							{ this.renderModes() }
-						</Route>
-						<Route path="#couleurs" >
-							<React.Fragment>
-								{ this.renderCouleurs() }
-							</React.Fragment>
-						</Route>
-						<Route path="#mesures">
-							<React.Fragment>
-								{ this.renderMesures() }
-							</React.Fragment>
-						</Route>
-						<Route path="#automatismes">
-							<React.Fragment>
-								{ this.renderAutomatismes() }
-							</React.Fragment>
-						</Route>
+						<div className={["content-two", "column-two"].join(' ')}>
+							<Route path='' >
+								{ this.renderHome() }
+							</Route>
+							<Route path="#modes" >
+								{ this.renderModes() }
+							</Route>
+							<Route path="#couleurs" >
+								<React.Fragment>
+									{ this.renderCouleurs() }
+								</React.Fragment>
+							</Route>
+							<Route path="#mesures">
+								<React.Fragment>
+									{ this.renderMesures() }
+								</React.Fragment>
+							</Route>
+							<Route path="#automatismes">
+								<React.Fragment>
+									{ this.renderAutomatismes() }
+								</React.Fragment>
+							</Route>
+						</div>
 					</div>
-				</div>
-			</React.Fragment>
-		);
+				</React.Fragment>
+			);
+		}
 	}
 
 	render() {
 
 		let contentToRender;
+		let target = window.innerWidth < 930 ? "mobile" : "desktop";
 		if (this.state.isConnected) {
-			contentToRender = this.renderConnected();
+			contentToRender = this.renderConnected(target);
 		} else {
-			contentToRender = this.renderDisconnected();
+			contentToRender = this.renderDisconnected(target);
 		}
 
 		let overlay;
@@ -378,16 +434,34 @@ class App extends React.Component {
 				</div>
 			)
 		}
+
+		// console.log(window)
 		
-		return (
-			<React.Fragment>
-				{ overlay }	
-				{contentToRender}
-				<button className="about-icon" onClick={this.showAbout}>
-					i
-				</button>
-			</React.Fragment>
-		)
+		let page = window.location.hash
+		if (target === "mobile") {
+			return (
+				<React.Fragment>
+					{ overlay }	
+					<div id="top-section">
+						{page}
+						<button className="about-icon" onClick={this.showAbout}>
+							i
+						</button>
+					</div>
+					{contentToRender}
+				</React.Fragment>
+			)
+		} else {
+			return (
+				<React.Fragment>
+					{ overlay }	
+					{contentToRender}
+					<button className="about-icon" onClick={this.showAbout}>
+						i
+					</button>
+				</React.Fragment>
+			)
+		}
   }
 }
 
