@@ -197,11 +197,11 @@
 @media screen and (max-width:930px){
 	.about-icon {
 		position: absolute;
-		top: 3%;
-		right: 3%;
-		width: 20px;
-		height: 20px;
-		font-size: 15px;
+		top: 20px;
+		right: 10px;
+		width: 30px;
+		height: 30px;
+		font-size: 25px;
 	}
 
 }

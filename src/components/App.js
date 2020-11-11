@@ -11,6 +11,7 @@ import Readings from './Readings.js';
 import Route from './Route.js';
 import Rules from './Rules.js';
 import SideNavBar from './SideNavBar.js';
+import Utils from './Utils.js';
 
 // Mobile version (user Agent, replace hover and click with hold and tap, vertical layout)
 // ReadMe (Chrome only, improvements possible)
@@ -334,7 +335,7 @@ class App extends React.Component {
 								<a href='/#'><img src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`} alt='Maïa' /></a>
 							</div>
 							<div id='nav-bar'>
-								<SideNavBar/>
+								<SideNavBar orientation="vertical"/>
 							</div>
 							<button 
 								id='disconnect-button'
@@ -373,12 +374,15 @@ class App extends React.Component {
 		} else {
 			return (
 				<React.Fragment>
+					<button id="disconnect-icon" style={disconnectDisplay} value='disconnect' onClick={this.onDisconnectClick}>
+						<img src={`${process.env.PUBLIC_URL}/assets/images/disconnect.svg`} alt='Déconnecter' />	
+					</button>
 					<div className="grid-content">
 						<div id='logo'>
 							<a href='/#'><img src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`} alt='Maïa' /></a>
 						</div>
 						<div id='nav-bar'>
-							<SideNavBar/>
+							<SideNavBar orientation="horizontal" />
 						</div>
 
 						<div className={["content-two", "column-two"].join(' ')}>
@@ -435,15 +439,13 @@ class App extends React.Component {
 			)
 		}
 
-		// console.log(window)
-		
-		let page = window.location.hash
+		let page = Utils.capitalize(window.location.hash.split('#')[1])
 		if (target === "mobile") {
 			return (
 				<React.Fragment>
 					{ overlay }	
 					<div id="top-section">
-						{page}
+						<p>{page}</p>
 						<button className="about-icon" onClick={this.showAbout}>
 							i
 						</button>

@@ -215,9 +215,17 @@ button {
 	#top-section {
 		position: absolute;
 		background-color: #DACEDA40;
-		height: 85px;
+		height: 70px;
 		width: 100%;
 		top: 0px;
+	}
+
+	#top-section p {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%); 
+		font-size: 3.5vh;
 	}
 
 	#logo {
@@ -225,6 +233,29 @@ button {
 		left: 40%;
 		top: 20%;
 		transform: translate(-40%, -20%); 
+	}
+
+	#disconnect-icon {
+		position: absolute;
+		background-color: transparent;
+		border:none;
+		width: 35px;
+		height: 35px;
+		position: absolute;
+		top: 20px;
+		left: 10px;
+	}
+
+
+	#disconnect-icon img {
+		width: 90%;
+	}
+
+	#bottom-nav-bar {
+		position: absolute;
+		bottom: 5px;
+		display: grid;
+		grid-template-columns: repeat(4, 20%);
 	}
 
 }

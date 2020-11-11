@@ -1,5 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 class SideNavBar extends React.Component {
 
@@ -56,62 +56,74 @@ class SideNavBar extends React.Component {
 				} else {
 					return <img src={`${process.env.PUBLIC_URL}/assets/images/couleurs.svg`} alt="Couleurs" />
 				}
-				// break;
 			case 'mesures':
 				if (active) {
 					return <img src={`${process.env.PUBLIC_URL}/assets/images/mesures-active.svg`} alt="Mesures" />
 				} else {
 					return <img src={`${process.env.PUBLIC_URL}/assets/images/mesures.svg`} alt="Mesures" />
 				}
-				// break;
 			case 'automatismes':
 				if (active) {
 					return <img src={`${process.env.PUBLIC_URL}/assets/images/automatismes-active.svg`} alt="Automatismes" />
 				} else {
 					return <img src={`${process.env.PUBLIC_URL}/assets/images/automatismes.svg`} alt="Automatismes" />
 				}
-				// break;
 			default:
 				if (active) {
 					return <img src={`${process.env.PUBLIC_URL}/assets/images/modes-active.svg`} alt="Modes" />
 				} else {
 					return <img src={`${process.env.PUBLIC_URL}/assets/images/modes.svg`} alt="Modes" />
 				}
-				// break;
 		}
 
 						
 	}
 
 	render () {
-		return (
+
+		let navBar = (
 			<React.Fragment>
-				<a href='#modes' className={['grid-row-one', `nav-icon-${this.state.activeItem === 'modes' ? 'active' : 'inactive'}`].join(' ')}>
+				<a href='#modes' className={`nav-icon-${this.state.activeItem === 'modes' ? 'active' : 'inactive'}`}>
 					{this.fetchIconImage('modes')}
 					<p>Modes</p>
 				</a>
-				<a href='#couleurs' className={['grid-row-two', `nav-icon-${this.state.activeItem === 'couleurs' ? 'active' : 'inactive'}`].join(' ')}>
+				<a href='#couleurs' className= {`nav-icon-${this.state.activeItem === 'couleurs' ? 'active' : 'inactive'}`}>
 					{this.fetchIconImage('couleurs')}
 					<p>Couleurs</p>
 				</a>
-				<a href='#mesures' className={['grid-row-three', `nav-icon-${this.state.activeItem === 'mesures' ? 'active' : 'inactive'}`].join(' ')}>
+				<a href='#mesures' className={`nav-icon-${this.state.activeItem === 'mesures' ? 'active' : 'inactive'}`}>
 					{this.fetchIconImage('mesures')}
 					<p>Mesures</p>
 				</a>
-				<a href='#automatismes' className={['grid-row-four', `nav-icon-${this.state.activeItem === 'automatismes' ? 'active' : 'inactive'}`].join(' ')}>
+				<a href='#automatismes' className={`nav-icon-${this.state.activeItem === 'automatismes' ? 'active' : 'inactive'}`}>
 					{this.fetchIconImage('automatismes')}
 					<p>Automatismes</p>
 				</a>
 			</React.Fragment>
-		);
+		)
+
+		
+		if (this.props.orientation === 'horizontal') {
+			return (
+				<div id='bottom-nav-bar' >
+					{navBar}
+				</div>
+			)
+		} else {
+			return (
+				<React.Fragment>
+					{navBar}
+				</React.Fragment>
+			)
+		}
 
 	}
 }
 
-// props validation
-// SideNavBar.propTypes = {
-//    selection: PropTypes.string.isRequired
-// }
+//props validation
+SideNavBar.propTypes = {
+	orientation: PropTypes.string.isRequired,
+}
 
 export default SideNavBar;
 
