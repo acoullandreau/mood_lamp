@@ -2,11 +2,11 @@
 
 #rules-page {
 	width: 90%;
-	height: 65vh;
+	height: max(65vh, 500px);
 	margin-right: auto;
 	margin-left: auto;
 	padding:2%;
-	margin-top: 20vh;
+	margin-top: max(20vh,153px);
 	overflow-y: scroll;
 }
 
@@ -16,7 +16,7 @@
 
 .rules-div {
 	min-width: 50%;
-	margin-top: 5vh;
+	margin-top: max(5vh, 38px);
 }
 
 .subsection {

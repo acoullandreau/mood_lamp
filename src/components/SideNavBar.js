@@ -106,6 +106,7 @@ class SideNavBar extends React.Component {
 		if (this.props.orientation === 'horizontal') {
 			return (
 				<div id='bottom-nav-bar' >
+					<p id='maia-button'>Maïa</p>
 					{navBar}
 				</div>
 			)

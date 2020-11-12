@@ -61,7 +61,7 @@
 
 
 .OverlayWindow {
-	border-radius: 15px;
+	border-radius: 5px;
 	background-color:#403954;
 	position: absolute;
 	z-index: 90;
@@ -74,23 +74,21 @@
 }
 
 .OverlayInputWindow {
-	width: 25%;
-	height: 25%;
+	width: max(min(25%, 256px));
+	height: max(min(25%, 192px));
 }
 
 .OverlayDeleteWindow {
-	width: 22%;
-	height: 20%;
+	width: max(min(22%, 226px));
+	height: max(min(20%, 154px));
 }
 
 .OverlayEditWindow {
-	min-height: 75vh;
 	height:550px;
-	width:733px;
+	width:750px;
 }
 
 .OverlayAboutWindow {
-	min-height: 25vh;
 	height:250px;
 	width:333px;
 }

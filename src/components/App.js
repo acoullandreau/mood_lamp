@@ -61,13 +61,12 @@ class App extends React.Component {
 	}
 
 	onWindowResize() {
-		console.log(window.devicePixelRatio)
+
 		var screenRatio = window.visualViewport.height/window.visualViewport.width;
 		if (screenRatio < 0.75) {
 			var width = window.visualViewport.height / 0.75;
 			document.getElementById('root').style.width = width + 'px' ;
-			document.getElementById('root').style.height = window.visualViewport.height + 'px' ;
-		}
+		} 
 	}
 
 	onLocationChange = () => {
@@ -309,7 +308,7 @@ class App extends React.Component {
 			return (
 				<React.Fragment>
 					<div className="grid-content">
-						<div id='logo'>
+						<div id='logo-mobile'>
 							<a href='/#'><img src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`} alt='Maïa' /></a>
 						</div>
 						<div className={["content-two", "column-two"].join(' ')}>
@@ -345,7 +344,7 @@ class App extends React.Component {
 							>Déconnecter</button>
 						</div>
 
-						<div className={["content-two", "column-two"].join(' ')}>
+						<div className="column-two">
 							<Route path='' >
 								{ this.renderHome() }
 							</Route>
@@ -378,7 +377,7 @@ class App extends React.Component {
 						<img src={`${process.env.PUBLIC_URL}/assets/images/disconnect.svg`} alt='Déconnecter' />	
 					</button>
 					<div className="grid-content">
-						<div id='logo'>
+						<div id='logo-mobile'>
 							<a href='/#'><img src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`} alt='Maïa' /></a>
 						</div>
 						<div id='nav-bar'>

@@ -9,7 +9,7 @@ class ModesList extends React.Component {
 	componentDidUpdate() {
 		// we ensure that we have a grid the right size
 		var numRows = Math.ceil(Object.keys(this.props.modesList).length / 3)
-		document.getElementById("mode-grid").style['grid-template-rows'] = `repeat(${numRows}, 25vh)`;
+		document.getElementById("mode-grid").style['grid-template-rows'] = `repeat(${numRows}, minmax(192px, 25vh))`;
 	}
 
 	addMode() {
