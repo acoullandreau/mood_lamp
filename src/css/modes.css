@@ -3,13 +3,13 @@
 #mode-grid {
 	display: grid;
 	width: 90%;
-	height: 60vh;
+	height: 60%;
 	margin-right: auto;
 	margin-left: auto;
 	padding:2%;
-	margin-top: 12vh;
+	margin-top: max(12vh, 92px);
 	grid-template-columns: repeat(3, 25%);
-	grid-template-rows: repeat(10, 25vh);
+	grid-template-rows: repeat(10, minmax(192px, 25vh));
 	grid-column-gap: 8%;
 	grid-row-gap: 6%;
 	overflow-y: scroll;
@@ -98,8 +98,8 @@
 	border: 1px solid #FEEDDF;
 	border-radius: 8%;
 	background-color: transparent;
-	height: 20vh;
-	width: 20vh;
+	height: max(20vh, 153px);
+	width: max(20vh, 153px);
 	margin:5%;
 	align-self: center;
 	justify-self:center;
@@ -123,8 +123,8 @@
 
 .react-tabs__tab-list {
 	list-style-type: none;
-	margin-top: 10vh;
-	margin-bottom: 9vh;
+	margin-top: max(10vh, 77px);
+	margin-bottom: max(9vh, 69px);
 	width: 40%;
 	margin-left: auto;
 	margin-right: auto;

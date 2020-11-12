@@ -4,12 +4,13 @@
 	display: grid;
 	width: 90%;
 	height: 60vh;
+	min-height: 500px;
 	margin-right: auto;
 	margin-left: auto;
 	padding:2%;
-	margin-top: 20vh;
+	margin-top: max(20vh, 153px);
 	grid-template-columns: repeat(2, 46%);
-	grid-template-rows: repeat(10, 20vh);
+	grid-template-rows: repeat(10, minmax(150px, 20vh));
 	grid-column-gap: 4%;
 	grid-row-gap: 6%;
 	overflow-y: scroll;

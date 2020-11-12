@@ -41,17 +41,21 @@ button {
 }
 
 #root {
+	position: relative;
 	width: 100vw;
 	height: 100vh;
+	min-width: 1024px;
+	min-height: 768px;
 	margin-right: auto;
 	margin-left: auto;
+	overflow:scroll;
 }
 
 
 
 /*Specific to the non-Chrome browsers*/
 #browser-warning {
-	width: 45%;
+	width: max(45%, 460px);
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 5%;
@@ -68,7 +72,7 @@ button {
 }
 
 #browser-warning p {
-	font-size: 5vh;
+	font-size: max(5vh, 35px);
 	text-align: center;
 	text-justify: inter-word;
 }
@@ -79,10 +83,11 @@ button {
 
 .grid-content {
 	display: grid;
-	height: 98%;
-	width: 99%;
-	grid-template-columns: 18% 80%;
+	height: max(98%, 755px);
+	width: max(99%, 1016px);
+	grid-template-columns: minmax(18%, 182px) minmax(80%, 812px);
 	grid-column-gap: 2%;
+	min-height: 500px;
 }
 
 .column-one {
@@ -94,8 +99,8 @@ button {
 }
 
 #logo {
-	margin-top:2vh;
-	margin-left:1vh;
+	margin-top:max(2vh, 16px);
+	margin-left:max(1vh, 8px);
 }
 
 #logo img{
@@ -103,11 +108,31 @@ button {
 	min-width: 210px;
 }
 
+.grid-row-one {
+	grid-row-start: 1;
+}
+
+.grid-row-two {
+	grid-row-start: 2;
+}
+
+.grid-row-three {
+	grid-row-start: 3;
+}
+
+.grid-row-four {
+	grid-row-start: 4;
+}
+
+.display-inline {
+	display:inline-block;
+}
+
 /*Navigation bar specific*/
 
 #nav-bar {
-	margin-top: 5vh;
-	margin-left: 3vh;
+	margin-top: max(5vh,38px);
+	margin-left: max(3vh, 23px);
 	display:grid;
 	width: 8vw;
 	height: 65vh;
@@ -134,37 +159,18 @@ button {
 	text-align: center;
 }
 
-.grid-row-one {
-	grid-row-start: 1;
-}
-
-.grid-row-two {
-	grid-row-start: 2;
-}
-
-.grid-row-three {
-	grid-row-start: 3;
-}
-
-.grid-row-four {
-	grid-row-start: 4;
-}
-
-.display-inline {
-	display:inline-block;
-}
 
 #disconnect-button {
 	position: absolute;
-	top: 3%;
-	right: 3%;
-	width: 12%;
-	height: 5%;
+	top: max(3%, 23px);
+	right: max(3%, 31px);
+	width: max(12%, 122px);
+	height: max(5%, 38px);
 	border-radius: 8px;
 	border: 1px solid transparent;
 	background-color: #F88876;
 	cursor: pointer;
-	font-size: 1.6vh;
+	font-size: max(1.6vh, 12px);
 	font-weight: 700;
 	color: #0D0828;
 }
@@ -179,8 +185,8 @@ button {
 
 
 .button-home {
-	width: 50%;
-	height: 8vh;
+	width: max(50%, 512px);
+	height: max(8vh, 61px);
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -190,7 +196,7 @@ button {
 	border:1px solid #FEEDDF1F;
 	border-radius: 8px;
 	color: #FEEDDF;
-	font-size: 4vh;
+	font-size: max(4vh, 30px);
 	cursor: pointer;
 }
 
@@ -204,7 +210,65 @@ button {
 
 
 
+@media screen and (max-width:930px){
+	body {
+		min-height:640px;
+		min-width:360px;
+		text-size-adjust:none;
+	}
 
+	#top-section {
+		position: absolute;
+		background-color: #DACEDA40;
+		height: 70px;
+		width: 100%;
+		top: 0px;
+	}
+
+	#top-section p {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%); 
+		font-size: 3.5vh;
+	}
+
+	#logo-mobile {
+		position: absolute;
+		left: 40%;
+		top: 20%;
+		transform: translate(-40%, -20%); 
+	}
+
+	#disconnect-icon {
+		position: absolute;
+		background-color: transparent;
+		border:none;
+		width: 35px;
+		height: 35px;
+		position: absolute;
+		top: 20px;
+		left: 10px;
+	}
+
+
+	#disconnect-icon img {
+		width: 90%;
+	}
+
+	#bottom-nav-bar {
+		position: absolute;
+		bottom: 5px;
+		display: grid;
+		grid-template-columns: repeat(4, 20%);
+	}
+
+	#maia-button {
+		font-family: 'Source Serif Pro', serif;
+		font-size: 30px;
+	}
+
+}
 
 
 

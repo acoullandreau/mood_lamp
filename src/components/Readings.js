@@ -15,7 +15,7 @@ class Readings extends React.Component {
 	componentDidUpdate() {
 		// we ensure that we have a grid the right size
 		var numRows = Math.ceil(Object.keys(this.state.measures).length / 2)
-		document.getElementById("readings-grid").style['grid-template-rows'] = `repeat(${numRows}, 20vh)`;
+		document.getElementById("readings-grid").style['grid-template-rows'] = `repeat(${numRows}, minmax(150px, 20vh))`;
 	}
 
 	componentWillUnmount() {
