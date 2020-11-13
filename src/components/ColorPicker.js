@@ -20,7 +20,7 @@ class IroColorPicker extends React.Component {
 				props.onColorChange(color);
 			}
 		});
-		window.addEventListener('resize', this.onWindowResize);
+		// window.addEventListener('resize', this.onWindowResize);
 	}
 
 	componentDidUpdate() {
@@ -32,16 +32,25 @@ class IroColorPicker extends React.Component {
 		}
 		// push rest of the component props to the colorPicker's state
 		this.colorPicker.setState(colorPickerState);
+
 	}
 
-	componentWillUnmount() {
-		window.removeEventListener('resize', this.onWindowResize);
-	}
+	// componentWillUnmount() {
+	// 	window.removeEventListener('resize', this.onWindowResize);
+	// }
 
-	onWindowResize = () => {
-		var newWidth = 0.5 * window.visualViewport.height;
-		this.colorPicker.resize(newWidth);
-	}
+	// onWindowResize = () => {
+	// 	var width = 0.5 * window.visualViewport.height;
+	// 	if (width > 0.75 * window.visualViewport.height - 120) {
+	// 		this.colorPicker.resize(0.75 * window.visualViewport.height - 120);
+	// 	} else if (width < 387) {
+	// 		this.colorPicker.resize(387);
+	// 	} else {
+	// 		this.colorPicker.resize(width);
+	// 	}
+
+
+	// }
 
 	render() {
 		return (
@@ -88,11 +97,56 @@ class ColorPicker extends React.Component {
 	}
 
 
-	getInitialWidth() {
-		var width = 0.5 * window.visualViewport.height;
-		return width;
+	componentDidMount() {
+		window.addEventListener('resize', this.onWindowResize);
 	}
 
+	componentWillUnmount() {
+		window.removeEventListener('resize', this.onWindowResize);
+	}
+
+	onWindowResize = () => {
+		var width = 0.5 * window.visualViewport.height;
+		if (width + 120 > 0.75 * 0.8 * window.visualViewport.width) {
+			// the grid cell is at most 75% of the width of its parent component, that is at most 80% of the width of the root
+			width = 0.75 * 0.8 * window.visualViewport.width;
+		} 
+		if (width < (548 - 115)) {
+			// 115px for the slider (by default 32px) and the margin (set to 80px)
+			width = 433;
+		}
+		this.colorPickerRef.current.colorPicker.resize(width)
+		// if (width < 387) {
+		// 	this.colorPickerRef.current.colorPicker.resize(387);
+		// } else if (width + 120 > 0.58 * window.visualViewport.width) {
+		// 	console.log(width)
+		// 	this.colorPickerRef.current.colorPicker.resize(0.58 * window.visualViewport.width - 120);
+		// } else {
+		// 	this.colorPickerRef.current.colorPicker.resize(width);
+		// }
+
+	}
+
+	getInitialWidth() {
+		var width = 0.5 * window.visualViewport.height;
+		if (width + 120 > 0.75 * 0.8 * window.visualViewport.width) {
+			width = 0.75 * 0.8 * window.visualViewport.width;
+		} 
+		if (width < (548 - 115)) {
+			width = 433;
+		}
+		return width;
+
+		// var width = 0.5 * window.visualViewport.height;
+		// if (width < 387) {
+		// 	return 387;
+		// } else if (width + 120 > 0.58 * window.visualViewport.width) {
+		// 	return 0.58 * window.visualViewport.width - 120;
+		// } else {
+		// 	return width;
+		// }
+
+	}
 
 	getInitialSliderDisabled() {
 		if (this.props.modeModel.colors.length === 1) {
@@ -386,8 +440,9 @@ class ColorPicker extends React.Component {
 	}
 
 	render() { 
+
 		return (
-			<div className={['color-grid', `color-${this.props.type}`].join(' ')}>
+			<div id="picker" className={['color-grid', `color-${this.props.type}`].join(' ')}>
 				{ this.renderColorPicker() }
 				{ this.renderSlider() }
 				{ this.renderColorSelectors() }

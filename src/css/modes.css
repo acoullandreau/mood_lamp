@@ -9,7 +9,7 @@
 	padding:2%;
 	margin-top: max(12vh, 92px);
 	grid-template-columns: repeat(3, 25%);
-	grid-template-rows: repeat(10, minmax(192px, 25vh));
+	grid-template-rows: repeat(1, minmax(192px, 25vh));
 	grid-column-gap: 8%;
 	grid-row-gap: 6%;
 	overflow-y: scroll;
