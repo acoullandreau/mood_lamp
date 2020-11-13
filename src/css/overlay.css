@@ -84,8 +84,11 @@
 }
 
 .OverlayEditWindow {
-	height:550px;
-	width:750px;
+	height: 75%;
+	width: 80%;
+	/*height:550px;*/
+	/*max(min(22%, 550px));*/
+	/*width:750px;*/
 }
 
 .OverlayAboutWindow {

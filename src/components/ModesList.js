@@ -6,9 +6,18 @@ import ModeTile from './ModeTile.js';
 
 class ModesList extends React.Component {
 
+	componentDidMount() {
+		this.getGridSize();
+	}
+
 	componentDidUpdate() {
+		this.getGridSize();
+	}
+
+	getGridSize() {
 		// we ensure that we have a grid the right size
-		var numRows = Math.ceil(Object.keys(this.props.modesList).length / 3)
+		var numRows = Math.ceil(Object.keys(this.props.modesList).length / 3);
+		console.log(numRows)
 		document.getElementById("mode-grid").style['grid-template-rows'] = `repeat(${numRows}, minmax(192px, 25vh))`;
 	}
 

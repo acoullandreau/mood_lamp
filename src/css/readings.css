@@ -10,7 +10,7 @@
 	padding:2%;
 	margin-top: max(20vh, 153px);
 	grid-template-columns: repeat(2, 46%);
-	grid-template-rows: repeat(10, minmax(150px, 20vh));
+	grid-template-rows: repeat(1, minmax(150px, 20vh));
 	grid-column-gap: 4%;
 	grid-row-gap: 6%;
 	overflow-y: scroll;
@@ -36,7 +36,7 @@
 	margin-top:6%;
 	margin-left:4%;
 	align-items: center;	
-	font-size: min(5vh, 8vw);
+	font-size: max(min(5vh, 8vw), 38px);
 }
 
 .reading-text {

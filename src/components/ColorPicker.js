@@ -20,7 +20,6 @@ class IroColorPicker extends React.Component {
 				props.onColorChange(color);
 			}
 		});
-		window.addEventListener('resize', this.onWindowResize);
 	}
 
 	componentDidUpdate() {
@@ -32,15 +31,7 @@ class IroColorPicker extends React.Component {
 		}
 		// push rest of the component props to the colorPicker's state
 		this.colorPicker.setState(colorPickerState);
-	}
 
-	componentWillUnmount() {
-		window.removeEventListener('resize', this.onWindowResize);
-	}
-
-	onWindowResize = () => {
-		var newWidth = 0.5 * window.visualViewport.height;
-		this.colorPicker.resize(newWidth);
 	}
 
 	render() {
@@ -88,11 +79,43 @@ class ColorPicker extends React.Component {
 	}
 
 
-	getInitialWidth() {
-		var width = 0.5 * window.visualViewport.height;
-		return width;
+	componentDidMount() {
+		window.addEventListener('resize', this.onWindowResize);
 	}
 
+	componentWillUnmount() {
+		window.removeEventListener('resize', this.onWindowResize);
+	}
+
+	onWindowResize = () => {
+
+		// the  parent component is at most 80% of the width of its parent, being at most 90% of its own parent
+		var parentWidth = 0.9 * document.getElementsByClassName("content-two")[0].offsetWidth;
+		var width = 0.5 * window.visualViewport.height;
+		if (width + 115 > 0.75 * parentWidth) {
+			// the grid cell is at most 75% of the width of its parent
+			width = 0.75 * parentWidth - 115;
+		} 
+		if (width < (548 - 115)) {
+			// 115px for the slider (by default 32px) and the margin (set to 80px)
+			width = 433;
+		}
+		this.colorPickerRef.current.colorPicker.resize(width)
+
+	}
+
+	getInitialWidth() {
+		var parentWidth = 0.9 * document.getElementsByClassName("content-two")[0].offsetWidth;
+		var width = 0.5 * window.visualViewport.height;
+		if (width + 115 > 0.75 * parentWidth) {
+			width = 0.75 * parentWidth - 115;
+		} 
+		if (width < (548 - 115)) {
+			width = 433;
+		}
+		return width;
+
+	}
 
 	getInitialSliderDisabled() {
 		if (this.props.modeModel.colors.length === 1) {
@@ -386,8 +409,9 @@ class ColorPicker extends React.Component {
 	}
 
 	render() { 
+
 		return (
-			<div className={['color-grid', `color-${this.props.type}`].join(' ')}>
+			<div id="picker" className={['color-grid', `color-${this.props.type}`].join(' ')}>
 				{ this.renderColorPicker() }
 				{ this.renderSlider() }
 				{ this.renderColorSelectors() }
