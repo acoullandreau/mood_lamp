@@ -157,9 +157,9 @@
 
 #overlay-reset-button {
 	margin-left: 3%;
-	width: 10%;
-	height: 4vh;
-	font-size: 2vh;
+	width: max(10%, 82px);
+	height: max(4vh31px);
+	font-size: max(2vh, 15px);
 	color:#FEEDDF;
 	background-color:transparent;
 	border:1px solid #FEEDDF1F;
@@ -196,14 +196,27 @@
 }
 
 @media screen and (max-width:930px){
-	.about-icon {
+	.about-icon-mobile {
 		position: absolute;
 		top: 20px;
 		right: 10px;
 		width: 30px;
 		height: 30px;
 		font-size: 25px;
+		border-radius: 50%;
+		background-color: transparent;
+		text-align: center;
+		cursor: pointer;
+		border: 1px solid #FEEDDF;
+		background-color: transparent;
+		color: #FEEDDF;
 	}
+
+	#about-icon-mobile:hover {
+		background-color: #433D66;
+	}
+
+
 
 }
 

@@ -210,11 +210,17 @@ button {
 
 
 
-@media screen and (max-width:930px){
+@media only screen and (max-width:930px) and (any-hover: none) {
 	body {
 		min-height:640px;
 		min-width:360px;
 		text-size-adjust:none;
+	}
+
+	#root {
+		min-width: 360px;
+		min-height: 640px;
+		overflow:hidden;
 	}
 
 	#top-section {
@@ -258,15 +264,55 @@ button {
 
 	#bottom-nav-bar {
 		position: absolute;
-		bottom: 5px;
+		background-color:#0D0828;
+		bottom: 0px;
+		padding:5px;
+		padding-bottom: 0px;
 		display: grid;
-		grid-template-columns: repeat(4, 20%);
+		grid-template-columns: repeat(5, 20%);
+		font-size:min(1.5vh, 8px);
+		width: 100%;
+	}
+
+	#bottom-nav-bar img {
+		width: 60%;
 	}
 
 	#maia-button {
+		background-color: transparent;
 		font-family: 'Source Serif Pro', serif;
 		font-size: 30px;
+		height: min-content;
+		align-self: center;
 	}
+
+	/*Specific to the non-Chrome browsers*/
+	#browser-warning {
+		width: max(80%, 300px);
+	}
+
+
+	#browser-warning p {
+		font-size: max(4vh, 15px);
+	}
+
+
+	.grid-content {
+		height: max(98%, 653px);
+		width: 100%;
+		grid-template-columns: 100%;
+		grid-template-rows: minmax(88%, 512px) minmax(12%, 55px);
+	}
+
+	.button-home {
+		width: max(50%, 250px);
+		font-size: max(4vh, 30px);
+	}
+
+
+
+
+
 
 }
 

@@ -16,8 +16,9 @@ const store = createStore(
 );
 
 var contentToRender;
-if (/chrome/i.test( navigator.userAgent ) || (navigator.userAgent.match('CriOS'))) {
-	// if not supported on IoS, remove CriOS !!!!
+if (/chrome/i.test( navigator.userAgent) || (navigator.userAgent.match('CriOS'))) {
+	// if not supported on IoS, remove CriOS !!!!   
+  // || (navigator.userAgent.match('CriOS'))
 	contentToRender = (<App/>);
 } else {
 	contentToRender = (<BrowserWarning/>);

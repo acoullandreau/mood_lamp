@@ -24,6 +24,7 @@ import Utils from './Utils.js';
 
 class App extends React.Component {
 
+
 	constructor(props) {
 		super(props);
 
@@ -35,6 +36,7 @@ class App extends React.Component {
 		};
 
 
+		this.targetDevice = window.innerWidth < 930 ? "mobile" : "desktop";
 		this.singleColorPickerRef = React.createRef();
 		this.gradientColorPickerRef = React.createRef();
 		this.onWindowResize();
@@ -61,7 +63,6 @@ class App extends React.Component {
 	}
 
 	onWindowResize() {
-
 		var screenRatio = window.visualViewport.height/window.visualViewport.width;
 		if (screenRatio < 0.75) {
 			var width = window.visualViewport.height / 0.75;
@@ -329,7 +330,7 @@ class App extends React.Component {
 			return (
 				<React.Fragment>
 					<div className="grid-content">
-						<div className="content-one">
+						<div className="column-one">
 							<div id='logo'>
 								<a href='/#'><img src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`} alt='Maïa' /></a>
 							</div>
@@ -344,7 +345,7 @@ class App extends React.Component {
 							>Déconnecter</button>
 						</div>
 
-						<div className="column-two">
+						<div id='content' className="column-two">
 							<Route path='' >
 								{ this.renderHome() }
 							</Route>
@@ -377,14 +378,7 @@ class App extends React.Component {
 						<img src={`${process.env.PUBLIC_URL}/assets/images/disconnect.svg`} alt='Déconnecter' />	
 					</button>
 					<div className="grid-content">
-						<div id='logo-mobile'>
-							<a href='/#'><img src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`} alt='Maïa' /></a>
-						</div>
-						<div id='nav-bar'>
-							<SideNavBar orientation="horizontal" />
-						</div>
-
-						<div className={["content-two", "column-two"].join(' ')}>
+						<div id='content' className="row-one">
 							<Route path='' >
 								{ this.renderHome() }
 							</Route>
@@ -407,6 +401,9 @@ class App extends React.Component {
 								</React.Fragment>
 							</Route>
 						</div>
+						<div className="row-two">
+							<SideNavBar orientation="horizontal" />
+						</div>
 					</div>
 				</React.Fragment>
 			);
@@ -416,11 +413,10 @@ class App extends React.Component {
 	render() {
 
 		let contentToRender;
-		let target = window.innerWidth < 930 ? "mobile" : "desktop";
 		if (this.state.isConnected) {
-			contentToRender = this.renderConnected(target);
+			contentToRender = this.renderConnected(this.targetDevice);
 		} else {
-			contentToRender = this.renderDisconnected(target);
+			contentToRender = this.renderDisconnected(this.targetDevice);
 		}
 
 		let overlay;
@@ -439,13 +435,13 @@ class App extends React.Component {
 		}
 
 		let page = Utils.capitalize(window.location.hash.split('#')[1])
-		if (target === "mobile") {
+		if (this.targetDevice === "mobile") {
 			return (
 				<React.Fragment>
 					{ overlay }	
 					<div id="top-section">
 						<p>{page}</p>
-						<button className="about-icon" onClick={this.showAbout}>
+						<button className="about-icon-mobile" onClick={this.showAbout}>
 							i
 						</button>
 					</div>

@@ -90,7 +90,7 @@ class ColorPicker extends React.Component {
 	onWindowResize = () => {
 
 		// the  parent component is at most 80% of the width of its parent, being at most 90% of its own parent
-		var parentWidth = 0.9 * document.getElementsByClassName("column-two")[0].offsetWidth;
+		var parentWidth = 0.9 * document.getElementById("content").offsetWidth;
 		var width = 0.5 * window.visualViewport.height;
 		if (width + 115 > 0.75 * parentWidth) {
 			// the grid cell is at most 75% of the width of its parent
@@ -105,7 +105,7 @@ class ColorPicker extends React.Component {
 	}
 
 	getInitialWidth() {
-		var parentWidth = 0.9 * document.getElementsByClassName("column-two")[0].offsetWidth;
+		var parentWidth = 0.9 * document.getElementById("content").offsetWidth;
 		var width = 0.5 * window.visualViewport.height;
 		if (width + 115 > 0.75 * parentWidth) {
 			width = 0.75 * parentWidth - 115;
