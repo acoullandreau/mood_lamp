@@ -356,7 +356,7 @@ class Rules extends React.Component {
 				</div>
 				<div className="rules-div">
 					{this.renderSwitch('silentAutoOff')}
-					<div className="rule-text" style={{'minWidth': '90%'}}>
+					<div className="rule-text text-with-input">
 						<p style={{display:'inline-block'}}>Désactiver les automatismes si aucun son pendant plus de </p>
 						<input 
 							id="number-input"

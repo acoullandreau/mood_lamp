@@ -19,6 +19,11 @@
 	margin-top: max(5vh, 38px);
 }
 
+.text-with-input {
+	min-width: 90%;
+}
+
+
 .subsection {
 	margin-top: 10%;
 	margin-left: 5%;
@@ -60,11 +65,13 @@ input[type='radio'] {
 	border: 2px solid #bbbbbb;
 	border-radius: 50%;
 	outline: none;
+	vertical-align: middle;
 }
 
 input[type="radio"]:checked {
 	border: 2px solid #FA4D3D !important;
 	background-color:#FA4D3D !important;
+	vertical-align: middle;
 }
 
 
@@ -94,7 +101,6 @@ input[type="radio"]:checked {
 	opacity: 0.5;
 
 }
-
 
 .time-picker {
 	display:inline-block;
@@ -165,4 +171,31 @@ input:checked + .slider:before {
 
 .slider.round:before {
 	border-radius: 50%;
+}
+
+
+@media only screen and (max-width:930px) and (any-hover: none) {
+
+	#rules-page {
+		width: 90%;
+		height: 88%;
+		margin-top: 0px;
+		margin-bottom: max(55px, 12%);;
+	}
+
+	.text-with-input {
+		min-width: 70%;
+	}
+
+	.rules-div {
+		min-width: 90%;
+	}
+
+	.rule-text {
+		width: 80%;
+		font-size: max(2.5vh, 15px);
+	}
+
+	
+
 }

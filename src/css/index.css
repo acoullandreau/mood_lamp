@@ -226,7 +226,7 @@ button {
 	#top-section {
 		position: absolute;
 		background-color: #DACEDA40;
-		height: 70px;
+		height: max(70px, 10%);
 		width: 100%;
 		top: 0px;
 	}
@@ -272,6 +272,7 @@ button {
 		grid-template-columns: repeat(5, 20%);
 		font-size:min(1.5vh, 8px);
 		width: 100%;
+		border:1px solid #FEEDDF1F;
 	}
 
 	#bottom-nav-bar img {
@@ -298,20 +299,17 @@ button {
 
 
 	.grid-content {
-		height: max(98%, 653px);
+		margin-top: max(70px, 10%);
+		height: max(98%,570px);
 		width: 100%;
 		grid-template-columns: 100%;
-		grid-template-rows: minmax(88%, 512px) minmax(12%, 55px);
+		grid-template-rows: minmax(88%, 493px) minmax(12%, 55px);
 	}
 
 	.button-home {
 		width: max(50%, 250px);
 		font-size: max(4vh, 30px);
 	}
-
-
-
-
 
 
 }
