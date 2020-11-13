@@ -64,7 +64,6 @@ class App extends React.Component {
 		if (screenRatio < 0.75) {
 			var width = window.visualViewport.height / 0.75;
 			document.getElementById('root').style.width = width + 'px' ;
-			document.getElementById('root').style.height = window.visualViewport.height + 'px' ;
 		}
 	}
 

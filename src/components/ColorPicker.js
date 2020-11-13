@@ -20,7 +20,6 @@ class IroColorPicker extends React.Component {
 				props.onColorChange(color);
 			}
 		});
-		// window.addEventListener('resize', this.onWindowResize);
 	}
 
 	componentDidUpdate() {
@@ -34,23 +33,6 @@ class IroColorPicker extends React.Component {
 		this.colorPicker.setState(colorPickerState);
 
 	}
-
-	// componentWillUnmount() {
-	// 	window.removeEventListener('resize', this.onWindowResize);
-	// }
-
-	// onWindowResize = () => {
-	// 	var width = 0.5 * window.visualViewport.height;
-	// 	if (width > 0.75 * window.visualViewport.height - 120) {
-	// 		this.colorPicker.resize(0.75 * window.visualViewport.height - 120);
-	// 	} else if (width < 387) {
-	// 		this.colorPicker.resize(387);
-	// 	} else {
-	// 		this.colorPicker.resize(width);
-	// 	}
-
-
-	// }
 
 	render() {
 		return (
@@ -106,45 +88,32 @@ class ColorPicker extends React.Component {
 	}
 
 	onWindowResize = () => {
+
+		// the  parent component is at most 80% of the width of its parent, being at most 90% of its own parent
+		var parentWidth = 0.9 * document.getElementsByClassName("content-two")[0].offsetWidth;
 		var width = 0.5 * window.visualViewport.height;
-		if (width + 120 > 0.75 * 0.8 * window.visualViewport.width) {
-			// the grid cell is at most 75% of the width of its parent component, that is at most 80% of the width of the root
-			width = 0.75 * 0.8 * window.visualViewport.width;
+		if (width + 115 > 0.75 * parentWidth) {
+			// the grid cell is at most 75% of the width of its parent
+			width = 0.75 * parentWidth - 115;
 		} 
 		if (width < (548 - 115)) {
 			// 115px for the slider (by default 32px) and the margin (set to 80px)
 			width = 433;
 		}
 		this.colorPickerRef.current.colorPicker.resize(width)
-		// if (width < 387) {
-		// 	this.colorPickerRef.current.colorPicker.resize(387);
-		// } else if (width + 120 > 0.58 * window.visualViewport.width) {
-		// 	console.log(width)
-		// 	this.colorPickerRef.current.colorPicker.resize(0.58 * window.visualViewport.width - 120);
-		// } else {
-		// 	this.colorPickerRef.current.colorPicker.resize(width);
-		// }
 
 	}
 
 	getInitialWidth() {
+		var parentWidth = 0.9 * document.getElementsByClassName("content-two")[0].offsetWidth;
 		var width = 0.5 * window.visualViewport.height;
-		if (width + 120 > 0.75 * 0.8 * window.visualViewport.width) {
-			width = 0.75 * 0.8 * window.visualViewport.width;
+		if (width + 115 > 0.75 * parentWidth) {
+			width = 0.75 * parentWidth - 115;
 		} 
 		if (width < (548 - 115)) {
 			width = 433;
 		}
 		return width;
-
-		// var width = 0.5 * window.visualViewport.height;
-		// if (width < 387) {
-		// 	return 387;
-		// } else if (width + 120 > 0.58 * window.visualViewport.width) {
-		// 	return 0.58 * window.visualViewport.width - 120;
-		// } else {
-		// 	return width;
-		// }
 
 	}
 
