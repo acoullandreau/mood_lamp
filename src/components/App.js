@@ -19,6 +19,7 @@ import Utils from './Utils.js';
 	// other languages
 	// OTA menu
 	// add options : auto turn on with noise
+	// handle user inputs with warnings when the values are not good
 	// offer possibility to turn off auto after minutes (instead of hours)
 
 
@@ -277,7 +278,7 @@ class App extends React.Component {
 
 	renderMesures = () => {
 		return (
-			<Readings />
+			<Readings target={this.targetDevice}/>
 		)
 	}
 
@@ -289,8 +290,8 @@ class App extends React.Component {
 	}
 
 
-	renderDisconnected(target) {
-		if (target === 'desktop') {
+	renderDisconnected() {
+		if (this.targetDevice === 'desktop') {
 			return (
 				<React.Fragment>
 					<div className="grid-content">
@@ -322,11 +323,11 @@ class App extends React.Component {
 	}
 
 
-	renderConnected(target) {
+	renderConnected() {
 		let disconnectDisplay = this.state.disconnectDisplay;
 
 
-		if (target === 'desktop') {
+		if (this.targetDevice === 'desktop') {
 			return (
 				<React.Fragment>
 					<div className="grid-content">
@@ -414,9 +415,9 @@ class App extends React.Component {
 
 		let contentToRender;
 		if (this.state.isConnected) {
-			contentToRender = this.renderConnected(this.targetDevice);
+			contentToRender = this.renderConnected();
 		} else {
-			contentToRender = this.renderDisconnected(this.targetDevice);
+			contentToRender = this.renderDisconnected();
 		}
 
 		let overlay;

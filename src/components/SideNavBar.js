@@ -97,7 +97,7 @@ class SideNavBar extends React.Component {
 				</a>
 				<a href='#automatismes' className={`nav-icon-${this.state.activeItem === 'automatismes' ? 'active' : 'inactive'}`}>
 					{this.fetchIconImage('automatismes')}
-					<p>Automatismes</p>
+					<p>Règles</p>
 				</a>
 			</React.Fragment>
 		)

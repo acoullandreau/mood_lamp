@@ -23,7 +23,6 @@
 	min-width: 90%;
 }
 
-
 .subsection {
 	margin-top: 10%;
 	margin-left: 5%;
@@ -178,9 +177,9 @@ input:checked + .slider:before {
 
 	#rules-page {
 		width: 90%;
-		height: 88%;
+		height: 97%;
 		margin-top: 0px;
-		margin-bottom: max(55px, 12%);;
+		/*margin-bottom: max(55px, 12vw);*/
 	}
 
 	.text-with-input {
@@ -189,6 +188,10 @@ input:checked + .slider:before {
 
 	.rules-div {
 		min-width: 90%;
+		border-top: 1px solid #FEEDDF1F;
+		margin-top: 0px;
+		padding-top: 10%;
+		padding-bottom: 10%;
 	}
 
 	.rule-text {
@@ -196,6 +199,16 @@ input:checked + .slider:before {
 		font-size: max(2.5vh, 15px);
 	}
 
-	
+	.subsection p {
+		display: inline-block;
+		width: fit-content;
+		max-width: 90%;
+		min-width: 10%;
+	}
+
+	.long-rule-text {
+		width: 80% !important;
+		vertical-align:middle;
+	}
 
 }

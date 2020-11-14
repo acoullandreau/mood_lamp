@@ -291,7 +291,7 @@ class Rules extends React.Component {
 							onChange={this.handleOptionChange}
 							className="display-inline"
 						/>
-						<p className="display-inline">Éteindre si le niveau lumineux est haut </p>
+						<p className="display-inline long-rule-text">Éteindre si le niveau lumineux est haut </p>
 					</div>
 					<div 
 						className="subsection-sublevel" 

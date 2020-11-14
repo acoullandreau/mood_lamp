@@ -50,3 +50,46 @@
 .reading-icon img{
 	width: 80%;
 }
+
+
+
+
+@media only screen and (max-width:930px) and (any-hover: none) {
+
+	#readings-grid {
+		width: 90%;
+		height: 88%;
+		margin-top: max(35px, 10%);
+		margin-bottom: max(55px, 12%);
+	}
+
+	.reading-icon {
+		display: inline-block;
+		width: 25%;
+		margin-left:3%;
+		margin-top:5%;
+	}
+
+	.reading-icon img{
+		width: 100%;
+	}
+
+	.reading-title {
+		font-size: max(18px, 2vh);
+		display: inline-block;
+		width: 60%;
+		margin-left:3px;
+	}
+
+/*	.reading-measure {
+		display: grid;
+		grid-template-columns: 32% 60%;
+		grid-column-gap: 4%;
+		margin-top:6%;
+		margin-left:4%;
+		align-items: center;	
+		font-size: max(min(5vh, 8vw), 38px);
+	}*/
+
+
+}

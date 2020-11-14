@@ -270,9 +270,17 @@ button {
 		padding-bottom: 0px;
 		display: grid;
 		grid-template-columns: repeat(5, 20%);
-		font-size:min(1.5vh, 8px);
-		width: 100%;
+		font-size:clamp(8px, 1.5vh, 15px);
+		width: calc(100% - 10px);
+		height: max(55px, 14vw);
 		border:1px solid #FEEDDF1F;
+	}
+
+	#bottom-nav-bar a {
+		align-self: center;
+		justify-self: center;
+		height: fit-content;
+		width:fit-content;
 	}
 
 	#bottom-nav-bar img {
@@ -285,6 +293,7 @@ button {
 		font-size: 30px;
 		height: min-content;
 		align-self: center;
+		justify-self: center;
 	}
 
 	/*Specific to the non-Chrome browsers*/
@@ -299,11 +308,11 @@ button {
 
 
 	.grid-content {
-		margin-top: max(70px, 10%);
-		height: max(98%,570px);
+		margin-top: max(70px, 10vh);
+		height: max(98vh,570px);
 		width: 100%;
 		grid-template-columns: 100%;
-		grid-template-rows: minmax(88%, 493px) minmax(12%, 55px);
+		grid-template-rows: minmax(81%, 461px) minmax(19%, 55px);
 	}
 
 	.button-home {
