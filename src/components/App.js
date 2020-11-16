@@ -36,7 +36,7 @@ class App extends React.Component {
 			'tabIndex':0,
 		};
 
-
+		this.previousHeight = undefined;
 		this.targetDevice = window.innerWidth < 930 ? "mobile" : "desktop";
 		this.singleColorPickerRef = React.createRef();
 		this.gradientColorPickerRef = React.createRef();
@@ -56,6 +56,47 @@ class App extends React.Component {
 		window.history.pushState({}, '', '#');
 		const navEvent = new PopStateEvent('popstate');
 		window.dispatchEvent(navEvent);
+
+		window.requestAnimationFrame(this.checkSize);
+	}
+
+
+	componentDidUpdate() {
+		if (this.targetDevice === 'mobile') {
+			this.resizeElements();
+		}
+
+	}
+
+	checkSize = () => {
+
+		if (this.targetDevice === 'mobile' && (this.previousHeight === undefined || this.previousHeight !== window.innerHeight)) {
+			this.resizeElements();
+			this.previousHeight = window.innerHeight;
+		}
+		// console.log(window.innerHeight)
+		window.requestAnimationFrame(this.checkSize);
+	}
+
+	resizeElements = () => {
+		console.log('resize')
+		document.getElementById('root').style.height = window.innerHeight + 'px';
+		let element = document.getElementsByClassName("grid-content")
+		if (element.length > 0) {
+			element[0].style.height = window.innerHeight - 15 + 'px';
+		}
+
+		element = document.getElementsByClassName("react-tabs");
+		if (element.length > 0) {
+			var barBB = document.getElementById("bottom-nav-bar").getBoundingClientRect();
+			var tabListBB = document.getElementsByClassName("react-tabs__tab-list")[0].getBoundingClientRect();
+			tabListBB = tabListBB.height + Math.max(0.04*window.innerHeight, 20);
+			var topMargin = Math.max(0.025*window.innerHeight, 15);
+			element[0].style.height = window.innerHeight - 15 - barBB.height - 2*topMargin - tabListBB + 'px';
+			element = document.getElementsByClassName("react-tabs__tab-panel");
+			element[0].style.height = window.innerHeight - 15 - barBB.height - 2*topMargin - 2*tabListBB + 'px';
+		}
+
 	}
 
 	componentWillUnmount() {

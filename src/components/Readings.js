@@ -28,7 +28,7 @@ class Readings extends React.Component {
 		if (this.props.target === 'desktop') {
 			document.getElementById("readings-grid").style['grid-template-rows'] = `repeat(${numRows}, minmax(150px, 20vh))`;
 		} else {
-			document.getElementById("readings-grid").style['grid-template-rows'] = `repeat(${numRows}, minmax(150px, 40vh))`;
+			document.getElementById("readings-grid").style['grid-template-rows'] = `repeat(${numRows}, minmax(75px, 40vh))`;
 		}
 	}
 
