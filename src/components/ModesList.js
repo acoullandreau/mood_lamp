@@ -16,12 +16,21 @@ class ModesList extends React.Component {
 
 	getGridSize() {
 		// we ensure that we have a grid the right size
-		var numRows = Math.ceil(Object.keys(this.props.modesList).length / 3);
+		var modesListDefault = this.props.modesList.filter(mode => mode.isOriginMode === true);
+		var modesListCustom = this.props.modesList.filter(mode => mode.isOriginMode === false);
+		var numRowsDefault;
+		var numRowsCustom;
+
 		if (this.props.target === 'mobile') {
-			numRows = Math.ceil(Object.keys(this.props.modesList).length / 2);
-			document.getElementById("mode-grid").style['grid-template-rows'] = `repeat(${numRows}, minmax(150px, 20vh))`;
+			numRowsDefault = Math.ceil(Object.keys(modesListDefault).length / 2);
+			numRowsCustom = Math.ceil(Object.keys(modesListCustom).length / 2);
+			document.getElementById("mode-grid-default").style['grid-template-rows'] = `repeat(${numRowsDefault}, minmax(150px, 25vh))`;
+			document.getElementById("mode-grid-custom").style['grid-template-rows'] = `repeat(${numRowsCustom}, minmax(150px, 25vh))`;
 		} else {
-			document.getElementById("mode-grid").style['grid-template-rows'] = `repeat(${numRows}, minmax(192px, 25vh))`;
+			numRowsDefault = Math.ceil(Object.keys(modesListDefault).length / 3);
+			numRowsCustom = Math.ceil(Object.keys(modesListCustom).length / 3);
+			document.getElementById("mode-grid-default").style['grid-template-rows'] = `repeat(${numRowsDefault}, minmax(192px, 25vh))`;
+			document.getElementById("mode-grid-custom").style['grid-template-rows'] = `repeat(${numRowsCustom}, minmax(192px, 25vh))`;
 		}
 	}
 
@@ -50,7 +59,7 @@ class ModesList extends React.Component {
 
 		if (type === 'custom') {
 			return (
-				<div id="mode-grid">
+				<div className="mode-grid" id="mode-grid-custom">
 				  	{
 						React.Children.toArray(
 							Object.keys(this.props.modesList).map((item, i) => {
@@ -76,7 +85,7 @@ class ModesList extends React.Component {
 			)
 		} else if (type === 'default') {
 			return (
-				<div id="mode-grid">
+				<div className="mode-grid" id="mode-grid-default">
 				  	{
 						React.Children.toArray(
 							Object.keys(this.props.modesList).map((item, i) => {
@@ -104,7 +113,7 @@ class ModesList extends React.Component {
 	render() {
 		return (
 			<React.Fragment>
-				<Tabs forceRenderTabPanel={true} defaultIndex={this.props.index}>
+				<Tabs forceRenderTabPanel={true} defaultIndex={this.props.index} onSelect={() => this.getGridSize()}>
 					<TabList>
 					<Tab>Interactifs</Tab>
 					<Tab>Personalisés</Tab>
