@@ -65,36 +65,41 @@ class App extends React.Component {
 		if (this.targetDevice === 'mobile') {
 			this.resizeElements();
 		}
-
 	}
 
 	checkSize = () => {
-
 		if (this.targetDevice === 'mobile' && (this.previousHeight === undefined || this.previousHeight !== window.innerHeight)) {
 			this.resizeElements();
 			this.previousHeight = window.innerHeight;
 		}
-		// console.log(window.innerHeight)
+
 		window.requestAnimationFrame(this.checkSize);
 	}
 
 	resizeElements = () => {
-		console.log('resize')
+		// this function aims at recomputing the heights of the root, the grid content, 
+		// and the tab component so that it matches the available screen size of the browser (Chrome Android)
+
 		document.getElementById('root').style.height = window.innerHeight + 'px';
-		let element = document.getElementsByClassName("grid-content")
-		if (element.length > 0) {
-			element[0].style.height = window.innerHeight - 15 + 'px';
+		let gridElement = document.getElementsByClassName("grid-content");
+		if (gridElement.length > 0) {
+			gridElement[0].style.height = window.innerHeight + 'px';
 		}
 
-		element = document.getElementsByClassName("react-tabs");
-		if (element.length > 0) {
-			var barBB = document.getElementById("bottom-nav-bar").getBoundingClientRect();
+		let tabElement = document.getElementsByClassName("react-tabs");
+		let tabPanelElement = document.getElementsByClassName("react-tabs__tab-panel");
+
+		if (tabElement.length > 0) {
+			// we get the height of the bottom nav bar
+			var barBBHeight = document.getElementById("bottom-nav-bar").getBoundingClientRect().height;
+			// we get the height of the tab list section
 			var tabListBB = document.getElementsByClassName("react-tabs__tab-list")[0].getBoundingClientRect();
 			tabListBB = tabListBB.height + Math.max(0.04*window.innerHeight, 20);
+			// we get the top margin applied at the top of the tabs panel
 			var topMargin = Math.max(0.025*window.innerHeight, 15);
-			element[0].style.height = window.innerHeight - 15 - barBB.height - 2*topMargin - tabListBB + 'px';
-			element = document.getElementsByClassName("react-tabs__tab-panel");
-			element[0].style.height = window.innerHeight - 15 - barBB.height - 2*topMargin - 2*tabListBB + 'px';
+			// we calculate the height of the tab and the tab panels from the height of the window (deducing margins and bottom bar)
+			tabElement[0].style.height = window.innerHeight - barBBHeight - 2*topMargin - tabListBB + 'px';
+			tabPanelElement[0].style.height = window.innerHeight - barBBHeight - 2*topMargin - 2*tabListBB + 'px';
 		}
 
 	}
