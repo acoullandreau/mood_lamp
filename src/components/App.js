@@ -243,13 +243,12 @@ class App extends React.Component {
 
 	renderModes = () => {
 		return (
-			<div className='grid-row-two'>
-				<ModesList 
-					onEditMode={this.onEditMode} 
-					onDeleteMode={this.onDeleteMode}
-					index={this.state.tabIndex}
-				/>
-			</div>
+			<ModesList 
+				onEditMode={this.onEditMode} 
+				onDeleteMode={this.onDeleteMode}
+				index={this.state.tabIndex}
+				target={this.targetDevice}
+			/>
 		)
 	}
 

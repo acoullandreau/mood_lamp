@@ -179,7 +179,6 @@ input:checked + .slider:before {
 		width: 90%;
 		height: 97%;
 		margin-top: 0px;
-		/*margin-bottom: max(55px, 12vw);*/
 	}
 
 	.text-with-input {

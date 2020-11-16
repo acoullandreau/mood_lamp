@@ -17,7 +17,12 @@ class ModesList extends React.Component {
 	getGridSize() {
 		// we ensure that we have a grid the right size
 		var numRows = Math.ceil(Object.keys(this.props.modesList).length / 3);
-		document.getElementById("mode-grid").style['grid-template-rows'] = `repeat(${numRows}, minmax(192px, 25vh))`;
+		if (this.props.target === 'mobile') {
+			numRows = Math.ceil(Object.keys(this.props.modesList).length / 2);
+			document.getElementById("mode-grid").style['grid-template-rows'] = `repeat(${numRows}, minmax(150px, 20vh))`;
+		} else {
+			document.getElementById("mode-grid").style['grid-template-rows'] = `repeat(${numRows}, minmax(192px, 25vh))`;
+		}
 	}
 
 	addMode() {
@@ -41,9 +46,9 @@ class ModesList extends React.Component {
 
 	}
 
-	renderListItems = (target) => {
+	renderListItems = (type) => {
 
-		if (target === 'custom') {
+		if (type === 'custom') {
 			return (
 				<div id="mode-grid">
 				  	{
@@ -69,7 +74,7 @@ class ModesList extends React.Component {
 					{this.renderAddModeButton()}
 				</div>
 			)
-		} else if (target === 'default') {
+		} else if (type === 'default') {
 			return (
 				<div id="mode-grid">
 				  	{
@@ -93,10 +98,10 @@ class ModesList extends React.Component {
 				</div>
 			)
 		}
+		return null;
 	}
 
 	render() {
-
 		return (
 			<React.Fragment>
 				<Tabs forceRenderTabPanel={true} defaultIndex={this.props.index}>
@@ -126,7 +131,8 @@ const mapStateToProps = (state) => {
 ModesList.propTypes = {
 	index:PropTypes.number.isRequired,
 	onEditMode:PropTypes.func.isRequired,
-	onDeleteMode:PropTypes.func.isRequired
+	onDeleteMode:PropTypes.func.isRequired,
+	target:PropTypes.string.isRequired
 }
 
 export default connect(mapStateToProps)(ModesList);

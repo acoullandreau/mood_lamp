@@ -198,13 +198,12 @@
 @media screen and (max-width:930px){
 	.about-icon-mobile {
 		position: absolute;
-		top: 20px;
-		right: 10px;
-		width: 30px;
-		height: 30px;
-		font-size: 25px;
+		top: 30%;
+		right: 3%;
+		width: max(30px, 5vh);
+		height: max(30px, 5vh);
+		font-size: max(25px, 4vh);
 		border-radius: 50%;
-		background-color: transparent;
 		text-align: center;
 		cursor: pointer;
 		border: 1px solid #FEEDDF;
