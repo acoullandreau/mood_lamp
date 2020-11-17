@@ -23,7 +23,7 @@ import reducers from './reducers';
 // console.log(document.getElementsByTagName('html')[0].scrollHeight)
 // console.log(document.documentElement.clientHeight, window.screen.height, window.innerHeight)
 
-
+console.log(document.documentElement.clientWidth)
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

@@ -225,7 +225,7 @@ button {
 
 
 
-@media only screen and (max-width:930px) and (any-hover: none) {
+@media only screen and (max-device-width:930px) and (any-hover: none) {
 	body {
 		/*min-height: 0px;*/
 		/*min-height:640px;*/
@@ -281,11 +281,14 @@ button {
 		width: 90%;
 	}
 
+	#bottom-bar-row {
+		align-self: center;
+	}
+
 	#bottom-nav-bar {
 		position: relative;
 		z-index:10;
 		background-color:#0D0828;
-		/*bottom: 0px;*/
 		padding:5px;
 		padding-bottom: 0px;
 		display: grid;
@@ -331,7 +334,7 @@ button {
 		height: max(98vh,570px);
 		width: 100%;
 		grid-template-columns: 100%;
-		grid-template-rows: minmax(81%, 461px) minmax(19%, 55px);
+		grid-template-rows: minmax(89%, 507px) minmax(11%, 62px);
 	}
 
 	.button-home {

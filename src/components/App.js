@@ -83,7 +83,9 @@ class App extends React.Component {
 		document.getElementById('root').style.height = window.innerHeight + 'px';
 		let gridElement = document.getElementsByClassName("grid-content");
 		if (gridElement.length > 0) {
-			gridElement[0].style.height = window.innerHeight + 'px';
+			// we get the height of the top menu bar
+			var menuBBHeight = document.getElementById("top-section").getBoundingClientRect().height;
+			gridElement[0].style.height = window.innerHeight - menuBBHeight + 'px';
 		}
 
 		let tabElement = document.getElementsByClassName("react-tabs");
@@ -447,7 +449,7 @@ class App extends React.Component {
 								</React.Fragment>
 							</Route>
 						</div>
-						<div className="row-two">
+						<div id="bottom-bar-row" className="row-two">
 							<SideNavBar orientation="horizontal" />
 						</div>
 					</div>
