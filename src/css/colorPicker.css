@@ -48,15 +48,17 @@
 	justify-self:center;
 	grid-template-columns: 49% 49%;
 	column-gap: 2%;
-	grid-template-rows: repeat(5, 20%);
+	grid-template-rows: repeat(6, 17%);
 	margin-bottom: 5%;
 	width: 60%;
-	height: 70%;
+	height: 75%;
+	align-self: center;
 } 
 
 .color-selector {
-	height: max(6vh, 46px);
-	width: max(6vh, 46px);
+	height: clamp(46px,  5vh, 5.5vh);
+	width: clamp(46px,  5vh, 5.5vh);
+	/*width: max(6vh, 46px);*/
 	border-radius: 50%;
 	margin:5%;
 	align-self: center;
@@ -113,4 +115,16 @@
 	width: 25px;
 	border-radius: 50%;
 	-webkit-appearance: none;
+}
+
+
+@media only screen and (max-width:930px) and (any-hover: none) {
+
+	.color-grid {
+		width: 90%;
+		grid-template-columns: 100%;
+		grid-template-rows: minmax(15%, 86px) minmax(70%, 490px) minmax(15%, 86px);
+	}
+
+
 }

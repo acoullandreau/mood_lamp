@@ -4,6 +4,7 @@
 	display: grid;
 	width: 90%;
 	height: 60%;
+	min-height: 60vh;
 	margin-right: auto;
 	margin-left: auto;
 	padding:2%;
@@ -39,7 +40,6 @@
 	background-color: #0D0828;
 	color:#FEEDDF;
 	justify-self:center;
-	/*margin-bottom: 20%;*/
 }
 
 .mode-text p {
@@ -161,7 +161,6 @@
 
 @media only screen and (max-width:930px) and (any-hover: none) {
 	.mode-grid {
-		min-height: 100%;
 		margin-top: max(2.5vh, 20px);
 		grid-template-columns: repeat(2, 46%);
 		grid-template-rows:repeat(10, minmax(150px, 25vh));
@@ -175,6 +174,10 @@
 
 	#mode-grid-custom {
 		grid-template-rows: repeat(10, minmax(150px, 25vh));
+	}
+
+	.mode-text {
+		grid-template-columns: 100%;
 	}
 
 

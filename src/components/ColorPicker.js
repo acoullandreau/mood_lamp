@@ -321,7 +321,7 @@ class ColorPicker extends React.Component {
 	renderColorSelectors = () => {
 		var addSelector;
 
-		if (this.state.selectedColors.length < 10) {
+		if (this.state.selectedColors.length < 12) {
 			addSelector = (
 				<button 
 					className='color-selector' 
@@ -384,6 +384,8 @@ class ColorPicker extends React.Component {
 
 	renderButton() {
 		var buttonContent;
+		var buttonClassName;
+
 		if (this.props.type === 'new') {
 			buttonContent = (
 				<React.Fragment>
@@ -427,7 +429,8 @@ ColorPicker.propTypes = {
 	type:PropTypes.string.isRequired,
 	modeModel:PropTypes.instanceOf(ModeModel).isRequired,
 	onSaveNewMode:PropTypes.func,
-	onSaveEditMode:PropTypes.func
+	onSaveEditMode:PropTypes.func,
+	targetDevice:PropTypes.string.isRequired
 
 }
 

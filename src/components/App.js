@@ -295,7 +295,7 @@ class App extends React.Component {
 				onEditMode={this.onEditMode} 
 				onDeleteMode={this.onDeleteMode}
 				index={this.state.tabIndex}
-				target={this.targetDevice}
+				targetDevice={this.targetDevice}
 			/>
 		)
 	}
@@ -318,6 +318,7 @@ class App extends React.Component {
 					type='new'
 					modeModel={modeModel}
 					onSaveNewMode={this.displayOverlay}
+					targetDevice={this.targetDevice}
 				/>
 			</React.Fragment>
 		)

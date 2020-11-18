@@ -10,22 +10,6 @@ import BrowserWarning from './components/BrowserWarning.js';
 import reducers from './reducers';
 
 
-//we define the vh unit using the screen innerHeight
-// let vh = window.innerHeight * 0.01;
-// document.documentElement.style.setProperty('--vh', `${vh}px`);
-
-// window.addEventListener('resize', () => {
-//   let vh = window.innerHeight * 0.01;
-//   document.documentElement.style.setProperty('--vh', `${vh}px`);
-// });
-
-// console.log(document.documentElement.clientHeight, window.innerHeight)
-// console.log(document.getElementsByTagName('html')[0].scrollHeight)
-// console.log(document.documentElement.clientHeight, window.screen.height, window.innerHeight)
-
-console.log(document.documentElement.clientWidth)
-
-
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
 	reducers, 
