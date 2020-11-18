@@ -1,32 +1,54 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
-// import { deleteMode } from '../actions';
-// import ColorPicker from './ColorPicker.js';
 
 class DropdownOverlay extends React.Component {
 
-	state = { 'setting' : {} }
+	componentDidMount() {
+		this.positionMenu();
+		// this.setState({'settings':this.props.settings});
+	}
 
 	componentDidUpdate(prevProps) {
-		if (this.props !== prevProps) {
-			this.setState({'settings':this.props.settings}, () => {
-				if (Object.keys(this.props.settings).length > 0) {
-					this.positionMenu();
-				}
-			});
-		}
+		this.positionMenu();
+		// if (this.props !== prevProps) {
+		// 	this.setState({'settings':this.props.settings}, () => {
+		// 		if (Object.keys(this.props.settings).length > 0) {
+		// 		}
+		// 	});
+		// }
 
 	}
 
 	positionMenu = () => {
 		// if the mode is in the right side of the screen, we position the top right corner of the menu
-		if (this.props.settings.touchPoint.screenX > window.innerWidth / 2) {
-			console.log(this.props.settings.touchPoint)
-			console.log(document.getElementById("menu-dropdown").getBoundingClientRect())
+		let dropdownMenuElem = document.getElementsByClassName("OverlayDropdownMenu")[0];
+		let xTranslate;
+		let yTranslate;
+
+		if (this.props.settings.touchPoint.screenX < window.innerWidth / 2) {
+			xTranslate = this.props.settings.touchPoint.clientX - dropdownMenuElem.getBoundingClientRect().x;
+		} else {
+			xTranslate = this.props.settings.touchPoint.clientX - (dropdownMenuElem.getBoundingClientRect().x + dropdownMenuElem.getBoundingClientRect().width);
 		}
+		if (this.props.settings.touchPoint.clientX < dropdownMenuElem.getBoundingClientRect().x) {
+			xTranslate = - xTranslate;
+		}
+
+		if (this.props.settings.touchPoint.screenX < window.innerHeight / 2) {
+			yTranslate = this.props.settings.touchPoint.clientY - dropdownMenuElem.getBoundingClientRect().y;
+		} else {
+			yTranslate = this.props.settings.touchPoint.clientY - (dropdownMenuElem.getBoundingClientRect().y + dropdownMenuElem.getBoundingClientRect().width);
+		}
+		if (this.props.settings.touchPoint.clientY < dropdownMenuElem.getBoundingClientRect().y) {
+			yTranslate = - yTranslate;
+		}
+
+		dropdownMenuElem.style.transform = `translate(${xTranslate}px,${yTranslate}px)`;
+
+		// make the targeted tile z-index ++
 		//console.log(this.props.settings.targetMode)
-		//console.log(this.props.settings.touchPoint)
+
+
 	} 
 	
 
@@ -48,7 +70,6 @@ class DropdownOverlay extends React.Component {
 
 
 	render() {
-
 		if (Object.keys(this.props.settings).length > 0) {
 			let isDisabled = true;
 			let iconOpacity = 0.2;
@@ -60,7 +81,7 @@ class DropdownOverlay extends React.Component {
 			return (
 				<React.Fragment>
 					<div className="Blur" onClick={() => this.closeModal()}></div>
-					<div id="menu-dropdown" className="OverlayDropdownMenu">
+					<div className="OverlayDropdownMenu">
 						<div id="touch-menu">
 							<button className={["touch-menu-button", "touch-menu-button-top", "grid-row-one"].join(' ')} onClick={() => this.editMode()}>
 								<p className="column-one">Éditer le mode</p>

@@ -88,16 +88,14 @@ class ModeTile extends React.Component {
 		let touchPoint = e.targetTouches[0];
 		let targetMode = e.currentTarget;
 		this.touchTimeout = setTimeout(() => {
-			//we show the menu dropdown
+			//we show the menu dropdown for the modes that are editable
 			if (this.state.isEditable !== false) {	
-				// console.log(touchPoint)
-				// console.log(targetMode)
 				let overlay = {...this.state.overlay};
 				overlay.display = true;
 				overlay.settings = {'touchPoint':touchPoint, 'targetMode':targetMode, 'isDefault':this.state.isDefault}
 				this.setState({ overlay });
 			}
-		}, 500);
+		}, 1000);
 	}
 
 	onTouchEnd = () => {
@@ -189,28 +187,48 @@ class ModeTile extends React.Component {
 	}
 
 	render() {
-		let overlay;
+		// let overlay;
+		// if (this.state.overlay.display) {
+		// 	overlay = (
+		// 		<div style={{display:'block'}}>
+		// 			<DropdownOverlay settings={this.state.overlay.settings} onEdit={this.onEdit} onDelete={this.onDelete} onClose={this.closeOverlay} />
+		// 		</div>
+		// 	)
+		// } else {
+		// 	overlay = (
+		// 		<div style={{display:'none'}}>
+		// 			<DropdownOverlay settings={{}} onEdit={this.onEdit} onDelete={this.onDelete} onClose={this.closeOverlay} />
+		// 		</div>
+		// 	)
+		// }
+
+
+		// return (
+		// 	<React.Fragment>
+		// 		{ overlay }	
+		// 		{this.renderMode()}
+		// 	</React.Fragment>
+		// ) 
+
+
 		if (this.state.overlay.display) {
-			overlay = (
+			return (
 				<div style={{display:'block'}}>
-					<DropdownOverlay settings={this.state.overlay.settings} onEdit={this.onEdit} onDelete={this.onDelete} onClose={this.closeOverlay} />
+					<DropdownOverlay 
+						settings={this.state.overlay.settings} 
+						onEdit={this.onEdit} 
+						onDelete={this.onDelete} 
+						onClose={this.closeOverlay} 
+					/>
+					{this.renderMode()}
 				</div>
 			)
 		} else {
-			overlay = (
-				<div style={{display:'none'}}>
-					<DropdownOverlay settings={{}} onEdit={this.onEdit} onDelete={this.onDelete} onClose={this.closeOverlay} />
-				</div>
+			return (
+				this.renderMode()
 			)
 		}
-
-
-		return (
-			<React.Fragment>
-				{ overlay }	
-				{this.renderMode()}
-			</React.Fragment>
-		) 
+		
 
 	}
 }
