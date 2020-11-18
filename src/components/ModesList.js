@@ -21,7 +21,7 @@ class ModesList extends React.Component {
 		var numRowsDefault;
 		var numRowsCustom;
 
-		if (this.props.target === 'mobile') {
+		if (this.props.targetDevice === 'mobile') {
 			numRowsDefault = Math.ceil(Object.keys(modesListDefault).length / 2);
 			numRowsCustom = Math.ceil(Object.keys(modesListCustom).length / 2);
 			document.getElementById("mode-grid-default").style['grid-template-rows'] = `repeat(${numRowsDefault}, minmax(150px, 25vh))`;
@@ -71,6 +71,7 @@ class ModesList extends React.Component {
 											onDeleteMode={this.props.onDeleteMode}
 											model={this.props.modesList[item]} 
 											onTileSelect={this.selectTile}
+											targetDevice={this.props.targetDevice}
 										/>
 									);
 								}
@@ -96,6 +97,7 @@ class ModesList extends React.Component {
 											onEditMode={this.props.onEditMode} 
 											onDeleteMode={this.props.onDeleteMode}
 											model={this.props.modesList[item]} 
+											targetDevice={this.props.targetDevice}
 										/>
 									);
 								}
@@ -141,7 +143,7 @@ ModesList.propTypes = {
 	index:PropTypes.number.isRequired,
 	onEditMode:PropTypes.func.isRequired,
 	onDeleteMode:PropTypes.func.isRequired,
-	target:PropTypes.string.isRequired
+	targetDevice:PropTypes.string.isRequired
 }
 
 export default connect(mapStateToProps)(ModesList);
