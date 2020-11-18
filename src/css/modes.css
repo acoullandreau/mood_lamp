@@ -207,4 +207,32 @@
 
 	}
 
+	#touch-menu {
+		display:grid;
+		grid-template-rows: 50% 50%;
+		min-height: 70px;
+	}
+
+	.touch-menu-button {
+		display: grid;
+		grid-template-columns: 90% 10%;	
+		border: none;
+		background-color: transparent;
+	}
+	
+	.touch-menu-button-top {
+		border-bottom:1px solid #FEEDDF1F;
+	}
+
+	.touch-menu-button p {
+		font-size: 19px;
+		align-self:center;
+		justify-self:start;
+	}
+
+	.touch-menu-button img {
+		width: 100%;
+		align-self:center;
+		filter: invert(1);
+	}
 }

@@ -85,10 +85,6 @@ class ModeTile extends React.Component {
 
 
 	onTouchStart = (e) => {
-		// console.log(e.targetTouches[0]) //use clientX/clientY or screenX/screenY?
-		//console.log(e.currentTarget)// make it position absolute, with z-index as high as dropdown
-		//console.log(e.currentTarget.getBoundingClientRect())
-		//console.log(e.targetTouches[0])
 		let touchPoint = e.targetTouches[0];
 		let targetMode = e.currentTarget;
 		this.touchTimeout = setTimeout(() => {
@@ -97,8 +93,8 @@ class ModeTile extends React.Component {
 				// console.log(touchPoint)
 				// console.log(targetMode)
 				let overlay = {...this.state.overlay};
-				overlay.display = false;
-				overlay.settings = {'touchPoint':touchPoint, 'targetMode':targetMode}
+				overlay.display = true;
+				overlay.settings = {'touchPoint':touchPoint, 'targetMode':targetMode, 'isDefault':this.state.isDefault}
 				this.setState({ overlay });
 			}
 		}, 500);
@@ -193,18 +189,17 @@ class ModeTile extends React.Component {
 	}
 
 	render() {
-
 		let overlay;
 		if (this.state.overlay.display) {
 			overlay = (
 				<div style={{display:'block'}}>
-					<DropdownOverlay settings={this.state.overlay.settings} onClose={this.closeOverlay} />
+					<DropdownOverlay settings={this.state.overlay.settings} onEdit={this.onEdit} onDelete={this.onDelete} onClose={this.closeOverlay} />
 				</div>
 			)
 		} else {
 			overlay = (
 				<div style={{display:'none'}}>
-					<DropdownOverlay settings={this.state.overlay.settings} onClose={this.closeOverlay} />
+					<DropdownOverlay settings={{}} onEdit={this.onEdit} onDelete={this.onDelete} onClose={this.closeOverlay} />
 				</div>
 			)
 		}
