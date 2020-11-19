@@ -228,17 +228,8 @@
 	}
 
 	.OverlayInputWindow {
-		height:250px;
+		height:225px;
 		width:333px;
-	}
-
-	#overlay-title {
-		font-size: 17px;
-	}
-
-	#overlay-text {
-		font-size:13px;
-
 	}
 
 }
