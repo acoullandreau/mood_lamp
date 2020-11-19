@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 class DropdownOverlay extends React.Component {
 
 	componentDidMount() {
-		console.log(document.getElementsByClassName("OverlayDropdownMenu")[0].getBoundingClientRect().y)
 		this.positionMenu();
 	}
 
@@ -56,6 +55,8 @@ class DropdownOverlay extends React.Component {
 			'height':targetModeTile.getBoundingClientRect().height,
 			'width':targetModeTile.getBoundingClientRect().width,
 			'background':targetModeTile.style.background,
+			'borderRadius':'8px',
+			'border': '1px solid rgba(254, 237, 223, 0.1)'
 		}
 
 		let titleStyle = {
@@ -69,7 +70,7 @@ class DropdownOverlay extends React.Component {
 
 		let overlayStyle = {
 			'position': 'absolute', 
-			'zIndex':'100'
+			'zIndex':'100',
 		}
 
 		return (
@@ -113,10 +114,10 @@ class DropdownOverlay extends React.Component {
 							</button>
 						</div>
 					</div>
+					{this.renderTile()}
 				</React.Fragment>
 			)
 		} 
-					// {this.renderTile()}
 
 		return null;
 	}
