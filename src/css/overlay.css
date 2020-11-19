@@ -93,16 +93,6 @@
 	width:333px;
 }
 
-.OverlayDropdownMenu {
-	border-radius: 5px;
-	background-color: #F5F5F599;
-	position: absolute;
-	z-index: 90;
-	filter: drop-shadow(0px 0px 25px rgba(0, 0, 0, 0.24));
-	padding: 1%;
-	max-width: 50%;
-}
-
 #overlay-title {
 	font-size: 17px;
 	font-weight: 700;
@@ -222,6 +212,15 @@
 		background-color: #433D66;
 	}
 
+	.OverlayDropdownMenu {
+		border-radius: 5px;
+		background-color: #F5F5F599;
+		position: absolute;
+		z-index: 90;
+		filter: drop-shadow(0px 0px 25px rgba(0, 0, 0, 0.24));
+		padding: 1%;
+		max-width: 50%;
+	}
 
 	.OverlayDeleteWindow {
 		height:150px;
@@ -232,11 +231,15 @@
 		height:250px;
 		width:333px;
 	}
-/*
-	.OverlayAboutWindow {
-		height:250px;
-		width:333px;
-	}*/
+
+	#overlay-title {
+		font-size: 17px;
+	}
+
+	#overlay-text {
+		font-size:13px;
+
+	}
 
 }
 

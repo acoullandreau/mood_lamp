@@ -225,7 +225,7 @@
 	}
 
 	.touch-menu-button p {
-		font-size: max(2.5vh, 17px);
+		font-size: max(3vh, 17px);
 		align-self:center;
 		justify-self:start;
 	}

@@ -93,6 +93,8 @@ class ModeTile extends React.Component {
 				overlay.display = true;
 				overlay.settings = {'targetMode':targetMode, 'isDefault':this.state.isDefault}
 				this.setState({ overlay });
+			} else {
+				this.launchMode();
 			}
 		}, 1000);
 	}

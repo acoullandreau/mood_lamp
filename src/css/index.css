@@ -4,6 +4,9 @@
 @import "readings.css";
 @import "rules.css";
 
+* {
+    -webkit-tap-highlight-color: transparent;
+}
 
 body {
 	background-color: #0D0828;
@@ -218,6 +221,7 @@ button {
 	body {
 		min-width:360px;
 		text-size-adjust:none;
+		user-select: none;
 	}
 
 	#root {
