@@ -85,14 +85,13 @@ class ModeTile extends React.Component {
 
 
 	onTouchStart = (e) => {
-		let touchPoint = e.targetTouches[0];
 		let targetMode = e.currentTarget;
 		this.touchTimeout = setTimeout(() => {
 			//we show the menu dropdown for the modes that are editable
 			if (this.state.isEditable !== false) {	
 				let overlay = {...this.state.overlay};
 				overlay.display = true;
-				overlay.settings = {'touchPoint':touchPoint, 'targetMode':targetMode, 'isDefault':this.state.isDefault}
+				overlay.settings = {'targetMode':targetMode, 'isDefault':this.state.isDefault}
 				this.setState({ overlay });
 			}
 		}, 1000);

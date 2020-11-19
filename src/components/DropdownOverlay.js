@@ -4,50 +4,29 @@ import PropTypes from 'prop-types';
 class DropdownOverlay extends React.Component {
 
 	componentDidMount() {
+		console.log(document.getElementsByClassName("OverlayDropdownMenu")[0].getBoundingClientRect().y)
 		this.positionMenu();
-		// this.setState({'settings':this.props.settings});
 	}
 
 	componentDidUpdate(prevProps) {
 		this.positionMenu();
-		// if (this.props !== prevProps) {
-		// 	this.setState({'settings':this.props.settings}, () => {
-		// 		if (Object.keys(this.props.settings).length > 0) {
-		// 		}
-		// 	});
-		// }
-
 	}
 
 	positionMenu = () => {
-		// if the mode is in the right side of the screen, we position the top right corner of the menu
 		let dropdownMenuElem = document.getElementsByClassName("OverlayDropdownMenu")[0];
-		let xTranslate;
-		let yTranslate;
-
-		if (this.props.settings.touchPoint.screenX < window.innerWidth / 2) {
-			xTranslate = this.props.settings.touchPoint.clientX - dropdownMenuElem.getBoundingClientRect().x;
-		} else {
-			xTranslate = this.props.settings.touchPoint.clientX - (dropdownMenuElem.getBoundingClientRect().x + dropdownMenuElem.getBoundingClientRect().width);
+		let yOffset = 0;
+		if (dropdownMenuElem.getBoundingClientRect().y !== this.props.settings.targetMode.getBoundingClientRect().y) {
+			//in this case we scrolled the mode grid, and we need to add an offset to the position of the menu
+			yOffset = dropdownMenuElem.getBoundingClientRect().y - this.props.settings.targetMode.getBoundingClientRect().y;
 		}
-		if (this.props.settings.touchPoint.clientX < dropdownMenuElem.getBoundingClientRect().x) {
+		let yTranslate = - dropdownMenuElem.getBoundingClientRect().height - yOffset;
+		let xTranslate = this.props.settings.targetMode.getBoundingClientRect().width - dropdownMenuElem.getBoundingClientRect().width;
+
+		if (dropdownMenuElem.getBoundingClientRect().x > window.innerWidth / 2) {
 			xTranslate = - xTranslate;
 		}
 
-		if (this.props.settings.touchPoint.screenX < window.innerHeight / 2) {
-			yTranslate = this.props.settings.touchPoint.clientY - dropdownMenuElem.getBoundingClientRect().y;
-		} else {
-			yTranslate = this.props.settings.touchPoint.clientY - (dropdownMenuElem.getBoundingClientRect().y + dropdownMenuElem.getBoundingClientRect().width);
-		}
-		if (this.props.settings.touchPoint.clientY < dropdownMenuElem.getBoundingClientRect().y) {
-			yTranslate = - yTranslate;
-		}
-
 		dropdownMenuElem.style.transform = `translate(${xTranslate}px,${yTranslate}px)`;
-
-		// make the targeted tile z-index ++
-		//console.log(this.props.settings.targetMode)
-
 
 	} 
 	
@@ -69,6 +48,38 @@ class DropdownOverlay extends React.Component {
 	} 
 
 
+	renderTile = () => {
+		// we redraw the tile
+		let targetModeTile = this.props.settings.targetMode.querySelector(".mode-button");
+		
+		let tileStyle = {
+			'height':targetModeTile.getBoundingClientRect().height,
+			'width':targetModeTile.getBoundingClientRect().width,
+			'background':targetModeTile.style.background,
+		}
+
+		let titleStyle = {
+			'display': 'inline-block',
+			'overflow': 'hidden',
+			'width':targetModeTile.getBoundingClientRect().width,
+			'maxWidth': '50ch',
+			'textOverflow': 'ellipsis',
+			'whiteSpace': 'nowrap',
+		}
+
+		let overlayStyle = {
+			'position': 'absolute', 
+			'zIndex':'100'
+		}
+
+		return (
+			<div style={overlayStyle}>
+				<div style={tileStyle}></div>
+				<div style={titleStyle}>{this.props.settings.targetMode.textContent}</div>
+			</div>
+		)
+	}
+
 	render() {
 		if (Object.keys(this.props.settings).length > 0) {
 			let isDisabled = true;
@@ -84,7 +95,7 @@ class DropdownOverlay extends React.Component {
 					<div className="OverlayDropdownMenu">
 						<div id="touch-menu">
 							<button className={["touch-menu-button", "touch-menu-button-top", "grid-row-one"].join(' ')} onClick={() => this.editMode()}>
-								<p className="column-one">Éditer le mode</p>
+								<p className="column-one">Éditer</p>
 								<img 
 									className="column-two"
 									src={`${process.env.PUBLIC_URL}/assets/images/edit.svg`} 
@@ -92,7 +103,7 @@ class DropdownOverlay extends React.Component {
 								/>
 							</button>
 							<button className="touch-menu-button grid-row-two" onClick={() => this.deleteMode()} disabled={isDisabled}>
-								<p className="column-one">Supprimer le mode</p>
+								<p className="column-one">Supprimer</p>
 								<img 
 									className="column-two"
 									src={`${process.env.PUBLIC_URL}/assets/images/delete.svg`} 
@@ -105,6 +116,7 @@ class DropdownOverlay extends React.Component {
 				</React.Fragment>
 			)
 		} 
+					// {this.renderTile()}
 
 		return null;
 	}
