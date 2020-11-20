@@ -237,6 +237,7 @@ Overlay.propTypes = {
 	settings:PropTypes.object.isRequired,
 	onClose:PropTypes.func.isRequired,
 	onSave:PropTypes.func.isRequired,
+	targetDevice:PropTypes.string.isRequired
 }
 
 export default connect(mapStateToProps, { deleteMode })(Overlay);

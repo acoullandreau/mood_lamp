@@ -13,7 +13,12 @@ import Rules from './Rules.js';
 import SideNavBar from './SideNavBar.js';
 import Utils from './Utils.js';
 
-// Mobile version (user Agent, replace hover and click with hold and tap, vertical layout)
+// PWA offline
+// Before Prod
+	// fonts downloaded manually ?
+	// warning to turn ON the bluetooth ? To add the app to the home screen of the phone ?
+	// lock orientation for tablet
+	// clear cache 
 // ReadMe (Chrome only, improvements possible)
 	// native app (iOS)
 	// other languages
@@ -34,10 +39,11 @@ class App extends React.Component {
 			'overlay':{'type':'', 'display':false, 'title':'', 'message':'', 'modeName':''},
 			'disconnectDisplay':{ 'display':'none' },
 			'tabIndex':0,
+			'targetDevice':window.innerWidth < 930 ? "mobile" : "desktop",
+			'changeOrientationWarning':false
 		};
 
 		this.previousHeight = undefined;
-		this.targetDevice = window.innerWidth < 930 ? "mobile" : "desktop";
 		this.singleColorPickerRef = React.createRef();
 		this.gradientColorPickerRef = React.createRef();
 		this.onWindowResize();
@@ -51,6 +57,7 @@ class App extends React.Component {
 		//add event listeners
 		window.addEventListener('resize', this.onWindowResize);
 		window.addEventListener('popstate', this.onLocationChange);
+		window.addEventListener('orientationchange', this.onOrientationChange);
 
 		// redirect to the home page
 		window.history.pushState({}, '', '#');
@@ -62,13 +69,19 @@ class App extends React.Component {
 
 
 	componentDidUpdate() {
-		if (this.targetDevice === 'mobile') {
+		if (this.state.targetDevice === 'mobile') {
 			this.resizeElements();
 		}
 	}
 
+	componentWillUnmount() {
+		window.removeEventListener('resize', this.onWindowResize);
+		window.removeEventListener('popstate', this.onLocationChange);
+		window.removeEventListener('orientationchange', this.onOrientationChange);
+	}
+
 	checkSize = () => {
-		if (this.targetDevice === 'mobile' && (this.previousHeight === undefined || this.previousHeight !== window.innerHeight)) {
+		if (this.state.targetDevice === 'mobile' && (this.previousHeight === undefined || this.previousHeight !== window.innerHeight)) {
 			this.resizeElements();
 			this.previousHeight = window.innerHeight;
 		}
@@ -106,10 +119,25 @@ class App extends React.Component {
 
 	}
 
-	componentWillUnmount() {
-		window.removeEventListener('resize', this.onWindowResize);
-		window.removeEventListener('popstate', this.onLocationChange);
+	onOrientationChange = () => {
+		//we could also use orientation.type, values in the format landscape-secondary, portrait-primary...
+		if (window.screen.orientation.angle === 90 || window.screen.orientation.angle === 270) {
+			// we are in landscape orientation
+			if (window.screen.width > 930) {
+				//we want the app to be displayed for desktop version
+				this.setState({targetDevice:'desktop'});
+			} else {
+				//display an overlay for the user to rotate the phone back
+				// window.screen.orientation.lock('portrait-primary');
+				this.setState({changeOrientationWarning:true});
+			}
+		} else {
+			//we are in portrait orientation, we ensure that we are displaying the mobile layout
+			this.setState({targetDevice:'mobile', changeOrientationWarning:false});
+		}
+
 	}
+
 
 	onWindowResize() {
 		var screenRatio = window.visualViewport.height/window.visualViewport.width;
@@ -295,7 +323,7 @@ class App extends React.Component {
 				onEditMode={this.onEditMode} 
 				onDeleteMode={this.onDeleteMode}
 				index={this.state.tabIndex}
-				targetDevice={this.targetDevice}
+				targetDevice={this.state.targetDevice}
 			/>
 		)
 	}
@@ -318,7 +346,7 @@ class App extends React.Component {
 					type='new'
 					modeModel={modeModel}
 					onSaveNewMode={this.displayOverlay}
-					targetDevice={this.targetDevice}
+					targetDevice={this.state.targetDevice}
 				/>
 			</React.Fragment>
 		)
@@ -326,7 +354,7 @@ class App extends React.Component {
 
 	renderMesures = () => {
 		return (
-			<Readings target={this.targetDevice}/>
+			<Readings target={this.state.targetDevice}/>
 		)
 	}
 
@@ -339,7 +367,7 @@ class App extends React.Component {
 
 
 	renderDisconnected() {
-		if (this.targetDevice === 'desktop') {
+		if (this.state.targetDevice === 'desktop') {
 			return (
 				<React.Fragment>
 					<div className="grid-content">
@@ -375,7 +403,7 @@ class App extends React.Component {
 		let disconnectDisplay = this.state.disconnectDisplay;
 
 
-		if (this.targetDevice === 'desktop') {
+		if (this.state.targetDevice === 'desktop') {
 			return (
 				<React.Fragment>
 					<div className="grid-content">
@@ -472,31 +500,52 @@ class App extends React.Component {
 		if (this.state.overlay.display) {
 			overlay = (
 				<div style={{display:'block'}}>
-					<Overlay settings={this.state.overlay} onClose={this.displayOverlay} onSave={this.onSaveMode} />
+					<Overlay 
+						settings={this.state.overlay} 
+						onClose={this.displayOverlay} 
+						onSave={this.onSaveMode}
+						targetDevice={this.state.targetDevice}
+					/>
 				</div>
 			)
 		} else {
 			overlay = (
 				<div style={{display:'none'}}>
-					<Overlay settings={this.state.overlay} onClose={this.displayOverlay} onSave={this.onSaveMode} />
+					<Overlay 
+						settings={this.state.overlay} 
+						onClose={this.displayOverlay} 
+						onSave={this.onSaveMode}
+						targetDevice={this.state.targetDevice}
+					/>
 				</div>
 			)
 		}
 
+
 		let page = Utils.capitalize(window.location.hash.split('#')[1])
-		if (this.targetDevice === "mobile") {
-			return (
-				<React.Fragment>
-					{ overlay }	
-					<div id="top-section">
-						<p>{page}</p>
-						<button className="about-icon-mobile" onClick={this.showAbout}>
-							i
-						</button>
-					</div>
-					{contentToRender}
-				</React.Fragment>
-			)
+		if (this.state.targetDevice === "mobile") {
+			if (this.state.changeOrientationWarning) {
+				return (
+					<React.Fragment>
+						<div className="Blur"></div>
+						<img id='rotate-img' src={`${process.env.PUBLIC_URL}/assets/images/rotate.svg`} alt='Rotate' />
+					</React.Fragment>
+				)
+			} else {
+				return (
+					<React.Fragment>
+						{ overlay }	
+						<div id="top-section">
+							<p>{page}</p>
+							<button className="about-icon-mobile" onClick={this.showAbout}>
+								i
+							</button>
+						</div>
+						{contentToRender}
+					</React.Fragment>
+				)
+			}
+
 		} else {
 			return (
 				<React.Fragment>

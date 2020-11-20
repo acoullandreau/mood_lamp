@@ -21,7 +21,7 @@ class Slider extends React.Component {
 		var styleSlider = {'background':'linear-gradient(to right, #FEEDDF 0%, #FEEDDF '+this.state.value +'%, #827081 ' + this.state.value + '%, #827081 100%)'};
 
 		return (
-	    	<div id="slider-block" style={styleBlock} className={['column-one', 'grid-row-two'].join(' ')}>
+	    	<div id="slider-block" style={styleBlock} className={this.props.className}>
 	      		<img className='slider-img' src={`${process.env.PUBLIC_URL}/assets/images/slow.svg`} alt='Lent' />
 				<input 
 					id="slider" 
@@ -44,7 +44,8 @@ class Slider extends React.Component {
 Slider.propTypes = {
 	isDisabled:PropTypes.bool.isRequired,
 	initialSpeed:PropTypes.string.isRequired,
-	onChange:PropTypes.func.isRequired
+	onChange:PropTypes.func.isRequired,
+	className:PropTypes.string.isRequired
 }
 
 export default Slider;

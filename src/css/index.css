@@ -229,6 +229,15 @@ button {
 		overflow:hidden;
 	}
 
+	#rotate-img {
+		position: absolute;
+		z-index: 90;
+		height: 80%;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%); 
+	}
+
 	#top-section {
 		position: absolute;
 		background-color: #DACEDA40;
@@ -330,11 +339,3 @@ button {
 
 
 }
-
-
-
-
-
-
-
-

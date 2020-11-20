@@ -36,7 +36,7 @@ class IroColorPicker extends React.Component {
 
 	render() {
 		return (
-			<div style={{'alignSelf': 'center'}} ref={el => this.el = el} />
+			<div className={this.props.className} style={{'alignSelf': 'center'}} ref={el => this.el = el} />
 		);
 	}
 }
@@ -55,7 +55,7 @@ class ColorPicker extends React.Component {
 			'minNumberColors':this.getMinNumberColors(),
 			'layoutParams':{
 				width: this.getInitialWidth(),
-				margin:80,
+				margin:this.getMargin(),
 				layoutDirection: 'horizontal',
 				borderWidth: 2,
 				layout: [
@@ -88,33 +88,60 @@ class ColorPicker extends React.Component {
 	}
 
 	onWindowResize = () => {
-
-		// the  parent component is at most 80% of the width of its parent, being at most 90% of its own parent
-		var parentWidth = 0.9 * document.getElementById("content").offsetWidth;
-		var width = 0.5 * window.visualViewport.height;
-		if (width + 115 > 0.75 * parentWidth) {
-			// the grid cell is at most 75% of the width of its parent
-			width = 0.75 * parentWidth - 115;
-		} 
-		if (width < (548 - 115)) {
-			// 115px for the slider (by default 32px) and the margin (set to 80px)
-			width = 433;
+		let width;
+		if (this.props.targetDevice === 'desktop') {
+			// the  parent component is at most 80% of the width of its parent, being at most 90% of its own parent
+			var parentWidth = 0.9 * document.getElementById("content").offsetWidth;
+			width = 0.5 * window.visualViewport.height;
+			if (width + 115 > 0.75 * parentWidth) {
+				// the grid cell is at most 75% of the width of its parent
+				width = 0.75 * parentWidth - 115;
+			} 
+			if (width < (548 - 115)) {
+				// 115px for the slider (by default 32px) and the margin (set to 80px)
+				width = 433;
+			}
+		} else if (this.props.targetDevice === 'mobile') {
+			width = 0.9*window.visualViewport.width - 50;
+			if (width > 0.50*window.visualViewport.height) {
+				width = 0.50*window.visualViewport.height - 50;
+			}
 		}
+
 		this.colorPickerRef.current.colorPicker.resize(width)
 
 	}
 
 	getInitialWidth() {
-		var parentWidth = 0.9 * document.getElementById("content").offsetWidth;
-		var width = 0.5 * window.visualViewport.height;
-		if (width + 115 > 0.75 * parentWidth) {
-			width = 0.75 * parentWidth - 115;
-		} 
-		if (width < (548 - 115)) {
-			width = 433;
+		let width;
+		if (this.props.targetDevice === 'desktop') {
+			let parentWidth = 0.9 * document.getElementById("content").offsetWidth;
+			width = 0.5 * window.visualViewport.height;
+			if (width + 115 > 0.75 * parentWidth) {
+				width = 0.75 * parentWidth - 115;
+			} 
+			if (width < (548 - 115)) {
+				width = 433;
+			}	
+		} else if (this.props.targetDevice === 'mobile') {
+			width = 0.9*window.visualViewport.width - 50;
+			if (width > 0.50*window.visualViewport.height) {
+				width = 0.50*window.visualViewport.height - 50;
+			}
 		}
+
 		return width;
 
+	}
+
+	getMargin() {
+		let margin;
+		if (this.props.targetDevice === 'desktop') {
+			margin = 80;
+		} else if (this.props.targetDevice === 'mobile') {
+			margin = 15;
+		}
+		return margin;
 	}
 
 	getInitialSliderDisabled() {
@@ -319,9 +346,16 @@ class ColorPicker extends React.Component {
 	}
 
 	renderColorSelectors = () => {
-		var addSelector;
+		let addSelector;
+		let selectorClassName;
 
-		if (this.state.selectedColors.length < 12) {
+		if (this.props.targetDevice === 'desktop') {
+			selectorClassName = ['column-two', 'grid-row-one'].join(' ')
+		} else if (this.props.targetDevice === 'mobile') {
+			selectorClassName = ['column-one', 'grid-row-one'].join(' ')
+		}
+
+		if (this.state.selectedColors.length < 10) {
 			addSelector = (
 				<button 
 					className='color-selector' 
@@ -334,7 +368,7 @@ class ColorPicker extends React.Component {
 		} 
 
 		return (
-			<div id='selectors' className={['column-two', 'grid-row-one'].join(' ')} >
+			<div id='selectors' className={selectorClassName} >
 			  	{
 					React.Children.toArray(
 						Object.keys(this.state.selectedColors).map((item, i) => {
@@ -363,10 +397,17 @@ class ColorPicker extends React.Component {
 		let params = this.state.layoutParams;
 		params['color'] = this.state.selectedColors[0];
 
+		let pickerClassName;
+		if (this.props.targetDevice === 'desktop') {
+			pickerClassName = ['column-one', 'grid-row-one'].join(' ')
+		} else if (this.props.targetDevice === 'mobile') {
+			pickerClassName = ['span-columns', 'grid-row-two', 'picker-block'].join(' ');
+		}
+
 		return (
 			<React.Fragment>
 				<IroColorPicker
-					className={['column-one', 'grid-row-one'].join(' ')}
+					className={pickerClassName}
 					params={params}
 					onColorChange={(color) => this.onColorSelect(color)}
 					ref={this.colorPickerRef}
@@ -377,8 +418,20 @@ class ColorPicker extends React.Component {
 
 
 	renderSlider() {
+		var sliderClassName;
+		if (this.props.targetDevice === 'desktop') {
+			sliderClassName = ['column-one', 'grid-row-two'].join(' ');
+		} else if (this.props.targetDevice === 'mobile') {
+			sliderClassName = ['span-columns', 'grid-row-three'].join(' ');
+		}
+
 		return (
-			<Slider isDisabled={this.state.sliderDisabled} initialSpeed={this.state.animationSpeed} onChange={this.onSpeedChange}/>
+			<Slider 
+				isDisabled={this.state.sliderDisabled} 
+				initialSpeed={this.state.animationSpeed} 
+				onChange={this.onSpeedChange}
+				className={sliderClassName}
+			/>
 		)
 	} 
 
@@ -386,22 +439,36 @@ class ColorPicker extends React.Component {
 		var buttonContent;
 		var buttonClassName;
 
-		if (this.props.type === 'new') {
-			buttonContent = (
-				<React.Fragment>
-					<img style={{marginRight:'7%'}} src={`${process.env.PUBLIC_URL}/assets/images/star.svg`} alt='Enregistrer'/>
-					<React.Fragment>Enregistrer mode</React.Fragment>
-				</React.Fragment>
-			)
+		if (this.props.targetDevice === 'desktop') {
+			if (this.props.type === 'new') {
+				buttonContent = (
+					<React.Fragment>
+						<img style={{marginRight:'7%'}} src={`${process.env.PUBLIC_URL}/assets/images/star.svg`} alt='Enregistrer'/>
+						<React.Fragment>Enregistrer mode</React.Fragment>
+					</React.Fragment>
+				)
+			} else if (this.props.type === 'edit') {
+				buttonContent = (
+					<React.Fragment>Enregistrer</React.Fragment>
+				)
+			} 
 		} else {
 			buttonContent = (
-				<React.Fragment>Enregistrer</React.Fragment>
+				<React.Fragment>
+					<img style={{marginRight:'7%'}} src={`${process.env.PUBLIC_URL}/assets/images/save.svg`} alt='Enregistrer'/>
+				</React.Fragment>
 			)
+		}
+
+		if (this.props.targetDevice === 'desktop') {
+			buttonClassName = ['column-two', 'grid-row-two', 'button-color-picker'].join(' ')
+		} else if (this.props.targetDevice === 'mobile') {
+			buttonClassName = ['column-two', 'grid-row-one', 'button-color-picker'].join(' ')
 		}
 
 		return (
 			<React.Fragment>
-				<div className={['column-two', 'grid-row-two', 'button-color-picker'].join(' ')}>				
+				<div className={buttonClassName}>				
 					<button className='save-button' onClick={this.onSaveMode} >
 						{buttonContent}
 					</button>

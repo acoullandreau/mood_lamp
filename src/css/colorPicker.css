@@ -12,7 +12,6 @@
 }
 
 .color-new {
-	min-height: 75vh;
 	margin-top: max(15vh, 115px);
 }
 
@@ -58,7 +57,6 @@
 .color-selector {
 	height: clamp(46px,  5vh, 5.5vh);
 	width: clamp(46px,  5vh, 5.5vh);
-	/*width: max(6vh, 46px);*/
 	border-radius: 50%;
 	margin:5%;
 	align-self: center;
@@ -121,9 +119,72 @@
 @media only screen and (max-width:930px) and (any-hover: none) {
 
 	.color-grid {
+		height:100%;
+		min-height: 450px;
+		margin-top: max(25px, 7%);
+		grid-template-columns: 80% 20%;
+		grid-template-rows: minmax(25%, 125px) minmax(60%, 300px) minmax(15%, 75px);
+	}
+
+	.span-columns {
+		grid-column: 1 / span 2;
+	}
+
+	#selectors {
+		width: 85%;
+		max-width: 400px;
+		grid-template-rows: 49% 49%;
+		grid-template-columns: repeat(5, 20%);
+		grid-row-gap: 7%;
+		margin-top: max(20px, 3vw);
+		margin-bottom: 0px;
+		align-self: start;
+		justify-self:start;
+	} 
+
+	.color-selector {
+		height: min(70px, 12vw);
+		width: min(70px, 12vw);
+/*		height: clamp(40px, 11vw, 12vw);
+		width: clamp(40px, 11vw, 12vw);*/
+	}
+
+	.color-new {
+		margin-top: 0px;
+	}
+
+	.color-edit {
+		margin-top: 0px;
+	}
+
+	.picker-block {
+		justify-self:center;
+	}
+
+	.button-color-picker {
+		width: 80%;
+		margin-top: max(20px, 3vw);
+		align-self: start;
+		justify-self:end;
+	}
+
+	.save-button {
+		height: min(12vw, 80px); 
+		width: min(100%, 80px);
+	}
+
+	.save-button img {
+		width: 60%;
+	}
+
+	#slider-block {
 		width: 90%;
-		grid-template-columns: 100%;
-		grid-template-rows: minmax(15%, 86px) minmax(70%, 490px) minmax(15%, 86px);
+		justify-self:center;
+	}
+
+	.slider-img {
+		width: 10%;
+		max-width: 45px;
 	}
 
 
