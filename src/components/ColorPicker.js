@@ -52,6 +52,7 @@ class ColorPicker extends React.Component {
 			'selectedColors':this.getInitialColors(),
 			'animationSpeed':this.props.modeModel.speed,
 			'sliderDisabled':this.getInitialSliderDisabled(),
+			'saveButtonDisabled':this.isSaveDisabled(),
 			'minNumberColors':this.getMinNumberColors(),
 			'layoutParams':{
 				width: this.getInitialWidth(),
@@ -124,7 +125,11 @@ class ColorPicker extends React.Component {
 				width = 433;
 			}	
 		} else if (this.props.targetDevice === 'mobile') {
-			width = 0.9*window.visualViewport.width - 50;
+			if (this.props.type === 'edit') {
+				width = 0.8*window.visualViewport.width - 50;
+			} else {
+				width = 0.9*window.visualViewport.width - 50;
+			}
 			if (width > 0.50*window.visualViewport.height) {
 				width = 0.50*window.visualViewport.height - 50;
 			}
@@ -177,6 +182,13 @@ class ColorPicker extends React.Component {
 		return minNumberColors;
 	}
 
+	isSaveDisabled = () => {
+		if (this.props.type === 'new') {
+			return false;
+		} 
+		return true;
+	}
+
 	resetColors = (initialColors) => {
 		//convert the initialColors to hex and update the state
 		this.setState({'selectedColors':this.getHexColors(initialColors)});
@@ -189,7 +201,7 @@ class ColorPicker extends React.Component {
 
 	onSpeedChange = (speed) => {
 		// save the currently selected color
-		this.setState({'animationSpeed':speed}, () => {
+		this.setState({'animationSpeed':speed, 'saveButtonDisabled':false}, () => {
 			// update the modeModel
 			this.props.modeModel.setSpeed(this.state.animationSpeed);
 			// send color to the microcontroller for live update
@@ -281,6 +293,8 @@ class ColorPicker extends React.Component {
 			modeColors.push(rgbColor);
 		}
 		this.props.modeModel.setColors(modeColors);
+		// we enable the save button
+		this.setState({saveButtonDisabled:false});
 		//this.props.modeModel.setSpeed(this.state.animationSpeed);
 	}
 
@@ -436,9 +450,13 @@ class ColorPicker extends React.Component {
 	} 
 
 	renderButton() {
-		var buttonContent;
-		var buttonClassName;
+		let buttonContent;
+		let buttonClassName;
+		// for the edit mode specifically, we use a state property to disable the button
+		let buttonDisabled = this.state.saveButtonDisabled;
+		let buttonOpacity = this.state.saveButtonDisabled ? 0.3 : 1;;
 
+		// we define the button content based on the device used
 		if (this.props.targetDevice === 'desktop') {
 			if (this.props.type === 'new') {
 				buttonContent = (
@@ -460,16 +478,18 @@ class ColorPicker extends React.Component {
 			)
 		}
 
+		// we define the layout (button position) based on the device used
 		if (this.props.targetDevice === 'desktop') {
-			buttonClassName = ['column-two', 'grid-row-two', 'button-color-picker'].join(' ')
+			buttonClassName = ['column-two', 'grid-row-two', 'button-color-picker'].join(' ');
 		} else if (this.props.targetDevice === 'mobile') {
-			buttonClassName = ['column-two', 'grid-row-one', 'button-color-picker'].join(' ')
+			buttonClassName = ['column-two', 'grid-row-one', 'button-color-picker'].join(' ');
 		}
+
 
 		return (
 			<React.Fragment>
 				<div className={buttonClassName}>				
-					<button className='save-button' onClick={this.onSaveMode} >
+					<button style={{'opacity':buttonOpacity}} disabled={buttonDisabled} className='save-button' onClick={this.onSaveMode} >
 						{buttonContent}
 					</button>
 				</div>
@@ -478,7 +498,7 @@ class ColorPicker extends React.Component {
 	}
 
 	render() { 
-
+		console.log(this.state.saveButtonDisabled)
 		return (
 			<div className={['color-grid', `color-${this.props.type}`].join(' ')}>
 				{ this.renderColorPicker() }

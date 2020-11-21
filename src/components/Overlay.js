@@ -146,6 +146,7 @@ class Overlay extends React.Component {
 						type='edit'
 						modeModel={this.props.settings.modeInstance}
 						onSaveEditMode={this.saveEditMode}
+						targetDevice={this.props.targetDevice}
 						ref={this.colorPickerRef}
 					/>
 				</div>

@@ -66,7 +66,9 @@ class App extends React.Component {
 
 		// ensure the content is displayed with the right dimensions and according to orientation
 		window.requestAnimationFrame(this.checkSize);
-		this.onOrientationChange();
+		if (this.state.targetDevice === 'mobile') {
+			this.onOrientationChange();
+		}
 	}
 
 
@@ -412,7 +414,6 @@ class App extends React.Component {
 
 	renderConnected() {
 		let disconnectDisplay = this.state.disconnectDisplay;
-
 
 		if (this.state.targetDevice === 'desktop') {
 			return (

@@ -155,7 +155,7 @@
 #overlay-reset-button {
 	margin-left: 3%;
 	width: max(10%, 82px);
-	height: max(4vh31px);
+	height: max(4vh, 31px);
 	font-size: max(2vh, 15px);
 	color:#FEEDDF;
 	background-color:transparent;
@@ -231,6 +231,23 @@
 		height:225px;
 		width:333px;
 	}
+
+	.OverlayEditWindow {
+		height: max(80%, 580px);
+		width: 90%;
+	}
+
+	#overlay-edit {
+		font-size: min(30px, 5vw);
+	}
+
+	#overlay-edit-img {
+		width:4vw;
+	}
+
+	#overlay-edit-close {
+		font-size: min(30px, 6vw);
+	}	
 
 }
 

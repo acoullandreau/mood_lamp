@@ -145,8 +145,6 @@
 	.color-selector {
 		height: min(70px, 12vw);
 		width: min(70px, 12vw);
-/*		height: clamp(40px, 11vw, 12vw);
-		width: clamp(40px, 11vw, 12vw);*/
 	}
 
 	.color-new {
@@ -154,6 +152,7 @@
 	}
 
 	.color-edit {
+		height: 95%;
 		margin-top: 0px;
 	}
 
