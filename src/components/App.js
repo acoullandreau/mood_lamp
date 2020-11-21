@@ -64,7 +64,9 @@ class App extends React.Component {
 		const navEvent = new PopStateEvent('popstate');
 		window.dispatchEvent(navEvent);
 
+		// ensure the content is displayed with the right dimensions and according to orientation
 		window.requestAnimationFrame(this.checkSize);
+		this.onOrientationChange();
 	}
 
 
@@ -121,14 +123,13 @@ class App extends React.Component {
 
 	onOrientationChange = () => {
 		//we could also use orientation.type, values in the format landscape-secondary, portrait-primary...
-		if (window.screen.orientation.angle === 90 || window.screen.orientation.angle === 270) {
+		if (this.isInPortraitOrientation() === false) {
 			// we are in landscape orientation
 			if (window.screen.width > 930) {
 				//we want the app to be displayed for desktop version
 				this.setState({targetDevice:'desktop'});
 			} else {
 				//display an overlay for the user to rotate the phone back
-				// window.screen.orientation.lock('portrait-primary');
 				this.setState({changeOrientationWarning:true});
 			}
 		} else {
@@ -138,13 +139,23 @@ class App extends React.Component {
 
 	}
 
+	isInPortraitOrientation = () => {
+		if (window.screen.orientation.angle === 90 || window.screen.orientation.angle === 270) {
+			return false;
+		}
 
-	onWindowResize() {
-		var screenRatio = window.visualViewport.height/window.visualViewport.width;
-		if (screenRatio < 0.75) {
-			var width = window.visualViewport.height / 0.75;
-			document.getElementById('root').style.width = width + 'px' ;
-		} 
+		return true;
+	}
+
+
+	onWindowResize = () => {
+		if (this.state.targetDevice === 'desktop') {
+			var screenRatio = window.visualViewport.height/window.visualViewport.width;
+			if (screenRatio < 0.75) {
+				var width = window.visualViewport.height / 0.75;
+				document.getElementById('root').style.width = width + 'px' ;
+			} 
+		}
 	}
 
 	onLocationChange = () => {

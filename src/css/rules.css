@@ -173,7 +173,7 @@ input:checked + .slider:before {
 }
 
 
-@media only screen and (max-width:930px) and (any-hover: none) {
+@media only screen and (max-width:930px) and (any-hover: none) and (orientation: portrait){
 
 	#rules-page {
 		width: 90%;

@@ -48,7 +48,6 @@ button {
 }
 
 #root {
-	/*position: fixed;*/
 	width: 100vw;
 	min-width: 1024px;
 	height: 100vh;
@@ -56,8 +55,6 @@ button {
 	margin-left: auto;
 	overflow:scroll;
 }
-
-
 
 /*Specific to the non-Chrome browsers*/
 #browser-warning {
@@ -217,7 +214,7 @@ button {
 
 
 
-@media only screen and (max-width:930px) and (any-hover: none) {
+@media only screen and (max-width:930px) and (any-hover: none) and (orientation: portrait) {
 	body {
 		min-width:360px;
 		text-size-adjust:none;
@@ -227,15 +224,6 @@ button {
 	#root {
 		min-width: 360px;
 		overflow:hidden;
-	}
-
-	#rotate-img {
-		position: absolute;
-		z-index: 90;
-		height: 80%;
-		left: 50%;
-		top: 50%;
-		transform: translate(-50%, -50%); 
 	}
 
 	#top-section {
@@ -337,5 +325,28 @@ button {
 		font-size: max(4vh, 30px);
 	}
 
+}
+
+
+@media only screen and (max-width:930px) and (any-hover: none) and (orientation: landscape) {
+	body {
+		min-width:360px;
+		text-size-adjust:none;
+		user-select: none;
+	}
+
+	#root {
+		min-width: 360px;
+		overflow:hidden;
+	}
+
+	#rotate-img {
+		position: absolute;
+		z-index: 90;
+		height: 80%;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%); 
+	}
 
 }

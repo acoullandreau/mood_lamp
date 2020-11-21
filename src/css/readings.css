@@ -54,7 +54,7 @@
 
 
 
-@media only screen and (max-width:930px) and (any-hover: none) {
+@media only screen and (max-width:930px) and (any-hover: none) and (orientation: portrait) {
 
 	#readings-grid {
 		width: 90%;
