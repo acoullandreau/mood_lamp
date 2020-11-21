@@ -26,6 +26,9 @@ class Overlay extends React.Component {
 
 	onInputChange = (input) => {
 		this.setState({'modeName':input.target.value});
+		if (this.props.settings.type === 'edit') {
+			this.colorPickerRef.current.setState({saveButtonDisabled:false});
+		}
 	}
 
 

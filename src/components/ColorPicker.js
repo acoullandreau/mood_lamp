@@ -498,7 +498,7 @@ class ColorPicker extends React.Component {
 	}
 
 	render() { 
-		console.log(this.state.saveButtonDisabled)
+
 		return (
 			<div className={['color-grid', `color-${this.props.type}`].join(' ')}>
 				{ this.renderColorPicker() }
