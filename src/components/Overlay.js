@@ -8,7 +8,7 @@ class Overlay extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = { 'modeName':''};
+		this.state = { 'modeName':'', 'showDiscardChangesModal':false };
 		this.colorPickerRef = React.createRef();
 	}
 
@@ -16,12 +16,20 @@ class Overlay extends React.Component {
 		if (this.props !== prevProps) {
 			this.setState({'modeName':''});
 		}
-
 	}
 
-	closeModal() {
-		// object passed to displayOverlay function of App through props 
-		this.props.onClose({'display':false});
+	closeModal(source) {
+		if (source === undefined) {
+			this.props.onClose({'display':false});
+		} else if (source === 'editConfirmation') {
+			this.setState({'showDiscardChangesModal':true});
+		} else if (source === 'discardChanges') {
+			this.setState({'showDiscardChangesModal':false}, () => {
+				this.props.onClose({'display':false});
+			});
+		} else if (source === 'keepChanges') {
+			this.setState({'showDiscardChangesModal':false});
+		}
 	}
 
 	onInputChange = (input) => {
@@ -139,11 +147,12 @@ class Overlay extends React.Component {
 	renderEditModeOverlay = () => {
 		return (
 			<React.Fragment>
+				{this.renderDiscardChangesOverlay()}
 				<div className={['OverlayWindow', 'OverlayEditWindow'].join(' ')}>
 					<div>
 						{this.renderInputField()}
 						{this.renderResetButton()}
-						<button id="overlay-edit-close" onClick={() => this.closeModal()}>x</button>
+						<button id="overlay-edit-close" onClick={() => this.closeModal('editConfirmation')}>x</button>
 					</div>
 					<ColorPicker 
 						type='edit'
@@ -156,6 +165,26 @@ class Overlay extends React.Component {
 			</React.Fragment>
 		)
 
+	}
+
+	renderDiscardChangesOverlay = () => {
+		if (this.state.showDiscardChangesModal) {
+			return (
+				<React.Fragment>
+					<div style={{zIndex:'120'}} className="Blur" onClick={() => this.closeModal()}></div>
+					<div style={{zIndex:'150'}} className={['OverlayWindow', 'OverlayDeleteWindow'].join(' ')}>
+						<div id="overlay-title">Modifications non enregistrées</div>
+						<div id="overlay-text">Voulez-vous ignorer les modifications faites à la configuration de ce mode ?</div>
+						<div id="overlay-buttons">
+							<button className="overlay-button" onClick={() => this.closeModal('keepChanges')}>Annuler</button>
+							<button className="overlay-button" onClick={() => this.closeModal('discardChanges')}>Ignorer</button>
+						</div>
+					</div>
+				</React.Fragment>
+			)	
+		}
+
+		return null;
 	}
 
 	renderDeletetModeOverlay = () => {
@@ -207,7 +236,7 @@ class Overlay extends React.Component {
 		} else if (this.props.settings.type === 'edit') {
 			return (
 				<React.Fragment>
-					<div className="Blur" onClick={() => this.closeModal()}></div>
+					<div className="Blur" onClick={() => this.closeModal('editConfirmation')}></div>
 					{this.renderEditModeOverlay()}
 				</React.Fragment>
 			)
