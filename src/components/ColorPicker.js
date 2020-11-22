@@ -175,9 +175,9 @@ class ColorPicker extends React.Component {
 	}
 
 	getMinNumberColors() {
-		var minNumberColors = 0;
+		var minNumberColors = 1;
 		if (this.props.modeModel.isOriginMode) {
-			minNumberColors = 1;
+			minNumberColors = 2;
 		}
 		return minNumberColors;
 	}
