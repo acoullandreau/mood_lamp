@@ -232,8 +232,7 @@ class ColorPicker extends React.Component {
 	onColorClick = (event) => {
 		// this method is called when the user clicks on a color circle from the colors selectors grid on the right
 		var selectedIndex = parseInt(event.currentTarget.value);
-
-		if (selectedIndex > 0 && selectedIndex === this.state.showDelete) {
+		if (selectedIndex === this.state.showDelete) {
 			this.removeColorSelector(selectedIndex);
 		} else {
 			this.selectColor(selectedIndex);
@@ -259,7 +258,7 @@ class ColorPicker extends React.Component {
 
 	selectColor = (index) => {
 		// this methods selects the color clicked on on the color wheel
-		var showDeleteIndex = index === 0 ? null : index;;
+		var showDeleteIndex = index;
 		this.setState({'selectedColorIndex':index, 'showDelete':showDeleteIndex}, () => {
 			var color = this.state.selectedColors[index];
 			this.colorPickerRef.current.colorPicker.color.set(color);
@@ -268,11 +267,11 @@ class ColorPicker extends React.Component {
 
 	removeColorSelector = (indexColorToRemove) => {
 		// this method removes the color from the grid and the list of selected colors
-		if (indexColorToRemove > this.state.minNumberColors) {
+		if (this.state.selectedColors.length > this.state.minNumberColors) {
 			var selectedColors = this.state.selectedColors;
 			selectedColors.splice(indexColorToRemove, 1);
 			var sliderDisabled = (selectedColors.length === 1 || this.props.modeModel.isOriginMode) ? true : false;
-			var selectedIndex = indexColorToRemove - 1;
+			var selectedIndex = indexColorToRemove === 0 ? 0 : indexColorToRemove - 1;
 			this.setState({
 				'selectedColors':selectedColors, 
 				'sliderDisabled':sliderDisabled,
@@ -346,7 +345,7 @@ class ColorPicker extends React.Component {
 			style = {'filter':'invert(1)'};
 		}
 
-		if (index > this.state.minNumberColors) {
+		if (this.state.selectedColors.length > this.state.minNumberColors) {
 			if (this.state.showDelete === index) {
 				return (
 					<React.Fragment>

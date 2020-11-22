@@ -416,12 +416,17 @@ class App extends React.Component {
 		let disconnectDisplay = this.state.disconnectDisplay;
 
 		if (this.state.targetDevice === 'desktop') {
+			// to make the Maïa logo a button
+			// <div id='logo'>
+			// 	<a href='/#'><img src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`} alt='Maïa' /></a>
+			// </div>
+
 			return (
 				<React.Fragment>
 					<div className="grid-content">
 						<div className="column-one">
 							<div id='logo'>
-								<a href='/#'><img src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`} alt='Maïa' /></a>
+								<img src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`} alt='Maïa' />
 							</div>
 							<div id='nav-bar'>
 								<SideNavBar orientation="vertical"/>
@@ -461,6 +466,7 @@ class App extends React.Component {
 				</React.Fragment>
 			);
 		} else {
+
 			return (
 				<React.Fragment>
 					<button id="disconnect-icon" style={disconnectDisplay} value='disconnect' onClick={this.onDisconnectClick}>

@@ -104,9 +104,16 @@ class SideNavBar extends React.Component {
 
 		
 		if (this.props.orientation === 'horizontal') {
+			// to make the Maïa logo a button
+			// <div id='bottom-nav-bar' >
+			// 	<a id='maia-button' href='/#'>Maïa</a>
+			// 	{navBar}
+			// </div>
+
+
 			return (
 				<div id='bottom-nav-bar' >
-					<a id='maia-button' href='/#'>Maïa</a>
+					<div id='maia-button' href='/#'>Maïa</div>
 					{navBar}
 				</div>
 			)
