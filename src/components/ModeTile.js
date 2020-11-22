@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { selectMode } from '../actions';
+import DropdownOverlay from './DropdownOverlay.js';
 import MaiaService from './MaiaService.js';
 import Utils from './Utils.js';
 
@@ -13,7 +14,8 @@ class ModeTile extends React.Component {
 			'isDefault':this.props.model.isOriginMode,
 			'isEditable':this.props.model.isEditable,
 			'category':this.props.model.category,
-			'id':this.props.id
+			'id':this.props.id,
+			'overlay':{'display':false, 'settings':{}}
 		}; 
 	}
 
@@ -81,6 +83,32 @@ class ModeTile extends React.Component {
 
 	}	
 
+
+	onTouchStart = (e) => {
+		let targetMode = e.currentTarget;
+		this.touchTimeout = setTimeout(() => {
+			//we show the menu dropdown for the modes that are editable
+			if (this.state.isEditable !== false) {	
+				let overlay = {...this.state.overlay};
+				overlay.display = true;
+				overlay.settings = {'targetMode':targetMode, 'isDefault':this.state.isDefault}
+				this.setState({ overlay });
+			} else {
+				this.launchMode();
+			}
+		}, 1000);
+	}
+
+	onTouchEnd = () => {
+		clearTimeout(this.touchTimeout);
+	}
+
+	closeOverlay = () => {
+		let overlay = {...this.state.overlay};
+		overlay.display = false;
+		this.setState({ overlay })
+	}
+
 	renderMode = () => {
 
 		let mode = this.props.model;
@@ -113,42 +141,95 @@ class ModeTile extends React.Component {
 			)
 		} 
 
-		return (
-			<div 
-				className='mode-sub-grid'
-				onMouseEnter={(e) => this.onHover(e, true)}
-				onMouseLeave={(e) => this.onHover(e, false)}
-			>
-				{ thumbnailButton }
-				<div className={["mode-text", "grid-row-two"].join(' ')}>
-					<p className="colum-one">{mode.name}</p>
-					<div className="colum-two">
-						<button className={["hover-button", "edit-button"].join(' ')} onClick={this.onEdit} >
-							<img 
-								src={`${process.env.PUBLIC_URL}/assets/images/edit.svg`} 
-								alt="Éditer"
-							/>
-						</button>
-						<button className={["hover-button", "delete-button"].join(' ')} onClick={this.onDelete}>
-							<img 
-								src={`${process.env.PUBLIC_URL}/assets/images/delete.svg`} 
-								alt="Supprimer"
-							/>
-						</button>
+		if (this.props.targetDevice === 'desktop') {
+			return (
+				<div 
+					className='mode-sub-grid'
+					onMouseEnter={(e) => this.onHover(e, true)}
+					onMouseLeave={(e) => this.onHover(e, false)}
+				>
+					{ thumbnailButton }
+					<div className={["mode-text", "grid-row-two"].join(' ')}>
+						<p className="colum-one">{mode.name}</p>
+						<div className="colum-two">
+							<button className={["hover-button", "edit-button"].join(' ')} onClick={this.onEdit} >
+								<img 
+									src={`${process.env.PUBLIC_URL}/assets/images/edit.svg`} 
+									alt="Éditer"
+								/>
+							</button>
+							<button className={["hover-button", "delete-button"].join(' ')} onClick={this.onDelete}>
+								<img 
+									src={`${process.env.PUBLIC_URL}/assets/images/delete.svg`} 
+									alt="Supprimer"
+								/>
+							</button>
+						</div>
+
 					</div>
 
 				</div>
+			)
+		} else {
+			return (
+				<div 
+					className='mode-sub-grid'
+					onTouchStart={this.onTouchStart}
+					onTouchEnd={this.onTouchEnd}
+				>
+					{ thumbnailButton }
+					<div className={["mode-text", "grid-row-two"].join(' ')}>
+						<p>{mode.name}</p>
+					</div>
+				</div>
+			)
+		}
 
-			</div>
-		)
 	}
 
 	render() {
-		return (
-			<React.Fragment>
-				{this.renderMode()}
-			</React.Fragment>
-		) 
+		// let overlay;
+		// if (this.state.overlay.display) {
+		// 	overlay = (
+		// 		<div style={{display:'block'}}>
+		// 			<DropdownOverlay settings={this.state.overlay.settings} onEdit={this.onEdit} onDelete={this.onDelete} onClose={this.closeOverlay} />
+		// 		</div>
+		// 	)
+		// } else {
+		// 	overlay = (
+		// 		<div style={{display:'none'}}>
+		// 			<DropdownOverlay settings={{}} onEdit={this.onEdit} onDelete={this.onDelete} onClose={this.closeOverlay} />
+		// 		</div>
+		// 	)
+		// }
+
+
+		// return (
+		// 	<React.Fragment>
+		// 		{ overlay }	
+		// 		{this.renderMode()}
+		// 	</React.Fragment>
+		// ) 
+
+
+		if (this.state.overlay.display) {
+			return (
+				<div style={{display:'block'}}>
+					<DropdownOverlay 
+						settings={this.state.overlay.settings} 
+						onEdit={this.onEdit} 
+						onDelete={this.onDelete} 
+						onClose={this.closeOverlay} 
+					/>
+					{this.renderMode()}
+				</div>
+			)
+		} else {
+			return (
+				this.renderMode()
+			)
+		}
+		
 
 	}
 }
@@ -162,6 +243,7 @@ ModeTile.propTypes = {
 	id:PropTypes.number.isRequired,
 	onEditMode:PropTypes.func.isRequired,
 	onDeleteMode:PropTypes.func.isRequired,
+	targetDevice:PropTypes.string.isRequired
 }
 
 export default connect(mapStateToProps, { selectMode })(ModeTile);

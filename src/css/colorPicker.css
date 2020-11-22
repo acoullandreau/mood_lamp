@@ -12,7 +12,6 @@
 }
 
 .color-new {
-	min-height: 75vh;
 	margin-top: max(15vh, 115px);
 }
 
@@ -48,15 +47,16 @@
 	justify-self:center;
 	grid-template-columns: 49% 49%;
 	column-gap: 2%;
-	grid-template-rows: repeat(5, 20%);
+	grid-template-rows: repeat(6, 17%);
 	margin-bottom: 5%;
 	width: 60%;
-	height: 70%;
+	height: 75%;
+	align-self: center;
 } 
 
 .color-selector {
-	height: max(6vh, 46px);
-	width: max(6vh, 46px);
+	height: clamp(46px,  5vh, 5.5vh);
+	width: clamp(46px,  5vh, 5.5vh);
 	border-radius: 50%;
 	margin:5%;
 	align-self: center;
@@ -113,4 +113,78 @@
 	width: 25px;
 	border-radius: 50%;
 	-webkit-appearance: none;
+}
+
+
+@media only screen and (max-width:930px) and (any-hover: none) and (orientation: portrait) {
+
+	.color-grid {
+		height:100%;
+		min-height: 450px;
+		margin-top: max(25px, 7%);
+		grid-template-columns: 80% 20%;
+		grid-template-rows: minmax(25%, 125px) minmax(60%, 300px) minmax(15%, 75px);
+	}
+
+	.span-columns {
+		grid-column: 1 / span 2;
+	}
+
+	#selectors {
+		width: 85%;
+		max-width: 400px;
+		grid-template-rows: 49% 49%;
+		grid-template-columns: repeat(5, 20%);
+		grid-row-gap: 7%;
+		margin-top: max(20px, 3vw);
+		margin-bottom: 0px;
+		align-self: start;
+		justify-self:start;
+	} 
+
+	.color-selector {
+		height: min(70px, 12vw);
+		width: min(70px, 12vw);
+	}
+
+	.color-new {
+		margin-top: 0px;
+	}
+
+	.color-edit {
+		height: 95%;
+		margin-top: 0px;
+	}
+
+	.picker-block {
+		justify-self:center;
+	}
+
+	.button-color-picker {
+		width: 80%;
+		margin-top: max(20px, 3vw);
+		align-self: start;
+		justify-self:end;
+	}
+
+	.save-button {
+		height: min(12vw, 80px); 
+		width: min(100%, 80px);
+	}
+
+	.save-button img {
+		width: 60%;
+	}
+
+	#slider-block {
+		width: 90%;
+		justify-self:center;
+	}
+
+	.slider-img {
+		width: 10%;
+		max-width: 45px;
+	}
+
+
 }

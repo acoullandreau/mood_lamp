@@ -86,9 +86,6 @@
 .OverlayEditWindow {
 	height: 75%;
 	width: 80%;
-	/*height:550px;*/
-	/*max(min(22%, 550px));*/
-	/*width:750px;*/
 }
 
 .OverlayAboutWindow {
@@ -157,9 +154,9 @@
 
 #overlay-reset-button {
 	margin-left: 3%;
-	width: 10%;
-	height: 4vh;
-	font-size: 2vh;
+	width: max(10%, 82px);
+	height: max(4vh, 31px);
+	font-size: max(2vh, 15px);
 	color:#FEEDDF;
 	background-color:transparent;
 	border:1px solid #FEEDDF1F;
@@ -195,15 +192,62 @@
 	cursor: pointer;
 }
 
-@media screen and (max-width:930px){
-	.about-icon {
+@media only screen and (max-width:930px) and (any-hover: none) and (orientation: portrait) {
+	.about-icon-mobile {
 		position: absolute;
-		top: 20px;
-		right: 10px;
-		width: 30px;
-		height: 30px;
-		font-size: 25px;
+		top: 30%;
+		right: 3%;
+		width: max(30px, 5vh);
+		height: max(30px, 5vh);
+		font-size: max(25px, 4vh);
+		border-radius: 50%;
+		text-align: center;
+		cursor: pointer;
+		border: 1px solid #FEEDDF;
+		background-color: transparent;
+		color: #FEEDDF;
 	}
+
+	#about-icon-mobile:hover {
+		background-color: #433D66;
+	}
+
+	.OverlayDropdownMenu {
+		border-radius: 5px;
+		background-color: #F5F5F599;
+		position: absolute;
+		z-index: 90;
+		filter: drop-shadow(0px 0px 25px rgba(0, 0, 0, 0.24));
+		padding: 1%;
+		max-width: 50%;
+	}
+
+	.OverlayDeleteWindow {
+		height:150px;
+		width:250px;
+	}
+
+	.OverlayInputWindow {
+		height:225px;
+		width:333px;
+	}
+
+	.OverlayEditWindow {
+		height: max(80%, 580px);
+		width: 90%;
+	}
+
+	#overlay-edit {
+		font-size: min(30px, 5vw);
+	}
+
+	#overlay-edit-img {
+		width:4vw;
+	}
+
+	#overlay-edit-close {
+		font-size: min(30px, 6vw);
+	}	
 
 }
 

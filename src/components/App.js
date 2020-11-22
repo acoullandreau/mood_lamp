@@ -11,17 +11,25 @@ import Readings from './Readings.js';
 import Route from './Route.js';
 import Rules from './Rules.js';
 import SideNavBar from './SideNavBar.js';
+import Utils from './Utils.js';
 
-// Mobile version (user Agent, replace hover and click with hold and tap, vertical layout)
+// PWA offline
+// Before Prod
+	// fonts downloaded manually ?
+	// warning to turn ON the bluetooth ? To add the app to the home screen of the phone ?
+	// lock orientation for tablet
+	// clear cache 
 // ReadMe (Chrome only, improvements possible)
 	// native app (iOS)
 	// other languages
 	// OTA menu
 	// add options : auto turn on with noise
+	// handle user inputs with warnings when the values are not good
 	// offer possibility to turn off auto after minutes (instead of hours)
 
 
 class App extends React.Component {
+
 
 	constructor(props) {
 		super(props);
@@ -31,9 +39,11 @@ class App extends React.Component {
 			'overlay':{'type':'', 'display':false, 'title':'', 'message':'', 'modeName':''},
 			'disconnectDisplay':{ 'display':'none' },
 			'tabIndex':0,
+			'targetDevice':window.innerWidth < 930 ? "mobile" : "desktop",
+			'changeOrientationWarning':false
 		};
 
-
+		this.previousHeight = undefined;
 		this.singleColorPickerRef = React.createRef();
 		this.gradientColorPickerRef = React.createRef();
 		this.onWindowResize();
@@ -47,23 +57,106 @@ class App extends React.Component {
 		//add event listeners
 		window.addEventListener('resize', this.onWindowResize);
 		window.addEventListener('popstate', this.onLocationChange);
+		window.addEventListener('orientationchange', this.onOrientationChange);
 
 		// redirect to the home page
 		window.history.pushState({}, '', '#');
 		const navEvent = new PopStateEvent('popstate');
 		window.dispatchEvent(navEvent);
+
+		// ensure the content is displayed with the right dimensions and according to orientation
+		window.requestAnimationFrame(this.checkSize);
+		if (this.state.targetDevice === 'mobile') {
+			this.onOrientationChange();
+		}
+	}
+
+
+	componentDidUpdate() {
+		if (this.state.targetDevice === 'mobile') {
+			this.resizeElements();
+		}
 	}
 
 	componentWillUnmount() {
 		window.removeEventListener('resize', this.onWindowResize);
 		window.removeEventListener('popstate', this.onLocationChange);
+		window.removeEventListener('orientationchange', this.onOrientationChange);
 	}
 
-	onWindowResize() {
-		var screenRatio = window.visualViewport.height/window.visualViewport.width;
-		if (screenRatio < 0.75) {
-			var width = window.visualViewport.height / 0.75;
-			document.getElementById('root').style.width = width + 'px' ;
+	checkSize = () => {
+		if (this.state.targetDevice === 'mobile' && (this.previousHeight === undefined || this.previousHeight !== window.innerHeight)) {
+			this.resizeElements();
+			this.previousHeight = window.innerHeight;
+		}
+
+		window.requestAnimationFrame(this.checkSize);
+	}
+
+	resizeElements = () => {
+		// this function aims at recomputing the heights of the root, the grid content, 
+		// and the tab component so that it matches the available screen size of the browser (Chrome Android)
+
+		document.getElementById('root').style.height = window.innerHeight + 'px';
+		let gridElement = document.getElementsByClassName("grid-content");
+		if (gridElement.length > 0) {
+			// we get the height of the top menu bar
+			var menuBBHeight = document.getElementById("top-section").getBoundingClientRect().height;
+			gridElement[0].style.height = window.innerHeight - menuBBHeight + 'px';
+		}
+
+		let tabElement = document.getElementsByClassName("react-tabs");
+		let tabPanelElement = document.getElementsByClassName("react-tabs__tab-panel");
+
+		if (tabElement.length > 0) {
+			// we get the height of the bottom nav bar
+			var barBBHeight = document.getElementById("bottom-nav-bar").getBoundingClientRect().height;
+			// we get the height of the tab list section
+			var tabListBB = document.getElementsByClassName("react-tabs__tab-list")[0].getBoundingClientRect();
+			tabListBB = tabListBB.height + Math.max(0.04*window.innerHeight, 20);
+			// we get the top margin applied at the top of the tabs panel
+			var topMargin = Math.max(0.025*window.innerHeight, 15);
+			// we calculate the height of the tab and the tab panels from the height of the window (deducing margins and bottom bar)
+			tabElement[0].style.height = window.innerHeight - barBBHeight - 2*topMargin - tabListBB + 'px';
+			tabPanelElement[0].style.height = window.innerHeight - barBBHeight - 2*topMargin - 2*tabListBB + 'px';
+		}
+
+	}
+
+	onOrientationChange = () => {
+		//we could also use orientation.type, values in the format landscape-secondary, portrait-primary...
+		if (this.isInPortraitOrientation() === false) {
+			// we are in landscape orientation
+			if (window.screen.width > 930) {
+				//we want the app to be displayed for desktop version
+				this.setState({targetDevice:'desktop'});
+			} else {
+				//display an overlay for the user to rotate the phone back
+				this.setState({changeOrientationWarning:true});
+			}
+		} else {
+			//we are in portrait orientation, we ensure that we are displaying the mobile layout
+			this.setState({targetDevice:'mobile', changeOrientationWarning:false});
+		}
+
+	}
+
+	isInPortraitOrientation = () => {
+		if (window.screen.orientation.angle === 90 || window.screen.orientation.angle === 270) {
+			return false;
+		}
+
+		return true;
+	}
+
+
+	onWindowResize = () => {
+		if (this.state.targetDevice === 'desktop') {
+			var screenRatio = window.visualViewport.height/window.visualViewport.width;
+			if (screenRatio < 0.75) {
+				var width = window.visualViewport.height / 0.75;
+				document.getElementById('root').style.width = width + 'px' ;
+			} 
 		}
 	}
 
@@ -239,13 +332,12 @@ class App extends React.Component {
 
 	renderModes = () => {
 		return (
-			<div className='grid-row-two'>
-				<ModesList 
-					onEditMode={this.onEditMode} 
-					onDeleteMode={this.onDeleteMode}
-					index={this.state.tabIndex}
-				/>
-			</div>
+			<ModesList 
+				onEditMode={this.onEditMode} 
+				onDeleteMode={this.onDeleteMode}
+				index={this.state.tabIndex}
+				targetDevice={this.state.targetDevice}
+			/>
 		)
 	}
 
@@ -267,6 +359,7 @@ class App extends React.Component {
 					type='new'
 					modeModel={modeModel}
 					onSaveNewMode={this.displayOverlay}
+					targetDevice={this.state.targetDevice}
 				/>
 			</React.Fragment>
 		)
@@ -274,7 +367,7 @@ class App extends React.Component {
 
 	renderMesures = () => {
 		return (
-			<Readings />
+			<Readings target={this.state.targetDevice}/>
 		)
 	}
 
@@ -287,71 +380,129 @@ class App extends React.Component {
 
 
 	renderDisconnected() {
-		return (
-			<React.Fragment>
-				<div className="grid-content">
-					<div className="content-one">
-						<div id='logo'>
-							<a href='/#'><img src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`} alt='Maïa' /></a>
+		if (this.state.targetDevice === 'desktop') {
+			return (
+				<React.Fragment>
+					<div className="grid-content">
+						<div className="content-one">
+							<div id='logo'>
+								<a href='/#'><img src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`} alt='Maïa' /></a>
+							</div>
+						</div>
+						<div className={["content-two", "column-two"].join(' ')}>
+							{ this.renderHome() }
 						</div>
 					</div>
-					<div className={["content-two", "column-two"].join(' ')}>
-						{ this.renderHome() }
+				</React.Fragment>
+			);
+		} else {
+			return (
+				<React.Fragment>
+					<div className="grid-content">
+						<div id='logo-mobile'>
+							<a href='/#'><img src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`} alt='Maïa' /></a>
+						</div>
+						<div className={["content-two", "column-two"].join(' ')}>
+							{ this.renderHome() }
+						</div>
 					</div>
-				</div>
-			</React.Fragment>
-		);
+				</React.Fragment>
+			);
+		}
 	}
 
 
 	renderConnected() {
 		let disconnectDisplay = this.state.disconnectDisplay;
 
-		return (
-			<React.Fragment>
-				
-				<div className="grid-content">
-					<div className="content-one">
-						<div id='logo'>
-							<a href='/#'><img src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`} alt='Maïa' /></a>
-						</div>
-						<div id='nav-bar'>
-							<SideNavBar/>
-						</div>
-						<button 
-							id='disconnect-button'
-							style={disconnectDisplay}
-							value='disconnect'
-							onClick={this.onDisconnectClick}
-						>Déconnecter</button>
-					</div>
+		if (this.state.targetDevice === 'desktop') {
+			// to make the Maïa logo a button
+			// <div id='logo'>
+			// 	<a href='/#'><img src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`} alt='Maïa' /></a>
+			// </div>
 
-					<div className={["content-two", "column-two"].join(' ')}>
-						<Route path='' >
-							{ this.renderHome() }
-						</Route>
-						<Route path="#modes" >
-							{ this.renderModes() }
-						</Route>
-						<Route path="#couleurs" >
-							<React.Fragment>
-								{ this.renderCouleurs() }
-							</React.Fragment>
-						</Route>
-						<Route path="#mesures">
-							<React.Fragment>
-								{ this.renderMesures() }
-							</React.Fragment>
-						</Route>
-						<Route path="#automatismes">
-							<React.Fragment>
-								{ this.renderAutomatismes() }
-							</React.Fragment>
-						</Route>
+			return (
+				<React.Fragment>
+					<div className="grid-content">
+						<div className="column-one">
+							<div id='logo'>
+								<img src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`} alt='Maïa' />
+							</div>
+							<div id='nav-bar'>
+								<SideNavBar orientation="vertical"/>
+							</div>
+							<button 
+								id='disconnect-button'
+								style={disconnectDisplay}
+								value='disconnect'
+								onClick={this.onDisconnectClick}
+							>Déconnecter</button>
+						</div>
+
+						<div id='content' className="column-two">
+							<Route path='' >
+								{ this.renderHome() }
+							</Route>
+							<Route path="#modes" >
+								{ this.renderModes() }
+							</Route>
+							<Route path="#couleurs" >
+								<React.Fragment>
+									{ this.renderCouleurs() }
+								</React.Fragment>
+							</Route>
+							<Route path="#mesures">
+								<React.Fragment>
+									{ this.renderMesures() }
+								</React.Fragment>
+							</Route>
+							<Route path="#automatismes">
+								<React.Fragment>
+									{ this.renderAutomatismes() }
+								</React.Fragment>
+							</Route>
+						</div>
 					</div>
-				</div>
-			</React.Fragment>
-		);
+				</React.Fragment>
+			);
+		} else {
+
+			return (
+				<React.Fragment>
+					<button id="disconnect-icon" style={disconnectDisplay} value='disconnect' onClick={this.onDisconnectClick}>
+						<img src={`${process.env.PUBLIC_URL}/assets/images/disconnect.svg`} alt='Déconnecter' />	
+					</button>
+					<div className="grid-content">
+						<div id='content' className="row-one">
+							<Route path='' >
+								{ this.renderHome() }
+							</Route>
+							<Route path="#modes" >
+								{ this.renderModes() }
+							</Route>
+							<Route path="#couleurs" >
+								<React.Fragment>
+									{ this.renderCouleurs() }
+								</React.Fragment>
+							</Route>
+							<Route path="#mesures">
+								<React.Fragment>
+									{ this.renderMesures() }
+								</React.Fragment>
+							</Route>
+							<Route path="#automatismes">
+								<React.Fragment>
+									{ this.renderAutomatismes() }
+								</React.Fragment>
+							</Route>
+						</div>
+						<div id="bottom-bar-row" className="row-two">
+							<SideNavBar orientation="horizontal" />
+						</div>
+					</div>
+				</React.Fragment>
+			);
+		}
 	}
 
 	render() {
@@ -367,26 +518,63 @@ class App extends React.Component {
 		if (this.state.overlay.display) {
 			overlay = (
 				<div style={{display:'block'}}>
-					<Overlay settings={this.state.overlay} onClose={this.displayOverlay} onSave={this.onSaveMode} />
+					<Overlay 
+						settings={this.state.overlay} 
+						onClose={this.displayOverlay} 
+						onSave={this.onSaveMode}
+						targetDevice={this.state.targetDevice}
+					/>
 				</div>
 			)
 		} else {
 			overlay = (
 				<div style={{display:'none'}}>
-					<Overlay settings={this.state.overlay} onClose={this.displayOverlay} onSave={this.onSaveMode} />
+					<Overlay 
+						settings={this.state.overlay} 
+						onClose={this.displayOverlay} 
+						onSave={this.onSaveMode}
+						targetDevice={this.state.targetDevice}
+					/>
 				</div>
 			)
 		}
-		
-		return (
-			<React.Fragment>
-				{ overlay }	
-				{contentToRender}
-				<button className="about-icon" onClick={this.showAbout}>
-					i
-				</button>
-			</React.Fragment>
-		)
+
+
+		let page = Utils.capitalize(window.location.hash.split('#')[1])
+		if (this.state.targetDevice === "mobile") {
+			if (this.state.changeOrientationWarning) {
+				return (
+					<React.Fragment>
+						<div className="Blur"></div>
+						<img id='rotate-img' src={`${process.env.PUBLIC_URL}/assets/images/rotate.svg`} alt='Rotate' />
+					</React.Fragment>
+				)
+			} else {
+				return (
+					<React.Fragment>
+						{ overlay }	
+						<div id="top-section">
+							<p>{page}</p>
+							<button className="about-icon-mobile" onClick={this.showAbout}>
+								i
+							</button>
+						</div>
+						{contentToRender}
+					</React.Fragment>
+				)
+			}
+
+		} else {
+			return (
+				<React.Fragment>
+					{ overlay }	
+					{contentToRender}
+					<button className="about-icon" onClick={this.showAbout}>
+						i
+					</button>
+				</React.Fragment>
+			)
+		}
   }
 }
 

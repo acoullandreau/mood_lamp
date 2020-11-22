@@ -9,15 +9,17 @@ import App from './components/App.js';
 import BrowserWarning from './components/BrowserWarning.js';
 import reducers from './reducers';
 
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
 	reducers, 
 	composeEnhancers(applyMiddleware(thunk))
 );
 
-
 var contentToRender;
-if (/chrome/i.test( navigator.userAgent )) {
+if (/chrome/i.test( navigator.userAgent) || (navigator.userAgent.match('CriOS'))) {
+	// if not supported on IoS, remove CriOS !!!!   
+  // || (navigator.userAgent.match('CriOS'))
 	contentToRender = (<App/>);
 } else {
 	contentToRender = (<BrowserWarning/>);

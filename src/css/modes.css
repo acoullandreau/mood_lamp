@@ -1,18 +1,26 @@
 /*CSS for the modes page*/
 
-#mode-grid {
+.mode-grid {
 	display: grid;
 	width: 90%;
 	height: 60%;
+	min-height: 60vh;
 	margin-right: auto;
 	margin-left: auto;
 	padding:2%;
 	margin-top: max(12vh, 92px);
 	grid-template-columns: repeat(3, 25%);
-	grid-template-rows: repeat(1, minmax(192px, 25vh));
 	grid-column-gap: 8%;
-	grid-row-gap: 6%;
+	grid-row-gap: 3%;
 	overflow-y: scroll;
+}
+
+#mode-grid-default {
+	grid-template-rows: repeat(10, minmax(192px, 25vh));
+}
+
+#mode-grid-custom {
+	grid-template-rows: repeat(10, minmax(192px, 25vh));
 }
 
 .mode-sub-grid {
@@ -32,7 +40,6 @@
 	background-color: #0D0828;
 	color:#FEEDDF;
 	justify-self:center;
-	margin-bottom: 20%;
 }
 
 .mode-text p {
@@ -125,7 +132,7 @@
 	list-style-type: none;
 	margin-top: max(10vh, 77px);
 	margin-bottom: max(9vh, 69px);
-	width: 40%;
+	width: fit-content;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -151,3 +158,81 @@
 	display: block;
 }
 
+
+@media only screen and (max-width:930px) and (any-hover: none) and (orientation: portrait) {
+	.mode-grid {
+		margin-top: max(2.5vh, 20px);
+		grid-template-columns: repeat(2, 46%);
+		grid-template-rows:repeat(10, minmax(150px, 25vh));
+		grid-column-gap: 6%;
+		overflow-y: visible;
+	}
+
+	#mode-grid-default {
+		grid-template-rows: repeat(10, minmax(150px, 25vh));
+	}
+
+	#mode-grid-custom {
+		grid-template-rows: repeat(10, minmax(150px, 25vh));
+	}
+
+	.mode-text {
+		grid-template-columns: 100%;
+	}
+
+
+	.react-tabs {
+		height: calc(max(79vh, 460px) - max(2.5vh, 20px));
+		margin-top: max(2.5vh, 15px);
+	}
+
+	.react-tabs__tab-list {
+		margin-top: 0px;
+		margin-bottom: max(4vh, 20px);
+	}
+
+	.react-tabs__tab {
+		padding:5%;
+	}
+
+	.react-tabs__tab-panel {
+		height: calc(max(70vh, 445px));
+		overflow-y: scroll;
+	}
+
+	#add-mode {
+		height: 100%;
+		width: 100%;
+		margin:0%;
+
+	}
+
+	#touch-menu {
+		display:grid;
+		grid-template-rows: 50% 50%;
+		min-height: 70px;
+	}
+
+	.touch-menu-button {
+		display: grid;
+		grid-template-columns: 90% 10%;	
+		border: none;
+		background-color: transparent;
+	}
+	
+	.touch-menu-button-top {
+		border-bottom:1px solid #FEEDDF1F;
+	}
+
+	.touch-menu-button p {
+		font-size: max(3vh, 17px);
+		align-self:center;
+		justify-self:start;
+	}
+
+	.touch-menu-button img {
+		width: 100%;
+		align-self:center;
+		filter: invert(1);
+	}
+}

@@ -90,6 +90,14 @@ class Utils {
 		return Math.min(Math.max(num, min), max);
 	}
 
+	static capitalize = (s) => {
+		if (typeof(s) === 'string') {
+			return s.charAt(0).toUpperCase() + s.slice(1)
+		}
+		return ''
+	}
+
+
 	static getGradient(colors) {
 		var gradient = [];
 

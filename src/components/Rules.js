@@ -291,7 +291,7 @@ class Rules extends React.Component {
 							onChange={this.handleOptionChange}
 							className="display-inline"
 						/>
-						<p className="display-inline">Éteindre si le niveau lumineux est haut </p>
+						<p className="display-inline long-rule-text">Éteindre si le niveau lumineux est haut </p>
 					</div>
 					<div 
 						className="subsection-sublevel" 
@@ -356,7 +356,7 @@ class Rules extends React.Component {
 				</div>
 				<div className="rules-div">
 					{this.renderSwitch('silentAutoOff')}
-					<div className="rule-text" style={{'minWidth': '90%'}}>
+					<div className="rule-text text-with-input">
 						<p style={{display:'inline-block'}}>Désactiver les automatismes si aucun son pendant plus de </p>
 						<input 
 							id="number-input"

@@ -16,9 +16,22 @@ class ModesList extends React.Component {
 
 	getGridSize() {
 		// we ensure that we have a grid the right size
-		var numRows = Math.ceil(Object.keys(this.props.modesList).length / 3);
-		console.log(numRows)
-		document.getElementById("mode-grid").style['grid-template-rows'] = `repeat(${numRows}, minmax(192px, 25vh))`;
+		var modesListDefault = this.props.modesList.filter(mode => mode.isOriginMode === true);
+		var modesListCustom = this.props.modesList.filter(mode => mode.isOriginMode === false);
+		var numRowsDefault;
+		var numRowsCustom;
+
+		if (this.props.targetDevice === 'mobile') {
+			numRowsDefault = Math.ceil(Object.keys(modesListDefault).length / 2);
+			numRowsCustom = Math.ceil(Object.keys(modesListCustom).length / 2);
+			document.getElementById("mode-grid-default").style['grid-template-rows'] = `repeat(${numRowsDefault}, minmax(150px, 25vh))`;
+			document.getElementById("mode-grid-custom").style['grid-template-rows'] = `repeat(${numRowsCustom}, minmax(150px, 25vh))`;
+		} else {
+			numRowsDefault = Math.ceil(Object.keys(modesListDefault).length / 3);
+			numRowsCustom = Math.ceil(Object.keys(modesListCustom).length / 3);
+			document.getElementById("mode-grid-default").style['grid-template-rows'] = `repeat(${numRowsDefault}, minmax(192px, 25vh))`;
+			document.getElementById("mode-grid-custom").style['grid-template-rows'] = `repeat(${numRowsCustom}, minmax(192px, 25vh))`;
+		}
 	}
 
 	addMode() {
@@ -42,11 +55,11 @@ class ModesList extends React.Component {
 
 	}
 
-	renderListItems = (target) => {
+	renderListItems = (type) => {
 
-		if (target === 'custom') {
+		if (type === 'custom') {
 			return (
-				<div id="mode-grid">
+				<div className="mode-grid" id="mode-grid-custom">
 				  	{
 						React.Children.toArray(
 							Object.keys(this.props.modesList).map((item, i) => {
@@ -58,6 +71,7 @@ class ModesList extends React.Component {
 											onDeleteMode={this.props.onDeleteMode}
 											model={this.props.modesList[item]} 
 											onTileSelect={this.selectTile}
+											targetDevice={this.props.targetDevice}
 										/>
 									);
 								}
@@ -70,9 +84,9 @@ class ModesList extends React.Component {
 					{this.renderAddModeButton()}
 				</div>
 			)
-		} else if (target === 'default') {
+		} else if (type === 'default') {
 			return (
-				<div id="mode-grid">
+				<div className="mode-grid" id="mode-grid-default">
 				  	{
 						React.Children.toArray(
 							Object.keys(this.props.modesList).map((item, i) => {
@@ -83,6 +97,7 @@ class ModesList extends React.Component {
 											onEditMode={this.props.onEditMode} 
 											onDeleteMode={this.props.onDeleteMode}
 											model={this.props.modesList[item]} 
+											targetDevice={this.props.targetDevice}
 										/>
 									);
 								}
@@ -94,13 +109,13 @@ class ModesList extends React.Component {
 				</div>
 			)
 		}
+		return null;
 	}
 
 	render() {
-
 		return (
 			<React.Fragment>
-				<Tabs forceRenderTabPanel={true} defaultIndex={this.props.index}>
+				<Tabs forceRenderTabPanel={true} defaultIndex={this.props.index} onSelect={() => this.getGridSize()}>
 					<TabList>
 					<Tab>Interactifs</Tab>
 					<Tab>Personalisés</Tab>
@@ -127,7 +142,8 @@ const mapStateToProps = (state) => {
 ModesList.propTypes = {
 	index:PropTypes.number.isRequired,
 	onEditMode:PropTypes.func.isRequired,
-	onDeleteMode:PropTypes.func.isRequired
+	onDeleteMode:PropTypes.func.isRequired,
+	targetDevice:PropTypes.string.isRequired
 }
 
 export default connect(mapStateToProps)(ModesList);
