@@ -17,15 +17,8 @@ import Utils from './Utils.js';
 // Before Prod
 	// fonts downloaded manually ?
 	// warning to turn ON the bluetooth ? To add the app to the home screen of the phone ?
-	// lock orientation for tablet
 	// clear cache 
-// ReadMe (Chrome only, improvements possible)
-	// native app (iOS)
-	// other languages
-	// OTA menu
-	// add options : auto turn on with noise
-	// handle user inputs with warnings when the values are not good
-	// offer possibility to turn off auto after minutes (instead of hours)
+
 
 
 class App extends React.Component {

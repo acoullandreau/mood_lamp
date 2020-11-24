@@ -214,7 +214,7 @@ class Overlay extends React.Component {
 						Le projet est développé par 
 						<a href="https://acoullandreau.com" target="_blank" rel="noopener noreferrer"> Alexina Coullandreau </a> 
 						<span> et </span> 
-						<a href="https://gbuzogany.com" target="_blank" rel="noopener noreferrer"> Gustavo Buzogany</a>.  <br/>
+						<a href="https://gbuzogany.com" target="_blank" rel="noopener noreferrer"> Gustavo Buzogany Eboli</a>.  <br/>
 						Jetez un oeil au 
 						<a href="https://github.com/acoullandreau/mood_lamp" target="_blank" rel="noopener noreferrer"> code source de cette page</a>,  
 						et n'hésitez pas à nous contacter !
