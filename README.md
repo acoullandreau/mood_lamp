@@ -1,7 +1,37 @@
 Note:la version en français de ce document est disponible [ici](XXXXXXX) !
 
 
-# Maïa, powerful mood lamp
+# Maïa, the application
+
+
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Welcome!
 This repository contains all the code we put together to build the Maïa mood lamp! Maïa is a lamp that can be assembled with very few (and cheap) components, 3D printed parts, and controlled remotely from your phone or computer using bluetooth! Not only will you be able to enjoy numerous light effects, set up some rules to automate when to turn it ON and OFF, but also get to know the temperature, air humidity and pressure of the room it is in!
@@ -82,10 +112,15 @@ You can find details about the implementation of the application [here](XXXXXXX)
 Further work and contact
 ----------------------------
 
-	// other languages
-	// OTA menu
-	// add options : auto turn on with noise
-	// handle user inputs with warnings when the values are not good
-	// offer possibility to turn off auto after minutes (instead of hours)
-// Mobile version (user Agent, replace hover and click with hold and tap, vertical layout)
-// ReadMe (Chrome only, improvements possible)
+Here are some of the improvements that we are thinking about:
+
+- support other languages on the application
+- add support for OTA
+- add options for rules
+	- possibility to enable automatic turn on based on a noise (some ML to implement)
+	- handle user inputs with warnings when the values are not good
+	- hours as well as minutes for the time before turning off the automatisms if no noise heard
+- implement an iOS application (web bluetooth supported only on Chrome for desktop and Android)
+
+Also, don't hesitate to get in touch with us, if you liked this project, if you would like to suggest improvements or contribute!
+We are [Alexina Coullandreau](https://www.acoullandreau.com) and [Gustavo Buzogany Eboli](https://www.gbuzogany.com)
