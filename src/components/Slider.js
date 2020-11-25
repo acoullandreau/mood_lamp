@@ -22,7 +22,7 @@ class Slider extends React.Component {
 
 		return (
 	    	<div id="slider-block" style={styleBlock} className={this.props.className}>
-	      		<img className='slider-img' src={`${process.env.PUBLIC_URL}/assets/images/slow.svg`} alt='Lent' />
+	      		<img width="81" height="42" className='slider-img' src={`${process.env.PUBLIC_URL}/assets/images/slow.svg`} alt='Lent' />
 				<input 
 					id="slider" 
 					style={styleSlider}
@@ -33,7 +33,7 @@ class Slider extends React.Component {
 					onClick={this.handleChange}
 					step="1"
 				/>
-				<img className='slider-img' src={`${process.env.PUBLIC_URL}/assets/images/fast.svg`} alt='Rapide' />
+				<img width="80" height="68" className='slider-img' src={`${process.env.PUBLIC_URL}/assets/images/fast.svg`} alt='Rapide' />
 	    	</div>
     	);
 

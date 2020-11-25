@@ -125,7 +125,7 @@ class ModeTile extends React.Component {
 					style={style}
 					onClick={this.launchMode} 
 				>
-					<img src={`${process.env.PUBLIC_URL}/assets/images/off.svg`} alt='Off' />
+					<img width="102" height="102" src={`${process.env.PUBLIC_URL}/assets/images/off.svg`} alt='Off' />
 				</button>
 			)
 		} else {
@@ -154,12 +154,16 @@ class ModeTile extends React.Component {
 						<div className="colum-two">
 							<button className={["hover-button", "edit-button"].join(' ')} onClick={this.onEdit} >
 								<img 
+									width="78"
+									height="78"
 									src={`${process.env.PUBLIC_URL}/assets/images/edit.svg`} 
 									alt="Éditer"
 								/>
 							</button>
 							<button className={["hover-button", "delete-button"].join(' ')} onClick={this.onDelete}>
 								<img 
+									width="60"
+									height="70"
 									src={`${process.env.PUBLIC_URL}/assets/images/delete.svg`} 
 									alt="Supprimer"
 								/>

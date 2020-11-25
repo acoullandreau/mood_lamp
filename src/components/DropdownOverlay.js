@@ -19,14 +19,13 @@ class DropdownOverlay extends React.Component {
 			yOffset = dropdownMenuElem.getBoundingClientRect().y - this.props.settings.targetMode.getBoundingClientRect().y;
 		}
 		let yTranslate = - dropdownMenuElem.getBoundingClientRect().height - yOffset;
-		let xTranslate = this.props.settings.targetMode.getBoundingClientRect().width - dropdownMenuElem.getBoundingClientRect().width;
+		let xTranslate = this.props.settings.targetMode.getBoundingClientRect().width/4;
 
-		if (dropdownMenuElem.getBoundingClientRect().x > window.innerWidth / 2) {
-			xTranslate = - xTranslate;
+		if (dropdownMenuElem.getBoundingClientRect().x >= window.innerWidth / 2) {
+			xTranslate = - dropdownMenuElem.getBoundingClientRect().width + 3 * xTranslate;
 		}
 
 		dropdownMenuElem.style.transform = `translate(${xTranslate}px,${yTranslate}px)`;
-
 	} 
 	
 
@@ -99,6 +98,8 @@ class DropdownOverlay extends React.Component {
 							<button className={["touch-menu-button", "touch-menu-button-top", "grid-row-one"].join(' ')} onClick={() => this.editMode()}>
 								<p className="column-one">Éditer</p>
 								<img 
+									width="78" 
+									height="78"
 									className="column-two"
 									src={`${process.env.PUBLIC_URL}/assets/images/edit.svg`} 
 									alt="Éditer"
@@ -107,6 +108,8 @@ class DropdownOverlay extends React.Component {
 							<button className="touch-menu-button grid-row-two" onClick={() => this.deleteMode()} disabled={isDisabled}>
 								<p className="column-one">Supprimer</p>
 								<img 
+									width="60" 
+									height="78"
 									className="column-two"
 									src={`${process.env.PUBLIC_URL}/assets/images/delete.svg`} 
 									style={{'opacity':iconOpacity}}

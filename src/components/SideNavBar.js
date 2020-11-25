@@ -52,27 +52,27 @@ class SideNavBar extends React.Component {
 		switch (target) {
 			case 'couleurs':
 				if (active) {
-					return <img src={`${process.env.PUBLIC_URL}/assets/images/couleurs-active.svg`} alt="Couleurs" />
+					return <img width="60" height="60" src={`${process.env.PUBLIC_URL}/assets/images/couleurs-active.svg`} alt="Couleurs" />
 				} else {
-					return <img src={`${process.env.PUBLIC_URL}/assets/images/couleurs.svg`} alt="Couleurs" />
+					return <img width="60" height="60" src={`${process.env.PUBLIC_URL}/assets/images/couleurs.svg`} alt="Couleurs" />
 				}
 			case 'mesures':
 				if (active) {
-					return <img src={`${process.env.PUBLIC_URL}/assets/images/mesures-active.svg`} alt="Mesures" />
+					return <img width="54" height="54" src={`${process.env.PUBLIC_URL}/assets/images/mesures-active.svg`} alt="Mesures" />
 				} else {
-					return <img src={`${process.env.PUBLIC_URL}/assets/images/mesures.svg`} alt="Mesures" />
+					return <img width="54" height="54" src={`${process.env.PUBLIC_URL}/assets/images/mesures.svg`} alt="Mesures" />
 				}
 			case 'automatismes':
 				if (active) {
-					return <img src={`${process.env.PUBLIC_URL}/assets/images/automatismes-active.svg`} alt="Automatismes" />
+					return <img width="66" height="66" src={`${process.env.PUBLIC_URL}/assets/images/automatismes-active.svg`} alt="Automatismes" />
 				} else {
-					return <img src={`${process.env.PUBLIC_URL}/assets/images/automatismes.svg`} alt="Automatismes" />
+					return <img width="66" height="66" src={`${process.env.PUBLIC_URL}/assets/images/automatismes.svg`} alt="Automatismes" />
 				}
 			default:
 				if (active) {
-					return <img src={`${process.env.PUBLIC_URL}/assets/images/modes-active.svg`} alt="Modes" />
+					return <img width="60" height="60" src={`${process.env.PUBLIC_URL}/assets/images/modes-active.svg`} alt="Modes" />
 				} else {
-					return <img src={`${process.env.PUBLIC_URL}/assets/images/modes.svg`} alt="Modes" />
+					return <img width="60" height="60" src={`${process.env.PUBLIC_URL}/assets/images/modes.svg`} alt="Modes" />
 				}
 		}
 

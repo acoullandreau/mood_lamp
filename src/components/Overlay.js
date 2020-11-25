@@ -115,7 +115,7 @@ class Overlay extends React.Component {
 						value={valueDisplayed}
 						onChange={this.onInputChange} 
 					/>
-					<img id="overlay-edit-img" src={`${process.env.PUBLIC_URL}/assets/images/edit.svg`} alt="Éditer"/>
+					<img width="78" height="78" id="overlay-edit-img" src={`${process.env.PUBLIC_URL}/assets/images/edit.svg`} alt="Éditer"/>
 				</React.Fragment>
 			)
 

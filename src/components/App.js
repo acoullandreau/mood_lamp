@@ -400,7 +400,7 @@ class App extends React.Component {
 					<div className="grid-content">
 						<div className="content-one">
 							<div id='logo'>
-								<a href='/#'><img src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`} alt='Maïa' /></a>
+								<a href='/#'><img width="238" height="146" src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`} alt='Maïa' /></a>
 							</div>
 						</div>
 						<div className={["content-two", "column-two"].join(' ')}>
@@ -414,7 +414,7 @@ class App extends React.Component {
 				<React.Fragment>
 					<div className="grid-content">
 						<div id='logo-mobile'>
-							<a href='/#'><img src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`} alt='Maïa' /></a>
+							<a href='/#'><img width="238" height="146" src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`} alt='Maïa' /></a>
 						</div>
 						<div className={["content-two", "column-two"].join(' ')}>
 							{ this.renderHome() }
@@ -440,7 +440,7 @@ class App extends React.Component {
 					<div className="grid-content">
 						<div className="column-one">
 							<div id='logo'>
-								<img src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`} alt='Maïa' />
+								<img width="146" height="146" src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`} alt='Maïa' />
 							</div>
 							<div id='nav-bar'>
 								<SideNavBar orientation="vertical"/>
@@ -484,7 +484,7 @@ class App extends React.Component {
 			return (
 				<React.Fragment>
 					<button id="disconnect-icon" style={disconnectDisplay} value='disconnect' onClick={this.onDisconnectClick}>
-						<img src={`${process.env.PUBLIC_URL}/assets/images/disconnect.svg`} alt='Déconnecter' />	
+						<img width="71" height="89" src={`${process.env.PUBLIC_URL}/assets/images/disconnect.svg`} alt='Déconnecter' />	
 					</button>
 					<div className="grid-content">
 						<div id='content' className="row-one">
@@ -560,7 +560,7 @@ class App extends React.Component {
 				return (
 					<React.Fragment>
 						<div className="Blur"></div>
-						<img id='rotate-img' src={`${process.env.PUBLIC_URL}/assets/images/rotate.svg`} alt='Rotate' />
+						<img width="117" height="117" id='rotate-img' src={`${process.env.PUBLIC_URL}/assets/images/rotate.svg`} alt='Rotate' />
 					</React.Fragment>
 				)
 			} else {

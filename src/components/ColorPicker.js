@@ -349,7 +349,7 @@ class ColorPicker extends React.Component {
 			if (this.state.showDelete === index) {
 				return (
 					<React.Fragment>
-						<img id="color-select-delete" style={style} src={`${process.env.PUBLIC_URL}/assets/images/delete.svg`} alt='Supprimer' />
+						<img width="61" height="78" id="color-select-delete" style={style} src={`${process.env.PUBLIC_URL}/assets/images/delete.svg`} alt='Supprimer' />
 					</React.Fragment>
 				)
 			}
@@ -460,7 +460,7 @@ class ColorPicker extends React.Component {
 			if (this.props.type === 'new') {
 				buttonContent = (
 					<React.Fragment>
-						<img style={{marginRight:'7%'}} src={`${process.env.PUBLIC_URL}/assets/images/star.svg`} alt='Enregistrer'/>
+						<img width="66" height="66" style={{marginRight:'7%'}} src={`${process.env.PUBLIC_URL}/assets/images/star.svg`} alt='Enregistrer'/>
 						<React.Fragment>Enregistrer mode</React.Fragment>
 					</React.Fragment>
 				)
@@ -472,7 +472,7 @@ class ColorPicker extends React.Component {
 		} else {
 			buttonContent = (
 				<React.Fragment>
-					<img style={{marginRight:'7%'}} src={`${process.env.PUBLIC_URL}/assets/images/save.svg`} alt='Enregistrer'/>
+					<img width="66" height="66" style={{marginRight:'7%'}} src={`${process.env.PUBLIC_URL}/assets/images/save.svg`} alt='Enregistrer'/>
 				</React.Fragment>
 			)
 		}

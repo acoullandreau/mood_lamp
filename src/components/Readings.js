@@ -52,7 +52,7 @@ class Readings extends React.Component {
 				<div className="reading-tile">
 					<div className={["reading-title", "grid-row-one"].join(' ')}>{title}</div>
 					<div className="reading-measure">
-						<div className={["reading-icon", "column-one"].join(' ')}><img  src={`${process.env.PUBLIC_URL}/assets/images/${item}.svg`} alt={title} /></div>
+						<div className={["reading-icon", "column-one"].join(' ')}><img width="80" height="80" src={`${process.env.PUBLIC_URL}/assets/images/${item}.svg`} alt={title} /></div>
 						<div className={["reading-text", "column-two"].join(' ')}>{measure} {unit}</div>
 					</div>
 				</div>
@@ -61,7 +61,7 @@ class Readings extends React.Component {
 			return (
 				<div className="reading-tile">
 					<div className={["reading-title", "grid-row-one"].join(' ')}>
-						<div className={["reading-icon", "column-one"].join(' ')}><img  src={`${process.env.PUBLIC_URL}/assets/images/${item}.svg`} alt={title} /></div>
+						<div className={["reading-icon", "column-one"].join(' ')}><img width="80" height="80" src={`${process.env.PUBLIC_URL}/assets/images/${item}.svg`} alt={title} /></div>
 						<div className={["reading-text", "column-two"].join(' ')}>{title}</div>
 					</div>
 					<div className="reading-measure">{measure} {unit}</div>

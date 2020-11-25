@@ -30,7 +30,7 @@ class BrowserWarning extends React.Component {
 	render() {
 		return (
 			<div id="browser-warning">
-				<img src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`} alt='Maïa' />
+				<img width="146" height="146" src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`} alt='Maïa' />
 				<p>
 					Ce service n'est pas conçu pour fonctionner sur un autre navigateur que
 					<span> </span>
