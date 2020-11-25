@@ -138,6 +138,7 @@
 
 #overlay-edit-img {
 	width:2%;
+	height:auto;
 }
 
 #overlay-edit-close {
@@ -243,6 +244,7 @@
 
 	#overlay-edit-img {
 		width:4vw;
+		height:auto;
 	}
 
 	#overlay-edit-close {

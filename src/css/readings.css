@@ -49,6 +49,7 @@
 
 .reading-icon img{
 	width: 80%;
+	height:auto;
 }
 
 
@@ -86,6 +87,7 @@
 
 	.reading-icon img{
 		width: 100%;
+		height:auto;
 	}
 
 	.reading-measure {

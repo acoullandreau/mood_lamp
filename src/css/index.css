@@ -50,13 +50,19 @@ button {
 #root {
 	position: relative;
 	width: 100vw;
-	/*min-width: 1024px;*/
 	height: 100vh;
-	/*min-width: 1024px;*/
 	margin-right: auto;
 	margin-left: auto;
 	overflow:scroll;
 }
+
+.add-button {
+	position: absolute;
+	z-index: 20; 
+	width: 100%;
+}
+
+
 
 /*Specific to the non-Chrome browsers*/
 #browser-warning {
@@ -110,6 +116,7 @@ button {
 
 #logo img{
 	width: 95%;
+	height: auto;
 	min-width: 210px;
 }
 
@@ -147,6 +154,7 @@ button {
 
 #nav-bar img {
 	width: 60%;
+	height: auto;
 	min-width: 65px;
 }
 
@@ -261,6 +269,7 @@ button {
 
 	#disconnect-icon img {
 		width: 90%;
+		height: auto;
 	}
 
 	#bottom-bar-row {
@@ -290,6 +299,7 @@ button {
 
 	#bottom-nav-bar img {
 		width: 60%;
+		height: auto;
 	}
 
 	#maia-button {

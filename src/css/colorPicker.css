@@ -86,6 +86,7 @@
 
 .slider-img {
 	width: 4%;
+	height:auto;
 }
 
 #slider-block {
@@ -174,6 +175,7 @@
 
 	.save-button img {
 		width: 60%;
+		height:auto;
 	}
 
 	#slider-block {
@@ -183,6 +185,7 @@
 
 	.slider-img {
 		width: 10%;
+		height:auto;
 		max-width: 45px;
 	}
 

@@ -90,6 +90,7 @@
 
 .hover-button img {
 	width: 90%;
+	height:auto;
 }
 
 .edit-button {
@@ -232,6 +233,7 @@
 
 	.touch-menu-button img {
 		width: 100%;
+		height:auto;
 		align-self:center;
 		filter: invert(1);
 	}
