@@ -14,7 +14,7 @@ body {
 	font-weight: 400;
 	font-size:max(1.8vh, 15px);
 	color:#FEEDDF;
-	min-width:933px;
+	/*min-width:933px;*/
 	margin:0px;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -50,9 +50,9 @@ button {
 #root {
 	position: relative;
 	width: 100vw;
-	min-width: 1024px;
+	/*min-width: 1024px;*/
 	height: 100vh;
-	min-width: 1024px;
+	/*min-width: 1024px;*/
 	margin-right: auto;
 	margin-left: auto;
 	overflow:scroll;

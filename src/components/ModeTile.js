@@ -188,29 +188,6 @@ class ModeTile extends React.Component {
 	}
 
 	render() {
-		// let overlay;
-		// if (this.state.overlay.display) {
-		// 	overlay = (
-		// 		<div style={{display:'block'}}>
-		// 			<DropdownOverlay settings={this.state.overlay.settings} onEdit={this.onEdit} onDelete={this.onDelete} onClose={this.closeOverlay} />
-		// 		</div>
-		// 	)
-		// } else {
-		// 	overlay = (
-		// 		<div style={{display:'none'}}>
-		// 			<DropdownOverlay settings={{}} onEdit={this.onEdit} onDelete={this.onDelete} onClose={this.closeOverlay} />
-		// 		</div>
-		// 	)
-		// }
-
-
-		// return (
-		// 	<React.Fragment>
-		// 		{ overlay }	
-		// 		{this.renderMode()}
-		// 	</React.Fragment>
-		// ) 
-
 
 		if (this.state.overlay.display) {
 			return (

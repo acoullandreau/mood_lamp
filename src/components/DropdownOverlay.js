@@ -70,6 +70,7 @@ class DropdownOverlay extends React.Component {
 
 		let overlayStyle = {
 			'position': 'absolute', 
+			'top':this.props.settings.targetMode.getBoundingClientRect().y,
 			'zIndex':'100',
 		}
 
