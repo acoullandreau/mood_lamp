@@ -52,6 +52,27 @@ class App extends React.Component {
 		window.addEventListener('popstate', this.onLocationChange);
 		window.addEventListener('orientationchange', this.onOrientationChange);
 
+		// show a prompt to add the app to the home screen
+		let deferredPrompt;
+		window.addEventListener('beforeinstallprompt', (e) => {
+			e.preventDefault();
+			deferredPrompt = e;
+			// btnAdd.style.display='block';
+		});
+
+		// btnAdd.addEventListener('click', (e) => {
+		// 	deferredPrompt.prompt();
+		// 	deferredPrompt.userChoice.then((choiceResult) => {
+		// 		if (choiceResult.outcome === 'accepted') {
+		// 			console.log('User accepted the A2HS prompt');
+		// 		}
+		// 		deferredPrompt = null;
+		// 	})
+		// })
+
+		// alert(window.innerWidth)
+		// alert(window.innerHeight)
+
 		// redirect to the home page
 		window.history.pushState({}, '', '#');
 		const navEvent = new PopStateEvent('popstate');

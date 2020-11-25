@@ -3,64 +3,41 @@
   "name": "Maïa",
   "icons": [
     {
-      "src": "assets/icons/maskable_icon.png",
+      "src": "/assets/icons/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/assets/icons/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/icons/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/maskable_icon_172.png",
+      "sizes": "172x172",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "assets/icons/maskable_icon_1365.png",
       "sizes": "1365x1365",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "maskable any"
     },
     {
-      "src": "assets/icons/icon_48.png",
-      "sizes": "48x48",
+      "src": "/assets/icons/appstore.png",
+      "sizes": "1024x1024",
       "type": "image/x-icon"
-    },
-    {
-      "src": "assets/icons/icon_72.png",
-      "sizes": "72x72",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "assets/icons/icon_96.png",
-      "sizes": "96x96",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "assets/icons/icon_16.png",
-      "sizes": "16x16",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "assets/icons/icon_24.png",
-      "sizes": "24x24",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "assets/icons/icon_32.png",
-      "sizes": "32x32",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "assets/icons/icon_64.png",
-      "sizes": "64x64",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "assets/icons/icon_144.png",
-      "sizes": "144x144",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "assets/icons/logo192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "assets/icons/logo512.png",
-      "type": "image/png",
-      "sizes": "512x512"
     }
   ],
   "start_url": ".",
   "display": "fullscreen",
+  "orientation":"portrait",
   "theme_color": "#F88876",
   "background_color": "#0D0828"
 }
