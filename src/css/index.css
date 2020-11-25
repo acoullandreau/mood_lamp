@@ -55,7 +55,9 @@ button {
 	overflow:scroll;
 }
 
-.add-button-overlay {
+
+/* Style for the add to Home screen banner */
+/*.add-button-overlay {
 	position: absolute;
 	z-index: 200; 
 	width: 100%;
@@ -94,7 +96,7 @@ button {
 	border:none;
 	color:#0D0828;
 	cursor: pointer;
-}
+}*/
 
 
 

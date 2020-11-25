@@ -52,26 +52,31 @@ class App extends React.Component {
 		window.addEventListener('popstate', this.onLocationChange);
 		window.addEventListener('orientationchange', this.onOrientationChange);
 
-		// show a prompt to add the app to the home screen
-		let deferredPrompt;
-		window.addEventListener('beforeinstallprompt', (e) => {
-			e.preventDefault();
-			deferredPrompt = e;
-			// btnAdd.style.display='block';
-		});
+		// show default prompt to add the app to the home screen
+		window.addEventListener('beforeinstallprompt', (e) => {});
 
-		// btnAdd.addEventListener('click', (e) => {
+		// in case we want our own banner to prompt to add the app to the home screen
+		// let deferredPrompt;
+		// const addBtnOverlay = document.querySelector('.add-button-overlay');
+		// const addBtn = document.querySelector('.add-button');
+		// addBtnOverlay.style.display = 'none';
+		// window.addEventListener('beforeinstallprompt', (e) => {
+		// 	e.preventDefault();
+		// 	deferredPrompt = e;
+		// 	addBtnOverlay.style.display='block';
+		// });
+
+		// addBtn.addEventListener('click', (e) => {
 		// 	deferredPrompt.prompt();
 		// 	deferredPrompt.userChoice.then((choiceResult) => {
 		// 		if (choiceResult.outcome === 'accepted') {
 		// 			console.log('User accepted the A2HS prompt');
+		// 		} else {
+		// 			console.log('User dismissed the A2HS prompt');
 		// 		}
 		// 		deferredPrompt = null;
 		// 	})
 		// })
-
-		// alert(window.innerWidth)
-		// alert(window.innerHeight)
 
 		// redirect to the home page
 		window.history.pushState({}, '', '#');
@@ -519,6 +524,17 @@ class App extends React.Component {
 		}
 	}
 
+
+	renderAddToHomeScreen = () => {
+		// not used by default, call {this.renderAddToHomeScreen()} in the render function
+		return (
+			<div className="add-button-overlay">
+				<button className="add-button">Ajouter à l'écran d'accueil</button>
+				<button className="close-button" onClick={() => {document.querySelector('.add-button-overlay').style.display = 'none'}}>Annuler</button>
+			</div>
+		)
+	}
+
 	render() {
 
 		let contentToRender;
@@ -591,7 +607,7 @@ class App extends React.Component {
 		}
   }
 }
-
+			
 const mapStateToProps = (state) => {
 	return { 
 		modesList : state.modes, 
