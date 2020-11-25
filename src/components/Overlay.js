@@ -63,6 +63,8 @@ class Overlay extends React.Component {
 		this.props.settings.modeInstance.setColors(initialSetting)
 		// rerender the color picker
 		this.colorPickerRef.current.resetColors(initialSetting);
+		//enable the save button
+		this.colorPickerRef.current.setState({saveButtonDisabled:false});
 	} 
 
 	deleteMode = () => {

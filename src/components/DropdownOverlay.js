@@ -19,10 +19,10 @@ class DropdownOverlay extends React.Component {
 			yOffset = dropdownMenuElem.getBoundingClientRect().y - this.props.settings.targetMode.getBoundingClientRect().y;
 		}
 		let yTranslate = - dropdownMenuElem.getBoundingClientRect().height - yOffset;
-		let xTranslate = this.props.settings.targetMode.getBoundingClientRect().width/4;
+		let xTranslate = this.props.settings.targetMode.getBoundingClientRect().width/6;
 
 		if (dropdownMenuElem.getBoundingClientRect().x >= window.innerWidth / 2) {
-			xTranslate = - dropdownMenuElem.getBoundingClientRect().width + 3 * xTranslate;
+			xTranslate = - 2 * xTranslate;
 		}
 
 		dropdownMenuElem.style.transform = `translate(${xTranslate}px,${yTranslate}px)`;

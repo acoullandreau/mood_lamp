@@ -240,6 +240,9 @@
 
 	#overlay-edit {
 		font-size: min(30px, 5vw);
+		max-width: 55%;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 
 	#overlay-edit-img {

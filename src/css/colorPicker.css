@@ -78,6 +78,7 @@
 
 #color-select-delete{
 	width: 50%;
+	height: auto;
 	filter: invert(1);
 }
 
