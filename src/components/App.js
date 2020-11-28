@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchModes, fetchRules, addMode, editMode, getFactorySettings, selectMode } from '../actions';
+import BluetoothService from './BluetoothService.js';
 import configJSON from '../config.json';
 import ColorPicker from './ColorPicker.js';
 import MaiaService from './MaiaService.js';
@@ -17,7 +18,7 @@ import Utils from './Utils.js';
 // Before Prod
 	// fonts downloaded manually ?
 	// warning to turn ON the bluetooth ? To add the app to the home screen of the phone ?
-	// clear cache 
+	// clear cache
 
 
 
@@ -113,7 +114,7 @@ class App extends React.Component {
 	}
 
 	resizeElements = () => {
-		// this function aims at recomputing the heights of the root, the grid content, 
+		// this function aims at recomputing the heights of the root, the grid content,
 		// and the tab component so that it matches the available screen size of the browser (Chrome Android)
 
 		document.getElementById('root').style.height = window.innerHeight + 'px';
@@ -175,7 +176,7 @@ class App extends React.Component {
 			if (screenRatio < 0.75) {
 				var width = window.visualViewport.height / 0.75;
 				document.getElementById('root').style.width = width + 'px' ;
-			} 
+			}
 		}
 	}
 
@@ -231,7 +232,7 @@ class App extends React.Component {
 		var params = {
 			'type':'edit',
 			'display':true,
-			'title':'Éditer mode', 
+			'title':'Éditer mode',
 			'refModeInstance':modeInstance,
 			'modeInstance':clonedModeModel
 		};
@@ -242,7 +243,7 @@ class App extends React.Component {
 		var params = {
 			'type':'delete',
 			'display':true,
-			'title':'Supprimer le mode', 
+			'title':'Supprimer le mode',
 			'message':'Êtes-vous sûr(e) de vouloir supprimer ce mode ? Cette action est irréversible.',
 			'modeInstance':modeInstance
 		};
@@ -253,7 +254,7 @@ class App extends React.Component {
 		var params = {
 			'type':'about',
 			'display':true,
-			'title':'À propos', 
+			'title':'À propos',
 			'message':'',
 			'modeInstance':''
 		};
@@ -263,7 +264,8 @@ class App extends React.Component {
 	onConnectClick = () =>  {
 		// try to connect to the micro-controller
 		// once the connection is established, call onConnect
-		this.onConnect();
+		BluetoothService.connect();
+		// this.onConnect();
 
 	}
 
@@ -320,7 +322,7 @@ class App extends React.Component {
 
 		if (this.state.isConnected === false) {
 			homeButton = (
-				<button 
+				<button
 					className="button-home"
 					onClick={this.onConnectClick}
 				>
@@ -329,7 +331,7 @@ class App extends React.Component {
 			)
 		} else {
 			homeButton = (
-				<button 
+				<button
 					className="button-home"
 					onClick={this.onDisconnectClick}
 				>
@@ -351,8 +353,8 @@ class App extends React.Component {
 
 	renderModes = () => {
 		return (
-			<ModesList 
-				onEditMode={this.onEditMode} 
+			<ModesList
+				onEditMode={this.onEditMode}
 				onDeleteMode={this.onDeleteMode}
 				index={this.state.tabIndex}
 				targetDevice={this.state.targetDevice}
@@ -363,10 +365,10 @@ class App extends React.Component {
 	renderCouleurs = () => {
 
 		var mode = {
-			'isOriginMode':false, 
-			'isEditable':true, 
-			'category':'single', 
-			'colors':[{ r: 255, g: 255, b: 255 }], 
+			'isOriginMode':false,
+			'isEditable':true,
+			'category':'single',
+			'colors':[{ r: 255, g: 255, b: 255 }],
 			'speed':30
 		}
 
@@ -374,7 +376,7 @@ class App extends React.Component {
 
 		return (
 			<React.Fragment>
-				<ColorPicker 
+				<ColorPicker
 					type='new'
 					modeModel={modeModel}
 					onSaveNewMode={this.displayOverlay}
@@ -450,7 +452,7 @@ class App extends React.Component {
 							<div id='nav-bar'>
 								<SideNavBar orientation="vertical"/>
 							</div>
-							<button 
+							<button
 								id='disconnect-button'
 								style={disconnectDisplay}
 								value='disconnect'
@@ -489,7 +491,7 @@ class App extends React.Component {
 			return (
 				<React.Fragment>
 					<button id="disconnect-icon" style={disconnectDisplay} value='disconnect' onClick={this.onDisconnectClick}>
-						<img width="71" height="89" src={`${process.env.PUBLIC_URL}/assets/images/disconnect.svg`} alt='Déconnecter' />	
+						<img width="71" height="89" src={`${process.env.PUBLIC_URL}/assets/images/disconnect.svg`} alt='Déconnecter' />
 					</button>
 					<div className="grid-content">
 						<div id='content' className="row-one">
@@ -548,9 +550,9 @@ class App extends React.Component {
 		if (this.state.overlay.display) {
 			overlay = (
 				<div style={{display:'block'}}>
-					<Overlay 
-						settings={this.state.overlay} 
-						onClose={this.displayOverlay} 
+					<Overlay
+						settings={this.state.overlay}
+						onClose={this.displayOverlay}
 						onSave={this.onSaveMode}
 						targetDevice={this.state.targetDevice}
 					/>
@@ -559,9 +561,9 @@ class App extends React.Component {
 		} else {
 			overlay = (
 				<div style={{display:'none'}}>
-					<Overlay 
-						settings={this.state.overlay} 
-						onClose={this.displayOverlay} 
+					<Overlay
+						settings={this.state.overlay}
+						onClose={this.displayOverlay}
 						onSave={this.onSaveMode}
 						targetDevice={this.state.targetDevice}
 					/>
@@ -582,7 +584,7 @@ class App extends React.Component {
 			} else {
 				return (
 					<React.Fragment>
-						{ overlay }	
+						{ overlay }
 						<div id="top-section">
 							<p>{page}</p>
 							<button className="about-icon-mobile" onClick={this.showAbout}>
@@ -597,7 +599,7 @@ class App extends React.Component {
 		} else {
 			return (
 				<React.Fragment>
-					{ overlay }	
+					{ overlay }
 					{contentToRender}
 					<button className="about-icon" onClick={this.showAbout}>
 						i
@@ -607,10 +609,10 @@ class App extends React.Component {
 		}
   }
 }
-			
+
 const mapStateToProps = (state) => {
-	return { 
-		modesList : state.modes, 
+	return {
+		modesList : state.modes,
 		selectedMode:state.selectedMode,
 		rules : state.rules
 	};
@@ -618,13 +620,13 @@ const mapStateToProps = (state) => {
 
 
 export default connect(
-	mapStateToProps, 
-	{ 
-		fetchModes, 
-		fetchRules, 
-		addMode, 
-		editMode, 
-		getFactorySettings, 
+	mapStateToProps,
+	{
+		fetchModes,
+		fetchRules,
+		addMode,
+		editMode,
+		getFactorySettings,
 		selectMode
 	}
 	)(App);
