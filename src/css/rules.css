@@ -7,7 +7,7 @@
 	margin-left: auto;
 	padding:2%;
 	margin-top: max(20vh,153px);
-	overflow-y: scroll;
+	overflow-y: auto;
 }
 
 #rules-page p {
