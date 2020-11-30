@@ -460,8 +460,8 @@ class ColorPicker extends React.Component {
 			if (this.props.type === 'new') {
 				buttonContent = (
 					<React.Fragment>
-						<img width="66" height="66" style={{marginRight:'7%'}} src={`${process.env.PUBLIC_URL}/assets/images/star.svg`} alt='Enregistrer'/>
-						<React.Fragment>Enregistrer mode</React.Fragment>
+						<img className="save-button-icon" width="66" height="66" src={`${process.env.PUBLIC_URL}/assets/images/star.svg`} alt='Enregistrer'/>
+						<p className="save-button-text">Enregistrer mode</p>
 					</React.Fragment>
 				)
 			} else if (this.props.type === 'edit') {
