@@ -264,7 +264,7 @@ class App extends React.Component {
 	onConnectClick = () =>  {
 		// try to connect to the micro-controller
 		// once the connection is established, call onConnect
-		BluetoothService.connect();
+		BluetoothService.connect(this.onConnect, this.onDisconnect, this.handleNotifications);
 		// this.onConnect();
 
 	}
@@ -295,6 +295,10 @@ class App extends React.Component {
 		const navEvent = new PopStateEvent('popstate');
 		window.dispatchEvent(navEvent);
 
+	}
+
+	handleNotifications = (event) => {
+		console.log(event);
 	}
 
 	serializeModes() {
