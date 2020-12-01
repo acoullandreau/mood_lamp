@@ -41,6 +41,17 @@
 	background-color: #8378A2;
 }
 
+.save-button-icon {
+	/*margin-right:7%;*/
+	width: 12%;
+	height: auto;
+}
+
+.save-button-text {
+	display: inline-block;
+	width: 80%;
+	text-align: center;
+}
 
 #selectors {
 	display:grid;
