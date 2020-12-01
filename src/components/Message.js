@@ -33,6 +33,12 @@ class Message {
 	deserializeBinary(buffer) {
 		this.obj = maia_pb.Message.deserializeBinary(buffer);
 	}
+
+	static deserializeBinary(buffer) {
+		let message = new Message();
+		message.deserializeBinary(buffer);
+		return message;
+	}
 }
 
 export default Message;

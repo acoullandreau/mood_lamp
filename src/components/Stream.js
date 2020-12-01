@@ -39,6 +39,7 @@ class Stream {
 		let clientId = localStorage['clientId'];
 
 		bytes = CryptoUtils.bytesToBase64(bytes);
+		console.log('>', bytes);
 		bytes = Uint8Array.from(bytes, c => c.charCodeAt(0));
 
 		// [cafebabe][payload len = 4 bytes][payload]
@@ -62,42 +63,31 @@ class Stream {
         return this.sendNextChunk(payload, clientId);
 	}
 
-	sendNextChunk = (a, clientId) => {
+	sendNextChunk = (payload, clientId) => {
 	    let sent = 0;
-	    let length = a.length;
+	    let length = payload.length;
 	    while (sent < length) {
-	    	// each packet has this format
-	    	// [length =  mtu              ]
-	    	// [clientId = 4 bytes][payload]
 			let tmp = new Uint8Array(this.mtu);
-			let chunk = a.slice(0, this.mtu - 4);
-			let clientIdBin = CryptoUtils.clientIdToBytes(clientId);
-			tmp.set(clientIdBin, 0);
-			tmp.set(chunk, 4);
+			let chunk = payload.slice(0, this.mtu);
+			tmp.set(chunk, 0);
 			this.writeQueue.push(tmp);
-	        a = a.slice(this.mtu - 4);
-	    	sent += this.mtu - 4;
+	        payload = payload.slice(this.mtu);
+	    	sent += this.mtu;
 		}
 		return this.processQueue();
 	}
 
 	receive(buffer) {
-		let clientId = CryptoUtils.clientIdToBytes(localStorage['clientId']);
-		if (this.hasPrefix(buffer, clientId)) {
-			buffer = new Uint8Array(buffer, 4);
-			switch (this.currState) {
-				case States.WAITING:
-					this.runWaiting(buffer);
-					break;
-				case States.RECEIVING:
-					this.runReceiving(buffer);
-					break;
-				default:
-					break;
-			}
-		}
-		else {
-			console.warn('Skipping message for clientId', buffer.slice(0, 4));
+		buffer = new Uint8Array(buffer);
+		switch (this.currState) {
+			case States.WAITING:
+				this.runWaiting(buffer);
+				break;
+			case States.RECEIVING:
+				this.runReceiving(buffer);
+				break;
+			default:
+				break;
 		}
 	}
 
@@ -165,6 +155,7 @@ class Stream {
 		if (this.totalReceived === this.totalLength) {
 			if (this.messageCallback) {
 				let buffer = String.fromCharCode.apply(null, this.buffer);
+				console.log('<', buffer)
 				buffer = CryptoUtils.base64ToBytes(buffer);
 				this.messageCallback(buffer);
 			}
