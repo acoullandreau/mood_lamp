@@ -39,7 +39,7 @@ class Stream {
 		let clientId = localStorage['clientId'];
 
 		bytes = CryptoUtils.bytesToBase64(bytes);
-		console.log('>', bytes);
+		// console.log('>', bytes);
 		bytes = Uint8Array.from(bytes, c => c.charCodeAt(0));
 
 		// [cafebabe][payload len = 4 bytes][payload]
@@ -79,6 +79,7 @@ class Stream {
 
 	receive(buffer) {
 		buffer = new Uint8Array(buffer);
+		// console.log('<<', buffer);
 		switch (this.currState) {
 			case States.WAITING:
 				this.runWaiting(buffer);
@@ -155,7 +156,7 @@ class Stream {
 		if (this.totalReceived === this.totalLength) {
 			if (this.messageCallback) {
 				let buffer = String.fromCharCode.apply(null, this.buffer);
-				console.log('<', buffer)
+				// console.log('<', buffer)
 				buffer = CryptoUtils.base64ToBytes(buffer);
 				this.messageCallback(buffer);
 			}
@@ -175,6 +176,7 @@ class Stream {
 			if (this.writeQueue.length > 0) {
 				let chunk = this.writeQueue[0];
 				this.writeQueue = this.writeQueue.slice(1);
+				// console.log('>>', chunk);
 				this.channel(chunk)
 				.then(() => {
 					return this.processQueue();

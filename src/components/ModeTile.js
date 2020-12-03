@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { selectMode } from '../actions';
 import DropdownOverlay from './DropdownOverlay.js';
-import MaiaService from './MaiaService.js';
-import Utils from './Utils.js';
+import MaiaService from '../services/MaiaService.js';
+import Utils from '../classes/Utils.js';
 
 class ModeTile extends React.Component {
 

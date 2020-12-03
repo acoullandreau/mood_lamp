@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import iro from '@jaames/iro';
 import { connect } from 'react-redux';
 import { selectMode } from '../actions';
-import MaiaService from './MaiaService.js';
+import MaiaService from '../services/MaiaService.js';
 import ModeModel from './ModeModel.js';
 import Slider from './Slider.js';
-import Utils from './Utils.js';
+import Utils from '../classes/Utils.js';
 
 class IroColorPicker extends React.Component {
 

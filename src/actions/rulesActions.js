@@ -1,4 +1,4 @@
-import MaiaService from '../components/MaiaService.js';
+import MaiaService from '../services/MaiaService.js';
 
 export const fetchRules = () => {
 	return (dispatch) => {

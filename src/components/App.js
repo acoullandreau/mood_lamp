@@ -1,18 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchModes, fetchRules, addMode, editMode, getFactorySettings, selectMode } from '../actions';
-import BluetoothService from './BluetoothService.js';
+import BluetoothService from '../services/BluetoothService.js';
 import configJSON from '../config.json';
 import ColorPicker from './ColorPicker.js';
-import MaiaService from './MaiaService.js';
-import ModeModel from '../components/ModeModel.js';
+import MaiaService from '../services/MaiaService.js';
+import ModeModel from './ModeModel.js';
 import ModesList from './ModesList.js';
 import Overlay from './Overlay.js';
 import Readings from './Readings.js';
 import Route from './Route.js';
 import Rules from './Rules.js';
 import SideNavBar from './SideNavBar.js';
-import Utils from './Utils.js';
+import Utils from '../classes/Utils.js';
 
 // PWA offline
 // Before Prod
@@ -294,11 +294,10 @@ class App extends React.Component {
 		window.history.pushState({}, '', '#');
 		const navEvent = new PopStateEvent('popstate');
 		window.dispatchEvent(navEvent);
-
 	}
 
 	handleNotifications = (event) => {
-		console.log(event);
+		// console.log(event);
 	}
 
 	serializeModes() {

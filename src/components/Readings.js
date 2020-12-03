@@ -1,5 +1,5 @@
 import React from 'react';
-import MaiaService from './MaiaService.js';
+import MaiaService from '../services/MaiaService.js';
 import configJSON from '../config.json';
 
 class Readings extends React.Component {
@@ -37,7 +37,7 @@ class Readings extends React.Component {
 		MaiaService.getReadings()
 		.then(measures => {
 			this.setState({ 'lastUpdate':Date.now(), measures: {...measures} });
-			this.intervalID = setTimeout(this.getReadings, 500);
+			this.intervalID = setTimeout(this.getReadings, 50);
 		})
 	}
 

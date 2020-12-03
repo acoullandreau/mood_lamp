@@ -1,8 +1,25 @@
-import CryptoUtils from './CryptoUtils'
-import Message from './Message';
-import MessageUtils from './MessageUtils'
-import Stream from './Stream'
+import MaiaUtils from '../classes/MaiaUtils'
+import Message from '../classes/Message';
+import MessageUtils from '../classes/MessageUtils'
+import Stream from '../classes/Stream'
 import { v4 as uuidv4 } from 'uuid';
+
+const Commands = Object.freeze({
+	"ACK":0, 
+	"GET_ACTIVE_MODE":1, 
+	"SET_ACTIVE_MODE":2, 
+	"GET_MODE_LIST":3, 
+	"SET_MODE_LIST":4, 
+	"GET_MODE":5, 
+	"UPDATE_MODE_COLOR":6, 
+	"UPDATE_MODE_SPEED":7, 
+	"GET_READINGS":8, 
+	"GET_SETTINGS":9, 
+	"SET_SETTINGS":10, 
+	"SET_TIME":11,
+	"ERROR":90,
+	"NOT_IMPLEMENTED":80
+});
 
 class BluetoothService {
 
@@ -164,23 +181,30 @@ class BluetoothService {
 		return p;
 	}
 
-	rpc(method, args) {
-		let payload = {'method' : method};
-		if (args) {
-			payload['args'] = args;
-		}
-		let message = MessageUtils.buildMessage(payload, false, CryptoUtils.getLocalPublicKey());
-		return this.sendMessage(message);
-	}
-
 	getModes() {
+		let message = MessageUtils.buildMessage();
+		message.setCommand(Commands.GET_MODE_LIST);
+		let modesPromise = new Promise((resolve, reject) => {
+			this.sendMessage(message).then((result) => {
+				let modesArray = [];
+				console.log(result);
+				if(result.length > 0) {
+					let modes_list = MaiaUtils.unpackModesList(result);
+					let pb_modes_list = modes_list.getModesList();
+					for (let index in pb_modes_list) {
+						let mode = MaiaUtils.unpackMode(pb_modes_list[index]);
+						modesArray.push(mode);
+					}
+				}
+				else {
+					console.log('list empty');
+				}
+				console.log(modesArray);
+				resolve(modesArray);
+			});
+		});
+		return modesPromise;
 
-		let payload = {
-			'method': 'getModes'
-		}
-		let message = MessageUtils.buildMessage(payload);
-		return this.sendMessage(message);
-		// var modesPromise = new Promise((resolve, reject) => {
 		// 	//fake request
 		// 	const modesArray = [
 		// 		{'name':'Éteindre', 'isOriginMode':true, 'isEditable':false, 'category':'off', 'colors':[{ r: 0, g: 0, b: 0 }], 'speed':0},
@@ -197,8 +221,6 @@ class BluetoothService {
 
 		// 	resolve(modesArray);
 		// });
-
-		// return modesPromise;
 	}
 
 
@@ -214,7 +236,17 @@ class BluetoothService {
 	saveModes(modesObject) {
 		// modesObject contains the array of saved modes and the currently selected mode
 		// save the object on the micro-controller
-		console.log('Saving Modes to micro-controller')
+
+		let modesPromise = new Promise((resolve, reject) => {
+			console.log('Saving Modes to micro-controller');
+			let message = MessageUtils.buildMessage();
+			message.setCommand(Commands.SET_MODE_LIST);
+			message.setObjectPayload(MaiaUtils.packModesList(modesObject));
+			this.sendMessage(message).then((result) => {
+				console.log(result);
+			});
+		});
+		return modesPromise;
 	}
 
 	setMode(modeConfig) {
@@ -224,98 +256,79 @@ class BluetoothService {
 		//Observation: modeConfig may be the config of a saved mode, but not necessarily, that's why the whole config is passed instead of just an index
 	}
 
-
-	getNoiseLevel() {
-		var noisePromise = new Promise((resolve, reject) => {
-			//fake request
-			resolve((Math.floor(Math.random() * 70) + 20));
-		})
-
-		return noisePromise;
-
-	}
-
-	getTemperature() {
-		var temperaturePromise = new Promise((resolve, reject) => {
-			//fake request
-			resolve(Math.floor(Math.random() * 40));
-		})
-
-		return temperaturePromise;
-	}
-
-	getHumidity() {
-		var humidityPromise = new Promise((resolve, reject) => {
-			//fake request
-			resolve(Math.floor(Math.random() * 100));
-		})
-
-		return humidityPromise;
-	}
-
-	getPressure() {
-		var pressurePromise = new Promise((resolve, reject) => {
-			//fake request
-			resolve(Math.floor(Math.random() * 200) + 1015);
-		})
-
-		return pressurePromise;
-	}
-
-	getBatteryLevel() {
-		var batteryPromise = new Promise((resolve, reject) => {
-			//fake request
-			resolve(Math.floor(Math.random() * 100));
-		})
-
-		return batteryPromise;
+	
+	getSensorValues() {
+		let sensorPromise = new Promise((resolve, reject) => {
+			let message = MessageUtils.buildMessage();
+			message.setCommand(Commands.GET_READINGS);
+			this.sendMessage(message).then((result) => {
+				let readings = MaiaUtils.unpackReadings(result);
+				resolve(readings);
+			});
+		});
+		return sensorPromise;
 	}
 
 	getRules() {
-		var rulesPromise = new Promise((resolve, reject) => {
-			//fake request
-			const rulesConfig = {
-				'dayTimeAuto': {'active':false},
-				'silentAutoOff': {'active':false, 'duration':12},
-				'autoOn':{
-					'active':false,
-					'onLightLevel':{
-						'startTime':'20:00',
-						'withStartTime':false,
-						'active':true
-					},
-					'onSchedule':{
-						'startTime':'20:00',
-						'withStartDimmingTime':false,
-						'startDimmingTime':'19:45',
-						'active':false
-					},
-				},
-				'autoOff':{
-					'active':true,
-					'onLightLevel':{
-						'startTime':'23:00',
-						'withStartTime':false,
-						'active':false
-					},
-					'onSchedule':{
-						'startTime':'23:00',
-						'withStartDimmingTime':false,
-						'startDimmingTime':'22:30',
-						'active':true
-					},
-				},
-			}
-
-			resolve(rulesConfig);
+		let message = MessageUtils.buildMessage();
+		message.setCommand(Commands.GET_SETTINGS);
+		let rulesPromise = new Promise((resolve, reject) => {
+			this.sendMessage(message).then((result) => {
+				console.log(result);
+			});
 		});
 
 		return rulesPromise;
+		// var rulesPromise = new Promise((resolve, reject) => {
+		// 	//fake request
+		// 	const rulesConfig = {
+		// 		'dayTimeAuto': {'active':false},
+		// 		'silentAutoOff': {'active':false, 'duration':12},
+		// 		'autoOn':{
+		// 			'active':false,
+		// 			'onLightLevel':{
+		// 				'startTime':'20:00',
+		// 				'withStartTime':false,
+		// 				'active':true
+		// 			},
+		// 			'onSchedule':{
+		// 				'startTime':'20:00',
+		// 				'withStartDimmingTime':false,
+		// 				'startDimmingTime':'19:45',
+		// 				'active':false
+		// 			},
+		// 		},
+		// 		'autoOff':{
+		// 			'active':true,
+		// 			'onLightLevel':{
+		// 				'startTime':'23:00',
+		// 				'withStartTime':false,
+		// 				'active':false
+		// 			},
+		// 			'onSchedule':{
+		// 				'startTime':'23:00',
+		// 				'withStartDimmingTime':false,
+		// 				'startDimmingTime':'22:30',
+		// 				'active':true
+		// 			},
+		// 		},
+		// 	}
+
+		// 	resolve(rulesConfig);
+		// });
 	}
 
 	saveRules(rulesObject) {
-		// save the object on the micro-controller
-		console.log('Saving Rules to micro-controller')
+		console.log('Saving Rules to micro-controller');
+		let message = MessageUtils.buildMessage();
+		message.setCommand(Commands.SET_SETTINGS);
+		message.setObjectPayload(MaiaUtils.packRules(rulesObject));
+		let rulesPromise = new Promise((resolve, reject) => {
+			this.sendMessage(message).then((result) => {
+				console.log(result);
+			});
+		});
+		return rulesPromise;
 	}
 
 }

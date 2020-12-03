@@ -15,15 +15,24 @@ class Message {
 	}
 
 	getPayload() {
-		let payload = new TextDecoder("utf-8").decode(this.obj.getPayload());
-		payload = JSON.parse(payload);
-		return payload;
+		return this.obj.getPayload();
+		// let payload = new TextDecoder("utf-8").decode(this.obj.getPayload());
+		// payload = JSON.parse(payload);
+		// return payload;
 	}
 
-	setObjectPayload(obj) {
-		var obj_str = JSON.stringify(obj);
-		let payload = new TextEncoder("utf-8").encode(obj_str);
+	setObjectPayload(payload) {
+		// var obj_str = JSON.stringify(obj);
+		// let payload = new TextEncoder("utf-8").encode(obj_str);
 		this.obj.setPayload(payload);
+	}
+
+	setCommand(command) {
+		this.obj.setCommand(command);
+	}
+
+	getCommand(command) {
+		this.obj.getCommand();
 	}
 
 	serializeBinary() {
