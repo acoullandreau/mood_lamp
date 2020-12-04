@@ -2113,16 +2113,18 @@ proto.maia.Settings.toObject = function(includeInstance, msg) {
     autoOffSoundHours: jspb.Message.getFieldWithDefault(msg, 3, 0),
     autoOn: jspb.Message.getBooleanFieldWithDefault(msg, 4, false),
     autoOnMode: jspb.Message.getFieldWithDefault(msg, 5, 0),
-    autoOnTimeLl: jspb.Message.getFieldWithDefault(msg, 6, 0),
-    autoOnTimeDimm: jspb.Message.getFieldWithDefault(msg, 7, 0),
-    autoOnDimm: jspb.Message.getBooleanFieldWithDefault(msg, 8, false),
-    autoOnDimmTime: jspb.Message.getFieldWithDefault(msg, 9, 0),
-    autoOff: jspb.Message.getBooleanFieldWithDefault(msg, 10, false),
-    autoOffMode: jspb.Message.getFieldWithDefault(msg, 11, 0),
-    autoOffTimeLl: jspb.Message.getFieldWithDefault(msg, 12, 0),
-    autoOffTimeDimm: jspb.Message.getFieldWithDefault(msg, 13, 0),
-    autoOffDimm: jspb.Message.getBooleanFieldWithDefault(msg, 14, false),
-    autoOffDimmTime: jspb.Message.getFieldWithDefault(msg, 15, 0)
+    autoOnLlTimeLocked: jspb.Message.getBooleanFieldWithDefault(msg, 6, false),
+    autoOnLlAfterTime: jspb.Message.getFieldWithDefault(msg, 7, 0),
+    autoOnTime: jspb.Message.getFieldWithDefault(msg, 8, 0),
+    autoOnTimeDimm: jspb.Message.getBooleanFieldWithDefault(msg, 9, false),
+    autoOnTimeDimmTime: jspb.Message.getFieldWithDefault(msg, 10, 0),
+    autoOff: jspb.Message.getBooleanFieldWithDefault(msg, 11, false),
+    autoOffMode: jspb.Message.getFieldWithDefault(msg, 12, 0),
+    autoOffLlTimeLocked: jspb.Message.getBooleanFieldWithDefault(msg, 13, false),
+    autoOffLlAfterTime: jspb.Message.getFieldWithDefault(msg, 14, 0),
+    autoOffTime: jspb.Message.getFieldWithDefault(msg, 15, 0),
+    autoOffTimeDimm: jspb.Message.getBooleanFieldWithDefault(msg, 16, false),
+    autoOffTimeDimmTime: jspb.Message.getFieldWithDefault(msg, 17, 0)
   };
 
   if (includeInstance) {
@@ -2180,44 +2182,52 @@ proto.maia.Settings.deserializeBinaryFromReader = function(msg, reader) {
       msg.setAutoOnMode(value);
       break;
     case 6:
-      var value = /** @type {number} */ (reader.readUint32());
-      msg.setAutoOnTimeLl(value);
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setAutoOnLlTimeLocked(value);
       break;
     case 7:
       var value = /** @type {number} */ (reader.readUint32());
-      msg.setAutoOnTimeDimm(value);
+      msg.setAutoOnLlAfterTime(value);
       break;
     case 8:
-      var value = /** @type {boolean} */ (reader.readBool());
-      msg.setAutoOnDimm(value);
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setAutoOnTime(value);
       break;
     case 9:
-      var value = /** @type {number} */ (reader.readUint32());
-      msg.setAutoOnDimmTime(value);
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setAutoOnTimeDimm(value);
       break;
     case 10:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setAutoOnTimeDimmTime(value);
+      break;
+    case 11:
       var value = /** @type {boolean} */ (reader.readBool());
       msg.setAutoOff(value);
       break;
-    case 11:
+    case 12:
       var value = /** @type {!proto.maia.auto_mode_t} */ (reader.readEnum());
       msg.setAutoOffMode(value);
       break;
-    case 12:
-      var value = /** @type {number} */ (reader.readUint32());
-      msg.setAutoOffTimeLl(value);
-      break;
     case 13:
-      var value = /** @type {number} */ (reader.readUint32());
-      msg.setAutoOffTimeDimm(value);
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setAutoOffLlTimeLocked(value);
       break;
     case 14:
-      var value = /** @type {boolean} */ (reader.readBool());
-      msg.setAutoOffDimm(value);
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setAutoOffLlAfterTime(value);
       break;
     case 15:
       var value = /** @type {number} */ (reader.readUint32());
-      msg.setAutoOffDimmTime(value);
+      msg.setAutoOffTime(value);
+      break;
+    case 16:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setAutoOffTimeDimm(value);
+      break;
+    case 17:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setAutoOffTimeDimmTime(value);
       break;
     default:
       reader.skipField();
@@ -2283,73 +2293,87 @@ proto.maia.Settings.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
-  f = message.getAutoOnTimeLl();
-  if (f !== 0) {
-    writer.writeUint32(
+  f = message.getAutoOnLlTimeLocked();
+  if (f) {
+    writer.writeBool(
       6,
       f
     );
   }
-  f = message.getAutoOnTimeDimm();
+  f = message.getAutoOnLlAfterTime();
   if (f !== 0) {
     writer.writeUint32(
       7,
       f
     );
   }
-  f = message.getAutoOnDimm();
-  if (f) {
-    writer.writeBool(
+  f = message.getAutoOnTime();
+  if (f !== 0) {
+    writer.writeUint32(
       8,
       f
     );
   }
-  f = message.getAutoOnDimmTime();
+  f = message.getAutoOnTimeDimm();
+  if (f) {
+    writer.writeBool(
+      9,
+      f
+    );
+  }
+  f = message.getAutoOnTimeDimmTime();
   if (f !== 0) {
     writer.writeUint32(
-      9,
+      10,
       f
     );
   }
   f = message.getAutoOff();
   if (f) {
     writer.writeBool(
-      10,
+      11,
       f
     );
   }
   f = message.getAutoOffMode();
   if (f !== 0.0) {
     writer.writeEnum(
-      11,
-      f
-    );
-  }
-  f = message.getAutoOffTimeLl();
-  if (f !== 0) {
-    writer.writeUint32(
       12,
       f
     );
   }
-  f = message.getAutoOffTimeDimm();
-  if (f !== 0) {
-    writer.writeUint32(
+  f = message.getAutoOffLlTimeLocked();
+  if (f) {
+    writer.writeBool(
       13,
       f
     );
   }
-  f = message.getAutoOffDimm();
-  if (f) {
-    writer.writeBool(
+  f = message.getAutoOffLlAfterTime();
+  if (f !== 0) {
+    writer.writeUint32(
       14,
       f
     );
   }
-  f = message.getAutoOffDimmTime();
+  f = message.getAutoOffTime();
   if (f !== 0) {
     writer.writeUint32(
       15,
+      f
+    );
+  }
+  f = message.getAutoOffTimeDimm();
+  if (f) {
+    writer.writeBool(
+      16,
+      f
+    );
+  }
+  f = message.getAutoOffTimeDimmTime();
+  if (f !== 0) {
+    writer.writeUint32(
+      17,
       f
     );
   }
@@ -2447,28 +2471,28 @@ proto.maia.Settings.prototype.setAutoOnMode = function(value) {
 
 
 /**
- * optional uint32 auto_on_time_ll = 6;
- * @return {number}
+ * optional bool auto_on_ll_time_locked = 6;
+ * @return {boolean}
  */
-proto.maia.Settings.prototype.getAutoOnTimeLl = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
+proto.maia.Settings.prototype.getAutoOnLlTimeLocked = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 6, false));
 };
 
 
 /**
- * @param {number} value
+ * @param {boolean} value
  * @return {!proto.maia.Settings} returns this
  */
-proto.maia.Settings.prototype.setAutoOnTimeLl = function(value) {
-  return jspb.Message.setProto3IntField(this, 6, value);
+proto.maia.Settings.prototype.setAutoOnLlTimeLocked = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 6, value);
 };
 
 
 /**
- * optional uint32 auto_on_time_dimm = 7;
+ * optional uint32 auto_on_ll_after_time = 7;
  * @return {number}
  */
-proto.maia.Settings.prototype.getAutoOnTimeDimm = function() {
+proto.maia.Settings.prototype.getAutoOnLlAfterTime = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 7, 0));
 };
 
@@ -2477,35 +2501,17 @@ proto.maia.Settings.prototype.getAutoOnTimeDimm = function() {
  * @param {number} value
  * @return {!proto.maia.Settings} returns this
  */
-proto.maia.Settings.prototype.setAutoOnTimeDimm = function(value) {
+proto.maia.Settings.prototype.setAutoOnLlAfterTime = function(value) {
   return jspb.Message.setProto3IntField(this, 7, value);
 };
 
 
 /**
- * optional bool auto_on_dimm = 8;
- * @return {boolean}
- */
-proto.maia.Settings.prototype.getAutoOnDimm = function() {
-  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 8, false));
-};
-
-
-/**
- * @param {boolean} value
- * @return {!proto.maia.Settings} returns this
- */
-proto.maia.Settings.prototype.setAutoOnDimm = function(value) {
-  return jspb.Message.setProto3BooleanField(this, 8, value);
-};
-
-
-/**
- * optional uint32 auto_on_dimm_time = 9;
+ * optional uint32 auto_on_time = 8;
  * @return {number}
  */
-proto.maia.Settings.prototype.getAutoOnDimmTime = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 9, 0));
+proto.maia.Settings.prototype.getAutoOnTime = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 8, 0));
 };
 
 
@@ -2513,17 +2519,53 @@ proto.maia.Settings.prototype.getAutoOnDimmTime = function() {
  * @param {number} value
  * @return {!proto.maia.Settings} returns this
  */
-proto.maia.Settings.prototype.setAutoOnDimmTime = function(value) {
-  return jspb.Message.setProto3IntField(this, 9, value);
+proto.maia.Settings.prototype.setAutoOnTime = function(value) {
+  return jspb.Message.setProto3IntField(this, 8, value);
 };
 
 
 /**
- * optional bool auto_off = 10;
+ * optional bool auto_on_time_dimm = 9;
+ * @return {boolean}
+ */
+proto.maia.Settings.prototype.getAutoOnTimeDimm = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 9, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.maia.Settings} returns this
+ */
+proto.maia.Settings.prototype.setAutoOnTimeDimm = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 9, value);
+};
+
+
+/**
+ * optional uint32 auto_on_time_dimm_time = 10;
+ * @return {number}
+ */
+proto.maia.Settings.prototype.getAutoOnTimeDimmTime = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 10, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.maia.Settings} returns this
+ */
+proto.maia.Settings.prototype.setAutoOnTimeDimmTime = function(value) {
+  return jspb.Message.setProto3IntField(this, 10, value);
+};
+
+
+/**
+ * optional bool auto_off = 11;
  * @return {boolean}
  */
 proto.maia.Settings.prototype.getAutoOff = function() {
-  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 10, false));
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 11, false));
 };
 
 
@@ -2532,16 +2574,16 @@ proto.maia.Settings.prototype.getAutoOff = function() {
  * @return {!proto.maia.Settings} returns this
  */
 proto.maia.Settings.prototype.setAutoOff = function(value) {
-  return jspb.Message.setProto3BooleanField(this, 10, value);
+  return jspb.Message.setProto3BooleanField(this, 11, value);
 };
 
 
 /**
- * optional auto_mode_t auto_off_mode = 11;
+ * optional auto_mode_t auto_off_mode = 12;
  * @return {!proto.maia.auto_mode_t}
  */
 proto.maia.Settings.prototype.getAutoOffMode = function() {
-  return /** @type {!proto.maia.auto_mode_t} */ (jspb.Message.getFieldWithDefault(this, 11, 0));
+  return /** @type {!proto.maia.auto_mode_t} */ (jspb.Message.getFieldWithDefault(this, 12, 0));
 };
 
 
@@ -2550,52 +2592,16 @@ proto.maia.Settings.prototype.getAutoOffMode = function() {
  * @return {!proto.maia.Settings} returns this
  */
 proto.maia.Settings.prototype.setAutoOffMode = function(value) {
-  return jspb.Message.setProto3EnumField(this, 11, value);
+  return jspb.Message.setProto3EnumField(this, 12, value);
 };
 
 
 /**
- * optional uint32 auto_off_time_ll = 12;
- * @return {number}
- */
-proto.maia.Settings.prototype.getAutoOffTimeLl = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 12, 0));
-};
-
-
-/**
- * @param {number} value
- * @return {!proto.maia.Settings} returns this
- */
-proto.maia.Settings.prototype.setAutoOffTimeLl = function(value) {
-  return jspb.Message.setProto3IntField(this, 12, value);
-};
-
-
-/**
- * optional uint32 auto_off_time_dimm = 13;
- * @return {number}
- */
-proto.maia.Settings.prototype.getAutoOffTimeDimm = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 13, 0));
-};
-
-
-/**
- * @param {number} value
- * @return {!proto.maia.Settings} returns this
- */
-proto.maia.Settings.prototype.setAutoOffTimeDimm = function(value) {
-  return jspb.Message.setProto3IntField(this, 13, value);
-};
-
-
-/**
- * optional bool auto_off_dimm = 14;
+ * optional bool auto_off_ll_time_locked = 13;
  * @return {boolean}
  */
-proto.maia.Settings.prototype.getAutoOffDimm = function() {
-  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 14, false));
+proto.maia.Settings.prototype.getAutoOffLlTimeLocked = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 13, false));
 };
 
 
@@ -2603,16 +2609,34 @@ proto.maia.Settings.prototype.getAutoOffDimm = function() {
  * @param {boolean} value
  * @return {!proto.maia.Settings} returns this
  */
-proto.maia.Settings.prototype.setAutoOffDimm = function(value) {
-  return jspb.Message.setProto3BooleanField(this, 14, value);
+proto.maia.Settings.prototype.setAutoOffLlTimeLocked = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 13, value);
 };
 
 
 /**
- * optional uint32 auto_off_dimm_time = 15;
+ * optional uint32 auto_off_ll_after_time = 14;
  * @return {number}
  */
-proto.maia.Settings.prototype.getAutoOffDimmTime = function() {
+proto.maia.Settings.prototype.getAutoOffLlAfterTime = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 14, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.maia.Settings} returns this
+ */
+proto.maia.Settings.prototype.setAutoOffLlAfterTime = function(value) {
+  return jspb.Message.setProto3IntField(this, 14, value);
+};
+
+
+/**
+ * optional uint32 auto_off_time = 15;
+ * @return {number}
+ */
+proto.maia.Settings.prototype.getAutoOffTime = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 15, 0));
 };
 
@@ -2621,8 +2645,44 @@ proto.maia.Settings.prototype.getAutoOffDimmTime = function() {
  * @param {number} value
  * @return {!proto.maia.Settings} returns this
  */
-proto.maia.Settings.prototype.setAutoOffDimmTime = function(value) {
+proto.maia.Settings.prototype.setAutoOffTime = function(value) {
   return jspb.Message.setProto3IntField(this, 15, value);
+};
+
+
+/**
+ * optional bool auto_off_time_dimm = 16;
+ * @return {boolean}
+ */
+proto.maia.Settings.prototype.getAutoOffTimeDimm = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 16, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.maia.Settings} returns this
+ */
+proto.maia.Settings.prototype.setAutoOffTimeDimm = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 16, value);
+};
+
+
+/**
+ * optional uint32 auto_off_time_dimm_time = 17;
+ * @return {number}
+ */
+proto.maia.Settings.prototype.getAutoOffTimeDimmTime = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 17, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.maia.Settings} returns this
+ */
+proto.maia.Settings.prototype.setAutoOffTimeDimmTime = function(value) {
+  return jspb.Message.setProto3IntField(this, 17, value);
 };
 
 

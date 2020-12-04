@@ -58,7 +58,34 @@ class MaiaUtils {
 
     static packRules(rulesObject) {
         let settings = new maia_pb.Settings();
-        console.log(rulesObject);
+        settings.setSmartMode(rulesObject['dayTimeAuto']['active']);
+        settings.setAutoOffSound(rulesObject['silentAutoOff']['active']);
+        settings.setAutoOffSoundHours(parseInt(rulesObject['silentAutoOff']['duration']));
+        settings.setAutoOn(rulesObject['autoOn']['active']);
+        if (rulesObject['autoOn']['onLightLevel']['active'] == true) {
+            settings.setAutoOnMode(maia_pb.auto_mode_t.LIGHT_LEVEL);
+        }
+        else {
+            settings.setAutoOnMode(maia_pb.auto_mode_t.TIME);
+        }
+        settings.setAutoOnLlTimeLocked(rulesObject['autoOn']['onLightLevel']['withStartTime']);
+        settings.setAutoOnLlAfterTime(this.encodeHours(rulesObject['autoOn']['onLightLevel']['startTime']));
+        settings.setAutoOnTime(this.encodeHours(rulesObject['autoOn']['onSchedule']['startTime']));
+        settings.setAutoOnTimeDimm(rulesObject['autoOn']['onSchedule']['withStartDimmingTime']);
+        settings.setAutoOnTimeDimmTime(this.encodeHours(rulesObject['autoOn']['onSchedule']['startDimmingTime']));
+
+        settings.setAutoOff(rulesObject['autoOff']['active']);
+        if (rulesObject['autoOff']['onLightLevel']['active'] == true) {
+            settings.setAutoOffMode(maia_pb.auto_mode_t.LIGHT_LEVEL);
+        }
+        else {
+            settings.setAutoOffMode(maia_pb.auto_mode_t.TIME);
+        }
+        settings.setAutoOffLlTimeLocked(rulesObject['autoOff']['onLightLevel']['withStartTime']);
+        settings.setAutoOffLlAfterTime(this.encodeHours(rulesObject['autoOff']['onLightLevel']['startTime']));
+        settings.setAutoOffTime(this.encodeHours(rulesObject['autoOff']['onSchedule']['startTime']));
+        settings.setAutoOffTimeDimm(rulesObject['autoOff']['onSchedule']['withStartDimmingTime']);
+        settings.setAutoOffTimeDimmTime(this.encodeHours(rulesObject['autoOff']['onSchedule']['startDimmingTime']));
         return settings.serializeBinary();
     }
 
@@ -72,6 +99,19 @@ class MaiaUtils {
             'battery':'--',
         }
         return readings;
+    }
+
+    static zeroPad(num, places) {
+        var zero = places - num.toString().length + 1;
+        return Array(+(zero > 0 && zero)).join("0") + num;
+    }
+
+    static decodeHours(value) {
+        return String(this.zeroPad(Math.floor(value/60), 2)) + ':' + String(this.zeroPad(value % 60, 2));
+    }
+
+    static encodeHours(value) {
+        return parseInt(value.substring(0,2)) * 60 + parseInt(value.substring(3,5));
     }
 
     static unpackSettings(buffer) {
@@ -88,29 +128,29 @@ class MaiaUtils {
             'autoOn':{
                 'active':pb_settings.getAutoOn(),
                 'onLightLevel':{
-                    'startTime':'20:00',
-                    'withStartTime':pb_settings.getAutoOn(),
+                    'startTime':this.decodeHours(pb_settings.getAutoOnLlAfterTime()),
+                    'withStartTime':pb_settings.getAutoOnLlTimeLocked(),
                     'active':pb_settings.getAutoOnMode() == maia_pb.auto_mode_t.LIGHT_LEVEL
                 },
                 'onSchedule':{
-                    'startTime':'20:00',
+                    'startTime':this.decodeHours(pb_settings.getAutoOnTime()),
                     'withStartDimmingTime':pb_settings.getAutoOnTimeDimm(),
-                    'startDimmingTime':'19:45',
+                    'startDimmingTime':this.decodeHours(pb_settings.getAutoOnTimeDimmTime()),
                     'active':pb_settings.getAutoOnMode() == maia_pb.auto_mode_t.TIME
                 },
             },
             'autoOff':{
-                'active':pb_settings.getAutoOn(),
+                'active':pb_settings.getAutoOff(),
                 'onLightLevel':{
-                    'startTime':'23:00',
-                    'withStartTime':pb_settings.getAutoOn(),
-                    'active':pb_settings.getAutoOnMode() == maia_pb.auto_mode_t.LIGHT_LEVEL
+                    'startTime':this.decodeHours(pb_settings.getAutoOnLlAfterTime()),
+                    'withStartTime':pb_settings.getAutoOffLlTimeLocked(),
+                    'active':pb_settings.getAutoOffMode() == maia_pb.auto_mode_t.LIGHT_LEVEL
                 },
                 'onSchedule':{
-                    'startTime':'23:00',
-                    'withStartDimmingTime':pb_settings.getAutoOnTimeDimm(),
-                    'startDimmingTime':'22:30',
-                    'active':pb_settings.getAutoOnMode() == maia_pb.auto_mode_t.TIME
+                    'startTime':this.decodeHours(pb_settings.getAutoOffTime()),
+                    'withStartDimmingTime':pb_settings.getAutoOffTimeDimm(),
+                    'startDimmingTime':this.decodeHours(pb_settings.getAutoOffTimeDimmTime()),
+                    'active':pb_settings.getAutoOffMode() == maia_pb.auto_mode_t.TIME
                 },
             },
         }

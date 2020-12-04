@@ -271,53 +271,54 @@ class BluetoothService {
 	getRules() {
 		let message = MessageUtils.buildMessage();
 		message.setCommand(Commands.GET_SETTINGS);
-		// let rulesPromise = new Promise((resolve, reject) => {
+		let rulesPromise = new Promise((resolve, reject) => {
 			this.sendMessage(message).then((result) => {
 				let settings = MaiaUtils.unpackSettings(result);
 				console.log(settings);
+				resolve(settings);
 			});
-		// });
-
-		// return rulesPromise;
-		var rulesPromise = new Promise((resolve, reject) => {
-			//fake request
-			const rulesConfig = {
-				'dayTimeAuto': {'active':false},
-				'silentAutoOff': {'active':false, 'duration':12},
-				'autoOn':{
-					'active':false,
-					'onLightLevel':{
-						'startTime':'20:00',
-						'withStartTime':false,
-						'active':true
-					},
-					'onSchedule':{
-						'startTime':'20:00',
-						'withStartDimmingTime':false,
-						'startDimmingTime':'19:45',
-						'active':false
-					},
-				},
-				'autoOff':{
-					'active':true,
-					'onLightLevel':{
-						'startTime':'23:00',
-						'withStartTime':false,
-						'active':false
-					},
-					'onSchedule':{
-						'startTime':'23:00',
-						'withStartDimmingTime':false,
-						'startDimmingTime':'22:30',
-						'active':true
-					},
-				},
-			}
-
-			resolve(rulesConfig);
 		});
 
 		return rulesPromise;
+		// var rulesPromise = new Promise((resolve, reject) => {
+		// 	//fake request
+		// 	const rulesConfig = {
+		// 		'dayTimeAuto': {'active':false},
+		// 		'silentAutoOff': {'active':false, 'duration':12},
+		// 		'autoOn':{
+		// 			'active':false,
+		// 			'onLightLevel':{
+		// 				'startTime':'20:00',
+		// 				'withStartTime':false,
+		// 				'active':true
+		// 			},
+		// 			'onSchedule':{
+		// 				'startTime':'20:00',
+		// 				'withStartDimmingTime':false,
+		// 				'startDimmingTime':'19:45',
+		// 				'active':false
+		// 			},
+		// 		},
+		// 		'autoOff':{
+		// 			'active':true,
+		// 			'onLightLevel':{
+		// 				'startTime':'23:00',
+		// 				'withStartTime':false,
+		// 				'active':false
+		// 			},
+		// 			'onSchedule':{
+		// 				'startTime':'23:00',
+		// 				'withStartDimmingTime':false,
+		// 				'startDimmingTime':'22:30',
+		// 				'active':true
+		// 			},
+		// 		},
+		// 	}
+
+		// 	resolve(rulesConfig);
+		// });
+
+		// return rulesPromise;
 	}
 
 	saveRules(rulesObject) {
