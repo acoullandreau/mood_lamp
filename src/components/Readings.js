@@ -6,9 +6,11 @@ class Readings extends React.Component {
 
 	intervalID;
 	state = {'lastUpdate':'', 'measures':{}};
+	shouldRefreshReadings = false;
 
 	componentDidMount() {
 		//fetch the current values of the measurements
+		this.shouldRefreshReadings = true;
 		this.getReadings();
 		this.getGridSize();
 	}
@@ -19,6 +21,7 @@ class Readings extends React.Component {
 
 	componentWillUnmount() {
 		//clear the timeout
+		this.shouldRefreshReadings = false;
 		clearTimeout(this.intervalID);
 	}
 
@@ -37,7 +40,9 @@ class Readings extends React.Component {
 		MaiaService.getReadings()
 		.then(measures => {
 			this.setState({ 'lastUpdate':Date.now(), measures: {...measures} });
-			this.intervalID = setTimeout(this.getReadings, 50);
+			if (this.shouldRefreshReadings) {
+				this.intervalID = setTimeout(this.getReadings, 100);
+			}
 		})
 	}
 

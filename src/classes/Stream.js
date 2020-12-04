@@ -12,8 +12,10 @@ class Stream {
 		this.totalLength = 0;
 		this.totalReceived = 0;
 		this.currState = States.WAITING;
+		this.payloadQueue = [];
 		this.writeQueue = [];
 		this.messagePrefix = [0xca, 0xfe, 0xba, 0xbe];
+		this.ongoingTransfers = false;
 	}
 
 	setChannel(channel) {
@@ -39,7 +41,7 @@ class Stream {
 		let clientId = localStorage['clientId'];
 
 		bytes = CryptoUtils.bytesToBase64(bytes);
-		// console.log('>', bytes);
+		console.log('>', bytes);
 		bytes = Uint8Array.from(bytes, c => c.charCodeAt(0));
 
 		// [cafebabe][payload len = 4 bytes][payload]
@@ -59,8 +61,9 @@ class Stream {
 
 	    for (let i = 0; i < msgLength; i++) {
 	        payload[i+8] = bytes[i];
-	    }
-        return this.sendNextChunk(payload, clientId);
+		}
+		this.sendNextChunk(payload, clientId);
+        // return this.sendNextChunk(payload, clientId);
 	}
 
 	sendNextChunk = (payload, clientId) => {
@@ -74,7 +77,11 @@ class Stream {
 	        payload = payload.slice(this.mtu);
 	    	sent += this.mtu;
 		}
-		return this.processQueue();
+		// console.trace(this.writeQueue.length);
+		if (this.ongoingTransfers == false) {
+			this.processQueue();
+		}
+		// return this.processQueue();
 	}
 
 	receive(buffer) {
@@ -156,7 +163,7 @@ class Stream {
 		if (this.totalReceived === this.totalLength) {
 			if (this.messageCallback) {
 				let buffer = String.fromCharCode.apply(null, this.buffer);
-				// console.log('<', buffer)
+				console.log('<', buffer)
 				buffer = CryptoUtils.base64ToBytes(buffer);
 				this.messageCallback(buffer);
 			}
@@ -172,6 +179,7 @@ class Stream {
 	}
 
 	processQueue() {
+		this.ongoingTransfers = true;
 		var p = new Promise((resolve, reject) => {
 			if (this.writeQueue.length > 0) {
 				let chunk = this.writeQueue[0];
@@ -187,6 +195,7 @@ class Stream {
 				});
 			}
 			else {
+				this.ongoingTransfers = false;
 				resolve({});
 			}
 		});

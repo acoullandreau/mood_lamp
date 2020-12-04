@@ -74,6 +74,48 @@ class MaiaUtils {
         return readings;
     }
 
+    static unpackSettings(buffer) {
+        let pb_settings = maia_pb.Settings.deserializeBinary(buffer);
+        
+        const settings = {
+            'dayTimeAuto': {
+                'active':pb_settings.getSmartMode()
+            },
+            'silentAutoOff': {
+                'active':pb_settings.getAutoOffSound(), 
+                'duration':pb_settings.getAutoOffSoundHours()
+            },
+            'autoOn':{
+                'active':pb_settings.getAutoOn(),
+                'onLightLevel':{
+                    'startTime':'20:00',
+                    'withStartTime':pb_settings.getAutoOn(),
+                    'active':pb_settings.getAutoOnMode() == maia_pb.auto_mode_t.LIGHT_LEVEL
+                },
+                'onSchedule':{
+                    'startTime':'20:00',
+                    'withStartDimmingTime':pb_settings.getAutoOnTimeDimm(),
+                    'startDimmingTime':'19:45',
+                    'active':pb_settings.getAutoOnMode() == maia_pb.auto_mode_t.TIME
+                },
+            },
+            'autoOff':{
+                'active':pb_settings.getAutoOn(),
+                'onLightLevel':{
+                    'startTime':'23:00',
+                    'withStartTime':pb_settings.getAutoOn(),
+                    'active':pb_settings.getAutoOnMode() == maia_pb.auto_mode_t.LIGHT_LEVEL
+                },
+                'onSchedule':{
+                    'startTime':'23:00',
+                    'withStartDimmingTime':pb_settings.getAutoOnTimeDimm(),
+                    'startDimmingTime':'22:30',
+                    'active':pb_settings.getAutoOnMode() == maia_pb.auto_mode_t.TIME
+                },
+            },
+        }
+        return settings;
+    }
 }
 
 export default MaiaUtils;
