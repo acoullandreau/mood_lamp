@@ -283,6 +283,7 @@ class App extends React.Component {
 		this.setState({'isConnected':true}, () => {
 			this.props.fetchModes();
 			this.props.fetchRules();
+			MaiaService.setCurrentTime();
 		});
 		window.history.pushState({}, '', '#modes');
 		const navEvent = new PopStateEvent('popstate');

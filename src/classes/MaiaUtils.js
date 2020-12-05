@@ -167,6 +167,29 @@ class MaiaUtils {
         }
         return settings;
     }
+
+    static stdTimezoneOffset(ts) {
+        var jan = new Date(ts.getFullYear(), 0, 1);
+        var jul = new Date(ts.getFullYear(), 6, 1);
+        return Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset());
+    }
+    
+    static isDstObserved(ts) {
+        return ts.getTimezoneOffset() < this.stdTimezoneOffset(ts);
+    }
+
+    static packTime(ts) {
+        let pb_time = new maia_pb.Time();
+        pb_time.setSec(ts.getSeconds());
+        pb_time.setMin(ts.getMinutes());
+        pb_time.setHour(ts.getHours());
+        pb_time.setWday(ts.getDay());
+        pb_time.setMday(ts.getDate());
+        pb_time.setMon(ts.getMonth());
+        pb_time.setYear(ts.getFullYear());
+        pb_time.setIsDst(this.isDstObserved(ts));
+        return pb_time.serializeBinary();
+    }
 }
 
 export default MaiaUtils;

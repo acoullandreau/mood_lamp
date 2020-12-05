@@ -1802,7 +1802,14 @@ proto.maia.Time.prototype.toObject = function(opt_includeInstance) {
  */
 proto.maia.Time.toObject = function(includeInstance, msg) {
   var f, obj = {
-    time: msg.getTime_asB64()
+    sec: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    min: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    hour: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    wday: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    mday: jspb.Message.getFieldWithDefault(msg, 5, 0),
+    mon: jspb.Message.getFieldWithDefault(msg, 6, 0),
+    year: jspb.Message.getFieldWithDefault(msg, 7, 0),
+    isDst: jspb.Message.getBooleanFieldWithDefault(msg, 8, false)
   };
 
   if (includeInstance) {
@@ -1840,8 +1847,36 @@ proto.maia.Time.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {!Uint8Array} */ (reader.readBytes());
-      msg.setTime(value);
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setSec(value);
+      break;
+    case 2:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setMin(value);
+      break;
+    case 3:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setHour(value);
+      break;
+    case 4:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setWday(value);
+      break;
+    case 5:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setMday(value);
+      break;
+    case 6:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setMon(value);
+      break;
+    case 7:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setYear(value);
+      break;
+    case 8:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIsDst(value);
       break;
     default:
       reader.skipField();
@@ -1872,10 +1907,59 @@ proto.maia.Time.prototype.serializeBinary = function() {
  */
 proto.maia.Time.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getTime_asU8();
-  if (f.length > 0) {
-    writer.writeBytes(
+  f = message.getSec();
+  if (f !== 0) {
+    writer.writeUint32(
       1,
+      f
+    );
+  }
+  f = message.getMin();
+  if (f !== 0) {
+    writer.writeUint32(
+      2,
+      f
+    );
+  }
+  f = message.getHour();
+  if (f !== 0) {
+    writer.writeUint32(
+      3,
+      f
+    );
+  }
+  f = message.getWday();
+  if (f !== 0) {
+    writer.writeUint32(
+      4,
+      f
+    );
+  }
+  f = message.getMday();
+  if (f !== 0) {
+    writer.writeUint32(
+      5,
+      f
+    );
+  }
+  f = message.getMon();
+  if (f !== 0) {
+    writer.writeUint32(
+      6,
+      f
+    );
+  }
+  f = message.getYear();
+  if (f !== 0) {
+    writer.writeUint32(
+      7,
+      f
+    );
+  }
+  f = message.getIsDst();
+  if (f) {
+    writer.writeBool(
+      8,
       f
     );
   }
@@ -1883,44 +1967,146 @@ proto.maia.Time.serializeBinaryToWriter = function(message, writer) {
 
 
 /**
- * optional bytes time = 1;
- * @return {!(string|Uint8Array)}
+ * optional uint32 sec = 1;
+ * @return {number}
  */
-proto.maia.Time.prototype.getTime = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+proto.maia.Time.prototype.getSec = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
 };
 
 
 /**
- * optional bytes time = 1;
- * This is a type-conversion wrapper around `getTime()`
- * @return {string}
- */
-proto.maia.Time.prototype.getTime_asB64 = function() {
-  return /** @type {string} */ (jspb.Message.bytesAsB64(
-      this.getTime()));
-};
-
-
-/**
- * optional bytes time = 1;
- * Note that Uint8Array is not supported on all browsers.
- * @see http://caniuse.com/Uint8Array
- * This is a type-conversion wrapper around `getTime()`
- * @return {!Uint8Array}
- */
-proto.maia.Time.prototype.getTime_asU8 = function() {
-  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
-      this.getTime()));
-};
-
-
-/**
- * @param {!(string|Uint8Array)} value
+ * @param {number} value
  * @return {!proto.maia.Time} returns this
  */
-proto.maia.Time.prototype.setTime = function(value) {
-  return jspb.Message.setProto3BytesField(this, 1, value);
+proto.maia.Time.prototype.setSec = function(value) {
+  return jspb.Message.setProto3IntField(this, 1, value);
+};
+
+
+/**
+ * optional uint32 min = 2;
+ * @return {number}
+ */
+proto.maia.Time.prototype.getMin = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.maia.Time} returns this
+ */
+proto.maia.Time.prototype.setMin = function(value) {
+  return jspb.Message.setProto3IntField(this, 2, value);
+};
+
+
+/**
+ * optional uint32 hour = 3;
+ * @return {number}
+ */
+proto.maia.Time.prototype.getHour = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.maia.Time} returns this
+ */
+proto.maia.Time.prototype.setHour = function(value) {
+  return jspb.Message.setProto3IntField(this, 3, value);
+};
+
+
+/**
+ * optional uint32 wday = 4;
+ * @return {number}
+ */
+proto.maia.Time.prototype.getWday = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.maia.Time} returns this
+ */
+proto.maia.Time.prototype.setWday = function(value) {
+  return jspb.Message.setProto3IntField(this, 4, value);
+};
+
+
+/**
+ * optional uint32 mday = 5;
+ * @return {number}
+ */
+proto.maia.Time.prototype.getMday = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.maia.Time} returns this
+ */
+proto.maia.Time.prototype.setMday = function(value) {
+  return jspb.Message.setProto3IntField(this, 5, value);
+};
+
+
+/**
+ * optional uint32 mon = 6;
+ * @return {number}
+ */
+proto.maia.Time.prototype.getMon = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.maia.Time} returns this
+ */
+proto.maia.Time.prototype.setMon = function(value) {
+  return jspb.Message.setProto3IntField(this, 6, value);
+};
+
+
+/**
+ * optional uint32 year = 7;
+ * @return {number}
+ */
+proto.maia.Time.prototype.getYear = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 7, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.maia.Time} returns this
+ */
+proto.maia.Time.prototype.setYear = function(value) {
+  return jspb.Message.setProto3IntField(this, 7, value);
+};
+
+
+/**
+ * optional bool is_dst = 8;
+ * @return {boolean}
+ */
+proto.maia.Time.prototype.getIsDst = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 8, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.maia.Time} returns this
+ */
+proto.maia.Time.prototype.setIsDst = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 8, value);
 };
 
 

@@ -368,6 +368,22 @@ class BluetoothService {
 		return rulesPromise;
 	}
 
+	setCurrentTime() {
+		console.log('Saving Rules to micro-controller');
+		let message = MessageUtils.buildMessage();
+		message.setCommand(Commands.SET_TIME);
+		let now = new Date();
+		message.setObjectPayload(MaiaUtils.packTime(now));
+		let rulesPromise = new Promise((resolve, reject) => {
+			this.sendMessage(message).then((result) => {
+				let command = result[0];
+				let payload = result[1];
+				console.log(command, payload);
+			});
+		});
+		return rulesPromise;
+	}
+
 }
 
 const BluetoothServiceInstance = new BluetoothService();

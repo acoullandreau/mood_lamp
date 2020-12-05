@@ -88,6 +88,9 @@ class MaiaService {
 		return rulesPromise;
 	}
 
+	setCurrentTime() {
+		return BluetoothService.setCurrentTime();
+	}
 
 }
 
