@@ -31,8 +31,8 @@ class Message {
 		this.obj.setCommand(command);
 	}
 
-	getCommand(command) {
-		this.obj.getCommand();
+	getCommand() {
+		return this.obj.getCommand();
 	}
 
 	serializeBinary() {

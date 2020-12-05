@@ -156,15 +156,16 @@ class BluetoothService {
 	onMessage = (buffer) => {
 		let message = Message.deserializeBinary(buffer);
 		let req_uuid = message.getUUID();
-		let payload = message.getPayload()
+		let command = message.getCommand();
+		let payload = message.getPayload();
 
 		if (req_uuid in this.request_map) {
-			this.request_map[req_uuid](payload);
+			this.request_map[req_uuid]([command, payload]);
 			delete this.request_map[req_uuid];
 		}
 
 		if (this.onMessageCallback) {
-			this.onMessageCallback(payload);
+			this.onMessageCallback(command, payload);
 		}
 	}
 
@@ -187,8 +188,10 @@ class BluetoothService {
 		let modesPromise = new Promise((resolve, reject) => {
 			this.sendMessage(message).then((result) => {
 				let modesArray = [];
-				if(result.length > 0) {
-					let modes_list = MaiaUtils.unpackModesList(result);
+				let command = result[0];
+				let payload = result[1];
+				if(payload.length > 0) {
+					let modes_list = MaiaUtils.unpackModesList(payload);
 					let pb_modes_list = modes_list.getModesList();
 					for (let index in pb_modes_list) {
 						let mode = MaiaUtils.unpackMode(pb_modes_list[index]);
@@ -224,12 +227,24 @@ class BluetoothService {
 
 
 	getSelectedMode() {
-		var selectedModePromise = new Promise((resolve, reject) => {
-			//fake request
-			resolve((Math.floor(Math.random() * 5) + 1));
+		let selectedModePromise = new Promise((resolve, reject) => {
+			let message = MessageUtils.buildMessage();
+			message.setCommand(Commands.GET_ACTIVE_MODE);
+			this.sendMessage(message).then((result) => {
+				let command = result[0];
+				let payload = result[1];
+				let mode_id = MaiaUtils.unpackModeId(payload);
+				let id = mode_id.getId();
+				resolve(id);
+			});
 		});
-
 		return selectedModePromise;
+		// var selectedModePromise = new Promise((resolve, reject) => {
+		// 	//fake request
+		// 	resolve((Math.floor(Math.random() * 5) + 1));
+		// });
+
+		// return selectedModePromise;
 	}
 
 	saveModes(modesObject) {
@@ -242,7 +257,9 @@ class BluetoothService {
 			message.setCommand(Commands.SET_MODE_LIST);
 			message.setObjectPayload(MaiaUtils.packModesList(modesObject));
 			this.sendMessage(message).then((result) => {
-				console.log(result);
+				let command = result[0];
+				let payload = result[1];
+				console.log(command);
 			});
 		});
 		return modesPromise;
@@ -251,7 +268,18 @@ class BluetoothService {
 	setMode(modeConfig) {
 		// send config of the mode to execute to the micro-controller
 		console.log('Executing mode ', modeConfig);
-
+		let selectedModePromise = new Promise((resolve, reject) => {
+			let message = MessageUtils.buildMessage();
+			message.setCommand(Commands.SET_ACTIVE_MODE);
+			console.log(modeConfig);
+			message.setObjectPayload(MaiaUtils.packModeId(modeConfig));
+			this.sendMessage(message).then((result) => {
+				let command = result[0];
+				let payload = result[1];
+				console.log(command);
+			});
+		});
+		return selectedModePromise;
 		//Observation: modeConfig may be the config of a saved mode, but not necessarily, that's why the whole config is passed instead of just an index
 	}
 
@@ -261,7 +289,9 @@ class BluetoothService {
 			let message = MessageUtils.buildMessage();
 			message.setCommand(Commands.GET_READINGS);
 			this.sendMessage(message).then((result) => {
-				let readings = MaiaUtils.unpackReadings(result);
+				let command = result[0];
+				let payload = result[1];
+				let readings = MaiaUtils.unpackReadings(payload);
 				resolve(readings);
 			});
 		});
@@ -273,7 +303,9 @@ class BluetoothService {
 		message.setCommand(Commands.GET_SETTINGS);
 		let rulesPromise = new Promise((resolve, reject) => {
 			this.sendMessage(message).then((result) => {
-				let settings = MaiaUtils.unpackSettings(result);
+				let command = result[0];
+				let payload = result[1];
+				let settings = MaiaUtils.unpackSettings(payload);
 				console.log(settings);
 				resolve(settings);
 			});
@@ -328,7 +360,9 @@ class BluetoothService {
 		message.setObjectPayload(MaiaUtils.packRules(rulesObject));
 		let rulesPromise = new Promise((resolve, reject) => {
 			this.sendMessage(message).then((result) => {
-				console.log(result);
+				let command = result[0];
+				let payload = result[1];
+				console.log(command);
 			});
 		});
 		return rulesPromise;

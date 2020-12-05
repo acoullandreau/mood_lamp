@@ -10,6 +10,7 @@ class ModeModel {
 	}
 
 	constructor(properties) {
+		this.id = properties.id;
 		if (properties.name === undefined) {
 			this.name = ""
 		} else {
@@ -24,6 +25,7 @@ class ModeModel {
  
 	serialize() {
 		var modeDetails = {
+			'id':this.id,
 			'name':this.name,
 			'isOriginMode':this.isOriginMode, 
 			'isEditable':this.isEditable,

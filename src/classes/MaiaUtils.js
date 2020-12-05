@@ -18,6 +18,7 @@ class MaiaUtils {
 
     static unpackMode(pb_mode) {
         let mode = {
+            'id':pb_mode.getId(),
             'name':pb_mode.getName(),
             'isOriginMode':!pb_mode.getUserMode(),
             'isEditable':pb_mode.getEditable(),
@@ -54,6 +55,16 @@ class MaiaUtils {
             pb_mode.addColors(pb_color);
         }
         return pb_mode;
+    }
+
+    static packModeId(modeConfig) {
+        let pb_mode = new maia_pb.ModeId();
+        pb_mode.setId(modeConfig.id);
+        return pb_mode.serializeBinary();
+    }
+
+    static unpackModeId(buffer) {
+        return maia_pb.ModeId.deserializeBinary(buffer);
     }
 
     static packRules(rulesObject) {
