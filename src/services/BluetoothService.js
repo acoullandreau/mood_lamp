@@ -5,7 +5,7 @@ import Stream from '../classes/Stream'
 import { v4 as uuidv4 } from 'uuid';
 
 const Commands = Object.freeze({
-	"ACK":0, 
+	"SUCCESS":0, 
 	"GET_ACTIVE_MODE":1, 
 	"SET_ACTIVE_MODE":2, 
 	"GET_MODE_LIST":3, 
