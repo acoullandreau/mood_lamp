@@ -76,6 +76,7 @@ class ColorPicker extends React.Component {
 			}
 		}
 
+		this.debounceTimer = undefined;
 		this.colorPickerRef = React.createRef();
 	}
 
@@ -195,8 +196,13 @@ class ColorPicker extends React.Component {
 	}
 
 	executeCurrentMode = () => {
-		var serializedMode = this.props.modeModel.serialize();
-		MaiaService.executeMode(serializedMode);
+		if (this.debounceTimer === undefined) {
+			this.debounceTimer = setTimeout(() => {
+				var serializedMode = this.props.modeModel.serialize();
+				MaiaService.executeMode(serializedMode);
+				this.debounceTimer = undefined;
+			}, 250);
+		}
 	}
 
 	onSpeedChange = (speed) => {
