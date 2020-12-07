@@ -194,8 +194,32 @@ class BluetoothService {
 					{'id':14, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0},
 					{'id':19, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0},
 					{'id':21, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0},
-					{'id':23, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0}
+					{'id':23, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0},
+					{'id':24, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0},
+					{'id':25, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0}
 				];
+
+				// editable modes for testing
+				var modeBubbles = {'id':22, 'isOriginMode':true, 'isEditable':true, 'colors':[{ "r": 10, "g": 10, "b": 22 }, { "r": 52, "g": 90, "b": 122 }], 'speed':0};
+				var modeNationalDay = {
+					'id':12, 
+					'isOriginMode':true, 
+					'isEditable':true, 
+					'colors':[
+						{"r": 179, "g": 60, "b": 60 },
+						{ "r": 179, "g": 60, "b": 60 },
+						{ "r": 246, "g": 232, "b": 224 },
+						{ "r": 48, "g": 71, "b": 115 },
+						{ "r": 48, "g": 71, "b": 115 },
+						{ "r": 246, "g": 232, "b": 224 }], 
+					'speed':0
+				};
+				modesArray.push(modeBubbles);
+				modesArray.push(modeNationalDay);
+
+				var testModesHardCoded = [0, 8, 10, 12, 14, 19, 21, 22, 23, 24, 25];
+
+
 				let command = result[0];
 				let payload = result[1];
 				if(payload.length > 0) {
@@ -203,7 +227,12 @@ class BluetoothService {
 					let pb_modes_list = modes_list.getModesList();
 					for (let index in pb_modes_list) {
 						let mode = MaiaUtils.unpackMode(pb_modes_list[index]);
-						modesArray.push(mode);
+						// modesArray.push(mode);
+
+						// check added for testing
+						if (!testModesHardCoded.includes(mode.id)) {
+							modesArray.push(mode);
+						}
 					}
 				}
 				else {
