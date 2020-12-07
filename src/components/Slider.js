@@ -8,8 +8,10 @@ class Slider extends React.Component {
 	}
 
 	handleChange = (event) => {
-		this.setState({value: event.target.value});
-		this.props.onChange(event.target.value);
+		if (this.props.isDisabled === false) {
+			this.setState({value: event.target.value});
+			this.props.onChange(event.target.value);
+		}
 	}
 
  	render() {
