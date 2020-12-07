@@ -1,7 +1,35 @@
 import BluetoothService from './BluetoothService.js';
+import MaiaUtils from '../classes/MaiaUtils';
+
 
 class MaiaService {
-	
+
+	getInitSetting() {
+		// we get the modes, the rules, and the factorySettings
+		var modesPromise = this.getModes();
+		var rulesPromise = this.getRules();
+		var configPromise = fetch('config.json').then(response => {
+            return response.json();
+        });
+
+		Promise.all([modesPromise, rulesPromise, configPromise]).then(results => {
+			// we decorate the modes list received, adding the name for the preconfigured modes
+			var modesArray = MaiaUtils.decorateModes(results[0], results[2]);
+		})
+
+		var p = new Promise((resolve, reject) => {
+			Promise.all([modesPromise, rulesPromise, configPromise]).then(results => {
+				// we decorate the modes list received, adding the name for the preconfigured modes
+				var modesArray = MaiaUtils.decorateModes(results[0]['modesArray'], results[2]);
+				results[0]['modesArray'] =  modesArray;
+				resolve({'modes':results[0], 'rules':results[1], 'config':results[2]})
+			})
+		});
+		
+		return p;
+
+	}
+
 	getModes() {
 		var promises = [
 			this.getModesArray(),
@@ -96,3 +124,4 @@ class MaiaService {
 
 const MaiaServiceInstance = new MaiaService();
 export default MaiaServiceInstance;
+

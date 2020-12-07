@@ -1,22 +1,16 @@
 import MaiaService from '../services/MaiaService.js';
 import ModeModel from '../components/ModeModel.js';
 
-export const fetchModes = () => {
-	return (dispatch) => {
-		//fetch JSON of modes and selected mode
+export const initModes = (modesObject) => {
+		const modesArray = modesObject['modesArray'];
+		const selectedMode = modesObject['selectedMode'];
+		var modesList = []
+		for (let i=0 ; i < modesArray.length ; i++) {
+			const mode = ModeModel.deserialize(modesArray[i]);
+			modesList.push(mode);
+		}
 
-		MaiaService.getModes().then(modesObject => {
-			const modesArray = modesObject['modesArray'];
-			const selectedMode = modesObject['selectedMode'];
-			var modesList = []
-			for (let i=0 ; i < modesArray.length ; i++) {
-				const mode = ModeModel.deserialize(modesArray[i]);
-				modesList.push(mode);
-			}
-
-			dispatch({type:'FETCH_MODES', payload:{'list':modesList, 'selectedMode':selectedMode} })
-		});
-	}
+		return {type:'FETCH_MODES', payload:{'list':modesList, 'selectedMode':selectedMode} };
 
 };
 

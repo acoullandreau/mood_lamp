@@ -190,6 +190,17 @@ class MaiaUtils {
         pb_time.setIsDst(this.isDstObserved(ts));
         return pb_time.serializeBinary();
     }
+
+    static decorateModes(modesArray, configFile) {
+        for (var i = 0; i < modesArray.length ; i++) {
+            if (modesArray[i]['isOriginMode']) {
+                var modeId = modesArray[i]['id'];
+                modesArray[i]['name'] = configFile.modesSettings[modeId]['fr']
+            }
+        }
+        return modesArray;
+
+    }
 }
 
 export default MaiaUtils;

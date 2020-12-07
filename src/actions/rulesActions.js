@@ -1,12 +1,7 @@
 import MaiaService from '../services/MaiaService.js';
 
-export const fetchRules = () => {
-	return (dispatch) => {
-		//fetch JSON of rules
-		MaiaService.getRules().then(rulesConfig => {
-			dispatch({ type:'FETCH_RULES', payload:rulesConfig })
-		});
-	}
+export const initRules = (rulesConfig) => {
+	return { type:'FETCH_RULES', payload:rulesConfig };
 };
 
 export const editRules = (rules) => {

@@ -187,7 +187,15 @@ class BluetoothService {
 		message.setCommand(Commands.GET_MODE_LIST);
 		let modesPromise = new Promise((resolve, reject) => {
 			this.sendMessage(message).then((result) => {
-				let modesArray = [];
+				let modesArray = [
+					{'id':0, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0},
+					{'id':8, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0},
+					{'id':10, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0},
+					{'id':14, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0},
+					{'id':19, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0},
+					{'id':21, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0},
+					{'id':23, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0}
+				];
 				let command = result[0];
 				let payload = result[1];
 				if(payload.length > 0) {
@@ -201,11 +209,14 @@ class BluetoothService {
 				else {
 					console.log('list empty');
 				}
+
+				// MaiaUtils.fillNames(modesArray);
 				console.log(modesArray);
 				resolve(modesArray);
 			});
 		});
 		return modesPromise;
+
 
 		// 	//fake request
 		// 	const modesArray = [
@@ -224,7 +235,6 @@ class BluetoothService {
 		// 	resolve(modesArray);
 		// });
 	}
-
 
 	getSelectedMode() {
 		let selectedModePromise = new Promise((resolve, reject) => {

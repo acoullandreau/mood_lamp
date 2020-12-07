@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchModes, fetchRules, addMode, editMode, getFactorySettings, selectMode } from '../actions';
+import { initModes, initRules, addMode, editMode, getFactorySettings, selectMode } from '../actions';
 import BluetoothService from '../services/BluetoothService.js';
-import configJSON from '../config.json';
+// import configJSON from '../config.json';
 import ColorPicker from './ColorPicker.js';
 import MaiaService from '../services/MaiaService.js';
 import ModeModel from './ModeModel.js';
@@ -14,7 +14,6 @@ import Rules from './Rules.js';
 import SideNavBar from './SideNavBar.js';
 import Utils from '../classes/Utils.js';
 
-// PWA offline
 // Before Prod
 	// fonts downloaded manually ?
 	// warning to turn ON the bluetooth ? To add the app to the home screen of the phone ?
@@ -46,7 +45,7 @@ class App extends React.Component {
 
 	componentDidMount() {
 		// add the factoryModes JSON to the redux store
-		this.props.getFactorySettings(configJSON.factoryModes);
+		// this.parseEditableModes();
 
 		//add event listeners
 		window.addEventListener('resize', this.onWindowResize);
@@ -261,11 +260,23 @@ class App extends React.Component {
 		this.displayOverlay(params);
 	}
 
+	parseEditableModes(configJSON) {
+		var editableModesList = configJSON.editableModes;
+		var modeConfig = configJSON.modesSettings;
+		var factoryModes = {};
+
+		for (var i = 0 ; i < editableModesList.length ; i++) {
+			var modeId = editableModesList[i];
+			factoryModes[modeId] = modeConfig[modeId];
+		}	
+
+		return factoryModes;
+	}
+
 	onConnectClick = () =>  {
 		// try to connect to the micro-controller
 		// once the connection is established, call onConnect
 		BluetoothService.connect(this.onConnect, this.onDisconnect, this.handleNotifications);
-		// this.onConnect();
 
 	}
 
@@ -280,11 +291,18 @@ class App extends React.Component {
 	}
 
 	onConnect = () => {
-		this.setState({'isConnected':true}, () => {
-			this.props.fetchModes();
-			this.props.fetchRules();
+		// we get a set of promises
+		var initPromise = MaiaService.getInitSetting();
+		initPromise.then(initSettings => {
+			// we call redux actions to store the modes, the rules and the factoryModes
+			this.props.initModes(initSettings['modes']);
+			this.props.initRules(initSettings['rules']);
+			var factoryModes = this.parseEditableModes(initSettings['config']);
+			this.props.getFactorySettings(factoryModes);
 			MaiaService.setCurrentTime();
-		});
+			this.setState({'isConnected':true});
+		})
+
 		window.history.pushState({}, '', '#modes');
 		const navEvent = new PopStateEvent('popstate');
 		window.dispatchEvent(navEvent);
@@ -626,8 +644,8 @@ const mapStateToProps = (state) => {
 export default connect(
 	mapStateToProps,
 	{
-		fetchModes,
-		fetchRules,
+		initModes,
+		initRules,
 		addMode,
 		editMode,
 		getFactorySettings,
