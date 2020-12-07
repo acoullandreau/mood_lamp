@@ -1,14 +1,20 @@
 import React from 'react';
 import MaiaService from '../services/MaiaService.js';
-import configJSON from '../config.json';
+// import configJSON from '../config.json';
 
 class Readings extends React.Component {
 
 	intervalID;
 	state = {'lastUpdate':'', 'measures':{}};
 	shouldRefreshReadings = false;
+	config = undefined;
 
 	componentDidMount() {
+		if (this.config === undefined) {
+			this.fetchConfig().then(json => {
+				this.config = json;
+			});
+		}
 		//fetch the current values of the measurements
 		this.shouldRefreshReadings = true;
 		this.getReadings();
@@ -25,6 +31,18 @@ class Readings extends React.Component {
 		clearTimeout(this.intervalID);
 	}
 
+	fetchConfig() {
+		var p = new Promise(resolve => {
+			fetch('config.json').then(response => {
+	            return response.json();
+	        }).then(json => {
+	        	resolve(json);
+	        })
+	    });
+	    return p;
+	}
+
+
 	getGridSize() {
 		// we ensure that we have a grid the right size
 		var numRows = Math.ceil(Object.keys(this.state.measures).length / 2)
@@ -39,8 +57,8 @@ class Readings extends React.Component {
 		//this function runs every 500 ms
 		MaiaService.getReadings()
 		.then(measures => {
-			this.setState({ 'lastUpdate':Date.now(), measures: {...measures} });
 			if (this.shouldRefreshReadings) {
+				this.setState({ 'lastUpdate':Date.now(), measures: {...measures} });
 				this.intervalID = setTimeout(this.getReadings, 100);
 			}
 		})
@@ -48,9 +66,9 @@ class Readings extends React.Component {
 
 	renderTile(item) {
 		var measure = this.state.measures[item];
-		var title = configJSON.readingsSettings[item]['title'];
-		var unit = configJSON.readingsSettings[item]['unit'];
-		var img = configJSON.readingsSettings[item]['img'];
+		var title = this.config.readingsSettings[item]['title'];
+		var unit = this.config.readingsSettings[item]['unit'];
+		var img = this.config.readingsSettings[item]['img'];
 
 		if (this.props.target === 'desktop') {
 			return (
@@ -76,7 +94,6 @@ class Readings extends React.Component {
 	}
 
 	render() {
-
 		return (
 			<div id="readings-grid">
 				{
