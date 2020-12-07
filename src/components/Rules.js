@@ -352,7 +352,7 @@ class Rules extends React.Component {
 			<div id="rules-page">
 				<div className="rules-div">
 					{this.renderSwitch('dayTimeAuto')}
-					<p className="rule-text">Choisir automatiquement le mode actif en fonction du moment de la journée</p>
+					<p className="rule-text">Laisser la lampe choisir automatiquement le mode actif</p>
 				</div>
 				<div className="rules-div">
 					{this.renderSwitch('silentAutoOff')}
