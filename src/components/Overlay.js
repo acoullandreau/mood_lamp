@@ -59,7 +59,7 @@ class Overlay extends React.Component {
 	}
 
 	onResetMode = (event) => {
-		var initialSetting = this.props.factoryModesSettings[this.props.settings.modeInstance.name];
+		var initialSetting = this.props.factoryModesSettings[this.props.settings.modeInstance.id].colors;
 		this.props.settings.modeInstance.setColors(initialSetting)
 		// rerender the color picker
 		this.colorPickerRef.current.resetColors(initialSetting);
@@ -75,7 +75,7 @@ class Overlay extends React.Component {
 
 	renderResetButton() {
 		if (this.props.settings.modeInstance.isOriginMode) {
-			var initialSetting = this.props.factoryModesSettings[this.props.settings.modeInstance.name];
+			var initialSetting = this.props.factoryModesSettings[this.props.settings.modeInstance.id].colors;
 			var currentSetting = this.props.settings.modeInstance.colors;
 			var buttonDisabled = JSON.stringify(initialSetting)===JSON.stringify(currentSetting) ? true : false;
 
