@@ -16,7 +16,6 @@ class ModeModel {
 		} else {
 			this.name = properties.name;
 		}
-		// this.category = properties.category;
 		this.isOriginMode = properties.isOriginMode;
 		this.isEditable=properties.isEditable;
 		this.colors = properties.colors;
@@ -29,7 +28,6 @@ class ModeModel {
 			'name':this.name,
 			'isOriginMode':this.isOriginMode, 
 			'isEditable':this.isEditable,
-			// 'category':this.category, 
 			'colors':this.colors, 
 			'speed':this.speed
 		};
@@ -45,11 +43,6 @@ class ModeModel {
 
 	setColors = (colors) => {
 		this.colors = colors;
-		// if (colors.length > 1 && this.category === 'single') {
-		// 	this.category = 'gradient';
-		// } else if (colors.length === 1 && this.category === 'gradient') {
-		// 	this.category = 'single';
-		// }
 	}
 
 	setSpeed = (speed) => {
