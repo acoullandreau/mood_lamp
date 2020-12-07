@@ -6,7 +6,7 @@ class MaiaUtils {
         
         for (let i = 0; i < modesObject.modesArray.length; i++) {
             let mode = modesObject.modesArray[i];
-            modes_list.addModes(MaiaUtils.packMode(mode, i));
+            modes_list.addModes(MaiaUtils.packMode(mode));
         }
 
         return modes_list.serializeBinary();
@@ -40,9 +40,9 @@ class MaiaUtils {
         return mode;
     }
 
-    static packMode(mode, id) {
+    static packMode(mode) {
         let pb_mode = new maia_pb.Mode();
-        pb_mode.setId(id);
+        pb_mode.setId(mode.id);
         pb_mode.setName(mode.name);
         pb_mode.setSpeed(mode.speed);
         pb_mode.setEditable(mode.isEditable);
