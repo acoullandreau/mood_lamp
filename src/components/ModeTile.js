@@ -39,8 +39,8 @@ class ModeTile extends React.Component {
 
 	getThumbnail = (colors) => {
 
-		if (this.state.category === 'sound') {
-			var specialGradient = Utils.getSpecialGradient(this.props.model.name);
+		if (this.state.isEditable === false) {
+			var specialGradient = Utils.getSpecialGradient(this.props.model.id);
 			return { 'background':specialGradient };
 
 		} else {

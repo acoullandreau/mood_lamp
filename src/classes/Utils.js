@@ -111,15 +111,46 @@ class Utils {
 
 	}
 
-	static getSpecialGradient(name) {
+	static getSpecialGradient(id) {
 		var gradient;
-		if (name === 'Fête') {
+
+		if (id === 8){
+			//fish bowl effect
+			gradient =`
+				radial-gradient(circle, rgba(255,147,41,1) 2%, rgba(135,117,113,1) 20%, rgba(31,67,102,1) 100%)
+			`
+		} else if (id === 10){
+			// fire effect
+			gradient =`
+				linear-gradient(0deg, rgba(57,57,57,1) 2%, rgba(227,61,16,1) 17%, rgba(251,199,80,1) 89%, rgba(254,250,221,1) 100%)
+			`
+		} else if (id === 14){
+			// beach effect
+			gradient =`
+				linear-gradient(0deg, rgba(198,169,144,1) 39%, rgba(71,183,203,1) 62%)
+			`
+		} else if (id === 19){
+			// Christmas effect
+			gradient =`
+				linear-gradient(23deg, rgba(67,108,58,1) 60%, rgba(194,122,126,1) 77%, rgba(12,11,82,1) 85%, rgba(251,194,41,1) 90%)
+			`
+		} else if (id === 21){
+			// rainbow effect
+			gradient =`
+				linear-gradient(270deg, rgba(115,230,221,1) 15%, rgba(115,141,230,1) 40%, rgba(230,121,115,1) 65%, rgba(230,220,115,1) 85%)
+			`
+		} else if (id === 23){
+			// summer holidays effect
+			gradient =`
+				linear-gradient(180deg, rgba(246,174,44,1) 15%, rgba(23,83,150,1) 36%, rgba(237,212,185,1) 65%, rgba(164,188,39,1) 90%)
+			`
+		} else if (id === 24) {
 			gradient =`
 				linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
             	linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),
             	linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%)
 			`
-		} else {
+		} else if (id === 25) {
 			gradient = `
 				linear-gradient( 
 					217deg,
