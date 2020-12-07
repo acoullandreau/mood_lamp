@@ -106,9 +106,10 @@ class MaiaUtils {
             'temperature':pb_readings.getTemperature().toFixed(2) || '--',
             'humidity':pb_readings.getHumidity().toFixed(2) || '--',
             'pressure':pb_readings.getPressure() || '--',
-            'noise':'--',
-            'battery':'--',
         }
+        // currently unavailable readings
+            // 'noise':'--',
+            // 'battery':'--',
         return readings;
     }
 
