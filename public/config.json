@@ -242,6 +242,16 @@
 			"en":"SummerHolidays",
 			"fr":"Vacances d'été",
 			"colors":[]
+		},
+		"24":{
+			"en":"Party",
+			"fr":"Fête",
+			"colors":[]
+		},
+		"25":{
+			"en":"Conversation",
+			"fr":"Conversation",
+			"colors":[]
 		}
 	},
 	"readingsSettings":{
