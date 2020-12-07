@@ -117,7 +117,8 @@ class ModeTile extends React.Component {
 		let outerBorderStyle = this.props.selectedMode === this.state.id ? '0 0 5px 5px #FA4D3D' : 'none'; //'3px solid #FA4D3DDF' inset 
 		let style;
 
-		if (this.state.category === 'off') {
+		if (mode.id === 0) {
+			// this is the off mode
 			style = {'backgroundColor': '#000000', 'border':borderStyle};
 			thumbnailButton = (
 				<button

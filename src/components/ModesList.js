@@ -66,7 +66,7 @@ class ModesList extends React.Component {
 								if (this.props.modesList[item].isOriginMode === false) {
 									return (
 										<ModeTile 
-											id={i} 
+											id={this.props.modesList[item].id} 
 											onEditMode={this.props.onEditMode}
 											onDeleteMode={this.props.onDeleteMode}
 											model={this.props.modesList[item]} 
@@ -93,7 +93,7 @@ class ModesList extends React.Component {
 								if (this.props.modesList[item].isOriginMode) {			
 									return (
 										<ModeTile 
-											id={i} 
+											id={this.props.modesList[item].id} 
 											onEditMode={this.props.onEditMode} 
 											onDeleteMode={this.props.onDeleteMode}
 											model={this.props.modesList[item]} 
