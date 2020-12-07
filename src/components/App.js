@@ -203,13 +203,37 @@ class App extends React.Component {
 		this.syncRulesStateWithLamp();
 	}
 
+	setId = () => {
+		// NOTE : no check is performed to ensure that the id is never greater than 254..
+
+		var listOfIds = [];
+		Object.keys(this.props.modesList).forEach(key => {
+			if (this.props.modesList[key]['id'] >= 100) {
+				listOfIds.push(this.props.modesList[key]['id']);
+			}
+		})
+
+		listOfIds.sort();
+
+		// we assign the first id available from 100 (ids between 0 and 99 are reserved to preconfigured modes)
+		for (var i = 0 ; i < listOfIds.length - 1 ; i++) {
+			if (listOfIds[i+1] > listOfIds[i] + 1) {
+				return listOfIds[i] + 1;
+			}
+		}
+
+	}
+
 
 	onSaveMode = (parameters) => {
 		var type = parameters.type;
 		var modeInstance = parameters.modeInstance;
 		if (type === 'new') {
+			var newModeId = this.setId();
+			console.log('Id ---------', newModeId)
+			modeInstance.setId(newModeId);
 			this.props.addMode(modeInstance);
-			this.props.selectMode(this.props.modesList.length);
+			this.props.selectMode(modeInstance.id);
 		} else if (type === 'edit') {
 			var refModeInstance = parameters.refModeInstance;
 			this.props.editMode(modeInstance, refModeInstance);
@@ -300,12 +324,13 @@ class App extends React.Component {
 			var factoryModes = this.parseEditableModes(initSettings['config']);
 			this.props.getFactorySettings(factoryModes);
 			MaiaService.setCurrentTime();
-			this.setState({'isConnected':true});
+			this.setState({'isConnected':true, 'disconnectDisplay':{ 'display':'block' }});
 		})
 
 		window.history.pushState({}, '', '#modes');
 		const navEvent = new PopStateEvent('popstate');
 		window.dispatchEvent(navEvent);
+
 	}
 
 	onDisconnect = () =>  {
@@ -387,6 +412,7 @@ class App extends React.Component {
 	renderCouleurs = () => {
 
 		var mode = {
+			'id':255,
 			'isOriginMode':false,
 			'isEditable':true,
 			'category':'single',

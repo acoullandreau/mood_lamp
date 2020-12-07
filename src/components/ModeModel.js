@@ -53,6 +53,10 @@ class ModeModel {
 		this.name = name;
 	}
 
+	setId = (id) => {
+		this.id = id;
+	}
+
 }
 
 export default ModeModel;
