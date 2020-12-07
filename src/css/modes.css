@@ -124,7 +124,13 @@
 
 /*CSS for the tabs*/
 
+.react-tabs {
+	height: 65vh;
+	margin-top: max(2.5vh, 15px);
+}
+
 .react-tabs__tab-panel {
+	height: 65vh;
 	padding-right:2%;
 	padding-left:2%;
 }
