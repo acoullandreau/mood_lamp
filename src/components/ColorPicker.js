@@ -54,6 +54,7 @@ class ColorPicker extends React.Component {
 			'sliderDisabled':this.getInitialSliderDisabled(),
 			'saveButtonDisabled':this.isSaveDisabled(),
 			'minNumberColors':this.getMinNumberColors(),
+			'maxNumberColors':this.getMaxNumberColors(),
 			'layoutParams':{
 				width: this.getInitialWidth(),
 				margin:this.getMargin(),
@@ -177,10 +178,38 @@ class ColorPicker extends React.Component {
 
 	getMinNumberColors() {
 		var minNumberColors = 1;
+		var specialModes = [1, 2, 3, 4];
 		if (this.props.modeModel.isOriginMode) {
-			minNumberColors = 2;
+			if (specialModes.includes(this.props.modeModel.id)) {
+				if (this.props.modeModel.id === 1) {
+					minNumberColors = 8;
+				} else if (this.props.modeModel.id === 2) {
+					minNumberColors = 2;
+				} else {
+					minNumberColors = 4;
+				}
+			} else {
+				minNumberColors = 2;
+			}
 		}
 		return minNumberColors;
+	}
+
+	getMaxNumberColors() {
+		var specialModes = [1, 2, 3, 4];
+		var maxNumberColors;
+		if (specialModes.includes(this.props.modeModel.id)) {
+			if (this.props.modeModel.id === 1) {
+				maxNumberColors = 8;
+			} else if (this.props.modeModel.id === 2) {
+				maxNumberColors = 2;
+			} else {
+				maxNumberColors = 4;
+			}
+		} else {
+			maxNumberColors = 10;
+		}
+		return maxNumberColors;
 	}
 
 	isSaveDisabled = () => {
@@ -195,11 +224,22 @@ class ColorPicker extends React.Component {
 		this.setState({'selectedColors':this.getHexColors(initialColors)});
 	}
 
-	executeCurrentMode = () => {
+	executeCurrentMode = (target) => {
+		if (this.props.modeModel.id !== this.props.selectedMode) {
+			var serializedMode = this.props.modeModel.serialize();
+			MaiaService.executeMode(serializedMode);
+		}
 		if (this.debounceTimer === undefined) {
 			this.debounceTimer = setTimeout(() => {
+				// send update to the microcontroller with whatever changed
 				var serializedMode = this.props.modeModel.serialize();
-				MaiaService.executeMode(serializedMode);
+				if (target === 'color') {
+					var color = this.state.selectedColors[this.state.selectedColorIndex];
+					color = Utils.convertHexToRGB(color);
+					MaiaService.updateMode(serializedMode, {'color':color} );
+				} else if (target === 'speed') {
+					MaiaService.updateMode(serializedMode, {'speed':this.state.animationSpeed});
+				}
 				this.debounceTimer = undefined;
 			}, 250);
 		}
@@ -211,7 +251,7 @@ class ColorPicker extends React.Component {
 			// update the modeModel
 			this.props.modeModel.setSpeed(this.state.animationSpeed);
 			// send color to the microcontroller for live update
-			this.executeCurrentMode();
+			this.executeCurrentMode('speed');
 		});
 	}
 
@@ -226,11 +266,11 @@ class ColorPicker extends React.Component {
 
 		// send color to the microcontroller for live update
 		this.editModeModel()
-		this.executeCurrentMode();
+		this.executeCurrentMode('color');
 
-		// if the color picker is not editing a saved mode, the selectedMode from the redux store should be cleared
+		// if the color picker is not editing a saved mode, the selectedMode from the redux store should be set to 255
 		if (this.props.type === 'new') {
-			this.props.selectMode('');
+			this.props.selectMode(255);
 		}
 
 	}
@@ -367,6 +407,7 @@ class ColorPicker extends React.Component {
 	renderColorSelectors = () => {
 		let addSelector;
 		let selectorClassName;
+		let maxNumColorSelector = this.state.maxNumberColors;
 
 		if (this.props.targetDevice === 'desktop') {
 			selectorClassName = ['column-two', 'grid-row-one'].join(' ')
@@ -374,7 +415,7 @@ class ColorPicker extends React.Component {
 			selectorClassName = ['column-one', 'grid-row-one'].join(' ')
 		}
 
-		if (this.state.selectedColors.length < 10) {
+		if (this.state.selectedColors.length < maxNumColorSelector) {
 			addSelector = (
 				<button 
 					className='color-selector' 
@@ -516,6 +557,10 @@ class ColorPicker extends React.Component {
 
 }
 
+const mapStateToProps = (state) => {
+	return { selectedMode:state.selectedMode, };
+}
+
 // props validation
 ColorPicker.propTypes = {
 	type:PropTypes.string.isRequired,
@@ -526,4 +571,4 @@ ColorPicker.propTypes = {
 
 }
 
-export default connect(null, {selectMode}, null, {forwardRef:true})(ColorPicker);
+export default connect(mapStateToProps, {selectMode}, null, {forwardRef:true})(ColorPicker);
