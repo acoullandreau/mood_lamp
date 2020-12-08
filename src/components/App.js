@@ -230,7 +230,6 @@ class App extends React.Component {
 		var modeInstance = parameters.modeInstance;
 		if (type === 'new') {
 			var newModeId = this.setId();
-			console.log('Id ---------', newModeId)
 			modeInstance.setId(newModeId);
 			this.props.addMode(modeInstance);
 			this.props.selectMode(modeInstance.id);
@@ -357,6 +356,11 @@ class App extends React.Component {
 		var modesArray = this.serializeModes();
 		var modesObject = {'modesArray':modesArray, 'selectedMode':this.props.selectedMode};
 		MaiaService.saveModes(modesObject);
+
+		// uncomment when changes on BluetoothService have been made
+		// var savedModeInstance = this.props.modesList[this.props.selectedMode].serialize();
+		// var modesObject = {'savedMode':savedModeInstance, 'selectedMode':this.props.selectedMode};
+		// MaiaService.saveModes(modesObject);
 	}
 
 	syncRulesStateWithLamp() {
