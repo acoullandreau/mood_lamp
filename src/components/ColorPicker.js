@@ -15,7 +15,7 @@ class IroColorPicker extends React.Component {
 		// create a new iro color picker and pass component props to it
 		this.colorPicker = new iro.ColorPicker(this.el, props.params);
 		// call onColorChange prop whenever the color changes
-		this.colorPicker.on('color:change', (color) => {
+		this.colorPicker.on('input:change', (color) => {
 			if (props.onColorChange) {
 				props.onColorChange(color);
 			}
