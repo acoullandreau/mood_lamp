@@ -201,6 +201,7 @@ class BluetoothService {
 
 				// editable modes for testing
 				var modeBubbles = {'id':22, 'isOriginMode':true, 'isEditable':true, 'colors':[{ "r": 10, "g": 10, "b": 22 }, { "r": 52, "g": 90, "b": 122 }], 'speed':0};
+				var modeTemp = {'id':3, 'isOriginMode':true, 'isEditable':true, 'colors':[{ r: 67, g: 138, b: 168 }, { r: 204, g: 219, b: 254 }, { r: 245, g: 160, b: 64 }], 'speed':0};
 				var modeNationalDay = {
 					'id':12, 
 					'isOriginMode':true, 
@@ -215,6 +216,7 @@ class BluetoothService {
 					'speed':0
 				};
 				modesArray.push(modeBubbles);
+				modesArray.push(modeTemp);
 				modesArray.push(modeNationalDay);
 
 				var testModesHardCoded = [0, 8, 10, 12, 14, 19, 21, 22, 23, 24, 25];
@@ -322,7 +324,21 @@ class BluetoothService {
 		//Observation: modeConfig may be the config of a saved mode, but not necessarily, that's why the whole config is passed instead of just an index
 	}
 
-	
+	updateMode(modesObject, updateObject) {
+		console.log('Updating mode ', modesObject, updateObject)
+		//add logic to request update to the microcontroller
+	}
+
+	deleteMode(modeConfig) {
+		console.log('Deleting mode ', modeConfig);
+		//add logic to request delete to the microcontroller
+	}
+
+	discardChanges() {
+		console.log('Discarding changes');
+		//add logic to request discard of changes to the microcontroller
+	}
+
 	getSensorValues() {
 		let sensorPromise = new Promise((resolve, reject) => {
 			let message = MessageUtils.buildMessage();

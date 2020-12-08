@@ -12,11 +12,6 @@ class MaiaService {
             return response.json();
         });
 
-		Promise.all([modesPromise, rulesPromise, configPromise]).then(results => {
-			// we decorate the modes list received, adding the name for the preconfigured modes
-			var modesArray = MaiaUtils.decorateModes(results[0], results[2]);
-		})
-
 		var p = new Promise((resolve, reject) => {
 			Promise.all([modesPromise, rulesPromise, configPromise]).then(results => {
 				// we decorate the modes list received, adding the name for the preconfigured modes
@@ -77,6 +72,18 @@ class MaiaService {
 	saveModes(modesObject) {
 		//modesObject contains the array of saved modes and the currently selected mode 
 		BluetoothService.saveModes(modesObject);
+	}
+
+	updateMode(modesObject, updateObject) {
+		BluetoothService.updateMode(modesObject, updateObject);
+	}
+
+	deleteMode(modeConfig) {
+		BluetoothService.deleteMode(modeConfig);
+	}
+
+	discardChanges() {
+		BluetoothService.discardChanges();
 	}
 
 	getReadings() {
