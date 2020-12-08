@@ -37,8 +37,6 @@ class App extends React.Component {
 		};
 
 		this.previousHeight = undefined;
-		this.singleColorPickerRef = React.createRef();
-		this.gradientColorPickerRef = React.createRef();
 		this.onWindowResize();
 	}
 
