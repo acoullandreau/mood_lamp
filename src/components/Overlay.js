@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { deleteMode } from '../actions';
 import ColorPicker from './ColorPicker.js';
+import MaiaService from '../services/MaiaService.js';
 
 class Overlay extends React.Component {
 
@@ -25,6 +26,7 @@ class Overlay extends React.Component {
 			this.setState({'showDiscardChangesModal':true});
 		} else if (source === 'discardChanges') {
 			this.setState({'showDiscardChangesModal':false}, () => {
+				MaiaService.discardChanges();
 				this.props.onClose({'display':false});
 			});
 		} else if (source === 'keepChanges') {
@@ -65,10 +67,15 @@ class Overlay extends React.Component {
 		this.colorPickerRef.current.resetColors(initialSetting);
 		//enable the save button
 		this.colorPickerRef.current.setState({saveButtonDisabled:false});
+
+		// we request an update from the microcontroller
+		var serializedMode = this.props.settings.modeInstance.serialize();
+		MaiaService.updateMode(serializedMode, {'reset':initialSetting} );
 	} 
 
 	deleteMode = () => {
 		this.props.deleteMode(this.props.settings.modeInstance);
+		MaiaService.deleteMode(this.props.settings.modeInstance);
 		this.closeModal();
 	} 
 
