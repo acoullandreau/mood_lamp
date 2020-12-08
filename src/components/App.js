@@ -97,8 +97,10 @@ class App extends React.Component {
 		}
 
 		//we check if the rules were updated in the Redux store
-		if (prevProps.rules !== this.props.rules) {
-			this.syncRulesStateWithLamp();
+		if (Object.keys(prevProps.rules).length !== 0) {
+			if (Utils.compareObjects(prevProps.rules, this.props.rules) === false) {
+				this.syncRulesStateWithLamp();
+			}
 		}
 	}
 
@@ -202,6 +204,14 @@ class App extends React.Component {
 		var overlay = parameters;
 		this.setState({ overlay });
 	}
+
+
+	// onSaveRules = () => {
+	// 	//we check if the rules were updated in the Redux store
+	// 	if (prevProps.rules !== this.props.rules) {
+	// 		this.syncRulesStateWithLamp();
+	// 	}
+	// }
 
 	setId = () => {
 		// NOTE : no check is performed to ensure that the id is never greater than 254..
@@ -447,7 +457,7 @@ class App extends React.Component {
 
 	renderAutomatismes = () => {
 		return (
-			<Rules />
+			<Rules onSaveRules={this.onSaveRules} />
 		)
 	}
 
