@@ -37,7 +37,7 @@ class BluetoothService {
 		// android = 20
 		// mac = 99
 		// chrome = 512
-		this.MTU = 120;
+		this.MTU = 99;
 
 		this.connected = false;
 		this.bleDevice = undefined;

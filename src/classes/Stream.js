@@ -46,7 +46,7 @@ class Stream {
 
 		// [cafebabe][payload len = 4 bytes][payload]
 
-		let msgLength = bytes.byteLength || bytes.length;
+		let msgLength = bytes.length;
 		var lenBytes = this.numberToInt32(msgLength);
 
 		var payload = new Uint8Array(8 + msgLength);
@@ -100,9 +100,8 @@ class Stream {
 	}
 
 	hasPrefix(buffer, prefix) {
-		let uint8_buffer = new Uint8Array(buffer, 0, prefix.byteLength);
-		let length = prefix.byteLength || prefix.length;
-		for (var i = 0; i < length; i++) {
+		let uint8_buffer = new Uint8Array(buffer, 0, prefix.length);
+		for (var i = 0; i < prefix.length; i++) {
 			if (uint8_buffer[i] != prefix[i]) {
 				return false;
 			}
@@ -123,10 +122,10 @@ class Stream {
 				length[i] = uint8_buffer[i + 4];
 			}
 			this.totalLength = this.int32toNumber(length);
-			this.totalReceived = uint8_buffer.byteLength - 8;
+			this.totalReceived = uint8_buffer.length - 8;
 			this.buffer = new Uint8Array(this.totalLength);
 
-			for (let i = 0; i < uint8_buffer.byteLength; i++) {
+			for (let i = 0; i < uint8_buffer.length; i++) {
 				this.buffer[i] = uint8_buffer[i+8];
 			}
 			this.currState = States.RECEIVING;
@@ -160,7 +159,7 @@ class Stream {
 	}
 
 	checkBuffer() {
-		if (this.totalReceived === this.totalLength) {
+		if (this.totalReceived >= this.totalLength) {
 			if (this.messageCallback) {
 				let buffer = String.fromCharCode.apply(null, this.buffer);
 				console.log('<', buffer);
