@@ -1,5 +1,4 @@
-
-export default (state = '', action) => {
+let selectModeReducer = (state = '', action) => {
 	switch(action.type) {
 		case 'FETCH_MODES':
 			return action.payload.selectedMode;
@@ -11,3 +10,5 @@ export default (state = '', action) => {
 			return state;
 	}
 }
+
+export default selectModeReducer;

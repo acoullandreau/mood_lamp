@@ -24,7 +24,7 @@ class Utils {
 			r = parseInt(match[1], 16);
 			g = parseInt(match[2], 16);
 			b = parseInt(match[3], 16);
-		} 
+		}
 
 		if (match) {
 			return { r: r, g: g, b: b }
@@ -109,7 +109,7 @@ class Utils {
 			const val1 = object1[key];
 			const val2 = object2[key];
 			const areObjects = Utils.isObject(val1) && Utils.isObject(val2);
-			if (areObjects && !Utils.compareObjects(val1, val2) || !areObjects && val1 !== val2) {
+			if ((areObjects && !Utils.compareObjects(val1, val2)) || (!areObjects && val1 !== val2)) {
 				return false;
 			}
 		}
@@ -176,15 +176,15 @@ class Utils {
 			`
 		} else if (id === 25) {
 			gradient = `
-				linear-gradient( 
+				linear-gradient(
 					217deg,
-					rgba(222,168,248,1) 0%, 
-					rgba(168,222,258,1) 21.9%, 
-					rgba(189,250,205,1) 35.6%, 
-					rgba(243,250,189,1) 53.9%, 
-					rgba(250,227,189,1) 66.8%, 
-					rgba(248,172,171,1) 95%, 
-					rgba(254,170,212,1) 99.9% 
+					rgba(222,168,248,1) 0%,
+					rgba(168,222,258,1) 21.9%,
+					rgba(189,250,205,1) 35.6%,
+					rgba(243,250,189,1) 53.9%,
+					rgba(250,227,189,1) 66.8%,
+					rgba(248,172,171,1) 95%,
+					rgba(254,170,212,1) 99.9%
 				)
 			`
 		}

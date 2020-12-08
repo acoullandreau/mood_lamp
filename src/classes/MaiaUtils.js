@@ -3,7 +3,7 @@ import maia_pb from './maia_pb';
 class MaiaUtils {
     static packModesList(modesObject) {
         let modes_list = new maia_pb.ModeList();
-        
+
         for (let i = 0; i < modesObject.modesArray.length; i++) {
             let mode = modesObject.modesArray[i];
             modes_list.addModes(MaiaUtils.packMode(mode));
@@ -36,7 +36,7 @@ class MaiaUtils {
                 g: g,
                 b: b
             });
-        }        
+        }
         return mode;
     }
 
@@ -73,7 +73,7 @@ class MaiaUtils {
         settings.setAutoOffSound(rulesObject['silentAutoOff']['active']);
         settings.setAutoOffSoundHours(parseInt(rulesObject['silentAutoOff']['duration']));
         settings.setAutoOn(rulesObject['autoOn']['active']);
-        if (rulesObject['autoOn']['onLightLevel']['active'] == true) {
+        if (rulesObject['autoOn']['onLightLevel']['active'] === true) {
             settings.setAutoOnMode(maia_pb.auto_mode_t.LIGHT_LEVEL);
         }
         else {
@@ -86,7 +86,7 @@ class MaiaUtils {
         settings.setAutoOnTimeDimmTime(this.encodeHours(rulesObject['autoOn']['onSchedule']['startDimmingTime']));
 
         settings.setAutoOff(rulesObject['autoOff']['active']);
-        if (rulesObject['autoOff']['onLightLevel']['active'] == true) {
+        if (rulesObject['autoOff']['onLightLevel']['active'] === true) {
             settings.setAutoOffMode(maia_pb.auto_mode_t.LIGHT_LEVEL);
         }
         else {
@@ -128,13 +128,13 @@ class MaiaUtils {
 
     static unpackSettings(buffer) {
         let pb_settings = maia_pb.Settings.deserializeBinary(buffer);
-        
+
         const settings = {
             'dayTimeAuto': {
                 'active':pb_settings.getSmartMode()
             },
             'silentAutoOff': {
-                'active':pb_settings.getAutoOffSound(), 
+                'active':pb_settings.getAutoOffSound(),
                 'duration':pb_settings.getAutoOffSoundHours()
             },
             'autoOn':{
@@ -142,13 +142,13 @@ class MaiaUtils {
                 'onLightLevel':{
                     'startTime':this.decodeHours(pb_settings.getAutoOnLlAfterTime()),
                     'withStartTime':pb_settings.getAutoOnLlTimeLocked(),
-                    'active':pb_settings.getAutoOnMode() == maia_pb.auto_mode_t.LIGHT_LEVEL
+                    'active':pb_settings.getAutoOnMode() === maia_pb.auto_mode_t.LIGHT_LEVEL
                 },
                 'onSchedule':{
                     'startTime':this.decodeHours(pb_settings.getAutoOnTime()),
                     'withStartDimmingTime':pb_settings.getAutoOnTimeDimm(),
                     'startDimmingTime':this.decodeHours(pb_settings.getAutoOnTimeDimmTime()),
-                    'active':pb_settings.getAutoOnMode() == maia_pb.auto_mode_t.TIME
+                    'active':pb_settings.getAutoOnMode() === maia_pb.auto_mode_t.TIME
                 },
             },
             'autoOff':{
@@ -156,13 +156,13 @@ class MaiaUtils {
                 'onLightLevel':{
                     'startTime':this.decodeHours(pb_settings.getAutoOnLlAfterTime()),
                     'withStartTime':pb_settings.getAutoOffLlTimeLocked(),
-                    'active':pb_settings.getAutoOffMode() == maia_pb.auto_mode_t.LIGHT_LEVEL
+                    'active':pb_settings.getAutoOffMode() === maia_pb.auto_mode_t.LIGHT_LEVEL
                 },
                 'onSchedule':{
                     'startTime':this.decodeHours(pb_settings.getAutoOffTime()),
                     'withStartDimmingTime':pb_settings.getAutoOffTimeDimm(),
                     'startDimmingTime':this.decodeHours(pb_settings.getAutoOffTimeDimmTime()),
-                    'active':pb_settings.getAutoOffMode() == maia_pb.auto_mode_t.TIME
+                    'active':pb_settings.getAutoOffMode() === maia_pb.auto_mode_t.TIME
                 },
             },
         }
@@ -174,7 +174,7 @@ class MaiaUtils {
         var jul = new Date(ts.getFullYear(), 6, 1);
         return Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset());
     }
-    
+
     static isDstObserved(ts) {
         return ts.getTimezoneOffset() < this.stdTimezoneOffset(ts);
     }

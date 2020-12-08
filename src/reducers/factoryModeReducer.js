@@ -1,5 +1,4 @@
-
-export default (state = {}, action) => {
+let factoryModeReducer = (state = {}, action) => {
 	switch(action.type) {
 		case 'GET_FACTORY_SETTINGS':
 			return action.payload;
@@ -8,3 +7,5 @@ export default (state = {}, action) => {
 			return state;
 	}
 }
+
+export default factoryModeReducer;

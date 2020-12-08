@@ -1,5 +1,4 @@
-
-export default (state = [], action) => {
+let modesReducer = (state = [], action) => {
 	switch(action.type) {
 		case 'FETCH_MODES':
 			return action.payload.list;
@@ -15,7 +14,7 @@ export default (state = [], action) => {
 				if (newState[i] === refMode) {
 					newState[i] = editedMode
 				}
-			} 
+			}
 			return newState;
 			//break;
 		case 'DELETE_MODE':
@@ -25,3 +24,5 @@ export default (state = [], action) => {
 			return state;
 	}
 }
+
+export default modesReducer;

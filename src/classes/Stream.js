@@ -4,11 +4,6 @@ const States = Object.freeze({"WAITING":1, "RECEIVING":2})
 
 class Stream {
 	constructor(messageCallback) {
-
-		// android = 20
-		// mac = 99
-		// chrome = 512
-		this.mtu = 99;
 		this.channel = undefined;
 		this.messageCallback = messageCallback;
 
@@ -82,7 +77,7 @@ class Stream {
 	    	sent += this.mtu;
 		}
 		// console.trace(this.writeQueue.length);
-		if (this.ongoingTransfers == false) {
+		if (this.ongoingTransfers === false) {
 			this.processQueue();
 		}
 		// return this.processQueue();
@@ -106,7 +101,7 @@ class Stream {
 	hasPrefix(buffer, prefix) {
 		let uint8_buffer = new Uint8Array(buffer, 0, prefix.length);
 		for (var i = 0; i < prefix.length; i++) {
-			if (uint8_buffer[i] != prefix[i]) {
+			if (uint8_buffer[i] !== prefix[i]) {
 				return false;
 			}
 		}
@@ -144,7 +139,7 @@ class Stream {
 	runReceiving(buffer) {
 		var uint8_buffer = new Uint8Array(buffer);
 
-		if (this.hasStartBytes(uint8_buffer) == false) {
+		if (this.hasStartBytes(uint8_buffer) === false) {
 			var received = uint8_buffer.byteLength;
 
 			for (let i = 0; i < received; i++) {
@@ -182,7 +177,7 @@ class Stream {
 	}
 
 	findMTU() {
-		let range = [23, 24, 64, 99, 101, 127, 200, 300, 400, 500];
+		let range = [23, 24, 64, 99, 101, 127, 200, 247];
 
 		let currentIndex = 0;
 
@@ -190,7 +185,7 @@ class Stream {
 			return range[currentIndex-1];
 		};
 		let resolveRoutine = (result) => {
-			if (range.indexOf(result) < range.length) {
+			if (range.indexOf(result) < range.length -1) {
 				currentIndex++;
 				return this.attemptMTU(range[currentIndex])
 					.then(resolveRoutine)
@@ -199,12 +194,11 @@ class Stream {
 			return range[currentIndex];
 		};
 
-		var p = new Promise((resolve, reject) => {
+		let p = new Promise((resolve, reject) => {
 			resolve(this.attemptMTU(range[currentIndex])
 				.then(resolveRoutine)
 				.catch(rejectRoutine));
 		});
-
 
 		return p;
 	}

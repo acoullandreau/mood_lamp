@@ -1,9 +1,6 @@
 import * as base64 from "byte-base64";
 
 class CryptoUtils {
-	constructor() {
-	}
-
 	bytesToBase64(msg) {
 		return base64.bytesToBase64(msg);
 	}

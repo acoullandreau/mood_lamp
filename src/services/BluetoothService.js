@@ -5,17 +5,17 @@ import Stream from '../classes/Stream'
 import { v4 as uuidv4 } from 'uuid';
 
 const Commands = Object.freeze({
-	"SUCCESS":0, 
-	"GET_ACTIVE_MODE":1, 
-	"SET_ACTIVE_MODE":2, 
-	"GET_MODE_LIST":3, 
-	"SET_MODE_LIST":4, 
-	"GET_MODE":5, 
-	"UPDATE_MODE_COLOR":6, 
-	"UPDATE_MODE_SPEED":7, 
-	"GET_READINGS":8, 
-	"GET_SETTINGS":9, 
-	"SET_SETTINGS":10, 
+	"SUCCESS":0,
+	"GET_ACTIVE_MODE":1,
+	"SET_ACTIVE_MODE":2,
+	"GET_MODE_LIST":3,
+	"SET_MODE_LIST":4,
+	"GET_MODE":5,
+	"UPDATE_MODE_COLOR":6,
+	"UPDATE_MODE_SPEED":7,
+	"GET_READINGS":8,
+	"GET_SETTINGS":9,
+	"SET_SETTINGS":10,
 	"SET_TIME":11,
 	"ERROR":90,
 	"NOT_IMPLEMENTED":80
@@ -28,7 +28,7 @@ class BluetoothService {
 		this.bleNusCharRXUUID   = '6e400002-b5a3-f393-e0a9-e50e24dcca9e';
 		this.bleNusCharTXUUID   = '6e400003-b5a3-f393-e0a9-e50e24dcca9e';
 
-		if ('clientId' in localStorage == false) {
+		if ('clientId' in localStorage === false) {
 			localStorage['clientId'] = uuidv4();
 		}
 
@@ -195,18 +195,18 @@ class BluetoothService {
 
 				// editable modes for testing
 				var modeBubbles = {'id':22, 'isOriginMode':true, 'isEditable':true, 'colors':[{ "r": 10, "g": 10, "b": 22 }, { "r": 52, "g": 90, "b": 122 }], 'speed':0};
-				var modeTemp = {'id':3, 'isOriginMode':true, 'isEditable':true, 'colors':[{ r: 67, g: 138, b: 168 }, { r: 204, g: 219, b: 254 }, { r: 245, g: 160, b: 64 }], 'speed':0};
+				// var modeTemp = {'id':3, 'isOriginMode':true, 'isEditable':true, 'colors':[{ r: 67, g: 138, b: 168 }, { r: 204, g: 219, b: 254 }, { r: 245, g: 160, b: 64 }], 'speed':0};
 				var modeNationalDay = {
-					'id':12, 
-					'isOriginMode':true, 
-					'isEditable':true, 
+					'id':12,
+					'isOriginMode':true,
+					'isEditable':true,
 					'colors':[
 						{"r": 179, "g": 60, "b": 60 },
 						{ "r": 179, "g": 60, "b": 60 },
 						{ "r": 246, "g": 232, "b": 224 },
 						{ "r": 48, "g": 71, "b": 115 },
 						{ "r": 48, "g": 71, "b": 115 },
-						{ "r": 246, "g": 232, "b": 224 }], 
+						{ "r": 246, "g": 232, "b": 224 }],
 					'speed':0
 				};
 				modesArray.push(modeBubbles);
@@ -216,7 +216,7 @@ class BluetoothService {
 				var testModesHardCoded = [0, 8, 10, 12, 14, 19, 21, 22, 23, 24, 25];
 
 
-				let command = result[0];
+				// let command = result[0];
 				let payload = result[1];
 				if(payload.length > 0) {
 					let modes_list = MaiaUtils.unpackModesList(payload);
@@ -266,7 +266,7 @@ class BluetoothService {
 			let message = MessageUtils.buildMessage();
 			message.setCommand(Commands.GET_ACTIVE_MODE);
 			this.sendMessage(message).then((result) => {
-				let command = result[0];
+				// let command = result[0];
 				let payload = result[1];
 				let mode_id = MaiaUtils.unpackModeId(payload);
 				let id = mode_id.getId();
@@ -293,7 +293,7 @@ class BluetoothService {
 			message.setObjectPayload(MaiaUtils.packModesList(modesObject));
 			this.sendMessage(message).then((result) => {
 				let command = result[0];
-				let payload = result[1];
+				// let payload = result[1];
 				console.log(command);
 			});
 		});
@@ -310,7 +310,7 @@ class BluetoothService {
 			message.setObjectPayload(MaiaUtils.packModeId(modeConfig));
 			this.sendMessage(message).then((result) => {
 				let command = result[0];
-				let payload = result[1];
+				// let payload = result[1];
 				console.log(command);
 			});
 		});
@@ -338,7 +338,7 @@ class BluetoothService {
 			let message = MessageUtils.buildMessage();
 			message.setCommand(Commands.GET_READINGS);
 			this.sendMessage(message).then((result) => {
-				let command = result[0];
+				// let command = result[0];
 				let payload = result[1];
 				let readings = MaiaUtils.unpackReadings(payload);
 				resolve(readings);
@@ -352,7 +352,7 @@ class BluetoothService {
 		message.setCommand(Commands.GET_SETTINGS);
 		let rulesPromise = new Promise((resolve, reject) => {
 			this.sendMessage(message).then((result) => {
-				let command = result[0];
+				// let command = result[0];
 				let payload = result[1];
 				let settings = MaiaUtils.unpackSettings(payload);
 				console.log(settings);
@@ -410,7 +410,7 @@ class BluetoothService {
 		let rulesPromise = new Promise((resolve, reject) => {
 			this.sendMessage(message).then((result) => {
 				let command = result[0];
-				let payload = result[1];
+				// let payload = result[1];
 				console.log(command);
 			});
 		});

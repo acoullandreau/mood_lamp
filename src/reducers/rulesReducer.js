@@ -1,5 +1,4 @@
-
-export default (state = {}, action) => {
+let rulesReducer = (state = {}, action) => {
 	switch(action.type) {
 		case 'FETCH_RULES':
 			return action.payload;
@@ -11,3 +10,5 @@ export default (state = {}, action) => {
 			return state;
 	}
 }
+
+export default rulesReducer;

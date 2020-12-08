@@ -1,5 +1,4 @@
 import Message from './Message'
-import maia_pb from './maia_pb';
 
 class MessageUtils {
 	static buildMessage(payload) {

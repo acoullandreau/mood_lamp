@@ -1,4 +1,3 @@
-import MaiaService from '../services/MaiaService.js';
 import ModeModel from '../components/ModeModel.js';
 
 export const initModes = (modesObject) => {
