@@ -210,7 +210,7 @@ class BluetoothService {
 					'speed':0
 				};
 				modesArray.push(modeBubbles);
-				modesArray.push(modeTemp);
+				// modesArray.push(modeTemp);
 				modesArray.push(modeNationalDay);
 
 				var testModesHardCoded = [0, 8, 10, 12, 14, 19, 21, 22, 23, 24, 25];
@@ -418,7 +418,7 @@ class BluetoothService {
 	}
 
 	setCurrentTime() {
-		console.log('Saving Rules to micro-controller');
+		console.log('Saving Time to micro-controller');
 		let message = MessageUtils.buildMessage();
 		message.setCommand(Commands.SET_TIME);
 		let now = new Date();
