@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { editRules } from '../actions';
 import TimePicker from './TimePicker.js';
@@ -119,7 +118,6 @@ class Rules extends React.Component {
 		};
 
 		this.props.editRules(rules);
-		this.props.onSaveRules();
 	}
 
 	handleSwitchChange = (event, target) => {
@@ -379,11 +377,6 @@ class Rules extends React.Component {
 
 const mapStateToProps = (state) => {
 	return { rulesConfig : state.rules };
-}
-
-// props validation
-Rules.propTypes = {
-	onSaveRules:PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps, { editRules })(Rules);

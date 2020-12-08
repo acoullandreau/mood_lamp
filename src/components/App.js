@@ -91,9 +91,14 @@ class App extends React.Component {
 	}
 
 
-	componentDidUpdate() {
+	componentDidUpdate(prevProps) {
 		if (this.state.targetDevice === 'mobile') {
 			this.resizeElements();
+		}
+
+		//we check if the rules were updated in the Redux store
+		if (prevProps.rules !== this.props.rules) {
+			this.syncRulesStateWithLamp();
 		}
 	}
 
@@ -196,11 +201,6 @@ class App extends React.Component {
 	displayOverlay = (parameters) => {
 		var overlay = parameters;
 		this.setState({ overlay });
-	}
-
-
-	onSaveRules = () => {
-		this.syncRulesStateWithLamp();
 	}
 
 	setId = () => {
@@ -447,7 +447,7 @@ class App extends React.Component {
 
 	renderAutomatismes = () => {
 		return (
-			<Rules onSaveRules={this.onSaveRules} />
+			<Rules />
 		)
 	}
 
