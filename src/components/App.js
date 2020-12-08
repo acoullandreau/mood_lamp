@@ -33,7 +33,8 @@ class App extends React.Component {
 			'disconnectDisplay':{ 'display':'none' },
 			'tabIndex':0,
 			'targetDevice':window.innerWidth < 930 ? "mobile" : "desktop",
-			'changeOrientationWarning':false
+			'changeOrientationWarning':false,
+			'loading':false
 		};
 
 		this.previousHeight = undefined;
@@ -299,15 +300,19 @@ class App extends React.Component {
 		for (var i = 0 ; i < editableModesList.length ; i++) {
 			var modeId = editableModesList[i];
 			factoryModes[modeId] = modeConfig[modeId];
-		}	
+		}
 
 		return factoryModes;
+	}
+
+	setLoading = (value) => {
+		this.setState({loading:value});
 	}
 
 	onConnectClick = () =>  {
 		// try to connect to the micro-controller
 		// once the connection is established, call onConnect
-		BluetoothService.connect(this.onConnect, this.onDisconnect, this.handleNotifications);
+		BluetoothService.connect(this.setLoading, this.onConnect, this.onDisconnect, this.handleNotifications);
 
 	}
 
@@ -325,6 +330,7 @@ class App extends React.Component {
 		// we get a set of promises
 		var initPromise = MaiaService.getInitSetting();
 		initPromise.then(initSettings => {
+			this.setLoading(false);
 			// we call redux actions to store the modes, the rules and the factoryModes
 			this.props.initModes(initSettings['modes']);
 			this.props.initRules(initSettings['rules']);
@@ -341,7 +347,10 @@ class App extends React.Component {
 	}
 
 	onDisconnect = () =>  {
-		this.setState({'isConnected':false});
+		this.setState({
+			'isConnected':false,
+			'loading':false
+		});
 		window.history.pushState({}, '', '#');
 		const navEvent = new PopStateEvent('popstate');
 		window.dispatchEvent(navEvent);
@@ -379,7 +388,11 @@ class App extends React.Component {
 	renderHome = () => {
 		var homeButton;
 
-		if (this.state.isConnected === false) {
+		if (this.state.loading === true) {
+			homeButton = (
+				<div className="button-home">Loading</div>
+			)
+		} else if (this.state.isConnected === false) {
 			homeButton = (
 				<button
 					className="button-home"

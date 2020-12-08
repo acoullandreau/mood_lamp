@@ -182,7 +182,12 @@ class Stream {
 		let currentIndex = 0;
 
 		let rejectRoutine = (result) => {
-			return range[currentIndex-1];
+			if (currentIndex == 0) {
+				return range[0];
+			}
+			else {
+				return range[currentIndex-1];
+			}
 		};
 		let resolveRoutine = (result) => {
 			if (range.indexOf(result) < range.length -1) {

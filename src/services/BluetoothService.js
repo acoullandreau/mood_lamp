@@ -44,7 +44,7 @@ class BluetoothService {
 		this.request_map = {};
 	}
 
-	connect(onConnected, onDisconnected, onMessage) {
+	connect(setLoading, onConnected, onDisconnected, onMessage) {
 		if (!navigator.bluetooth) {
 			console.log('WebBluetooth API is not available.\r\n' +
 						'Please make sure the Web Bluetooth flag is enabled.');
@@ -57,6 +57,7 @@ class BluetoothService {
 			acceptAllDevices: true
 		})
 		.then(device => {
+			setLoading(true);
 			this.bleDevice = device;
 			console.log('Found ' + device.name);
 			console.log('Connecting to GATT Server...');
