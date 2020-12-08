@@ -34,19 +34,13 @@ class BluetoothService {
 
 		this.clientId = localStorage['clientId'];
 
-		// android = 20
-		// mac = 99
-		// chrome = 512
-		this.MTU = 99;
-
 		this.connected = false;
 		this.bleDevice = undefined;
-		this.bleServer = undefined;
 		this.nusService = undefined;
 		this.rxCharacteristic = undefined;
 		this.txCharacteristic = undefined;
 
-		this.stream = new Stream(this.MTU, this.onMessage);
+		this.stream = new Stream(this.onMessage);
 		this.request_map = {};
 	}
 
@@ -103,12 +97,12 @@ class BluetoothService {
 				'characteristicvaluechanged',
 				this.handleNotifications
 			);
-			this.connected = true;
-			//window.term_.io.println('\r\n' + bleDevice.name + ' Connected.');
 			console.log(this.bleDevice.name + ' Connected.');
-			this.onConnected();
-			//nusSendString('\r');
-			//setConnButtonState(true);
+			this.stream.findMTU().then((result) => {
+				this.stream.mtu = result;
+				this.connected = true;
+				this.onConnected();
+			});
 		})
 		.catch(error => {
 			console.error('' + error);

@@ -3,8 +3,12 @@ import CryptoUtils from './CryptoUtils'
 const States = Object.freeze({"WAITING":1, "RECEIVING":2})
 
 class Stream {
-	constructor(mtu, messageCallback) {
-		this.mtu = mtu;
+	constructor(messageCallback) {
+
+		// android = 20
+		// mac = 99
+		// chrome = 512
+		this.mtu = 99;
 		this.channel = undefined;
 		this.messageCallback = messageCallback;
 
@@ -175,6 +179,49 @@ class Stream {
 		this.buffer = undefined;
 		this.totalReceived = 0;
 		this.totalLength = 0;
+	}
+
+	findMTU() {
+		let range = [23, 24, 64, 99, 101, 127, 200, 300, 400, 500];
+
+		let currentIndex = 0;
+
+		let rejectRoutine = (result) => {
+			return range[currentIndex-1];
+		};
+		let resolveRoutine = (result) => {
+			if (range.indexOf(result) < range.length) {
+				currentIndex++;
+				return this.attemptMTU(range[currentIndex])
+					.then(resolveRoutine)
+					.catch(rejectRoutine);
+			}
+			return range[currentIndex];
+		};
+
+		var p = new Promise((resolve, reject) => {
+			resolve(this.attemptMTU(range[currentIndex])
+				.then(resolveRoutine)
+				.catch(rejectRoutine));
+		});
+
+
+		return p;
+	}
+
+	attemptMTU(mtu) {
+		var p = new Promise((resolve, reject) => {
+			let buffer = new Uint8Array(mtu);
+			this.channel(buffer)
+			.then(() => {
+				console.log('success with mtu ', mtu);
+				resolve(mtu);
+			}).catch((error) => {
+				console.log('failed with mtu ', mtu);
+				reject(mtu);
+			});
+		});
+		return p;
 	}
 
 	processQueue() {
