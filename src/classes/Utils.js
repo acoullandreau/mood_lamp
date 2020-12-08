@@ -132,8 +132,9 @@ class Utils {
 		} else if (id === 19){
 			// Christmas effect
 			gradient =`
-				linear-gradient(23deg, rgba(67,108,58,1) 60%, rgba(194,122,126,1) 77%, rgba(12,11,82,1) 85%, rgba(251,194,41,1) 90%)
+				linear-gradient(315deg, rgba(194,122,126,1) 10%, rgba(178,85,44,1) 20%, rgba(67,108,58,1) 30%, rgba(67,108,58,1) 70%, rgba(12,11,82,1) 80%, rgba(251,194,41,1) 90%)
 			`
+			// linear-gradient(23deg, rgba(67,108,58,1) 60%, rgba(194,122,126,1) 77%, rgba(12,11,82,1) 85%, rgba(251,194,41,1) 90%)
 		} else if (id === 21){
 			// rainbow effect
 			gradient =`
@@ -142,7 +143,7 @@ class Utils {
 		} else if (id === 23){
 			// summer holidays effect
 			gradient =`
-				linear-gradient(180deg, rgba(246,174,44,1) 15%, rgba(23,83,150,1) 36%, rgba(237,212,185,1) 65%, rgba(164,188,39,1) 90%)
+				linear-gradient(180deg, rgba(246,174,44,1) 15%, rgba(23,83,150,1) 36%, rgba(222,185,144,1) 65%, rgba(164,188,39,1) 90%)
 			`
 		} else if (id === 24) {
 			gradient =`
