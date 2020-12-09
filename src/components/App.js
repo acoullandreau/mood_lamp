@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { initModes, initRules, addMode, editMode, getFactorySettings, selectMode } from '../actions';
+import { Default } from 'react-spinners-css';
 import BluetoothService from '../services/BluetoothService.js';
-// import configJSON from '../config.json';
 import ColorPicker from './ColorPicker.js';
 import MaiaService from '../services/MaiaService.js';
 import ModeModel from './ModeModel.js';
@@ -16,7 +16,6 @@ import Utils from '../classes/Utils.js';
 
 // Before Prod
 	// fonts downloaded manually ?
-	// warning to turn ON the bluetooth ? To add the app to the home screen of the phone ?
 	// clear cache
 
 
@@ -43,8 +42,10 @@ class App extends React.Component {
 
 
 	componentDidMount() {
-		// add the factoryModes JSON to the redux store
-		// this.parseEditableModes();
+		// remove the loader once app is ready
+		this.setState({ 'pageLoading': false }, () => {
+			document.getElementById("loading-page").style.display = "none";
+		});
 
 		//add event listeners
 		window.addEventListener('resize', this.onWindowResize);
@@ -204,14 +205,6 @@ class App extends React.Component {
 		this.setState({ overlay });
 	}
 
-
-	// onSaveRules = () => {
-	// 	//we check if the rules were updated in the Redux store
-	// 	if (prevProps.rules !== this.props.rules) {
-	// 		this.syncRulesStateWithLamp();
-	// 	}
-	// }
-
 	setId = () => {
 		// NOTE : no check is performed to ensure that the id is never greater than 254..
 
@@ -310,7 +303,7 @@ class App extends React.Component {
 	}
 
 	onConnectClick = () =>  {
-		// try to connect to the micro-controller
+		// try to connect to the micro-controller, BluetoothService sets loading to true
 		// once the connection is established, call onConnect
 		BluetoothService.connect(this.setLoading, this.onConnect, this.onDisconnect, this.handleNotifications);
 
@@ -330,6 +323,7 @@ class App extends React.Component {
 		// we get a set of promises
 		var initPromise = MaiaService.getInitSetting();
 		initPromise.then(initSettings => {
+			// connection is established, so we set loading to false
 			this.setLoading(false);
 			// we call redux actions to store the modes, the rules and the factoryModes
 			this.props.initModes(initSettings['modes']);
@@ -386,19 +380,24 @@ class App extends React.Component {
 
 
 	renderHome = () => {
-		var homeButton;
+		let homeButton;
+		let loading = this.state.loading;
+		// let spinnerHeight = document.getElementsByClassName("button-home")[0].getBoundingClientRect().height / 1.5;
 
-		if (this.state.loading === true) {
-			homeButton = (
-				<div className="button-home">Loading</div>
-			)
-		} else if (this.state.isConnected === false) {
+		if (this.state.isConnected === false) {
 			homeButton = (
 				<button
 					className="button-home"
 					onClick={this.onConnectClick}
+					disabled={loading}
 				>
-					Connecter
+					{loading && (
+						<div className="spinner">
+							Connexion
+							<Default color="#FEEDDF" size={40}/>
+						</div>
+					)}
+					{!loading && <span>Connexion</span>}
 				</button>
 			)
 		} else {
@@ -407,7 +406,7 @@ class App extends React.Component {
 					className="button-home"
 					onClick={this.onDisconnectClick}
 				>
-					Déconnecter
+					Déconnexion
 				</button>
 			)
 		}
@@ -530,7 +529,7 @@ class App extends React.Component {
 								style={disconnectDisplay}
 								value='disconnect'
 								onClick={this.onDisconnectClick}
-							>Déconnecter</button>
+							>Déconnexion</button>
 						</div>
 
 						<div id='content' className="column-two">
@@ -619,6 +618,22 @@ class App extends React.Component {
 			contentToRender = this.renderDisconnected();
 		}
 
+		// let loader;
+		// if (this.state.loading === true) {
+		// 	loader = (
+		// 		<div style={{display:'block'}}>
+		// 			<Loader targetDevice={this.state.targetDevice} />
+		// 		</div>
+		// 	)
+		// } else {
+		// 	loader = (
+		// 		<div style={{display:'none'}}>
+		// 			<Loader targetDevice={this.state.targetDevice} />
+		// 		</div>
+		// 	)
+		// }
+
+
 		let overlay;
 		if (this.state.overlay.display) {
 			overlay = (
@@ -645,6 +660,8 @@ class App extends React.Component {
 		}
 
 
+
+
 		let page = Utils.capitalize(window.location.hash.split('#')[1])
 		if (this.state.targetDevice === "mobile") {
 			if (this.state.changeOrientationWarning) {
@@ -657,6 +674,7 @@ class App extends React.Component {
 			} else {
 				return (
 					<React.Fragment>
+						{/*{ loader }*/}
 						{ overlay }
 						<div id="top-section">
 							<p>{page}</p>
@@ -672,6 +690,7 @@ class App extends React.Component {
 		} else {
 			return (
 				<React.Fragment>
+					{/*{ loader }*/}
 					{ overlay }
 					{contentToRender}
 					<button className="about-icon" onClick={this.showAbout}>
