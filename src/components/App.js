@@ -215,12 +215,22 @@ class App extends React.Component {
 			}
 		})
 
-		listOfIds.sort();
+		if (listOfIds.length === 0) {
+			return 100;
+		} else {
+			listOfIds.sort();
 
-		// we assign the first id available from 100 (ids between 0 and 99 are reserved to preconfigured modes)
-		for (var i = 0 ; i < listOfIds.length - 1 ; i++) {
-			if (listOfIds[i+1] > listOfIds[i] + 1) {
-				return listOfIds[i] + 1;
+			if (listOfIds[0] !== 100) {
+				return 100;
+			} else {
+				// we assign the first id available from 100 (ids between 0 and 99 are reserved to preconfigured modes)
+				for (var i = 0 ; i < listOfIds.length - 1 ; i++) {
+					if (listOfIds[i+1] > listOfIds[i] + 1) {
+						return listOfIds[i] + 1;
+					}
+				}
+
+				return listOfIds[listOfIds.length - 1] + 1;
 			}
 		}
 
@@ -233,6 +243,7 @@ class App extends React.Component {
 		if (type === 'new') {
 			var newModeId = this.setId();
 			modeInstance.setId(newModeId);
+			modeInstance.setOrderIndex(255 - newModeId);
 			this.props.addMode(modeInstance);
 			this.props.selectMode(modeInstance.id);
 		} else if (type === 'edit') {
@@ -445,6 +456,7 @@ class App extends React.Component {
 
 		var mode = {
 			'id':255,
+			'orderIndex':255,
 			'isOriginMode':false,
 			'isEditable':true,
 			'category':'single',

@@ -2,10 +2,8 @@ let modesReducer = (state = [], action) => {
 	switch(action.type) {
 		case 'FETCH_MODES':
 			return action.payload.list;
-			//break;
 		case 'ADD_MODE':
 			return [...state, action.payload];
-			//break;
 		case 'EDIT_MODE':
 			var newState = [...state];
 			var refMode = action.payload.refMode;
@@ -16,10 +14,8 @@ let modesReducer = (state = [], action) => {
 				}
 			}
 			return newState;
-			//break;
 		case 'DELETE_MODE':
 			return state.filter(mode => mode !== action.payload);
-			//break;
 		default:
 			return state;
 	}

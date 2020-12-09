@@ -3,22 +3,24 @@ import { connect } from 'react-redux';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import PropTypes from 'prop-types';
 import ModeTile from './ModeTile.js';
+import Utils from '../classes/Utils.js';
 
 class ModesList extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.sortModesArray(this.props.modesList) 
+		this.state = {'modesList' : this.sortModesArray(this.props.modesList)};
 	}
 
 	componentDidMount() {
 		this.getGridSize();
-		this.sortModesArray(this.props.modesList);
 	}
 
 	componentDidUpdate(prevProps) {
 		this.getGridSize();
-		this.sortModesArray(this.props.modesList);
+		if (Utils.compareObjects(prevProps.modesList, this.props.modesList) === false) {
+			this.setState({'modesList':this.sortModesArray(this.props.modesList)})
+		};
 	}
 
 	getGridSize() {
@@ -42,9 +44,10 @@ class ModesList extends React.Component {
 	}
 
 	sortModesArray = (modesArray) => {
-		modesArray.sort(function(a, b) { 
+		const sortedArray = [...modesArray].sort(function(a, b) { 
 			return a.orderIndex - b.orderIndex; 
 		})
+		return sortedArray;
 	}
 
 	addMode() {
@@ -73,16 +76,18 @@ class ModesList extends React.Component {
 		if (type === 'custom') {
 			return (
 				<div className="mode-grid" id="mode-grid-custom">
+					{this.renderAddModeButton()}
+				  	
 				  	{
 						React.Children.toArray(
-							Object.keys(this.props.modesList).map((item, i) => {
-								if (this.props.modesList[item].isOriginMode === false) {
+							Object.keys(this.state.modesList).map((item, i) => {
+								if (this.state.modesList[item].isOriginMode === false) {
 									return (
 										<ModeTile 
-											id={this.props.modesList[item].id} 
+											id={this.state.modesList[item].id} 
 											onEditMode={this.props.onEditMode}
 											onDeleteMode={this.props.onDeleteMode}
-											model={this.props.modesList[item]} 
+											model={this.state.modesList[item]} 
 											onTileSelect={this.selectTile}
 											targetDevice={this.props.targetDevice}
 										/>
@@ -94,7 +99,6 @@ class ModesList extends React.Component {
 						)
 					}
 
-					{this.renderAddModeButton()}
 				</div>
 			)
 		} else if (type === 'default') {
@@ -102,14 +106,14 @@ class ModesList extends React.Component {
 				<div className="mode-grid" id="mode-grid-default">
 				  	{
 						React.Children.toArray(
-							Object.keys(this.props.modesList).map((item, i) => {
-								if (this.props.modesList[item].isOriginMode) {
+							Object.keys(this.state.modesList).map((item, i) => {
+								if (this.state.modesList[item].isOriginMode) {
 									return (
 										<ModeTile 
-											id={this.props.modesList[item].id} 
+											id={this.state.modesList[item].id} 
 											onEditMode={this.props.onEditMode} 
 											onDeleteMode={this.props.onDeleteMode}
-											model={this.props.modesList[item]} 
+											model={this.state.modesList[item]} 
 											targetDevice={this.props.targetDevice}
 										/>
 									);

@@ -59,6 +59,10 @@ class ModeModel {
 		this.id = id;
 	}
 
+	setOrderIndex = (idx) => {
+		this.orderIndex = idx;
+	}
+
 }
 
 export default ModeModel;
