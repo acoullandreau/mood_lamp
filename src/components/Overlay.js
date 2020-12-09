@@ -278,7 +278,7 @@ const mapStateToProps = (state) => {
 Overlay.propTypes = {
 	settings:PropTypes.object.isRequired,
 	onClose:PropTypes.func.isRequired,
-	onSave:PropTypes.func.isRequired,
+	onSave:PropTypes.func,
 	targetDevice:PropTypes.string.isRequired
 }
 
