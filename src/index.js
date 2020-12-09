@@ -17,12 +17,12 @@ const store = createStore(
 );
 
 var contentToRender;
-if (/chrome/i.test( navigator.userAgent) || (navigator.userAgent.match('CriOS'))) {
-	// if not supported on IoS, remove CriOS !!!!   
-  // || (navigator.userAgent.match('CriOS'))
-	contentToRender = (<App/>);
+if (/chrome/i.test( navigator.userAgent)) {
+    // add a check for bluetooth
+    // if no bluetooth activated contentToRender = (<BrowserWarning type="bluetooth"/>);
+    contentToRender = (<App/>);
 } else {
-	contentToRender = (<BrowserWarning/>);
+	contentToRender = (<BrowserWarning type="browser"/>);
 }
 
 ReactDOM.render(
