@@ -132,42 +132,6 @@ button {
 	grid-template-columns: 80% 20%;
 } 
 
-#loading-page {
-	position: absolute;
-	top: 25%;
-	left: 25%;
-}
-
-@keyframes blink {
-    0% {
-      opacity: .2;
-    }
-    20% {
-      opacity: 1;
-    }
-    100% {
-      opacity: .2;
-    }
-}
-
-.Loading span {
-    animation-name: blink;
-    animation-duration: 1.4s;
-    animation-iteration-count: infinite;
-	/*This makes sure that the starting style (opacity: .2) of the animation is applied before the animation starts.*/
-    animation-fill-mode: both;
-}
-
-.Loading span:nth-child(2) {
-	/*Starts the animation of the second dot with a delay of .2s*/
-    animation-delay: .2s;
-}
-
-.Loading span:nth-child(3) {
-	/*Starts the animation of the third dot with a delay of .4s*/
-    animation-delay: .4s;
-}
-
 
 /*General page layout*/
 

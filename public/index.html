@@ -1,31 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Source+Serif+Pro:wght@200;400&display=swap" rel="stylesheet">
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Application pour le contrôle d'une lampe Maïa"
-    />
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Source+Serif+Pro:wght@200;400&display=swap" rel="stylesheet">
+	<meta name="theme-color" content="#000000" />
+	<meta
+	  name="description"
+	  content="Application pour le contrôle d'une lampe Maïa"
+	/>
 
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-    <link rel="icon" sizes="64x64 32x32 24x24 16x16" href="%PUBLIC_URL%/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="%PUBLIC_URL%/assets/icons/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/assets/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/assets/icons/favicon-16x16.png">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#0D0828">
+	<link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+	<link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+	<link rel="icon" sizes="64x64 32x32 24x24 16x16" href="%PUBLIC_URL%/favicon.ico" />
+	<link rel="apple-touch-icon" sizes="180x180" href="%PUBLIC_URL%/assets/icons/apple-touch-icon.png" />
+	<link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/assets/icons/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/assets/icons/favicon-16x16.png">
+	<meta name="msapplication-TileColor" content="#da532c">
+	<meta name="theme-color" content="#0D0828">
+	<title>Maïa</title>
 
-    <title>Maïa</title>
+	<style>
+		body {
+			background-color: #0D0828;
+			font-family: 'Roboto', sans-serif;
+			font-weight: 400;
+			color:#FEEDDF;
+		}
+
+		#loading-page {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%); 
+			font-size:max(6vh, 50px);
+		}
+
+		@keyframes blink {
+			0% {
+				opacity: .2;
+			}
+			20% {
+				opacity: 1;
+			}
+			100% {
+				opacity: .2;
+			}
+		}
+
+		.Loading span {
+			animation-name: blink;
+			animation-duration: 1.4s;
+			animation-iteration-count: infinite;
+			/*This makes sure that the starting style (opacity: .2) of the animation is applied before the animation starts.*/
+			animation-fill-mode: both;
+		}
+
+		.Loading span:nth-child(2) {
+			/*Starts the animation of the second dot with a delay of .2s*/
+			animation-delay: .2s;
+		}
+
+		.Loading span:nth-child(3) {
+			/*Starts the animation of the third dot with a delay of .4s*/
+			animation-delay: .4s;
+		}
+	</style>
+
+
   </head>
+
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      React App magic happens here
-    -->
+	<noscript>You need to enable JavaScript to run this app.</noscript>
+	<div id="loading-page">
+	  <div class="Loading">Chargement<span>.</span><span>.</span><span>.</span></div>
+	</div>
+	<div id="root"></div>
+	<!--
+	  React App magic happens here
+	-->
   </body>
 </html>

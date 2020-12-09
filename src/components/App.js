@@ -393,7 +393,7 @@ class App extends React.Component {
 				>
 					{loading && (
 						<div className="spinner">
-							Connexion
+							<div>Connexion</div>
 							<Default color="#FEEDDF" size={40}/>
 						</div>
 					)}
