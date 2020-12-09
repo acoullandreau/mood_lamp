@@ -257,10 +257,24 @@ button {
 	cursor: pointer;
 }
 
-
 .button-home:hover {
 	background-color: #F08F84;
 	color: #0D0828;
+}
+
+.button-home-disabled {
+	position: absolute;
+	background-color: #F08F84;
+	color: #0D0828;
+	width: max(50%, 512px);
+	height: max(8vh, 61px);
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%); 
+	padding: 1%;
+	border:1px solid #FEEDDF1F;
+	border-radius: 8px;
+	font-size: max(4vh, 30px);
 }
 
 

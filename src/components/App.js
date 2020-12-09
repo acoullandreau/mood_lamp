@@ -382,24 +382,32 @@ class App extends React.Component {
 	renderHome = () => {
 		let homeButton;
 		let loading = this.state.loading;
-		// let spinnerHeight = document.getElementsByClassName("button-home")[0].getBoundingClientRect().height / 1.5;
 
 		if (this.state.isConnected === false) {
-			homeButton = (
-				<button
-					className="button-home"
-					onClick={this.onConnectClick}
-					disabled={loading}
-				>
-					{loading && (
+			if (loading) {
+				homeButton = (
+					<button
+						className="button-home-disabled"
+						onClick={this.onConnectClick}
+						disabled
+					>
 						<div className="spinner">
 							<div>Connexion</div>
-							<Default color="#FEEDDF" size={40}/>
+							<Default color="#0D0828" size={40}/>
 						</div>
-					)}
-					{!loading && <span>Connexion</span>}
-				</button>
-			)
+					</button>
+				)
+			} else {
+				homeButton = (
+					<button
+						className="button-home"
+						onClick={this.onConnectClick}
+					>
+						Connexion
+					</button>
+				)
+			}
+
 		} else {
 			homeButton = (
 				<button
@@ -618,22 +626,6 @@ class App extends React.Component {
 			contentToRender = this.renderDisconnected();
 		}
 
-		// let loader;
-		// if (this.state.loading === true) {
-		// 	loader = (
-		// 		<div style={{display:'block'}}>
-		// 			<Loader targetDevice={this.state.targetDevice} />
-		// 		</div>
-		// 	)
-		// } else {
-		// 	loader = (
-		// 		<div style={{display:'none'}}>
-		// 			<Loader targetDevice={this.state.targetDevice} />
-		// 		</div>
-		// 	)
-		// }
-
-
 		let overlay;
 		if (this.state.overlay.display) {
 			overlay = (
@@ -674,7 +666,6 @@ class App extends React.Component {
 			} else {
 				return (
 					<React.Fragment>
-						{/*{ loader }*/}
 						{ overlay }
 						<div id="top-section">
 							<p>{page}</p>
@@ -690,7 +681,6 @@ class App extends React.Component {
 		} else {
 			return (
 				<React.Fragment>
-					{/*{ loader }*/}
 					{ overlay }
 					{contentToRender}
 					<button className="about-icon" onClick={this.showAbout}>
