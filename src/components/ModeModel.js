@@ -11,6 +11,7 @@ class ModeModel {
 
 	constructor(properties) {
 		this.id = properties.id;
+		this.orderIndex = properties.orderIndex;
 		if (properties.name === undefined) {
 			this.name = ""
 		} else {
@@ -26,6 +27,7 @@ class ModeModel {
 		var modeDetails = {
 			'id':this.id,
 			'name':this.name,
+			'orderIndex':this.orderIndex,
 			'isOriginMode':this.isOriginMode, 
 			'isEditable':this.isEditable,
 			'colors':this.colors, 

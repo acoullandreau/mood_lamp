@@ -6,12 +6,19 @@ import ModeTile from './ModeTile.js';
 
 class ModesList extends React.Component {
 
-	componentDidMount() {
-		this.getGridSize();
+	constructor(props) {
+		super(props);
+		this.sortModesArray(this.props.modesList) 
 	}
 
-	componentDidUpdate() {
+	componentDidMount() {
 		this.getGridSize();
+		this.sortModesArray(this.props.modesList);
+	}
+
+	componentDidUpdate(prevProps) {
+		this.getGridSize();
+		this.sortModesArray(this.props.modesList);
 	}
 
 	getGridSize() {
@@ -32,6 +39,12 @@ class ModesList extends React.Component {
 			document.getElementById("mode-grid-default").style['grid-template-rows'] = `repeat(${numRowsDefault}, minmax(192px, 25vh))`;
 			document.getElementById("mode-grid-custom").style['grid-template-rows'] = `repeat(${numRowsCustom}, minmax(192px, 25vh))`;
 		}
+	}
+
+	sortModesArray = (modesArray) => {
+		modesArray.sort(function(a, b) { 
+			return a.orderIndex - b.orderIndex; 
+		})
 	}
 
 	addMode() {
@@ -90,7 +103,7 @@ class ModesList extends React.Component {
 				  	{
 						React.Children.toArray(
 							Object.keys(this.props.modesList).map((item, i) => {
-								if (this.props.modesList[item].isOriginMode) {			
+								if (this.props.modesList[item].isOriginMode) {
 									return (
 										<ModeTile 
 											id={this.props.modesList[item].id} 

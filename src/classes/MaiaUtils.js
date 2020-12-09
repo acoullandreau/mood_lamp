@@ -195,9 +195,15 @@ class MaiaUtils {
     static decorateModes(modesArray, configFile) {
         for (var i = 0; i < modesArray.length ; i++) {
             if (modesArray[i]['isOriginMode']) {
+                // add the name and orderIndex to the preconfigured modes
                 var modeId = modesArray[i]['id'];
                 modesArray[i]['name'] = configFile.modesSettings[modeId]['fr']
+                modesArray[i]['orderIndex'] = configFile.modesSettings[modeId]['orderIndex']
+            } else {
+                // assign an orderIndex using the id to sort the modes when displaying it in the app
+                modesArray[i]['orderIndex'] = modesArray[i]['id']
             }
+
         }
         return modesArray;
 
