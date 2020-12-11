@@ -14,24 +14,47 @@ If you wish to build your own lamp, check out the other sections of [this reposi
 Structure of the app
 ------------------------
 
-React and Redux
-PWA
-Integration with web bluetooth for the interaction with the lamp
-Connector to handle the Bluetooth communication
-Redux store used for the modes configuration and the rules (shared across components)
+This app is built using React in association with Redux. It is a Progressive Web App (PWA). 
+It therefore has a desktop version (minimal screen size targeted of 1024 x 768), and a mobile version (minimal screen size targeted 360 x 640).
 
-Dependencies
-- iro color picker
-- react-tabs 
+Because it relies on web bluetooth to communicate with the lamp, the app only runs on Chrome for Android and desktop (no other browser supports web bluetooth, and CHrome for iOS neither).
+
+The following graph shows how the app is structured showing its main components. If you want to be able to look at it bigger, it is available [here](XXXXXXX).
+
+
+![Structure](StructureGraph.png?raw=true "App structure")
+
+
+The app relies on a few dependencies:
+- iro color picker (^5.2.3)
+- react-tabs (^3.1.1)
+- react-spinners-css (^1.2.2)
+- react-time-picker (^4.0.1)
+- react-redux (^7.2.2)
+- (redux-thunk (^2.3.0) not currently used - no middleware)
 
 
 Features
 ------------------------
 
-Available only on Chrome for Android and desktop (not available for iOS yet, web bluetooth not supported)
-4 applications
-Description of what each of them does
-Home -> for now only connect, later on possibility to add the OTA button
+The application is composed of four menus. 
+
+Modes
+
+
+Colors
+
+
+Readings
+
+
+
+Rules
+
+
+
+
+For now the Home is used only to display the "Connect" button upon launching the app, and prior to being connected to a lamp. In the future it will probably be used to add the OTA UI elements, and will be accessible by clicking on the Maia logo.
 
 
 Further work and contact
