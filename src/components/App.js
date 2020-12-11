@@ -31,7 +31,7 @@ class App extends React.Component {
 			'overlay':{'type':'', 'display':false, 'title':'', 'message':'', 'modeName':''},
 			'disconnectDisplay':{ 'display':'none' },
 			'tabIndex':0,
-			'targetDevice':window.innerWidth < 930 ? "mobile" : "desktop",
+			'targetDevice':this.getTargetDevice(),
 			'changeOrientationWarning':false,
 			'loading':false
 		};
@@ -110,11 +110,20 @@ class App extends React.Component {
 		window.removeEventListener('orientationchange', this.onOrientationChange);
 	}
 
+
+	getTargetDevice() {
+		if (/Mobi/.test(navigator.userAgent)) {
+			return "mobile";
+		};
+
+		return "desktop";
+	}
+
 	checkSize = () => {
 		if (this.state.targetDevice === 'mobile' && (this.previousHeight === undefined || this.previousHeight !== window.innerHeight)) {
 			this.resizeElements();
 			this.previousHeight = window.innerHeight;
-		}
+		} 
 
 		window.requestAnimationFrame(this.checkSize);
 	}
@@ -177,7 +186,9 @@ class App extends React.Component {
 
 
 	onWindowResize = () => {
+		// console.log(this.state.targetDevice)
 		if (this.state.targetDevice === 'desktop') {
+			// console.log(window.visualViewport.width)
 			var screenRatio = window.visualViewport.height/window.visualViewport.width;
 			if (screenRatio < 0.75) {
 				var width = window.visualViewport.height / 0.75;
@@ -673,9 +684,6 @@ class App extends React.Component {
 				</div>
 			)
 		}
-
-
-
 
 		let page = Utils.capitalize(window.location.hash.split('#')[1])
 		if (this.state.targetDevice === "mobile") {
