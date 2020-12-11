@@ -4,6 +4,8 @@ import MaiaUtils from '../classes/MaiaUtils';
 
 class MaiaService {
 
+	selectedMode = '';
+
 	getInitSetting() {
 		// we get the modes, the rules, and the factorySettings
 		var modesPromise = this.getModes();
@@ -17,6 +19,7 @@ class MaiaService {
 				// we decorate the modes list received, adding the name for the preconfigured modes
 				var modesArray = MaiaUtils.decorateModes(results[0]['modesArray'], results[2]);
 				results[0]['modesArray'] =  modesArray;
+				this.selectedMode = results[0]['selectedMode'];
 				resolve({'modes':results[0], 'rules':results[1], 'config':results[2]})
 			})
 		});
@@ -66,7 +69,11 @@ class MaiaService {
 	}
 
 	executeMode(modeConfig) {
-		BluetoothService.setMode(modeConfig);
+		if (modeConfig.id !== this.selectedMode) {
+			BluetoothService.setMode(modeConfig);
+			this.selectedMode = modeConfig.id;
+		}
+		console.log(this.selectedMode)
 	}
 
 	saveModes(modesObject) {
