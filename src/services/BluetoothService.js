@@ -183,22 +183,23 @@ class BluetoothService {
 		let modesPromise = new Promise((resolve, reject) => {
 			this.sendMessage(message).then((result) => {
 				let modesArray = [
-					{'id':0, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0},
-					{'id':8, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0},
-					{'id':10, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0},
-					{'id':14, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0},
-					{'id':19, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0},
-					{'id':21, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0},
-					{'id':23, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0},
-					{'id':24, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0},
-					{'id':25, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0}
+					{'id':0, 'orderIndex':0, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0},
+					{'id':8, 'orderIndex':8, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0},
+					{'id':10, 'orderIndex':10, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0},
+					{'id':14, 'orderIndex':14, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0},
+					{'id':19, 'orderIndex':19, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0},
+					{'id':21, 'orderIndex':21, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0},
+					{'id':23, 'orderIndex':23, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0},
+					{'id':24, 'orderIndex':24, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0},
+					{'id':25, 'orderIndex':25, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0}
 				];
 
 				// editable modes for testing
-				var modeBubbles = {'id':22, 'isOriginMode':true, 'isEditable':true, 'colors':[{ "r": 10, "g": 10, "b": 22 }, { "r": 52, "g": 90, "b": 122 }], 'speed':0};
-				// var modeTemp = {'id':3, 'isOriginMode':true, 'isEditable':true, 'colors':[{ r: 67, g: 138, b: 168 }, { r: 204, g: 219, b: 254 }, { r: 245, g: 160, b: 64 }], 'speed':0};
+				var modeBubbles = {'id':22, 'orderIndex':22, 'isOriginMode':true, 'isEditable':true, 'colors':[{ "r": 10, "g": 10, "b": 22 }, { "r": 52, "g": 90, "b": 122 }], 'speed':0};
+				// var modeTemp = {'id':3, 'orderIndex':3, 'isOriginMode':true, 'isEditable':true, 'colors':[{ r: 67, g: 138, b: 168 }, { r: 204, g: 219, b: 254 }, { r: 245, g: 160, b: 64 }], 'speed':0};
 				var modeNationalDay = {
 					'id':12,
+					'orderIndex':12, 
 					'isOriginMode':true,
 					'isEditable':true,
 					'colors':[

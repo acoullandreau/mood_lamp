@@ -9,7 +9,10 @@ class ModesList extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {'modesList' : this.sortModesArray(this.props.modesList)};
+		this.state = {
+			'modesListUser' : this.filterSortModesArray('user'), 
+			'modesListDefault' : this.filterSortModesArray('default'
+		)};
 	}
 
 	componentDidMount() {
@@ -19,7 +22,10 @@ class ModesList extends React.Component {
 	componentDidUpdate(prevProps) {
 		this.getGridSize();
 		if (Utils.compareObjects(prevProps.modesList, this.props.modesList) === false) {
-			this.setState({'modesList':this.sortModesArray(this.props.modesList)})
+			this.setState({
+				'modesListUser' : this.filterSortModesArray('user'), 
+				'modesListDefault' : this.filterSortModesArray('default')
+			})
 		};
 	}
 
@@ -32,22 +38,40 @@ class ModesList extends React.Component {
 
 		if (this.props.targetDevice === 'mobile') {
 			numRowsDefault = Math.ceil(Object.keys(modesListDefault).length / 2);
-			numRowsCustom = Math.ceil(Object.keys(modesListCustom).length / 2);
+			numRowsCustom = Math.ceil((Object.keys(modesListCustom).length + 1) / 2); // + 1 for the "+" icon at the beginning of the first row
 			document.getElementById("mode-grid-default").style['grid-template-rows'] = `repeat(${numRowsDefault}, minmax(150px, 25vh))`;
 			document.getElementById("mode-grid-custom").style['grid-template-rows'] = `repeat(${numRowsCustom}, minmax(150px, 25vh))`;
 		} else {
 			numRowsDefault = Math.ceil(Object.keys(modesListDefault).length / 3);
-			numRowsCustom = Math.ceil(Object.keys(modesListCustom).length / 3);
+			numRowsCustom = Math.ceil((Object.keys(modesListCustom).length + 1) / 3); // + 1 for the "+" icon at the beginning of the first row
 			document.getElementById("mode-grid-default").style['grid-template-rows'] = `repeat(${numRowsDefault}, minmax(192px, 25vh))`;
 			document.getElementById("mode-grid-custom").style['grid-template-rows'] = `repeat(${numRowsCustom}, minmax(192px, 25vh))`;
 		}
 	}
 
-	sortModesArray = (modesArray) => {
+	sortModesArray = (modesArray, reverse) => {
 		const sortedArray = [...modesArray].sort(function(a, b) { 
 			return a.orderIndex - b.orderIndex; 
 		})
+
+		if (reverse) {
+			sortedArray.reverse();
+		}
+
 		return sortedArray;
+	}
+
+	filterSortModesArray = (target) => {
+		var modesArray;
+		if (target === 'user') {
+			modesArray = this.props.modesList.filter(mode => mode.isOriginMode === false);
+			modesArray = this.sortModesArray(modesArray, true);
+		} else if (target === 'default') {
+			modesArray = this.props.modesList.filter(mode => mode.isOriginMode === true);
+			modesArray = this.sortModesArray(modesArray, false);
+		}
+
+		return modesArray;
 	}
 
 	addMode() {
@@ -80,21 +104,17 @@ class ModesList extends React.Component {
 				  	
 				  	{
 						React.Children.toArray(
-							Object.keys(this.state.modesList).map((item, i) => {
-								if (this.state.modesList[item].isOriginMode === false) {
-									return (
-										<ModeTile 
-											id={this.state.modesList[item].id} 
-											onEditMode={this.props.onEditMode}
-											onDeleteMode={this.props.onDeleteMode}
-											model={this.state.modesList[item]} 
-											onTileSelect={this.selectTile}
-											targetDevice={this.props.targetDevice}
-										/>
-									);
-								}
-								return null;
-
+							Object.keys(this.state.modesListUser).map((item, i) => {
+								return (
+									<ModeTile 
+										id={this.state.modesListUser[item].id} 
+										onEditMode={this.props.onEditMode}
+										onDeleteMode={this.props.onDeleteMode}
+										model={this.state.modesListUser[item]} 
+										onTileSelect={this.selectTile}
+										targetDevice={this.props.targetDevice}
+									/>
+								);
 							})
 						)
 					}
@@ -106,19 +126,16 @@ class ModesList extends React.Component {
 				<div className="mode-grid" id="mode-grid-default">
 				  	{
 						React.Children.toArray(
-							Object.keys(this.state.modesList).map((item, i) => {
-								if (this.state.modesList[item].isOriginMode) {
-									return (
-										<ModeTile 
-											id={this.state.modesList[item].id} 
-											onEditMode={this.props.onEditMode} 
-											onDeleteMode={this.props.onDeleteMode}
-											model={this.state.modesList[item]} 
-											targetDevice={this.props.targetDevice}
-										/>
-									);
-								}
-								return null;
+							Object.keys(this.state.modesListDefault).map((item, i) => {
+								return (
+									<ModeTile 
+										id={this.state.modesListDefault[item].id} 
+										onEditMode={this.props.onEditMode} 
+										onDeleteMode={this.props.onDeleteMode}
+										model={this.state.modesListDefault[item]} 
+										targetDevice={this.props.targetDevice}
+									/>
+								);
 
 							})
 						)

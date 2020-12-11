@@ -200,10 +200,11 @@ class MaiaUtils {
                 modesArray[i]['name'] = configFile.modesSettings[modeId]['fr']
                 modesArray[i]['orderIndex'] = configFile.modesSettings[modeId]['orderIndex']
             } 
-            // else {
-            //     // assign an orderIndex using the id to sort the modes when displaying it in the app
-            //     modesArray[i]['orderIndex'] = 255 - modesArray[i]['id'];
-            // }
+            // temporary, while the saved models used for testing are not really user saved
+            else {
+                // assign an orderIndex using the id to sort the modes when displaying it in the app
+                modesArray[i]['orderIndex'] = modesArray[i]['id'];
+            }
 
         }
         return modesArray;

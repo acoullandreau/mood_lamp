@@ -236,14 +236,25 @@ class App extends React.Component {
 
 	}
 
+	setOrderId = () => {
+		var maxId = 0;
+		Object.keys(this.props.modesList).forEach(key => {
+			if (this.props.modesList[key]['orderIndex'] > maxId) {
+				maxId = this.props.modesList[key]['orderIndex'];
+			}
+		})
+
+		return maxId + 1;
+	}
 
 	onSaveMode = (parameters) => {
 		var type = parameters.type;
 		var modeInstance = parameters.modeInstance;
 		if (type === 'new') {
 			var newModeId = this.setId();
+			var newModeOrderIndex = this.setOrderId();
 			modeInstance.setId(newModeId);
-			modeInstance.setOrderIndex(255 - newModeId);
+			modeInstance.setOrderIndex(newModeOrderIndex);
 			this.props.addMode(modeInstance);
 			this.props.selectMode(modeInstance.id);
 		} else if (type === 'edit') {
