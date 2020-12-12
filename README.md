@@ -77,7 +77,7 @@ If a mode can be edited, a modal window opens with the settings of the mode. How
 
 The user can define custom modes by setting a color palette, and an animation speed. The mode that will be executed is a animated gradient that will go through the color palette randomly. 
 
-![Modes User](./docs/docs-img/modes-custom.png?raw=true "Modes menu - User-defined")
+![Modes User](./docs/docs-img/desktop/modes-custom.png?raw=true "Modes menu - User-defined")
 
 When hovering a mode, two icons appear to edit or delete the mode. 
 
