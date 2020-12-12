@@ -201,14 +201,16 @@ All that was described above with screenshots from the desktop version applies t
 
 **Custom modes**
 
-<img src="./docs/docs-img/mobile/modes-custom.png"
-     alt="Colors"
-     style="float: left; width:48%; margin-bottom: 20px;" />
-     
-<img src="./docs/docs-img/mobile/modes-custom-hold-touch.png"
-     alt="Save mode"
-     style="float: right; width:48%; margin-bottom: 20px;" />
-     
+<p>
+	<img src="./docs/docs-img/mobile/modes-custom.png"
+	     alt="Colors"
+	     style="float: left; width:48%; margin-bottom: 20px;" />
+	     
+	<img src="./docs/docs-img/mobile/modes-custom-hold-touch.png"
+	     alt="Save mode"
+	     style="float: right; width:48%; margin-bottom: 20px;" />
+</p>
+<p>
 <img src="./docs/docs-img/mobile/modes-custom-edit.png"
      alt="Colors"
      style="float: left; width:48%; margin-bottom: 20px;" />
@@ -216,12 +218,13 @@ All that was described above with screenshots from the desktop version applies t
 <img src="./docs/docs-img/mobile/mode-delete.png"
      alt="Colors"
      style="float: left; width:48%; margin-bottom: 20px;" />
-     
+</p>    
    
 
 **Discard changes**
 
-![Discard changes](./docs/docs-img/mobile/discard-changes.png?raw=true "Discard changes")
+![Discard changes](./docs/docs-img/mobile/discard-changes.png?raw=true "Discard changes") ![Discard changes](./docs/docs-img/mobile/discard-changes.png?raw=true "Discard changes")
+
 
 ---
 
