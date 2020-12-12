@@ -44,15 +44,7 @@ The application is composed of four menus. Below is a description of what each m
 
 For now the Home is used only to display the "Connect" button upon launching the app, and prior to being connected to a lamp. In the future it will probably be used to add the OTA UI elements, and will be accessible by clicking on the Maia logo.
 
-
-<img src="./docs/docs-img/desktop/home.png"
-     alt="Home"
-     style="float: left; width:50%; margin-bottom: 20px;" />
-     
-<img src="./docs/docs-img/desktop/home-loading.png"
-     alt="Home loading"
-     style="float: right; width:50%; margin-bottom: 20px;" />
-          
+![Home](./docs/docs-img/desktop/home.png?raw=true "Home")      
 
 The about menu is available at all times. 
 
@@ -173,78 +165,40 @@ All that was described above with screenshots from the desktop version applies t
 
 #### Home and about
 
-<img src="./docs/docs-img/mobile/home.png"
-     alt="Home"
-     style="float: left; width:48%; margin-bottom: 20px;" />
-     
-<img src="./docs/docs-img/mobile/about.png"
-     alt="About"
-     style="float: right; width:48%; margin-bottom: 20px;" />
+![Home](./docs/docs-img/mobile/home.png?raw=true "Home") ![About](./docs/docs-img/mobile/about.png?raw=true "About") 
 
-
----
 
 #### Modes menu
 
 **Preconfigured modes**
 
-
-<img src="./docs/docs-img/mobile/modes-default.png"
-     alt="Colors"
-     style="float: left; width:48%; margin-bottom: 20px;" />
-     
-<img src="./docs/docs-img/mobile/modes-default-hold-touch.png"
-     alt="Save mode"
-     style="float: right; width:48%; margin-bottom: 20px;" />  
+![Default modes](./docs/docs-img/mobile/modes-default.png?raw=true "Default modes") ![Menu default mode](./docs/docs-img/mobile/modes-default-hold-touch.png?raw=true "Menu default mode") 
 
 <br>
 
 **Custom modes**
 
-<p>
-	<img src="./docs/docs-img/mobile/modes-custom.png"
-	     alt="Colors"
-	     style="float: left; width:48%; margin-bottom: 20px;" />
-	     
-	<img src="./docs/docs-img/mobile/modes-custom-hold-touch.png"
-	     alt="Save mode"
-	     style="float: right; width:48%; margin-bottom: 20px;" />
-</p>
-<p>
-<img src="./docs/docs-img/mobile/modes-custom-edit.png"
-     alt="Colors"
-     style="float: left; width:48%; margin-bottom: 20px;" />
+![Custom modes](./docs/docs-img/mobile/modes-custom.png?raw=true "Custom modes") ![Menu custom mode](./docs/docs-img/mobile/modes-custom-hold-touch.png?raw=true "Menu custom mode") 
 
-<img src="./docs/docs-img/mobile/mode-delete.png"
-     alt="Colors"
-     style="float: left; width:48%; margin-bottom: 20px;" />
-</p>    
-   
+![Edit mode](./docs/docs-img/mobile/modes-custom-edit.png?raw=true "Edit mode") ![Delete mode](./docs/docs-img/mobile/mode-delete.png?raw=true "Delete mode") 
+
+<br>
+
 
 **Discard changes**
 
-![Discard changes](./docs/docs-img/mobile/discard-changes.png?raw=true "Discard changes") ![Discard changes](./docs/docs-img/mobile/discard-changes.png?raw=true "Discard changes")
+![Discard changes](./docs/docs-img/mobile/discard-changes.png?raw=true "Discard changes")
 
-
----
 
 #### Colors menu
 
-<img src="./docs/docs-img/mobile/colors.png"
-     alt="Colors"
-     style="float: left; width:48%; margin-bottom: 50px;" />
-     
-<img src="./docs/docs-img/mobile/save-mode.png"
-     alt="Save mode"
-     style="float: right; width:48%; margin-bottom: 50px;" />
+![Colors](./docs/docs-img/mobile/colors.png?raw=true "Colors") ![Save mode](./docs/docs-img/mobile/save-mode.png?raw=true "Save mode") 
 
----
 
 #### Readings menu
 
 ![Readings](./docs/docs-img/mobile/readings.png?raw=true "Readings menu")
 
----
 
 #### Rules menu
 
