@@ -20,6 +20,13 @@ class BrowserWarning extends React.Component {
 	}
 
 	onWindowResize() {
+		/**
+			This function is called only go the desktop version, to ensure that the width/height of the root element
+			always has the ratio of the targeted screen size defined (75%).
+			The idea is to have the root element displayed with the same ratio and in the center of the screen, even when the browser
+			window is very wide.
+		*/
+
 		var screenRatio = window.visualViewport.height/window.visualViewport.width;
 		if (screenRatio < 0.75) {
 			var width = window.visualViewport.height / 0.75;

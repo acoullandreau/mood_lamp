@@ -92,6 +92,12 @@ class App extends React.Component {
 
 
 	componentDidUpdate(prevProps) {
+		/**
+			At each update, we recompute the size of the elements for mobile (cf. what is done at app init with mobile in componentDidMount),
+			and we save the rules from the Redux store if there was an update.
+		*/
+
+
 		if (this.state.targetDevice === 'mobile') {
 			this.resizeElements();
 		}
@@ -105,6 +111,10 @@ class App extends React.Component {
 	}
 
 	componentWillUnmount() {
+		/**
+			We clear the event listeners 
+		*/
+
 		window.removeEventListener('resize', this.onWindowResize);
 		window.removeEventListener('popstate', this.onLocationChange);
 		window.removeEventListener('orientationchange', this.onOrientationChange);
@@ -112,6 +122,9 @@ class App extends React.Component {
 
 
 	getTargetDevice() {
+		/**
+			This function simply returns the device used to display the app using userAgent
+		*/
 		if (/Mobi/.test(navigator.userAgent)) {
 			return "mobile";
 		};
@@ -120,6 +133,11 @@ class App extends React.Component {
 	}
 
 	checkSize = () => {
+		/**
+			This helper function ensure that the elements are displayed properly on mobile by calling a resize function.
+			This is useful for Android phones for example, when the bottom bar is shown/hidden -> the height changes and we want the content to adapt.
+		*/
+
 		if (this.state.targetDevice === 'mobile' && (this.previousHeight === undefined || this.previousHeight !== window.innerHeight)) {
 			this.resizeElements();
 			this.previousHeight = window.innerHeight;
@@ -129,8 +147,10 @@ class App extends React.Component {
 	}
 
 	resizeElements = () => {
-		// this function aims at recomputing the heights of the root, the grid content,
-		// and the tab component so that it matches the available screen size of the browser (Chrome Android)
+		/**
+			This function aims at recomputing the heights of the root, the grid content,
+			and the tab component so that it matches the available screen size of the browser (Chrome Android)
+		*/
 
 		document.getElementById('root').style.height = window.innerHeight + 'px';
 		let gridElement = document.getElementsByClassName("grid-content");
@@ -159,6 +179,11 @@ class App extends React.Component {
 	}
 
 	onOrientationChange = () => {
+		/**
+			This callback function is triggered when a mobile device has its orientation changed.
+			Its goal is to detect when to display a message to the user to remain in portrait mode (only supported orientation of the app)
+		*/
+
 		//we could also use orientation.type, values in the format landscape-secondary, portrait-primary...
 		if (this.isInPortraitOrientation() === false) {
 			// we are in landscape orientation
@@ -177,6 +202,9 @@ class App extends React.Component {
 	}
 
 	isInPortraitOrientation = () => {
+		/**
+			Helper function to determine whether the phone's orientation matches portrait. 
+		*/
 		if (window.screen.orientation.angle === 90 || window.screen.orientation.angle === 270) {
 			return false;
 		}
@@ -186,9 +214,14 @@ class App extends React.Component {
 
 
 	onWindowResize = () => {
-		// console.log(this.state.targetDevice)
+		/**
+			This function is called only go the desktop version, to ensure that the width/height of the root element
+			always has the ratio of the targeted screen size defined (75%).
+			The idea is to have the root element displayed with the same ratio and in the center of the screen, even when the browser
+			window is very wide.
+		*/
+
 		if (this.state.targetDevice === 'desktop') {
-			// console.log(window.visualViewport.width)
 			var screenRatio = window.visualViewport.height/window.visualViewport.width;
 			if (screenRatio < 0.75) {
 				var width = window.visualViewport.height / 0.75;
@@ -198,7 +231,11 @@ class App extends React.Component {
 	}
 
 	onLocationChange = () => {
-		//logic to display/hide the disconnect button
+		/**
+			This function aims at defining whether or not to hide the disconnect button. 
+			This function is useful only of the Home page is being used to display something else than the Connect button at App init.
+		*/
+
 		// setState accepts a function rather than an object that receives the state as an argument to be able to use previous state to get new state
 		if (window.location.hash !== '') {
 			this.setState((state) => ({
@@ -212,12 +249,27 @@ class App extends React.Component {
 	}
 
 	displayOverlay = (parameters) => {
+		/**
+			This function changes the component's state to display an overlay window with the parameters received.
+			The object parameters received is an object of the following format :
+				{
+					'type':'edit',
+					'display':true,
+					'title':'Éditer mode',
+					'refModeInstance':modeInstance,
+					'modeInstance':clonedModeModel
+				};
+		*/		
 		var overlay = parameters;
 		this.setState({ overlay });
 	}
 
 	setId = () => {
-		// NOTE : no check is performed to ensure that the id is never greater than 254..
+		/**
+			This function computes an id for a new mode. The ids of all mode have to be sequential, so the id computer may be filling a gap.
+			The idea of keeping the ids sequential is to ensure that the id property sent to the microcontroller is a "small" object (max 1B). However, 
+			no check is performed to ensure that the id is never greater than 254..
+		*/
 
 		var listOfIds = [];
 		Object.keys(this.props.modesList).forEach(key => {
@@ -247,7 +299,12 @@ class App extends React.Component {
 
 	}
 
-	setOrderId = () => {
+	setOrderIndex = () => {
+		/**
+			This function assigns a orderIndex, infinite increment.
+			It doesn't matter if there are gaps, what matters is that the last created mode is always displayed at the beginning of the list.
+		*/
+
 		var maxId = 0;
 		Object.keys(this.props.modesList).forEach(key => {
 			if (this.props.modesList[key]['orderIndex'] > maxId) {
@@ -259,11 +316,23 @@ class App extends React.Component {
 	}
 
 	onSaveMode = (parameters) => {
+		/**
+			This function is called by the overlay window in two cases :
+				- either for a new mode to save, when the user inputs its name
+				- or when a user is editing a mode (overlay window to edit a mode) and clicks on save
+			
+			This function is in charge of :
+				- calling the appropriate redux action (addMode and selectMode for a new mode, editMode for a mode edit)
+				- triggering the syncModesStateWithLamp, to sync the update of the modes with MaiaService (and then the microcontroller)
+				- triggering a navigation event to the modes menu
+		*/
+
+
 		var type = parameters.type;
 		var modeInstance = parameters.modeInstance;
 		if (type === 'new') {
 			var newModeId = this.setId();
-			var newModeOrderIndex = this.setOrderId();
+			var newModeOrderIndex = this.setOrderIndex();
 			modeInstance.setId(newModeId);
 			modeInstance.setOrderIndex(newModeOrderIndex);
 			this.props.addMode(modeInstance);
@@ -283,6 +352,13 @@ class App extends React.Component {
 	}
 
 	onEditMode = (modeInstance) => {
+		/**
+			This function is called by the ModeList component, when the user clicks on the Edit button or icon.
+			It is in charge of 
+				- cloning the mode to edit (to be able to easily discard changes if necessary)
+				- updating the overlay state to display an overlay window with a color picker
+		*/
+
 		// to keep track of the changes, we clone the modeInstance
 		var clonedModeModel = modeInstance.cloneInstance();
 		// display overlay with color picker
@@ -297,6 +373,11 @@ class App extends React.Component {
 	}
 
 	onDeleteMode = (modeInstance) => {
+		/**
+			This function is called by the ModeList component, when the user clicks on the Delete button or icon.
+			It is in charge of updating the overlay state to display an confirmation message.
+		*/
+
 		var params = {
 			'type':'delete',
 			'display':true,
@@ -308,6 +389,9 @@ class App extends React.Component {
 	}
 
 	showAbout = () => {
+		/**
+			This function is called when clicking on the "i" icon to update the overlay state to display the about.
+		*/
 		var params = {
 			'type':'about',
 			'display':true,
@@ -319,6 +403,10 @@ class App extends React.Component {
 	}
 
 	parseEditableModes(configJSON) {
+		/**
+			This function is in charge of retrieving the initial config of all the preconfigured modes that can be edited.
+			The idea is to be able to easily retrieve the initial color palette in case the user wants to reset the mode after a change.
+		*/
 		var editableModesList = configJSON.editableModes;
 		var modeConfig = configJSON.modesSettings;
 		var factoryModes = {};
@@ -332,20 +420,33 @@ class App extends React.Component {
 	}
 
 	setLoading = (value) => {
+		/**
+			This function simply changes the app state to display a loader.
+		*/
 		this.setState({loading:value});
 	}
 
 	onConnectClick = () =>  {
-		// try to connect to the micro-controller, BluetoothService sets loading to true
-		// once the connection is established, call onConnect
+		/**
+			This function is called when the user clicks on the Connect button. 
+			It calls a function of the BluetoothService passing a few callback functions :
+				- setLoading, to be able to display a loader while the connection is being established
+				- onConnect, that is called once the connection is established with the microcontroller, to initialize the app
+				- onDisconnect, to handle the disconnection (microcontroller unpowered, connection lost...)
+				- handleNotifications, to be able to handle any message coming from the microcontroller or the BluetoothService
+		*/
+
 		BluetoothService.connect(this.setLoading, this.onConnect, this.onDisconnect, this.handleNotifications);
 
 	}
 
 	onDisconnectClick = () =>  {
-		// save the changes on the micro-controller
-		this.syncModesStateWithLamp();
-		this.syncRulesStateWithLamp();
+		/**
+			This function is called when the user clicks on the Disconnect button.
+		*/
+
+		//BluetoothService.connect(this.setLoading, this.onConnect, this.onDisconnect, this.handleNotifications);
+
 		// close the connection to the lamp
 		// once the disconnection is confirmed, call onDisconnect
 		this.setState({'tabIndex':0});
@@ -353,6 +454,14 @@ class App extends React.Component {
 	}
 
 	onConnect = () => {
+		/**
+			This function is called once the connection is established with the microcontroller, to initialize the app.
+			It is in charge of 
+				- calling the Maia.getInitSetting() method
+				- calling the appropriate Redux actions to initialize the store (initModes, initRules, getFactorySettings)
+				- setting the state to connected and triggering a navigation event to the modes menu
+		*/
+
 		// we get a set of promises
 		var initPromise = MaiaService.getInitSetting();
 		initPromise.then(initSettings => {
@@ -374,6 +483,11 @@ class App extends React.Component {
 	}
 
 	onDisconnect = () =>  {
+		/**
+			This function is called once the connection with the microcontroller is closed.
+			It is in charge of updating the state of the app to render the Home screen with the Connect button.
+		*/
+
 		this.setState({
 			'isConnected':false,
 			'loading':false
@@ -388,6 +502,10 @@ class App extends React.Component {
 	}
 
 	serializeModes() {
+		/**
+			This function is in charge of building an array of serialized modes from the Redux store's modesList. 
+			This list of serialized modes can be passed down to the microcontroller.
+		*/
 		var modesArray = [];
 		for (var i = 0; i < this.props.modesList.length; i++) {
 			var serializedModeModel = this.props.modesList[i].serialize();
@@ -397,6 +515,11 @@ class App extends React.Component {
 	}
 
 	syncModesStateWithLamp() {
+		/**
+			This function is called everytime a mode is created or edited. It is in charge of parsing the modes objects 
+			from the Redux store to be passed to the microcontroller.
+			It calls MaiaService.saveModes with the updated mode and the currently selectedMode. 
+		*/
 		var modesArray = this.serializeModes();
 		var modesObject = {'modesArray':modesArray, 'selectedMode':this.props.selectedMode};
 		MaiaService.saveModes(modesObject);
@@ -408,6 +531,11 @@ class App extends React.Component {
 	}
 
 	syncRulesStateWithLamp() {
+		/**
+			This function is called everytime a rule is updated from the Rules menu. It simply passes to MaiaService the 
+			updated Redux store's rules object.
+		*/
+
 		MaiaService.saveRules(this.props.rules);
 	}
 

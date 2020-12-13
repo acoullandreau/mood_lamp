@@ -193,6 +193,13 @@ class MaiaUtils {
     }
 
     static decorateModes(modesArray, configFile) {
+        /**
+            This function is in charge of adding the name and the orderIndex to the preconfigured modes.
+            It is called by MaiaService.getInitSetting() with the modesArray obtained from the microcontroller
+            and the config file with the preconfigured modes settings, in particular name and orderIndex.
+        */
+
+
         for (var i = 0; i < modesArray.length ; i++) {
             if (modesArray[i]['isOriginMode']) {
                 // add the name and orderIndex to the preconfigured modes

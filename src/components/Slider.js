@@ -8,6 +8,11 @@ class Slider extends React.Component {
 	}
 
 	handleChange = (event) => {
+		/**
+			This function is triggered at every click/change of the value of the slider.
+			If the slider is not disabled, the value selected is set as the new value of the slider (thus triggering an update of the component rendered).
+		*/
+
 		if (this.props.isDisabled === false) {
 			this.setState({value: event.target.value});
 			this.props.onChange(event.target.value);

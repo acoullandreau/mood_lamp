@@ -3,6 +3,9 @@
 class Utils {
 
 	static convertHexToRGB(hex) {
+		/**
+			This function converts an hex color string to a rgb object ({ r: r, g: g, b: b }).
+		*/
 
 		var HEX_START = '^(?:#?|0x?)';
 		var HEX_INT_SINGLE = '([0-9a-fA-F]{1})';
@@ -35,20 +38,34 @@ class Utils {
 	}
 
 	static componentToHex(c) {
+		/**
+			This function converts to hex an integer (from 0 to 254).
+		*/
+
 		var hex = c.toString(16);
 		return hex.length === 1 ? "0" + hex : hex;
 	}
 
 	static convertRGBStringtoHex(rgb) {
+		/**
+			This function converts a rgb object ({ r: r, g: g, b: b }) to its hex color equivalent.
+		*/
 		return "#" + Utils.componentToHex(rgb.r) + Utils.componentToHex(rgb.g) + Utils.componentToHex(rgb.b);
 	}
 
 	static convertRGBToString(rgb) {
+		/**
+			This function converts a rgb color object ({ r: r, g: g, b: b }) to its string equivalent(rgb(r, g, b)).
+		*/
 		var rgbString = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`
 		return rgbString;
 	}
 
 	static convertHextoHSV(hex) {
+		/**
+			This function converts a hex color string to an hsv object ({ h:h, s:s, v:v }).
+		*/
+
 		var rgb = Utils.convertHexToRGB(hex);
 
 		var r = rgb.r / 255;
@@ -87,10 +104,20 @@ class Utils {
 	}
 
 	static clamp(num, min, max) {
+		/**
+			This function clamps a num value between a min and a max.
+			If min < num < max, it will return num.
+			If num < min, it will return min.
+			If max < num, it will return max.
+		*/
 		return Math.min(Math.max(num, min), max);
 	}
 
 	static capitalize = (s) => {
+		/**
+			This function returns the string s with its first letter capitalized.
+		*/
+
 		if (typeof(s) === 'string') {
 			return s.charAt(0).toUpperCase() + s.slice(1)
 		}
@@ -98,6 +125,10 @@ class Utils {
 	}
 
 	static compareObjects(object1, object2) {
+		/**
+			This function returns true is the two objects compared have the same keys-values.
+			If any key differs, or for the same keys the value differs, the function return false.
+		*/
 		const keys1 = Object.keys(object1);
 		const keys2 = Object.keys(object2);
 
@@ -118,10 +149,17 @@ class Utils {
 	}
 
 	static isObject(object) {
+		/**
+			This function checks whether the argument object passed is a JS object. 
+		*/
 		return object != null && typeof object === 'object';
 	}
 
 	static getGradient(colors) {
+		/**
+			This function returns a gradient (CSS style string) using the colors passed as input.
+		*/
+
 		var gradient = [];
 
 		for (var k=0 ; k < colors.length ; k++) {
@@ -135,6 +173,11 @@ class Utils {
 	}
 
 	static getSpecialGradient(id) {
+		/**
+			This function returns specific gradient (CSS style string) for a given id.
+		*/
+
+
 		var gradient;
 
 		if (id === 8){
