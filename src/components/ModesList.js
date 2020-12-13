@@ -30,7 +30,11 @@ class ModesList extends React.Component {
 	}
 
 	getGridSize() {
-		// we ensure that we have a grid the right size
+		/**
+			This function recomputes the size of the grid to display the modes tiles, depending on how many there are to display. 
+			The disposition of the grid depends on the platform (desktop vs mobile).
+		*/
+
 		var modesListDefault = this.props.modesList.filter(mode => mode.isOriginMode === true);
 		var modesListCustom = this.props.modesList.filter(mode => mode.isOriginMode === false);
 		var numRowsDefault;
@@ -50,6 +54,11 @@ class ModesList extends React.Component {
 	}
 
 	sortModesArray = (modesArray, reverse) => {
+		/**
+			This function is in charge of sorting an array of objects, based on the value of the orderIndex property of each object.
+			The reverse argument is a boolean that determines if the sorting should be ascending or descending.
+		*/
+
 		const sortedArray = [...modesArray].sort(function(a, b) { 
 			return a.orderIndex - b.orderIndex; 
 		})
@@ -62,6 +71,14 @@ class ModesList extends React.Component {
 	}
 
 	filterSortModesArray = (target) => {
+		/**
+			This method is in charge of returning an ordered portion of the modesList props array of modes objects, depending on
+			the target received as an argument.
+
+			If the target is user, it returns the modes that are user-defined, sorted in descending orderIndex order.
+			Otherwise it returns the list of preconfigured modes, sorted in ascending orderIndex order
+		*/
+
 		var modesArray;
 		if (target === 'user') {
 			modesArray = this.props.modesList.filter(mode => mode.isOriginMode === false);
@@ -75,6 +92,11 @@ class ModesList extends React.Component {
 	}
 
 	addMode() {
+		/**
+			This function simply triggers a navigation event to redirect to the Colors menu.
+			It is triggered when the user clicks on the '+' button displayed in the list. 
+		*/
+
 		window.history.pushState({}, '', '#couleurs');
 		const navEvent = new PopStateEvent('popstate');
 		window.dispatchEvent(navEvent);

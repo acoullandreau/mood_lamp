@@ -12,6 +12,12 @@ class DropdownOverlay extends React.Component {
 	}
 
 	positionMenu = () => {
+		/**
+			This function computes the position of the top left corner of the menu block depending on the position of the selected mode.
+			If the selected tile is on the right side of the screen, the menu is aligned to the right side of it, towards the center of the screen.
+			The menu is always displayed above the tile.
+		*/
+
 		let dropdownMenuElem = document.getElementsByClassName("OverlayDropdownMenu")[0];
 		let yOffset = 0;
 		if (dropdownMenuElem.getBoundingClientRect().y !== this.props.settings.targetMode.getBoundingClientRect().y) {
@@ -30,17 +36,28 @@ class DropdownOverlay extends React.Component {
 	
 
 	closeModal() {
-		// object passed to displayOverlay function of App through props 
+		/**
+			This function is called when the user clicks outside the menu. It calls the onClose function received as props from the parent component
+			with an object to set the display property to false and hide the menu.
+		*/
 		this.props.onClose({'display':false});
 	}
 
 	deleteMode = () => {
+		/**
+			This function is called when the user clicks on the Delete button. It calls the parent's callback props function onDelete and triggers
+			the close modal function.
+		*/
 		this.props.onDelete();
 		this.closeModal();
 	} 
 
 
 	editMode = () => {
+		/**
+			This function is called when the user clicks on the Edit button. It calls the parent's callback props function onEdit and triggers
+			the close modal function.
+		*/
 		this.props.onEdit();
 		this.closeModal();
 	} 

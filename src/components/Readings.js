@@ -32,6 +32,10 @@ class Readings extends React.Component {
 	}
 
 	fetchConfig() {
+		/**
+			This function fetches the config json file and returns a promise that resolves with the config file.
+		*/
+
 		var p = new Promise(resolve => {
 			fetch('config.json').then(response => {
 	            return response.json();
@@ -44,7 +48,11 @@ class Readings extends React.Component {
 
 
 	getGridSize() {
-		// we ensure that we have a grid the right size
+		/**
+			This function recomputes the size of the grid to display the readings values, depending on how many are fetched. 
+			The disposition of the grid depends on the platform (desktop vs mobile).
+		*/
+
 		var numRows = Math.ceil(Object.keys(this.state.measures).length / 2)
 		if (this.props.target === 'desktop') {
 			document.getElementById("readings-grid").style['grid-template-rows'] = `repeat(${numRows}, minmax(150px, 20vh))`;
@@ -54,7 +62,13 @@ class Readings extends React.Component {
 	}
 
 	getReadings = () => {
-		//this function runs every 500 ms
+		/**
+			This function requests readings to the MaiaService. It is executed every 100 ms (using setTimeout). 
+			Note that the shouldRefreshReadings state element is used to prevent a refresh
+			of the value to be triggered if the component is unmounted (otherwise right after the component is unmounted because the user switched menu
+			the last requested value could be provided to the React app, and not being able to be displayed).
+		*/
+
 		MaiaService.getReadings()
 		.then(measures => {
 			if (this.shouldRefreshReadings) {

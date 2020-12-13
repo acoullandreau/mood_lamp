@@ -91,6 +91,14 @@ class ColorPicker extends React.Component {
 	}
 
 	onWindowResize = () => {
+		/**
+			This function is called every time the window is resized, to ensure that the width/height of the color picker 
+			is always optimal based on the platform	(desktop vs mobile), and depending on the size of the grid it is rendered in.
+
+			The color picker library used allows to set the width of the component, width that includes the color wheel and the
+			saturation bar (if it is positioned vertically).
+		*/
+
 		let width;
 		if (this.props.targetDevice === 'desktop') {
 			// the  parent component is at most 80% of the width of its parent, being at most 90% of its own parent
@@ -116,6 +124,17 @@ class ColorPicker extends React.Component {
 	}
 
 	getInitialWidth() {
+		/**
+			This function computes the initial width of the color picker, according to the platform	(desktop vs mobile), 
+			and the size of the parent element.
+
+			The color picker library used allows to set the width of the component, width that includes the color wheel and the
+			saturation bar (if it is positioned vertically).
+
+			This function is called when the component is being constructed, to build its state. 
+
+		*/
+
 		let width;
 		if (this.props.targetDevice === 'desktop') {
 			let parentWidth = 0.9 * document.getElementById("content").offsetWidth;
@@ -142,6 +161,14 @@ class ColorPicker extends React.Component {
 	}
 
 	getMargin() {
+		/**
+			The color picker library used allows to set the width of the component, width that includes the color wheel and the
+			saturation bar (if it is positioned vertically). It is possible to adjust the margin between the wheel and the bar.
+			This function computes the value of this margin depending to the platform (desktop vs mobile).
+
+			This function is called when the component is being constructed, to build its state.
+		*/
+
 		let margin;
 		if (this.props.targetDevice === 'desktop') {
 			margin = 80;
@@ -152,6 +179,14 @@ class ColorPicker extends React.Component {
 	}
 
 	getInitialSliderDisabled() {
+		/**
+			The color picker library used allows to set the width of the component, width that includes the color wheel and the
+			saturation bar (if it is positioned vertically). It is possible to adjust the margin between the wheel and the bar.
+			This function computes the value of this margin depending to the platform (desktop vs mobile).
+
+			This function is called when the component is being constructed, to build its state.
+		*/
+
 		if (this.props.modeModel.colors.length === 1) {
 			return true;
 		} else if (this.props.modeModel.isOriginMode) {
@@ -162,11 +197,27 @@ class ColorPicker extends React.Component {
 	}
 
 	getInitialColors() {
+		/**
+			This function is in charge of retrieving the colors array of the mode model received as props.
+			The array retrieved is of the form [{ r: r, g: g, b: b }, { r: r, g: g, b: b }, ...], and each value needs to be converted
+			to hex.
+
+			This function is called when the component is being constructed, to build its state.
+		*/
+
 		var colors = this.props.modeModel.colors;
 		return this.getHexColors(colors);
 	}
 
 	getHexColors(colors) {
+		/**
+			This function is called to convert each color of the colors array received as an argument to hex strings.
+			The colors array received is of the form [{ r: r, g: g, b: b }, { r: r, g: g, b: b }, ...], and this function returns an array
+			of hex strings.
+
+		*/
+
+
 		var initialColors = [];
 		
 		for (var i = 0; i < colors.length; i++) {
@@ -177,6 +228,15 @@ class ColorPicker extends React.Component {
 	}
 
 	getMinNumberColors() {
+		/**
+			This function returns the minimum number of colors that should be selected by the user (i.e. below which colors cannot be removed
+			from the colors selector).
+			This value depends on the mode itself, as for some preconfigured mode, this value is fixed. 
+			By default for new mode, the minimum number of colors is 1.
+
+			This function is called when the component is being constructed, to build its state.
+		*/
+
 		var minNumberColors = 1;
 		var specialModes = [1, 2, 3, 4];
 		if (this.props.modeModel.isOriginMode) {
@@ -196,6 +256,15 @@ class ColorPicker extends React.Component {
 	}
 
 	getMaxNumberColors() {
+		/**
+			This function returns the maximum number of colors that should be selected by the user (i.e. above which colors cannot be removed
+			from the colors selector).
+			This value depends on the mode itself, as for some preconfigured mode, this value is fixed. 
+			By default for new mode, the minimum number of colors is 10.
+
+			This function is called when the component is being constructed, to build its state.
+		*/
+
 		var specialModes = [1, 2, 3, 4];
 		var maxNumberColors;
 		if (specialModes.includes(this.props.modeModel.id)) {
@@ -213,6 +282,14 @@ class ColorPicker extends React.Component {
 	}
 
 	isSaveDisabled = () => {
+		/**
+			This function determines whether the save button is disabled or not. The idea is to enable the save button only for new modes
+			or when a changes has been made on an existing mode (edit).
+
+			This function is called when the component is being constructed, to build its state. Afterwards, the state is altered directly
+			without calling this function.
+		*/
+
 		if (this.props.type === 'new') {
 			return false;
 		} 
@@ -220,11 +297,38 @@ class ColorPicker extends React.Component {
 	}
 
 	resetColors = (initialColors) => {
-		//convert the initialColors to hex and update the state
+		/**
+			This function is in charge of updating the state with the colors array received as an argument. This array is transformed 
+			to an array of hex strings to be saved in the state. 
+			This function is called when the user wants to reset a preconfigured mode to its initial config. In this case, 
+			the whole colors array is set back to the initialColors array.
+
+			initialColors is of the form [{ r: r, g: g, b: b }, { r: r, g: g, b: b }, ...].
+		*/
+
 		this.setState({'selectedColors':this.getHexColors(initialColors)});
 	}
 
 	executeCurrentMode = (target) => {
+		/**
+			This function is in charge of executing the update performed by the user on a given mode.
+			There are three types of updates :
+
+
+			If the id of the mode currently set (Redux store's selectedMode) if not the id of the mode received as props by this
+			component, MaiaService.executeMode() is called with the id of the mode.
+
+			Otherwise, this function calls MaiaService.updateMode with two arguments:
+				- the mode's instance serialized
+				- the update object, that can be of three types
+						- {'speed':speed} - when the speed is being edited
+						- {'color':color} - when a color is being updated
+						- {'reset':colorsArray} - when the user resets the colors of a preconfigured mode
+
+			A debouncer of 250ms prevent the updates to be sent too often. 
+		*/
+
+
 		if (this.props.modeModel.id !== this.props.selectedMode) {
 			var serializedMode = this.props.modeModel.serialize();
 			MaiaService.executeMode(serializedMode);
@@ -246,7 +350,14 @@ class ColorPicker extends React.Component {
 	}
 
 	onSpeedChange = (speed) => {
-		// save the currently selected color
+		/**
+			This function is called by the Slider component (props) whenever the value of the speed slider is updated.
+			This function is in charge of updating the state of the component and the property of the mode model instance
+			 with the updated speed and calling the executeMode method to forward the update to MaiaService.
+
+			As a change is recorded on the mode, the saveButtonDisabled flag is set to false to make sure the save button will be clickable.
+		*/
+
 		this.setState({'animationSpeed':speed, 'saveButtonDisabled':false}, () => {
 			// update the modeModel
 			this.props.modeModel.setSpeed(this.state.animationSpeed);
@@ -256,6 +367,21 @@ class ColorPicker extends React.Component {
 	}
 
 	onColorSelect = (color) => {
+		/**
+			This method is passed as a props to the IroColorPicker component instance and called each
+			time the user touches the color wheel and updates the color.
+			It is in charge of:
+				- updating the state's colors array at the corresponding index
+				- calling executeCurrentMode for the microcontroller to execute a live update
+				- updating the mode model instance with the change
+
+			In case the mode being edited is not saved yet, this function is also in charge of setting the currently selected mode
+			to 255, so that the Redux store keeps track that the mode being executed is not a saved one. 
+			This is important because as soon as executeCurrentMode is called, the lamp is going to light up with the settings of this
+			new mode, so we need to update the Redux store. 
+		*/
+
+
 		// save the currently selected color and the current array of colors
 		var selectedColors = this.state.selectedColors;
 		var colorIndex = this.state.selectedColorIndex;
@@ -276,7 +402,12 @@ class ColorPicker extends React.Component {
 	}
 
 	onColorClick = (event) => {
-		// this method is called when the user clicks on a color circle from the colors selectors grid on the right
+		/**
+			This function is called whenever the user clicks on a color circle from the colors selectors grid on the right.
+			If the user clicked again on the same circle, this second click triggers the delete action. Otherwise, this function
+			calls the selectColor method. 
+		*/
+
 		var selectedIndex = parseInt(event.currentTarget.value);
 		if (selectedIndex === this.state.showDelete) {
 			this.removeColorSelector(selectedIndex);
@@ -287,7 +418,11 @@ class ColorPicker extends React.Component {
 	}
 
 	addColorSelector = (event) => {
-		// this method is called when the user clicks on the + button of the colors selectors grid on the right
+		/**
+			This method is called when the user clicks on the + button of the colors selectors grid on the right
+			It is in charge of adding a color to the colors array of the state and displaying a new circle to the colors selector grid. 
+		*/
+
 		var selectedColors = this.state.selectedColors;
 		selectedColors.push('FFFFFF');
 		var selectedColorIndex = this.state.selectedColors.length - 1;
@@ -303,7 +438,12 @@ class ColorPicker extends React.Component {
 	}
 
 	selectColor = (index) => {
-		// this methods selects the color clicked on on the color wheel
+		/**
+			This methods selects the color clicked on on the color wheel. This triggers two things:
+				- the color shown on the color wheel is the color clicked on
+				- inside the color circle a tiny delete icon is shown
+		*/
+
 		var showDeleteIndex = index;
 		this.setState({'selectedColorIndex':index, 'showDelete':showDeleteIndex}, () => {
 			var color = this.state.selectedColors[index];
@@ -312,7 +452,11 @@ class ColorPicker extends React.Component {
 	} 
 
 	removeColorSelector = (indexColorToRemove) => {
-		// this method removes the color from the grid and the list of selected colors
+		/**
+			This method removes the color from the grid and the list of selected colors.
+			It is triggered if a user clicks/taps twice on a color circle from the selector grid (if the delete icon is visible).
+		*/
+
 		if (this.state.selectedColors.length > this.state.minNumberColors) {
 			var selectedColors = this.state.selectedColors;
 			selectedColors.splice(indexColorToRemove, 1);
@@ -330,7 +474,11 @@ class ColorPicker extends React.Component {
 	}
 
 	editModeModel = () => {
-		// add state to modeModel
+		/**
+			This method updates the mode model instance with the array of colors. 
+			As a change is recorded on the mode, the saveButtonDisabled flag is set to false to make sure the save button will be clickable.
+		*/
+
 		var modeColors = [];
 		var selectedColors = this.state.selectedColors;
 		for (var i = 0; i < selectedColors.length; i++) {
@@ -340,10 +488,17 @@ class ColorPicker extends React.Component {
 		this.props.modeModel.setColors(modeColors);
 		// we enable the save button
 		this.setState({saveButtonDisabled:false});
-		//this.props.modeModel.setSpeed(this.state.animationSpeed);
+
 	}
 
 	onSaveMode = () => {
+		/**
+			This method is called when the user clicks on save.
+			If the mode currently handled is a new mode, then this method calls onSaveNewMode from its parent with an object that is used
+			to display an overlay (to give a name to the new mode).
+			Otherwise, it calls onSaveEditMode from its parent with the mode instance, which will trigger a save to the microcontroller.
+		*/
+
  		this.editModeModel();
 
 		if (this.props.type === 'new') {
@@ -363,6 +518,12 @@ class ColorPicker extends React.Component {
 	}
 
 	getSelectedBorder = (index, background) => {
+		/**
+			This method is in charge of deciding whether to add a border to a color selector, which depends on whether it is
+			the selected color or not. 
+			The color of the border is adapted based on the color of the color selector circle.
+		*/
+
 		let hsvColor = Utils.convertHextoHSV(background);
 		let borderColor;
 		let borderStyle;

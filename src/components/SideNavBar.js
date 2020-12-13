@@ -27,12 +27,21 @@ class SideNavBar extends React.Component {
 	}
 
 	onLocationChange = () => {
+		/**
+			This function is passed as a callback to the navigation event listener. It is called any time the user clicks on the side bar buttons.
+			It updates the currently selected menu.
+		*/
 		var selectedPage = this.state.matchPages[window.location.hash];
 		this.setState({ activeItem: selectedPage });
     };
 
 
 	handleItemClick = (e, { name, to }) => {
+		/**
+			This function triggers a navigation event to move to another position in the page depending on where the user clicks
+			on the navigation bar. 
+		*/
+
 		if (e.metaKey || e.ctrlKey) {
 			var target = window.location.href.replace('#', to)
 			window.open(target, "_blank")
@@ -48,6 +57,11 @@ class SideNavBar extends React.Component {
 	}
 
 	fetchIconImage = (target) => {
+		/**
+			This function associates each button of the navigation bar to its logo, depending on whether it is being selected or not.
+		*/
+
+
 		const active = this.state.activeItem === target ? true : false;
 		switch (target) {
 			case 'couleurs':
