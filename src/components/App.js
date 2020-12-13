@@ -112,7 +112,7 @@ class App extends React.Component {
 
 	componentWillUnmount() {
 		/**
-			We clear the event listeners 
+			We clear the event listeners
 		*/
 
 		window.removeEventListener('resize', this.onWindowResize);
@@ -141,7 +141,7 @@ class App extends React.Component {
 		if (this.state.targetDevice === 'mobile' && (this.previousHeight === undefined || this.previousHeight !== window.innerHeight)) {
 			this.resizeElements();
 			this.previousHeight = window.innerHeight;
-		} 
+		}
 
 		window.requestAnimationFrame(this.checkSize);
 	}
@@ -203,7 +203,7 @@ class App extends React.Component {
 
 	isInPortraitOrientation = () => {
 		/**
-			Helper function to determine whether the phone's orientation matches portrait. 
+			Helper function to determine whether the phone's orientation matches portrait.
 		*/
 		if (window.screen.orientation.angle === 90 || window.screen.orientation.angle === 270) {
 			return false;
@@ -232,7 +232,7 @@ class App extends React.Component {
 
 	onLocationChange = () => {
 		/**
-			This function aims at defining whether or not to hide the disconnect button. 
+			This function aims at defining whether or not to hide the disconnect button.
 			This function is useful only of the Home page is being used to display something else than the Connect button at App init.
 		*/
 
@@ -259,7 +259,7 @@ class App extends React.Component {
 					'refModeInstance':modeInstance,
 					'modeInstance':clonedModeModel
 				};
-		*/		
+		*/
 		var overlay = parameters;
 		this.setState({ overlay });
 	}
@@ -267,7 +267,7 @@ class App extends React.Component {
 	setId = () => {
 		/**
 			This function computes an id for a new mode. The ids of all mode have to be sequential, so the id computer may be filling a gap.
-			The idea of keeping the ids sequential is to ensure that the id property sent to the microcontroller is a "small" object (max 1B). However, 
+			The idea of keeping the ids sequential is to ensure that the id property sent to the microcontroller is a "small" object (max 1B). However,
 			no check is performed to ensure that the id is never greater than 254..
 		*/
 
@@ -320,7 +320,7 @@ class App extends React.Component {
 			This function is called by the overlay window in two cases :
 				- either for a new mode to save, when the user inputs its name
 				- or when a user is editing a mode (overlay window to edit a mode) and clicks on save
-			
+
 			This function is in charge of :
 				- calling the appropriate redux action (addMode and selectMode for a new mode, editMode for a mode edit)
 				- triggering the syncModesStateWithLamp, to sync the update of the modes with MaiaService (and then the microcontroller)
@@ -354,7 +354,7 @@ class App extends React.Component {
 	onEditMode = (modeInstance) => {
 		/**
 			This function is called by the ModeList component, when the user clicks on the Edit button or icon.
-			It is in charge of 
+			It is in charge of
 				- cloning the mode to edit (to be able to easily discard changes if necessary)
 				- updating the overlay state to display an overlay window with a color picker
 		*/
@@ -428,7 +428,7 @@ class App extends React.Component {
 
 	onConnectClick = () =>  {
 		/**
-			This function is called when the user clicks on the Connect button. 
+			This function is called when the user clicks on the Connect button.
 			It calls a function of the BluetoothService passing a few callback functions :
 				- setLoading, to be able to display a loader while the connection is being established
 				- onConnect, that is called once the connection is established with the microcontroller, to initialize the app
@@ -456,7 +456,7 @@ class App extends React.Component {
 	onConnect = () => {
 		/**
 			This function is called once the connection is established with the microcontroller, to initialize the app.
-			It is in charge of 
+			It is in charge of
 				- calling the Maia.getInitSetting() method
 				- calling the appropriate Redux actions to initialize the store (initModes, initRules, getFactorySettings)
 				- setting the state to connected and triggering a navigation event to the modes menu
@@ -503,7 +503,7 @@ class App extends React.Component {
 
 	serializeModes() {
 		/**
-			This function is in charge of building an array of serialized modes from the Redux store's modesList. 
+			This function is in charge of building an array of serialized modes from the Redux store's modesList.
 			This list of serialized modes can be passed down to the microcontroller.
 		*/
 		var modesArray = [];
@@ -516,23 +516,23 @@ class App extends React.Component {
 
 	syncModesStateWithLamp() {
 		/**
-			This function is called everytime a mode is created or edited. It is in charge of parsing the modes objects 
+			This function is called everytime a mode is created or edited. It is in charge of parsing the modes objects
 			from the Redux store to be passed to the microcontroller.
-			It calls MaiaService.saveModes with the updated mode and the currently selectedMode. 
+			It calls MaiaService.saveModes with the updated mode and the currently selectedMode.
 		*/
-		var modesArray = this.serializeModes();
-		var modesObject = {'modesArray':modesArray, 'selectedMode':this.props.selectedMode};
-		MaiaService.saveModes(modesObject);
+		// var modesArray = this.serializeModes();
+		// var modesObject = {'modesArray':modesArray, 'selectedMode':this.props.selectedMode};
+		// MaiaService.saveModes(modesObject);
 
 		// uncomment when changes on BluetoothService have been made
-		// var savedModeInstance = this.props.modesList[this.props.selectedMode].serialize();
-		// var modesObject = {'savedMode':savedModeInstance, 'selectedMode':this.props.selectedMode};
-		// MaiaService.saveModes(modesObject);
+		var savedModeInstance = this.props.modesList[this.props.selectedMode].serialize();
+		var modesObject = {'savedMode':savedModeInstance, 'selectedMode':this.props.selectedMode};
+		MaiaService.saveMode(modesObject);
 	}
 
 	syncRulesStateWithLamp() {
 		/**
-			This function is called everytime a rule is updated from the Rules menu. It simply passes to MaiaService the 
+			This function is called everytime a rule is updated from the Rules menu. It simply passes to MaiaService the
 			updated Redux store's rules object.
 		*/
 

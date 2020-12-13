@@ -9,10 +9,10 @@ class MaiaService {
 	getInitSetting() {
 		/**
 			This function is called once the connection is established with the microcontroller by the App component, to initialize the app.
-			It is in charge of 
+			It is in charge of
 				- fetching the modes and rules from the microcontroller
 				- fetching the config file
-				- building an object that the App can use to initialize the Redux store, with the list of modes, rules and selected mode 
+				- building an object that the App can use to initialize the Redux store, with the list of modes, rules and selected mode
 
 			It returns a promise.
 		*/
@@ -33,7 +33,7 @@ class MaiaService {
 				resolve({'modes':results[0], 'rules':results[1], 'config':results[2]})
 			})
 		});
-		
+
 		return p;
 
 	}
@@ -63,7 +63,7 @@ class MaiaService {
 
 	getModesArray() {
 		/**
-			This function requests the list of modes to the BluetoothService. 
+			This function requests the list of modes to the BluetoothService.
 		*/
 
 		return BluetoothService.getModes();
@@ -72,7 +72,7 @@ class MaiaService {
 
 	getSelectedMode() {
 		/**
-			This function requests the id of the (last) selected mode to the BluetoothService. 
+			This function requests the id of the (last) selected mode to the BluetoothService.
 		*/
 
 		var selectedModePromise = new Promise((resolve, reject) => {
@@ -81,7 +81,7 @@ class MaiaService {
 				resolve(modeIndex);
 			})
 			.catch((err) => {
-				console.warn(err); 
+				console.warn(err);
 				reject(null);
 			})
 		});
@@ -91,38 +91,57 @@ class MaiaService {
 
 	executeMode(modeConfig) {
 		/**
-			This function receives the config of the mode to launch. It requests to BluetoothService 
+			This function receives the config of the mode to launch. It requests to BluetoothService
 			to set the mode and updates the Redux store with the id of the currently selected mode.
 			This object is of the following format :
 				{
 					'id':id,
 					'name':name,
 					'orderIndex':orderIndex,
-					'isOriginMode':isOriginMode, 
+					'isOriginMode':isOriginMode,
 					'isEditable':isEditable,
-					'colors':colors, 
+					'colors':colors,
 					'speed':speed
 				}
 		*/
 
 		if (modeConfig.id !== this.selectedMode) {
-			BluetoothService.setMode(modeConfig);
+			BluetoothService.setActiveMode(modeConfig);
 			this.selectedMode = modeConfig.id;
 		}
 	}
 
-	saveModes(modesObject) {
+	saveMode(modeObject) {
 		/**
 			This function receives the config of a new mode to save (and add to the list of modes), or a mode that was edited.
-			It requests to BluetoothService to save this mode. 
+			It requests to BluetoothService to save this mode.
 			This object is of the following format :
 				{
 					'id':id,
 					'name':name,
 					'orderIndex':orderIndex,
-					'isOriginMode':isOriginMode, 
+					'isOriginMode':isOriginMode,
 					'isEditable':isEditable,
-					'colors':colors, 
+					'colors':colors,
+					'speed':speed
+				}
+		*/
+		BluetoothService.saveMode(modeObject);
+	}
+
+	saveModes(modesObject) {
+		// TODO: review comments
+		/**
+			This function receives the config of a new mode to save (and add to the list of modes), or a mode that was edited.
+			It requests to BluetoothService to save this mode.
+			This object is of the following format :
+				{
+					'id':id,
+					'name':name,
+					'orderIndex':orderIndex,
+					'isOriginMode':isOriginMode,
+					'isEditable':isEditable,
+					'colors':colors,
 					'speed':speed
 				}
 		*/
@@ -145,9 +164,9 @@ class MaiaService {
 					'id':id,
 					'name':name,
 					'orderIndex':orderIndex,
-					'isOriginMode':isOriginMode, 
+					'isOriginMode':isOriginMode,
 					'isEditable':isEditable,
-					'colors':colors, 
+					'colors':colors,
 					'speed':speed
 				}
 		*/
@@ -156,15 +175,15 @@ class MaiaService {
 
 	deleteMode(modeConfig) {
 		/**
-			This function receives the config of a mode that should be deleted. It requests to BluetoothService to delete this mode. 
+			This function receives the config of a mode that should be deleted. It requests to BluetoothService to delete this mode.
 			modeConfig is of the following format :
 				{
 					'id':id,
 					'name':name,
 					'orderIndex':orderIndex,
-					'isOriginMode':isOriginMode, 
+					'isOriginMode':isOriginMode,
 					'isEditable':isEditable,
-					'colors':colors, 
+					'colors':colors,
 					'speed':speed
 				}
 		*/
@@ -175,7 +194,7 @@ class MaiaService {
 	discardChanges() {
 		/**
 			When this function is called, any of the changes that were executed before (through the updateMode method) should be discarded (i.e. not saved).
-			This function requests to BluetoothService to discard the changes. 
+			This function requests to BluetoothService to discard the changes.
 		*/
 		BluetoothService.discardChanges();
 	}
@@ -199,7 +218,7 @@ class MaiaService {
 				resolve(rulesConfig);
 			})
 			.catch((err) => {
-				console.warn(err); 
+				console.warn(err);
 				reject({});
 			})
 		});
@@ -252,7 +271,7 @@ class MaiaService {
 				resolve(response);
 			})
 			.catch((err) => {
-				console.warn(err); 
+				console.warn(err);
 				reject({});
 			})
 		});

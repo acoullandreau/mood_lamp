@@ -40,7 +40,26 @@ class MaiaUtils {
         return mode;
     }
 
-    static packMode(mode) {
+    static packModeUpdate(mode, update) {
+        let pb_mode_update = new maia_pb.ModeUpdate();
+        pb_mode_update.setId(mode.id);
+        if ('speed' in update) {
+            pb_mode_update.setSpeed(update.speed);
+            pb_mode_update.setColorIndex(255);
+        }
+        if ('color' in update && 'color_index' in update) {
+            let pb_color = new maia_pb.Color();
+            let converted = (update.color.r << 16) | (update.color.g << 8) | (update.color.b);
+            pb_color.setRgb(converted);
+            pb_mode_update.setColor(pb_color);
+            pb_mode_update.setColorIndex(update.color_index);
+            pb_mode_update.setNumColors(mode['colors'].length);
+            pb_mode_update.setSpeed(255);
+        }
+        return pb_mode_update.serializeBinary();
+    }
+
+    static packMode(mode, serialize) {
         let pb_mode = new maia_pb.Mode();
         pb_mode.setId(mode.id);
         pb_mode.setName(mode.name);
@@ -54,7 +73,12 @@ class MaiaUtils {
             pb_color.setRgb(converted);
             pb_mode.addColors(pb_color);
         }
-        return pb_mode;
+        if (serialize === true) {
+            return pb_mode.serializeBinary();
+        }
+        else {
+            return pb_mode;
+        }
     }
 
     static packModeId(modeConfig) {
@@ -206,7 +230,7 @@ class MaiaUtils {
                 var modeId = modesArray[i]['id'];
                 modesArray[i]['name'] = configFile.modesSettings[modeId]['fr']
                 modesArray[i]['orderIndex'] = configFile.modesSettings[modeId]['orderIndex']
-            } 
+            }
             // temporary, while the saved models used for testing are not really user saved
             else {
                 // assign an orderIndex using the id to sort the modes when displaying it in the app

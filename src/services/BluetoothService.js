@@ -11,12 +11,14 @@ const Commands = Object.freeze({
 	"GET_MODE_LIST":3,
 	"SET_MODE_LIST":4,
 	"GET_MODE":5,
-	"UPDATE_MODE_COLOR":6,
-	"UPDATE_MODE_SPEED":7,
+	"SET_MODE":6,
+	"UPDATE_MODE":7,
 	"GET_READINGS":8,
 	"GET_SETTINGS":9,
 	"SET_SETTINGS":10,
 	"SET_TIME":11,
+	"DISCARD_CHANGES":12,
+	"DELETE_MODE":13,
 	"ERROR":90,
 	"NOT_IMPLEMENTED":80
 });
@@ -199,7 +201,7 @@ class BluetoothService {
 				// var modeTemp = {'id':3, 'orderIndex':3, 'isOriginMode':true, 'isEditable':true, 'colors':[{ r: 67, g: 138, b: 168 }, { r: 204, g: 219, b: 254 }, { r: 245, g: 160, b: 64 }], 'speed':0};
 				var modeNationalDay = {
 					'id':12,
-					'orderIndex':12, 
+					'orderIndex':12,
 					'isOriginMode':true,
 					'isEditable':true,
 					'colors':[
@@ -284,6 +286,22 @@ class BluetoothService {
 		// return selectedModePromise;
 	}
 
+	saveMode(modeObject) {
+
+		let modePromise = new Promise((resolve, reject) => {
+			console.trace('Saving Mode to micro-controller', modeObject);
+			let message = MessageUtils.buildMessage();
+			message.setCommand(Commands.SET_MODE);
+			message.setObjectPayload(MaiaUtils.packMode(modeObject, true));
+			this.sendMessage(message).then((result) => {
+				let command = result[0];
+				let payload = result[1];
+				console.log(command, payload);
+			});
+		});
+		return modePromise;
+	}
+
 	saveModes(modesObject) {
 		// modesObject contains the array of saved modes and the currently selected mode
 		// save the object on the micro-controller
@@ -302,10 +320,10 @@ class BluetoothService {
 		return modesPromise;
 	}
 
-	setMode(modeConfig) {
+	setActiveMode(modeConfig) {
 		// send config of the mode to execute to the micro-controller
 		console.log('Executing mode ', modeConfig);
-		let selectedModePromise = new Promise((resolve, reject) => {
+		let setActiveModePromise = new Promise((resolve, reject) => {
 			let message = MessageUtils.buildMessage();
 			message.setCommand(Commands.SET_ACTIVE_MODE);
 			console.log(modeConfig);
@@ -316,13 +334,22 @@ class BluetoothService {
 				console.log(command);
 			});
 		});
-		return selectedModePromise;
-		//Observation: modeConfig may be the config of a saved mode, but not necessarily, that's why the whole config is passed instead of just an index
+		return setActiveModePromise;
 	}
 
-	updateMode(modesObject, updateObject) {
-		console.log('Updating mode ', modesObject, updateObject)
-		//add logic to request update to the microcontroller
+	updateMode(modeObject, updateObject) {
+		console.log('Updating mode ', modeObject, updateObject);
+		let updateModePromise = new Promise((resolve, reject) => {
+			let message = MessageUtils.buildMessage();
+			message.setCommand(Commands.UPDATE_MODE);
+			message.setObjectPayload(MaiaUtils.packModeUpdate(modeObject, updateObject));
+			this.sendMessage(message).then((result) => {
+				let command = result[0];
+				let payload = result[1];
+				console.log(payload, command);
+			});
+		});
+		return updateModePromise;
 	}
 
 	deleteMode(modeConfig) {

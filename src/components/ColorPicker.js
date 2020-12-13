@@ -92,7 +92,7 @@ class ColorPicker extends React.Component {
 
 	onWindowResize = () => {
 		/**
-			This function is called every time the window is resized, to ensure that the width/height of the color picker 
+			This function is called every time the window is resized, to ensure that the width/height of the color picker
 			is always optimal based on the platform	(desktop vs mobile), and depending on the size of the grid it is rendered in.
 
 			The color picker library used allows to set the width of the component, width that includes the color wheel and the
@@ -107,7 +107,7 @@ class ColorPicker extends React.Component {
 			if (width + 115 > 0.75 * parentWidth) {
 				// the grid cell is at most 75% of the width of its parent
 				width = 0.75 * parentWidth - 115;
-			} 
+			}
 			if (width < (548 - 115)) {
 				// 115px for the slider (by default 32px) and the margin (set to 80px)
 				width = 433;
@@ -125,13 +125,13 @@ class ColorPicker extends React.Component {
 
 	getInitialWidth() {
 		/**
-			This function computes the initial width of the color picker, according to the platform	(desktop vs mobile), 
+			This function computes the initial width of the color picker, according to the platform	(desktop vs mobile),
 			and the size of the parent element.
 
 			The color picker library used allows to set the width of the component, width that includes the color wheel and the
 			saturation bar (if it is positioned vertically).
 
-			This function is called when the component is being constructed, to build its state. 
+			This function is called when the component is being constructed, to build its state.
 
 		*/
 
@@ -141,10 +141,10 @@ class ColorPicker extends React.Component {
 			width = 0.5 * window.visualViewport.height;
 			if (width + 115 > 0.75 * parentWidth) {
 				width = 0.75 * parentWidth - 115;
-			} 
+			}
 			if (width < (548 - 115)) {
 				width = 433;
-			}	
+			}
 		} else if (this.props.targetDevice === 'mobile') {
 			if (this.props.type === 'edit') {
 				width = 0.8*window.visualViewport.width - 50;
@@ -219,7 +219,7 @@ class ColorPicker extends React.Component {
 
 
 		var initialColors = [];
-		
+
 		for (var i = 0; i < colors.length; i++) {
 			var hexColor = Utils.convertRGBStringtoHex(colors[i]);
 			initialColors.push(hexColor);
@@ -231,7 +231,7 @@ class ColorPicker extends React.Component {
 		/**
 			This function returns the minimum number of colors that should be selected by the user (i.e. below which colors cannot be removed
 			from the colors selector).
-			This value depends on the mode itself, as for some preconfigured mode, this value is fixed. 
+			This value depends on the mode itself, as for some preconfigured mode, this value is fixed.
 			By default for new mode, the minimum number of colors is 1.
 
 			This function is called when the component is being constructed, to build its state.
@@ -259,7 +259,7 @@ class ColorPicker extends React.Component {
 		/**
 			This function returns the maximum number of colors that should be selected by the user (i.e. above which colors cannot be removed
 			from the colors selector).
-			This value depends on the mode itself, as for some preconfigured mode, this value is fixed. 
+			This value depends on the mode itself, as for some preconfigured mode, this value is fixed.
 			By default for new mode, the minimum number of colors is 10.
 
 			This function is called when the component is being constructed, to build its state.
@@ -292,15 +292,15 @@ class ColorPicker extends React.Component {
 
 		if (this.props.type === 'new') {
 			return false;
-		} 
+		}
 		return true;
 	}
 
 	resetColors = (initialColors) => {
 		/**
-			This function is in charge of updating the state with the colors array received as an argument. This array is transformed 
-			to an array of hex strings to be saved in the state. 
-			This function is called when the user wants to reset a preconfigured mode to its initial config. In this case, 
+			This function is in charge of updating the state with the colors array received as an argument. This array is transformed
+			to an array of hex strings to be saved in the state.
+			This function is called when the user wants to reset a preconfigured mode to its initial config. In this case,
 			the whole colors array is set back to the initialColors array.
 
 			initialColors is of the form [{ r: r, g: g, b: b }, { r: r, g: g, b: b }, ...].
@@ -325,7 +325,7 @@ class ColorPicker extends React.Component {
 						- {'color':color} - when a color is being updated
 						- {'reset':colorsArray} - when the user resets the colors of a preconfigured mode
 
-			A debouncer of 250ms prevent the updates to be sent too often. 
+			A debouncer of 250ms prevent the updates to be sent too often.
 		*/
 
 
@@ -340,7 +340,7 @@ class ColorPicker extends React.Component {
 				if (target === 'color') {
 					var color = this.state.selectedColors[this.state.selectedColorIndex];
 					color = Utils.convertHexToRGB(color);
-					MaiaService.updateMode(serializedMode, {'color':color} );
+					MaiaService.updateMode(serializedMode, {'color':color, 'color_index': this.state.selectedColorIndex} );
 				} else if (target === 'speed') {
 					MaiaService.updateMode(serializedMode, {'speed':this.state.animationSpeed});
 				}
@@ -376,9 +376,9 @@ class ColorPicker extends React.Component {
 				- updating the mode model instance with the change
 
 			In case the mode being edited is not saved yet, this function is also in charge of setting the currently selected mode
-			to 255, so that the Redux store keeps track that the mode being executed is not a saved one. 
+			to 255, so that the Redux store keeps track that the mode being executed is not a saved one.
 			This is important because as soon as executeCurrentMode is called, the lamp is going to light up with the settings of this
-			new mode, so we need to update the Redux store. 
+			new mode, so we need to update the Redux store.
 		*/
 
 
@@ -405,7 +405,7 @@ class ColorPicker extends React.Component {
 		/**
 			This function is called whenever the user clicks on a color circle from the colors selectors grid on the right.
 			If the user clicked again on the same circle, this second click triggers the delete action. Otherwise, this function
-			calls the selectColor method. 
+			calls the selectColor method.
 		*/
 
 		var selectedIndex = parseInt(event.currentTarget.value);
@@ -420,7 +420,7 @@ class ColorPicker extends React.Component {
 	addColorSelector = (event) => {
 		/**
 			This method is called when the user clicks on the + button of the colors selectors grid on the right
-			It is in charge of adding a color to the colors array of the state and displaying a new circle to the colors selector grid. 
+			It is in charge of adding a color to the colors array of the state and displaying a new circle to the colors selector grid.
 		*/
 
 		var selectedColors = this.state.selectedColors;
@@ -428,8 +428,8 @@ class ColorPicker extends React.Component {
 		var selectedColorIndex = this.state.selectedColors.length - 1;
 		var sliderDisabled = this.props.modeModel.isOriginMode ? true : false;
 		this.setState({
-			'selectedColors':selectedColors, 
-			'selectedColorIndex':selectedColorIndex, 
+			'selectedColors':selectedColors,
+			'selectedColorIndex':selectedColorIndex,
 			'sliderDisabled':sliderDisabled,
 			'showDelete':selectedColorIndex
 		}, () => {
@@ -449,7 +449,7 @@ class ColorPicker extends React.Component {
 			var color = this.state.selectedColors[index];
 			this.colorPickerRef.current.colorPicker.color.set(color);
 		});
-	} 
+	}
 
 	removeColorSelector = (indexColorToRemove) => {
 		/**
@@ -463,7 +463,7 @@ class ColorPicker extends React.Component {
 			var sliderDisabled = (selectedColors.length === 1 || this.props.modeModel.isOriginMode) ? true : false;
 			var selectedIndex = indexColorToRemove === 0 ? 0 : indexColorToRemove - 1;
 			this.setState({
-				'selectedColors':selectedColors, 
+				'selectedColors':selectedColors,
 				'sliderDisabled':sliderDisabled,
 				'selectedColorIndex':selectedIndex
 			}, () => {
@@ -475,7 +475,7 @@ class ColorPicker extends React.Component {
 
 	editModeModel = () => {
 		/**
-			This method updates the mode model instance with the array of colors. 
+			This method updates the mode model instance with the array of colors.
 			As a change is recorded on the mode, the saveButtonDisabled flag is set to false to make sure the save button will be clickable.
 		*/
 
@@ -506,7 +506,7 @@ class ColorPicker extends React.Component {
 			let params = {
 				'type':'new',
 				'display':true,
-				'title':'Nouveau mode', 
+				'title':'Nouveau mode',
 				'message':'Enregistrer cette configuration comme nouveau mode préconfiguré.',
 				'modeInstance':this.props.modeModel
 			};
@@ -520,7 +520,7 @@ class ColorPicker extends React.Component {
 	getSelectedBorder = (index, background) => {
 		/**
 			This method is in charge of deciding whether to add a border to a color selector, which depends on whether it is
-			the selected color or not. 
+			the selected color or not.
 			The color of the border is adapted based on the color of the color selector circle.
 		*/
 
@@ -578,15 +578,15 @@ class ColorPicker extends React.Component {
 
 		if (this.state.selectedColors.length < maxNumColorSelector) {
 			addSelector = (
-				<button 
-					className='color-selector' 
+				<button
+					className='color-selector'
 					id='add-selector'
 					onClick={this.addColorSelector}
 				>
 					+
 				</button>
 			)
-		} 
+		}
 
 		return (
 			<div id='selectors' className={selectorClassName} >
@@ -597,9 +597,9 @@ class ColorPicker extends React.Component {
 							let borderStyle = this.getSelectedBorder(item, background);
 
 							return (
-								<button 
+								<button
 									value={item}
-									className='color-selector' 
+									className='color-selector'
 									style={{'backgroundColor':background, 'border':borderStyle}}
 									onClick={this.onColorClick}
 								>
@@ -647,14 +647,14 @@ class ColorPicker extends React.Component {
 		}
 
 		return (
-			<Slider 
-				isDisabled={this.state.sliderDisabled} 
-				initialSpeed={this.state.animationSpeed} 
+			<Slider
+				isDisabled={this.state.sliderDisabled}
+				initialSpeed={this.state.animationSpeed}
 				onChange={this.onSpeedChange}
 				className={sliderClassName}
 			/>
 		)
-	} 
+	}
 
 	renderButton() {
 		let buttonContent;
@@ -676,7 +676,7 @@ class ColorPicker extends React.Component {
 				buttonContent = (
 					<React.Fragment>Enregistrer</React.Fragment>
 				)
-			} 
+			}
 		} else {
 			buttonContent = (
 				<React.Fragment>
@@ -695,7 +695,7 @@ class ColorPicker extends React.Component {
 
 		return (
 			<React.Fragment>
-				<div className={buttonClassName}>				
+				<div className={buttonClassName}>
 					<button style={{'opacity':buttonOpacity}} disabled={buttonDisabled} className='save-button' onClick={this.onSaveMode} >
 						{buttonContent}
 					</button>
@@ -704,7 +704,7 @@ class ColorPicker extends React.Component {
 		)
 	}
 
-	render() { 
+	render() {
 
 		return (
 			<div id="picker" className={['color-grid', `color-${this.props.type}`].join(' ')}>
