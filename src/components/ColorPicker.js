@@ -390,8 +390,10 @@ class ColorPicker extends React.Component {
 			'selectedColors':selectedColors
 		});
 
+		// update the mode model instance and enable the save button
+		this.editColorsModeModel()
+		this.setState({saveButtonDisabled:false});
 		// send color to the microcontroller for live update
-		this.editModeModel()
 		this.executeCurrentMode('color');
 
 		// if the color picker is not editing a saved mode, the selectedMode from the redux store should be set to 255
@@ -473,10 +475,9 @@ class ColorPicker extends React.Component {
 
 	}
 
-	editModeModel = () => {
+	editColorsModeModel = () => {
 		/**
 			This method updates the mode model instance with the array of colors.
-			As a change is recorded on the mode, the saveButtonDisabled flag is set to false to make sure the save button will be clickable.
 		*/
 
 		var modeColors = [];
@@ -486,8 +487,6 @@ class ColorPicker extends React.Component {
 			modeColors.push(rgbColor);
 		}
 		this.props.modeModel.setColors(modeColors);
-		// we enable the save button
-		this.setState({saveButtonDisabled:false});
 
 	}
 
@@ -498,8 +497,6 @@ class ColorPicker extends React.Component {
 			to display an overlay (to give a name to the new mode).
 			Otherwise, it calls onSaveEditMode from its parent with the mode instance, which will trigger a save to the microcontroller.
 		*/
-
- 		this.editModeModel();
 
 		if (this.props.type === 'new') {
 			// send the modeModel reference back to the App
