@@ -80,6 +80,9 @@ class Stream {
 		if (this.ongoingTransfers === false) {
 			this.processQueue();
 		}
+		else {
+			console.log('Not processing queue because there are ongoing transfers');
+		}
 		// return this.processQueue();
 	}
 
@@ -229,11 +232,12 @@ class Stream {
 			if (this.writeQueue.length > 0) {
 				let chunk = this.writeQueue[0];
 				this.writeQueue = this.writeQueue.slice(1);
-				// console.log('>>', chunk);
+				console.log('>>', chunk);
 				this.channel(chunk)
 				.then(() => {
 					return this.processQueue();
 				}).catch((error) => {
+					this.ongoingTransfers = false;
 					console.error(error);
 				}).then((result) => {
 					resolve(result);
