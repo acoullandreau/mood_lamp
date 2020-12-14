@@ -322,7 +322,7 @@ class ColorPicker extends React.Component {
 				- the mode's instance serialized
 				- the update object, that can be of three types
 						- {'speed':speed} - when the speed is being edited
-						- {'color':color} - when a color is being updated
+						- {'color':colorObject, 'color_index':indexInTheArray} - when a color is being updated
 						- {'reset':colorsArray} - when the user resets the colors of a preconfigured mode
 
 			A debouncer of 250ms prevent the updates to be sent too often.

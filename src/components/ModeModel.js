@@ -4,17 +4,7 @@ class ModeModel {
 	static deserialize(obj) {
 		/**
 			This function receives an object and creates a new instance of ModeModel with its properties.
-			obj is of the following format
-			{
-				'id':id,
-				'name':name,
-				'orderIndex':orderIndex,
-				'isOriginMode':isOriginMode, 
-				'isEditable':isEditable,
-				'colors':colors, 
-				'speed':speed
-			}
-
+			The format of obj is as described in the serialize method of this class. 
 		*/
 
 		return new ModeModel(obj);
@@ -23,17 +13,7 @@ class ModeModel {
 	static createNewModeModel(obj) {
 		/**
 			This function initializes a new instance of ModeModel with the properties of obj.
-			obj is of the following format
-			{
-				'id':id,
-				'name':name,
-				'orderIndex':orderIndex,
-				'isOriginMode':isOriginMode, 
-				'isEditable':isEditable,
-				'colors':colors, 
-				'speed':speed
-			}
-
+			The format of obj is as described in the serialize method of this class. 
 		*/
 		return new ModeModel(obj);
 	}
@@ -55,16 +35,6 @@ class ModeModel {
 	serialize() {
 		/**
 			This function returns a JS object with all the attributes of the mode model instance.
-			The object returned is of the following format
-			{
-				'id':id,
-				'name':name,
-				'orderIndex':orderIndex,
-				'isOriginMode':isOriginMode, 
-				'isEditable':isEditable,
-				'colors':colors, 
-				'speed':speed
-			}
 		*/
 
 		var modeDetails = {

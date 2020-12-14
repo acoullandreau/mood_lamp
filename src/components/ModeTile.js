@@ -21,6 +21,10 @@ class ModeTile extends React.Component {
 
 
 	launchMode = () => {
+		/**
+
+		*/
+
 		this.props.selectMode(this.state.id);
 		// send the info to the microcontroller
 		var serializedMode = this.props.model.serialize();
@@ -28,16 +32,27 @@ class ModeTile extends React.Component {
 	}
 
 	onEdit = () => {
+		/**
+
+		*/
+
 		//lauch the mode
 		this.launchMode();
 		this.props.onEditMode(this.props.model)
 	}
 
 	onDelete = () => {
+		/**
+
+		*/
+
 		this.props.onDeleteMode(this.props.model);
 	}
 
 	getThumbnail = (colors) => {
+		/**
+
+		*/
 
 		if (this.state.isEditable === false) {
 			var specialGradient = Utils.getSpecialGradient(this.props.model.id);
@@ -58,6 +73,9 @@ class ModeTile extends React.Component {
 	}
 
 	onHover = (event, bool) => {
+		/**
+
+		*/
 
 		let hoverDisplay;
 		if (bool) {
@@ -85,6 +103,10 @@ class ModeTile extends React.Component {
 
 
 	onTouchStart = (e) => {
+		/**
+
+		*/
+
 		let targetMode = e.currentTarget;
 		this.touchTimeout = setTimeout(() => {
 			//we show the menu dropdown for the modes that are editable
@@ -100,10 +122,18 @@ class ModeTile extends React.Component {
 	}
 
 	onTouchEnd = () => {
+		/**
+
+		*/
+
 		clearTimeout(this.touchTimeout);
 	}
 
 	closeOverlay = () => {
+		/**
+
+		*/
+		
 		let overlay = {...this.state.overlay};
 		overlay.display = false;
 		this.setState({ overlay })

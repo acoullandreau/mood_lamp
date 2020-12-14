@@ -47,6 +47,11 @@ class Rules extends React.Component {
 	}
 
 	getActiveOption = (category) => {
+		/**
+
+		*/
+
+
 		if (this.props.rulesConfig[category].onSchedule.active) {
 			return 'onSchedule';
 		} else {
@@ -55,6 +60,10 @@ class Rules extends React.Component {
 	}
 
 	getOpacity = (target, isSubLevel) => {
+		/**
+
+		*/
+
 		var targetArray = target.split('.');
 		var category = targetArray[0];
 		var subcategory = targetArray[1];
@@ -72,6 +81,10 @@ class Rules extends React.Component {
 	}
 
 	isDisabled = (target) => {
+		/**
+
+		*/
+
 		var isDisabled = false;
 		var targetArray = target.split('.');
 		if (targetArray.length > 1) {
@@ -85,6 +98,10 @@ class Rules extends React.Component {
 	}
 
 	parseStateToRules = () => {
+		/**
+
+		*/
+
 		// Object.assign only does a shallow copy, so if there are nested objects they can be altered in the source from the target!!
 		// this function is in charge of converting the state of the component into an object that matches the format of the redux store Rules object
 		var rules = {};
@@ -121,6 +138,10 @@ class Rules extends React.Component {
 	}
 
 	handleSwitchChange = (event, target) => {
+		/**
+
+		*/
+
 		var targets = target.split('.');
 		var currentState = {...this.state};
 		if (targets.length === 2) {
@@ -138,6 +159,10 @@ class Rules extends React.Component {
 	}
 
 	handleOptionChange = (event) => {
+		/**
+
+		*/
+
 		var currentState = {...this.state};
 		currentState[event.target.name].activeOption = event.target.value;
 		this.setState(currentState, () => {
@@ -146,6 +171,10 @@ class Rules extends React.Component {
 	}
 
 	handleNumberInputChange = (event) => {
+		/**
+
+		*/
+
 		var silentAutoOff = {...this.state.silentAutoOff};
 		silentAutoOff['active'] = true;
 		silentAutoOff['duration'] = event.target.value;
@@ -155,6 +184,10 @@ class Rules extends React.Component {
 	}
 
 	onTimeChange = (value, target) => {
+		/**
+
+		*/
+		
 		var targets = target.split('.');
 		var category = targets[0];
 		var subsection = targets[1];

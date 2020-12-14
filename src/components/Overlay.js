@@ -20,6 +20,10 @@ class Overlay extends React.Component {
 	}
 
 	closeModal(source) {
+		/**
+
+		*/
+
 		if (source === undefined) {
 			this.props.onClose({'display':false});
 		} else if (source === 'editConfirmation') {
@@ -35,6 +39,10 @@ class Overlay extends React.Component {
 	}
 
 	onInputChange = (input) => {
+		/**
+
+		*/
+
 		this.setState({'modeName':input.target.value});
 		if (this.props.settings.type === 'edit') {
 			this.colorPickerRef.current.setState({saveButtonDisabled:false});
@@ -43,6 +51,10 @@ class Overlay extends React.Component {
 
 
 	saveEditMode = (mode) => {
+		/**
+
+		*/
+
 		if (this.state.modeName !== '') {
 			mode.setName(this.state.modeName);
 		}
@@ -53,6 +65,10 @@ class Overlay extends React.Component {
 	}
 
 	saveNewMode = () => {
+		/**
+
+		*/
+
 		if (this.state.modeName !== '') {
 			this.props.settings.modeInstance.setName(this.state.modeName);
 			this.props.onSave(this.props.settings);
@@ -61,6 +77,10 @@ class Overlay extends React.Component {
 	}
 
 	onResetMode = (event) => {
+		/**
+
+		*/
+
 		var initialSetting = this.props.factoryModesSettings[this.props.settings.modeInstance.id].colors;
 		this.props.settings.modeInstance.setColors(initialSetting)
 		// rerender the color picker
@@ -74,6 +94,10 @@ class Overlay extends React.Component {
 	} 
 
 	deleteMode = () => {
+		/**
+
+		*/
+
 		this.props.deleteMode(this.props.settings.modeInstance);
 		MaiaService.deleteMode(this.props.settings.modeInstance);
 		this.closeModal();

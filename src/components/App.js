@@ -105,7 +105,7 @@ class App extends React.Component {
 		//we check if the rules were updated in the Redux store
 		if (Object.keys(prevProps.rules).length !== 0) {
 			if (Utils.compareObjects(prevProps.rules, this.props.rules) === false) {
-				this.syncRulesStateWithLamp();
+				this.saveRulesToLamp();
 			}
 		}
 	}
@@ -251,14 +251,7 @@ class App extends React.Component {
 	displayOverlay = (parameters) => {
 		/**
 			This function changes the component's state to display an overlay window with the parameters received.
-			The object parameters received is an object of the following format :
-				{
-					'type':'edit',
-					'display':true,
-					'title':'Éditer mode',
-					'refModeInstance':modeInstance,
-					'modeInstance':clonedModeModel
-				};
+			The object parameters received is an object is as described in the method onEditMode of this component. 
 		*/
 		var overlay = parameters;
 		this.setState({ overlay });
@@ -323,7 +316,7 @@ class App extends React.Component {
 
 			This function is in charge of :
 				- calling the appropriate redux action (addMode and selectMode for a new mode, editMode for a mode edit)
-				- triggering the syncModesStateWithLamp, to sync the update of the modes with MaiaService (and then the microcontroller)
+				- triggering the saveModeToLamp, to sync the update of the modes with MaiaService (and then the microcontroller)
 				- triggering a navigation event to the modes menu
 		*/
 
@@ -343,7 +336,7 @@ class App extends React.Component {
 		}
 
 		this.setState({'tabIndex':1}, () => {
-			this.syncModesStateWithLamp();
+			this.saveModeToLamp();
 			window.history.pushState({}, '', '#modes');
 			const navEvent = new PopStateEvent('popstate');
 			window.dispatchEvent(navEvent);
@@ -514,23 +507,19 @@ class App extends React.Component {
 		return modesArray;
 	}
 
-	syncModesStateWithLamp() {
+	saveModeToLamp() {
 		/**
 			This function is called everytime a mode is created or edited. It is in charge of parsing the modes objects
 			from the Redux store to be passed to the microcontroller.
-			It calls MaiaService.saveModes with the updated mode and the currently selectedMode.
+			It calls MaiaService.saveMode with the updated mode and the currently selectedMode.
 		*/
-		// var modesArray = this.serializeModes();
-		// var modesObject = {'modesArray':modesArray, 'selectedMode':this.props.selectedMode};
-		// MaiaService.saveModes(modesObject);
 
-		// uncomment when changes on BluetoothService have been made
 		var savedModeInstance = this.props.modesList[this.props.selectedMode].serialize();
 		var modesObject = {'savedMode':savedModeInstance, 'selectedMode':this.props.selectedMode};
 		MaiaService.saveMode(modesObject);
 	}
 
-	syncRulesStateWithLamp() {
+	saveRulesToLamp() {
 		/**
 			This function is called everytime a rule is updated from the Rules menu. It simply passes to MaiaService the
 			updated Redux store's rules object.

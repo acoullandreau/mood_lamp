@@ -93,16 +93,7 @@ class MaiaService {
 		/**
 			This function receives the config of the mode to launch. It requests to BluetoothService
 			to set the mode and updates the Redux store with the id of the currently selected mode.
-			This object is of the following format :
-				{
-					'id':id,
-					'name':name,
-					'orderIndex':orderIndex,
-					'isOriginMode':isOriginMode,
-					'isEditable':isEditable,
-					'colors':colors,
-					'speed':speed
-				}
+			The format of the object received as argument is as described in the constructor of ModeModel.js.
 		*/
 
 		if (modeConfig.id !== this.selectedMode) {
@@ -113,39 +104,16 @@ class MaiaService {
 
 	saveMode(modeObject) {
 		/**
-			This function receives the config of a new mode to save (and add to the list of modes), or a mode that was edited.
+			This function receives the config of a mode to save (and add to the list of modes). This mode is either an existing mode that
+			was edited, or a brand new mode.
 			It requests to BluetoothService to save this mode.
-			This object is of the following format :
-				{
-					'id':id,
-					'name':name,
-					'orderIndex':orderIndex,
-					'isOriginMode':isOriginMode,
-					'isEditable':isEditable,
-					'colors':colors,
-					'speed':speed
-				}
+			The format of the object received as argument is as described in the constructor of ModeModel.js.
 		*/
 		BluetoothService.saveMode(modeObject);
 	}
 
 	saveModes(modesObject) {
 		// TODO: review comments
-		/**
-			This function receives the config of a new mode to save (and add to the list of modes), or a mode that was edited.
-			It requests to BluetoothService to save this mode.
-			This object is of the following format :
-				{
-					'id':id,
-					'name':name,
-					'orderIndex':orderIndex,
-					'isOriginMode':isOriginMode,
-					'isEditable':isEditable,
-					'colors':colors,
-					'speed':speed
-				}
-		*/
-
 		BluetoothService.saveModes(modesObject);
 	}
 
@@ -156,19 +124,10 @@ class MaiaService {
 
 			updateObject can be :
 				- {'speed':speed} - when the speed is being edited
-				- {'color':color} - when a color is being updated
+				- {'color':colorObject, 'color_index':indexInTheArray} - when a color is being updated
 				- {'reset':colorsArray} - when the user resets the colors of a preconfigured mode
 
-			modesObject is of the following format :
-				{
-					'id':id,
-					'name':name,
-					'orderIndex':orderIndex,
-					'isOriginMode':isOriginMode,
-					'isEditable':isEditable,
-					'colors':colors,
-					'speed':speed
-				}
+			The format of modesObject received as argument is as described in the constructor of ModeModel.js.
 		*/
 		BluetoothService.updateMode(modesObject, updateObject);
 	}
@@ -176,16 +135,7 @@ class MaiaService {
 	deleteMode(modeConfig) {
 		/**
 			This function receives the config of a mode that should be deleted. It requests to BluetoothService to delete this mode.
-			modeConfig is of the following format :
-				{
-					'id':id,
-					'name':name,
-					'orderIndex':orderIndex,
-					'isOriginMode':isOriginMode,
-					'isEditable':isEditable,
-					'colors':colors,
-					'speed':speed
-				}
+			The format of modesObject received as argument is as described in the constructor of ModeModel.js.
 		*/
 
 		BluetoothService.deleteMode(modeConfig);
@@ -229,40 +179,7 @@ class MaiaService {
 	saveRules(rulesObject) {
 		/**
 			This function receives a rules config object and requests to BluetoothService to save it to the microcontroller.
-
-			rulesObject is of the following format :
-			{
-				'dayTimeAuto': {'active':false},
-				'silentAutoOff': {'active':false, 'duration':12},
-				'autoOn':{
-					'active':false,
-					'onLightLevel':{
-						'startTime':'20:00',
-						'withStartTime':false,
-						'active':true
-					},
-					'onSchedule':{
-						'startTime':'20:00',
-						'withStartDimmingTime':false,
-						'startDimmingTime':'19:45',
-						'active':false
-					},
-				},
-				'autoOff':{
-					'active':true,
-					'onLightLevel':{
-						'startTime':'23:00',
-						'withStartTime':false,
-						'active':false
-					},
-					'onSchedule':{
-						'startTime':'23:00',
-						'withStartDimmingTime':false,
-						'startDimmingTime':'22:30',
-						'active':true
-					}
-				}
-			}
+			The format of rulesObject received as argument is as described in the state of Rules.js.
 		*/
 
 		var rulesPromise = new Promise((resolve, reject) => {
