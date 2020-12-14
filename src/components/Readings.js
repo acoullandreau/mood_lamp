@@ -56,12 +56,13 @@ class Readings extends React.Component {
 			This method recomputes the size of the grid to display the readings values, depending on how many are fetched. 
 			The disposition of the grid depends on the platform (desktop vs mobile).
 		*/
-
-		var numRows = Math.ceil(Object.keys(this.state.measures).length / 2)
+		var numRows;
 		if (this.props.target === 'desktop') {
+			numRows = Math.ceil(Object.keys(this.state.measures).length / 2);
 			document.getElementById("readings-grid").style['grid-template-rows'] = `repeat(${numRows}, minmax(150px, 20vh))`;
-		} else {
-			document.getElementById("readings-grid").style['grid-template-rows'] = `repeat(${numRows}, minmax(75px, 40vh))`;
+		} else if (this.props.target === 'mobile') {
+			numRows = Object.keys(this.state.measures).length;
+			document.getElementById("readings-grid").style['grid-template-rows'] = `repeat(${numRows}, minmax(75px, 25vh))`;
 		}
 	}
 
@@ -88,27 +89,15 @@ class Readings extends React.Component {
 		var unit = this.config.readingsSettings[item]['unit'];
 		var img = this.config.readingsSettings[item]['img'];
 
-		if (this.props.target === 'desktop') {
-			return (
-				<div className="reading-tile">
-					<div className={["reading-title", "grid-row-one"].join(' ')}>{title}</div>
-					<div className="reading-measure">
-						<div className={["reading-icon", "column-one"].join(' ')}><img width="80" height="80" src={`${process.env.PUBLIC_URL}/assets/images/${item}.svg`} alt={title} /></div>
-						<div className={["reading-text", "column-two"].join(' ')}>{measure} {unit}</div>
-					</div>
+		return (
+			<div className="reading-tile">
+				<div className={["reading-title", "grid-row-one"].join(' ')}>{title}</div>
+				<div className="reading-measure">
+					<div className={["reading-icon", "column-one"].join(' ')}><img width="80" height="80" src={`${process.env.PUBLIC_URL}/assets/images/${item}.svg`} alt={title} /></div>
+					<div className={["reading-text", "column-two"].join(' ')}>{measure} {unit}</div>
 				</div>
-			)
-		} else {
-			return (
-				<div className="reading-tile">
-					<div className={["reading-title", "grid-row-one"].join(' ')}>
-						<div className={["reading-icon", "column-one"].join(' ')}><img width="80" height="80" src={`${process.env.PUBLIC_URL}/assets/images/${item}.svg`} alt={title} /></div>
-						<div className={["reading-text", "column-two"].join(' ')}>{title}</div>
-					</div>
-					<div className="reading-measure">{measure} {unit}</div>
-				</div>
-			)
-		}
+			</div>
+		)
 	}
 
 	render() {
