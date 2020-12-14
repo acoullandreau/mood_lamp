@@ -251,7 +251,7 @@ class App extends React.Component {
 	displayOverlay = (parameters) => {
 		/**
 			This method changes the component's state to display an overlay window with the parameters received.
-			The object parameters received is an object is as described in the method onEditMode of this component. 
+			The object parameters received is an object is as described in the method onEditMode of this component.
 		*/
 		var overlay = parameters;
 		this.setState({ overlay });
@@ -336,11 +336,11 @@ class App extends React.Component {
 		}
 
 		this.setState({'tabIndex':1}, () => {
-			this.saveModeToLamp();
+			this.saveModeToLamp(modeInstance);
 			window.history.pushState({}, '', '#modes');
 			const navEvent = new PopStateEvent('popstate');
 			window.dispatchEvent(navEvent);
-		})
+		});
 
 	}
 
@@ -507,16 +507,13 @@ class App extends React.Component {
 		return modesArray;
 	}
 
-	saveModeToLamp() {
+	saveModeToLamp(mode) {
 		/**
 			This method is called everytime a mode is created or edited. It is in charge of parsing the modes objects
 			from the Redux store to be passed to the microcontroller.
 			It calls MaiaService.saveMode with the updated mode and the currently selectedMode.
 		*/
-
-		var savedModeInstance = this.props.modesList[this.props.selectedMode].serialize();
-		var modesObject = {'savedMode':savedModeInstance, 'selectedMode':this.props.selectedMode};
-		MaiaService.saveMode(modesObject);
+		MaiaService.saveMode(mode);
 	}
 
 	saveRulesToLamp() {

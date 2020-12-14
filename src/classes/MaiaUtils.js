@@ -51,10 +51,13 @@ class MaiaUtils {
             let pb_color = new maia_pb.Color();
             let converted = (update.color.r << 16) | (update.color.g << 8) | (update.color.b);
             pb_color.setRgb(converted);
-            pb_mode_update.setColor(pb_color);
+            pb_mode_update.addColors(pb_color);
             pb_mode_update.setColorIndex(update.color_index);
-            pb_mode_update.setNumColors(mode['colors'].length);
+            pb_mode_update.setModeNumColors(mode['colors'].length);
             pb_mode_update.setSpeed(255);
+        }
+        if ('colors' in update) {
+            // update multiple colors
         }
         return pb_mode_update.serializeBinary();
     }

@@ -96,7 +96,7 @@ if (goog.DEBUG && !COMPILED) {
  * @constructor
  */
 proto.maia.ModeUpdate = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.maia.ModeUpdate.repeatedFields_, null);
 };
 goog.inherits(proto.maia.ModeUpdate, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
@@ -686,6 +686,13 @@ proto.maia.ModeId.prototype.setId = function(value) {
 
 
 
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.maia.ModeUpdate.repeatedFields_ = [3];
+
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
@@ -719,9 +726,10 @@ proto.maia.ModeUpdate.toObject = function(includeInstance, msg) {
   var f, obj = {
     id: jspb.Message.getFieldWithDefault(msg, 1, 0),
     speed: jspb.Message.getFieldWithDefault(msg, 2, 0),
-    color: (f = msg.getColor()) && proto.maia.Color.toObject(includeInstance, f),
+    colorsList: jspb.Message.toObjectList(msg.getColorsList(),
+    proto.maia.Color.toObject, includeInstance),
     colorIndex: jspb.Message.getFieldWithDefault(msg, 4, 0),
-    numColors: jspb.Message.getFieldWithDefault(msg, 5, 0)
+    modeNumColors: jspb.Message.getFieldWithDefault(msg, 5, 0)
   };
 
   if (includeInstance) {
@@ -769,7 +777,7 @@ proto.maia.ModeUpdate.deserializeBinaryFromReader = function(msg, reader) {
     case 3:
       var value = new proto.maia.Color;
       reader.readMessage(value,proto.maia.Color.deserializeBinaryFromReader);
-      msg.setColor(value);
+      msg.addColors(value);
       break;
     case 4:
       var value = /** @type {number} */ (reader.readUint32());
@@ -777,7 +785,7 @@ proto.maia.ModeUpdate.deserializeBinaryFromReader = function(msg, reader) {
       break;
     case 5:
       var value = /** @type {number} */ (reader.readUint32());
-      msg.setNumColors(value);
+      msg.setModeNumColors(value);
       break;
     default:
       reader.skipField();
@@ -822,9 +830,9 @@ proto.maia.ModeUpdate.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
-  f = message.getColor();
-  if (f != null) {
-    writer.writeMessage(
+  f = message.getColorsList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
       3,
       f,
       proto.maia.Color.serializeBinaryToWriter
@@ -837,7 +845,7 @@ proto.maia.ModeUpdate.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
-  f = message.getNumColors();
+  f = message.getModeNumColors();
   if (f !== 0) {
     writer.writeUint32(
       5,
@@ -884,39 +892,40 @@ proto.maia.ModeUpdate.prototype.setSpeed = function(value) {
 
 
 /**
- * optional Color color = 3;
- * @return {?proto.maia.Color}
+ * repeated Color colors = 3;
+ * @return {!Array<!proto.maia.Color>}
  */
-proto.maia.ModeUpdate.prototype.getColor = function() {
-  return /** @type{?proto.maia.Color} */ (
-    jspb.Message.getWrapperField(this, proto.maia.Color, 3));
+proto.maia.ModeUpdate.prototype.getColorsList = function() {
+  return /** @type{!Array<!proto.maia.Color>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.maia.Color, 3));
 };
 
 
 /**
- * @param {?proto.maia.Color|undefined} value
+ * @param {!Array<!proto.maia.Color>} value
  * @return {!proto.maia.ModeUpdate} returns this
 */
-proto.maia.ModeUpdate.prototype.setColor = function(value) {
-  return jspb.Message.setWrapperField(this, 3, value);
+proto.maia.ModeUpdate.prototype.setColorsList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 3, value);
 };
 
 
 /**
- * Clears the message field making it undefined.
+ * @param {!proto.maia.Color=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.maia.Color}
+ */
+proto.maia.ModeUpdate.prototype.addColors = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 3, opt_value, proto.maia.Color, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
  * @return {!proto.maia.ModeUpdate} returns this
  */
-proto.maia.ModeUpdate.prototype.clearColor = function() {
-  return this.setColor(undefined);
-};
-
-
-/**
- * Returns whether this field is set.
- * @return {boolean}
- */
-proto.maia.ModeUpdate.prototype.hasColor = function() {
-  return jspb.Message.getField(this, 3) != null;
+proto.maia.ModeUpdate.prototype.clearColorsList = function() {
+  return this.setColorsList([]);
 };
 
 
@@ -939,10 +948,10 @@ proto.maia.ModeUpdate.prototype.setColorIndex = function(value) {
 
 
 /**
- * optional uint32 num_colors = 5;
+ * optional uint32 mode_num_colors = 5;
  * @return {number}
  */
-proto.maia.ModeUpdate.prototype.getNumColors = function() {
+proto.maia.ModeUpdate.prototype.getModeNumColors = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
 };
 
@@ -951,7 +960,7 @@ proto.maia.ModeUpdate.prototype.getNumColors = function() {
  * @param {number} value
  * @return {!proto.maia.ModeUpdate} returns this
  */
-proto.maia.ModeUpdate.prototype.setNumColors = function(value) {
+proto.maia.ModeUpdate.prototype.setModeNumColors = function(value) {
   return jspb.Message.setProto3IntField(this, 5, value);
 };
 

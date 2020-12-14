@@ -354,7 +354,18 @@ class BluetoothService {
 
 	deleteMode(modeConfig) {
 		console.log('Deleting mode ', modeConfig);
-		//add logic to request delete to the microcontroller
+		let setActiveModePromise = new Promise((resolve, reject) => {
+			let message = MessageUtils.buildMessage();
+			message.setCommand(Commands.DELETE_MODE);
+			console.log(modeConfig);
+			message.setObjectPayload(MaiaUtils.packModeId(modeConfig));
+			this.sendMessage(message).then((result) => {
+				let command = result[0];
+				let payload = result[1];
+				console.log(command, payload);
+			});
+		});
+		return setActiveModePromise;
 	}
 
 	discardChanges() {
