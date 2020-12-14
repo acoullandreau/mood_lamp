@@ -1,7 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class SideNavBar extends React.Component {
+class NavBar extends React.Component {
+
+	/**
+		This class is in charge of rendering the navigation bar.
+		It is displayed vertically on desktop, and horizontally on mobile.
+	*/
+
 
 	state = { 
 		'activeItem': '',  
@@ -28,7 +34,7 @@ class SideNavBar extends React.Component {
 
 	onLocationChange = () => {
 		/**
-			This function is passed as a callback to the navigation event listener. It is called any time the user clicks on the side bar buttons.
+			This method is passed as a callback to the navigation event listener. It is called any time the user clicks on the side bar buttons.
 			It updates the currently selected menu.
 		*/
 		var selectedPage = this.state.matchPages[window.location.hash];
@@ -38,7 +44,7 @@ class SideNavBar extends React.Component {
 
 	handleItemClick = (e, { name, to }) => {
 		/**
-			This function triggers a navigation event to move to another position in the page depending on where the user clicks
+			This method triggers a navigation event to move to another position in the page depending on where the user clicks
 			on the navigation bar. 
 		*/
 
@@ -58,7 +64,7 @@ class SideNavBar extends React.Component {
 
 	fetchIconImage = (target) => {
 		/**
-			This function associates each button of the navigation bar to its logo, depending on whether it is being selected or not.
+			This method associates each button of the navigation bar to its logo, depending on whether it is being selected or not.
 		*/
 
 
@@ -143,9 +149,9 @@ class SideNavBar extends React.Component {
 }
 
 //props validation
-SideNavBar.propTypes = {
+NavBar.propTypes = {
 	orientation: PropTypes.string.isRequired,
 }
 
-export default SideNavBar;
+export default NavBar;
 
