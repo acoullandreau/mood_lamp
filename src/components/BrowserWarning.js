@@ -2,6 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class BrowserWarning extends React.Component {
+	/**
+		This component is in charge of displaying a warning message to the user if:
+			- the browser used is not Chrome
+			- the bluetooth is not active
+	*/
 
 	componentDidMount() {
 		//add event listeners
@@ -21,7 +26,7 @@ class BrowserWarning extends React.Component {
 
 	onWindowResize() {
 		/**
-			This function is called only go the desktop version, to ensure that the width/height of the root element
+			This method is called only go the desktop version, to ensure that the width/height of the root element
 			always has the ratio of the targeted screen size defined (75%).
 			The idea is to have the root element displayed with the same ratio and in the center of the screen, even when the browser
 			window is very wide.

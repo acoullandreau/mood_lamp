@@ -2,6 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class DropdownOverlay extends React.Component {
+	/**
+		This component is in charge of rendering the dropdown menu that appears when a user hold touch a tile of the mode list.
+		This menu contains two buttons (edit and delete). In some cases the delete button is disabled (for preconfigured modes). 
+	*/
 
 	componentDidMount() {
 		this.positionMenu();
@@ -13,7 +17,7 @@ class DropdownOverlay extends React.Component {
 
 	positionMenu = () => {
 		/**
-			This function computes the position of the top left corner of the menu block depending on the position of the selected mode.
+			This method computes the position of the top left corner of the menu block depending on the position of the selected mode.
 			If the selected tile is on the right side of the screen, the menu is aligned to the right side of it, towards the center of the screen.
 			The menu is always displayed above the tile.
 		*/
@@ -37,7 +41,7 @@ class DropdownOverlay extends React.Component {
 
 	closeModal() {
 		/**
-			This function is called when the user clicks outside the menu. It calls the onClose function received as props from the parent component
+			This method is called when the user clicks outside the menu. It calls the onClose function received as props from the parent component
 			with an object to set the display property to false and hide the menu.
 		*/
 		this.props.onClose({'display':false});
@@ -45,8 +49,8 @@ class DropdownOverlay extends React.Component {
 
 	deleteMode = () => {
 		/**
-			This function is called when the user clicks on the Delete button. It calls the parent's callback props function onDelete and triggers
-			the close modal function.
+			This method is called when the user clicks on the Delete button. It calls the parent's callback props function onDelete and triggers
+			the close modal method.
 		*/
 		this.props.onDelete();
 		this.closeModal();
@@ -55,8 +59,8 @@ class DropdownOverlay extends React.Component {
 
 	editMode = () => {
 		/**
-			This function is called when the user clicks on the Edit button. It calls the parent's callback props function onEdit and triggers
-			the close modal function.
+			This method is called when the user clicks on the Edit button. It calls the parent's callback props function onEdit and triggers
+			the close modal method.
 		*/
 		this.props.onEdit();
 		this.closeModal();

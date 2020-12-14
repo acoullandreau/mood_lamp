@@ -11,7 +11,7 @@ import Overlay from './Overlay.js';
 import Readings from './Readings.js';
 import Route from './Route.js';
 import Rules from './Rules.js';
-import SideNavBar from './SideNavBar.js';
+import NavBar from './NavBar.js';
 import Utils from '../classes/Utils.js';
 
 // Before Prod
@@ -123,7 +123,7 @@ class App extends React.Component {
 
 	getTargetDevice() {
 		/**
-			This function simply returns the device used to display the app using userAgent
+			This method simply returns the device used to display the app using userAgent
 		*/
 		if (/Mobi/.test(navigator.userAgent)) {
 			return "mobile";
@@ -134,7 +134,7 @@ class App extends React.Component {
 
 	checkSize = () => {
 		/**
-			This helper function ensure that the elements are displayed properly on mobile by calling a resize function.
+			This helper method ensure that the elements are displayed properly on mobile by calling a resize method.
 			This is useful for Android phones for example, when the bottom bar is shown/hidden -> the height changes and we want the content to adapt.
 		*/
 
@@ -148,7 +148,7 @@ class App extends React.Component {
 
 	resizeElements = () => {
 		/**
-			This function aims at recomputing the heights of the root, the grid content,
+			This method aims at recomputing the heights of the root, the grid content,
 			and the tab component so that it matches the available screen size of the browser (Chrome Android)
 		*/
 
@@ -215,7 +215,7 @@ class App extends React.Component {
 
 	onWindowResize = () => {
 		/**
-			This function is called only go the desktop version, to ensure that the width/height of the root element
+			This method is called only go the desktop version, to ensure that the width/height of the root element
 			always has the ratio of the targeted screen size defined (75%).
 			The idea is to have the root element displayed with the same ratio and in the center of the screen, even when the browser
 			window is very wide.
@@ -232,8 +232,8 @@ class App extends React.Component {
 
 	onLocationChange = () => {
 		/**
-			This function aims at defining whether or not to hide the disconnect button.
-			This function is useful only of the Home page is being used to display something else than the Connect button at App init.
+			This method aims at defining whether or not to hide the disconnect button.
+			This method is useful only of the Home page is being used to display something else than the Connect button at App init.
 		*/
 
 		// setState accepts a function rather than an object that receives the state as an argument to be able to use previous state to get new state
@@ -250,7 +250,7 @@ class App extends React.Component {
 
 	displayOverlay = (parameters) => {
 		/**
-			This function changes the component's state to display an overlay window with the parameters received.
+			This method changes the component's state to display an overlay window with the parameters received.
 			The object parameters received is an object is as described in the method onEditMode of this component. 
 		*/
 		var overlay = parameters;
@@ -259,7 +259,7 @@ class App extends React.Component {
 
 	setId = () => {
 		/**
-			This function computes an id for a new mode. The ids of all mode have to be sequential, so the id computer may be filling a gap.
+			This method computes an id for a new mode. The ids of all mode have to be sequential, so the id computer may be filling a gap.
 			The idea of keeping the ids sequential is to ensure that the id property sent to the microcontroller is a "small" object (max 1B). However,
 			no check is performed to ensure that the id is never greater than 254..
 		*/
@@ -294,7 +294,7 @@ class App extends React.Component {
 
 	setOrderIndex = () => {
 		/**
-			This function assigns a orderIndex, infinite increment.
+			This method assigns a orderIndex, infinite increment.
 			It doesn't matter if there are gaps, what matters is that the last created mode is always displayed at the beginning of the list.
 		*/
 
@@ -310,11 +310,11 @@ class App extends React.Component {
 
 	onSaveMode = (parameters) => {
 		/**
-			This function is called by the overlay window in two cases :
+			This method is called by the overlay window in two cases :
 				- either for a new mode to save, when the user inputs its name
 				- or when a user is editing a mode (overlay window to edit a mode) and clicks on save
 
-			This function is in charge of :
+			This method is in charge of :
 				- calling the appropriate redux action (addMode and selectMode for a new mode, editMode for a mode edit)
 				- triggering the saveModeToLamp, to sync the update of the modes with MaiaService (and then the microcontroller)
 				- triggering a navigation event to the modes menu
@@ -346,7 +346,7 @@ class App extends React.Component {
 
 	onEditMode = (modeInstance) => {
 		/**
-			This function is called by the ModeList component, when the user clicks on the Edit button or icon.
+			This method is called by the ModeList component, when the user clicks on the Edit button or icon.
 			It is in charge of
 				- cloning the mode to edit (to be able to easily discard changes if necessary)
 				- updating the overlay state to display an overlay window with a color picker
@@ -367,7 +367,7 @@ class App extends React.Component {
 
 	onDeleteMode = (modeInstance) => {
 		/**
-			This function is called by the ModeList component, when the user clicks on the Delete button or icon.
+			This method is called by the ModeList component, when the user clicks on the Delete button or icon.
 			It is in charge of updating the overlay state to display an confirmation message.
 		*/
 
@@ -383,7 +383,7 @@ class App extends React.Component {
 
 	showAbout = () => {
 		/**
-			This function is called when clicking on the "i" icon to update the overlay state to display the about.
+			This method is called when clicking on the "i" icon to update the overlay state to display the about.
 		*/
 		var params = {
 			'type':'about',
@@ -397,7 +397,7 @@ class App extends React.Component {
 
 	parseEditableModes(configJSON) {
 		/**
-			This function is in charge of retrieving the initial config of all the preconfigured modes that can be edited.
+			This method is in charge of retrieving the initial config of all the preconfigured modes that can be edited.
 			The idea is to be able to easily retrieve the initial color palette in case the user wants to reset the mode after a change.
 		*/
 		var editableModesList = configJSON.editableModes;
@@ -414,15 +414,15 @@ class App extends React.Component {
 
 	setLoading = (value) => {
 		/**
-			This function simply changes the app state to display a loader.
+			This method simply changes the app state to display a loader.
 		*/
 		this.setState({loading:value});
 	}
 
 	onConnectClick = () =>  {
 		/**
-			This function is called when the user clicks on the Connect button.
-			It calls a function of the BluetoothService passing a few callback functions :
+			This method is called when the user clicks on the Connect button.
+			It calls a method of the BluetoothService passing a few callback functions :
 				- setLoading, to be able to display a loader while the connection is being established
 				- onConnect, that is called once the connection is established with the microcontroller, to initialize the app
 				- onDisconnect, to handle the disconnection (microcontroller unpowered, connection lost...)
@@ -435,7 +435,7 @@ class App extends React.Component {
 
 	onDisconnectClick = () =>  {
 		/**
-			This function is called when the user clicks on the Disconnect button.
+			This method is called when the user clicks on the Disconnect button.
 		*/
 
 		//BluetoothService.connect(this.setLoading, this.onConnect, this.onDisconnect, this.handleNotifications);
@@ -448,7 +448,7 @@ class App extends React.Component {
 
 	onConnect = () => {
 		/**
-			This function is called once the connection is established with the microcontroller, to initialize the app.
+			This method is called once the connection is established with the microcontroller, to initialize the app.
 			It is in charge of
 				- calling the Maia.getInitSetting() method
 				- calling the appropriate Redux actions to initialize the store (initModes, initRules, getFactorySettings)
@@ -477,7 +477,7 @@ class App extends React.Component {
 
 	onDisconnect = () =>  {
 		/**
-			This function is called once the connection with the microcontroller is closed.
+			This method is called once the connection with the microcontroller is closed.
 			It is in charge of updating the state of the app to render the Home screen with the Connect button.
 		*/
 
@@ -496,7 +496,7 @@ class App extends React.Component {
 
 	serializeModes() {
 		/**
-			This function is in charge of building an array of serialized modes from the Redux store's modesList.
+			This method is in charge of building an array of serialized modes from the Redux store's modesList.
 			This list of serialized modes can be passed down to the microcontroller.
 		*/
 		var modesArray = [];
@@ -509,7 +509,7 @@ class App extends React.Component {
 
 	saveModeToLamp() {
 		/**
-			This function is called everytime a mode is created or edited. It is in charge of parsing the modes objects
+			This method is called everytime a mode is created or edited. It is in charge of parsing the modes objects
 			from the Redux store to be passed to the microcontroller.
 			It calls MaiaService.saveMode with the updated mode and the currently selectedMode.
 		*/
@@ -521,7 +521,7 @@ class App extends React.Component {
 
 	saveRulesToLamp() {
 		/**
-			This function is called everytime a rule is updated from the Rules menu. It simply passes to MaiaService the
+			This method is called everytime a rule is updated from the Rules menu. It simply passes to MaiaService the
 			updated Redux store's rules object.
 		*/
 
@@ -681,7 +681,7 @@ class App extends React.Component {
 								<img width="146" height="146" src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`} alt='Maïa' />
 							</div>
 							<div id='nav-bar'>
-								<SideNavBar orientation="vertical"/>
+								<NavBar orientation="vertical"/>
 							</div>
 							<button
 								id='disconnect-button'
@@ -749,7 +749,7 @@ class App extends React.Component {
 							</Route>
 						</div>
 						<div id="bottom-bar-row" className="row-two">
-							<SideNavBar orientation="horizontal" />
+							<NavBar orientation="horizontal" />
 						</div>
 					</div>
 				</React.Fragment>

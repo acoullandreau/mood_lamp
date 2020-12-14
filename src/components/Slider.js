@@ -2,6 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class Slider extends React.Component {
+	/**
+		This component is in charge of rendering a slider along with a ColorPicker component, for the user to adjust animation speed.
+	*/
+
 	constructor(props) {
 		super(props)
 		this.state = {value: this.props.initialSpeed};
@@ -9,7 +13,7 @@ class Slider extends React.Component {
 
 	handleChange = (event) => {
 		/**
-			This function is triggered at every click/change of the value of the slider.
+			This method is triggered at every click/change of the value of the slider.
 			If the slider is not disabled, the value selected is set as the new value of the slider (thus triggering an update of the component rendered).
 		*/
 

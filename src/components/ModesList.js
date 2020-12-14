@@ -6,6 +6,11 @@ import ModeTile from './ModeTile.js';
 import Utils from '../classes/Utils.js';
 
 class ModesList extends React.Component {
+	/**
+		This component is in charge of rendering the list of modes the user has access to.
+		It has access to the Redux store that holds the latest version of the modes list.
+	*/
+
 
 	constructor(props) {
 		super(props);
@@ -31,7 +36,7 @@ class ModesList extends React.Component {
 
 	getGridSize() {
 		/**
-			This function recomputes the size of the grid to display the modes tiles, depending on how many there are to display. 
+			This method recomputes the size of the grid to display the modes tiles, depending on how many there are to display. 
 			The disposition of the grid depends on the platform (desktop vs mobile).
 		*/
 
@@ -55,7 +60,7 @@ class ModesList extends React.Component {
 
 	sortModesArray = (modesArray, reverse) => {
 		/**
-			This function is in charge of sorting an array of objects, based on the value of the orderIndex property of each object.
+			This method is in charge of sorting an array of objects, based on the value of the orderIndex property of each object.
 			The reverse argument is a boolean that determines if the sorting should be ascending or descending.
 		*/
 
@@ -93,7 +98,7 @@ class ModesList extends React.Component {
 
 	addMode() {
 		/**
-			This function simply triggers a navigation event to redirect to the Colors menu.
+			This method simply triggers a navigation event to redirect to the Colors menu.
 			It is triggered when the user clicks on the '+' button displayed in the list. 
 		*/
 

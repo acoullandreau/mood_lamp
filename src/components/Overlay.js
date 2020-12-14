@@ -6,6 +6,14 @@ import ColorPicker from './ColorPicker.js';
 import MaiaService from '../services/MaiaService.js';
 
 class Overlay extends React.Component {
+	/**
+		This component is in charge of rendering an overlay window. There are five types of overlays:
+			- edit mode
+			- assign a name to a new mode
+			- confirmation prior to discarding changes
+			- confirmation prior to delete a mode
+			- about menu
+	*/
 
 	constructor(props) {
 		super(props);
@@ -21,7 +29,11 @@ class Overlay extends React.Component {
 
 	closeModal(source) {
 		/**
-
+			This method is in charge of handling a request to close an overlay. There are a few situations:
+			- the overlay is an mode edit window 
+				--> in this case we want to confirm whether the user is willing to discard the changes
+				--> there are then two outcomes depending on what the user chooses, either discard the changes or simply hide the message
+			- the overlay is any other message window (save name, discard changes,....) --> we hide it
 		*/
 
 		if (source === undefined) {
@@ -40,7 +52,7 @@ class Overlay extends React.Component {
 
 	onInputChange = (input) => {
 		/**
-
+			This method detects when the user inputs a name in the overlay window input field, and updates the state.
 		*/
 
 		this.setState({'modeName':input.target.value});
@@ -52,7 +64,10 @@ class Overlay extends React.Component {
 
 	saveEditMode = (mode) => {
 		/**
-
+			This method is executed only when the overlay window displayed is an edit window (i.e. the mode instance is of a saved mode).
+			In this case, this method is in charge of updating the mode model instance with the name inputted by the user.
+			It then passes back to the App this information of the current context (the overlay parameters along with the updated mode instance), 
+			through the props function onSave, and triggers the closeModal method to hide the window.
 		*/
 
 		if (this.state.modeName !== '') {
@@ -66,7 +81,10 @@ class Overlay extends React.Component {
 
 	saveNewMode = () => {
 		/**
-
+			This method is executed when the overlay window displayed is to input a name for a new mode being saved.
+			It updates the mode model instance with the name inputted by the user abd passes back to the App this information 
+			of the current context (the overlay parameters along with the updated mode instance), through the props function 
+			onSave, and triggers the closeModal method to hide the window.
 		*/
 
 		if (this.state.modeName !== '') {
@@ -78,7 +96,12 @@ class Overlay extends React.Component {
 
 	onResetMode = (event) => {
 		/**
-
+			This method is triggered when the user clicks on the Reset button of an edit mode overlay window.
+			In order to reset the colors:
+				- it fetches the "factory" settings of the mode
+				- it updates the mode model instance with the initial array of colors
+				- it enables the save button (as a change was detected)
+				- it sends the update to MaiaService for the lamp to execute the change (live update)
 		*/
 
 		var initialSetting = this.props.factoryModesSettings[this.props.settings.modeInstance.id].colors;
@@ -95,7 +118,9 @@ class Overlay extends React.Component {
 
 	deleteMode = () => {
 		/**
-
+			This method is called when the user confirms that the mode selected should be deleted.
+			The information is passed to the Redux store through the deleteMode action, and to MaiaService for the
+			microcontroller to update its list of modes.
 		*/
 
 		this.props.deleteMode(this.props.settings.modeInstance);

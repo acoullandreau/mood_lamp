@@ -4,6 +4,11 @@ import { editRules } from '../actions';
 import TimePicker from './TimePicker.js';
 
 class Rules extends React.Component {
+	/**
+		This component is in charge of rendering the list of rules the user can set on the lamp.
+		It has access to the Redux store that holds the latest version of the rules object.
+	*/
+
 
 	constructor(props) {
 		super(props);
@@ -48,7 +53,8 @@ class Rules extends React.Component {
 
 	getActiveOption = (category) => {
 		/**
-
+			This helper function is used to identify which of the two options available for AutoOn and AutoOff,
+			onSchedule or onLightLevel, is currently set as active.
 		*/
 
 
@@ -61,7 +67,7 @@ class Rules extends React.Component {
 
 	getOpacity = (target, isSubLevel) => {
 		/**
-
+			This helper function is used to compute the opacity style to apply to a line based on whether it is active or not.
 		*/
 
 		var targetArray = target.split('.');
@@ -82,7 +88,7 @@ class Rules extends React.Component {
 
 	isDisabled = (target) => {
 		/**
-
+			This helper function determines whether or not a rule is disabled or not.
 		*/
 
 		var isDisabled = false;
@@ -99,11 +105,11 @@ class Rules extends React.Component {
 
 	parseStateToRules = () => {
 		/**
-
+			This method is in charge of converting the state of the component into an object that matches the format of the redux store Rules object.
+			It triggers the update to the Redux store (that in turn is going to trigger a save through MaiaService).
 		*/
 
 		// Object.assign only does a shallow copy, so if there are nested objects they can be altered in the source from the target!!
-		// this function is in charge of converting the state of the component into an object that matches the format of the redux store Rules object
 		var rules = {};
 		rules.dayTimeAuto = Object.assign({}, this.state.dayTimeAuto);
 		rules.silentAutoOff = Object.assign({}, this.state.silentAutoOff);
@@ -139,7 +145,8 @@ class Rules extends React.Component {
 
 	handleSwitchChange = (event, target) => {
 		/**
-
+			This method is triggered when a user clicks on a switch. It is in charge of updating the state with the new active rule,
+			and triggering an update of the Redux store and a save of the rules (as a change is detected).
 		*/
 
 		var targets = target.split('.');
@@ -160,7 +167,9 @@ class Rules extends React.Component {
 
 	handleOptionChange = (event) => {
 		/**
-
+			This method is triggered when a user clicks selects an option. 
+			Options are identified with a radio button, only one at a time can be selected. 
+			This method triggers an update of the Redux store and a save of the rules (as a change is detected).
 		*/
 
 		var currentState = {...this.state};
@@ -172,7 +181,8 @@ class Rules extends React.Component {
 
 	handleNumberInputChange = (event) => {
 		/**
-
+			This method is triggered when a user updates the value of the number input field displayed in one of the rules.
+			It triggers an update of the Redux store and a save of the rules (as a change is detected).
 		*/
 
 		var silentAutoOff = {...this.state.silentAutoOff};
@@ -185,9 +195,11 @@ class Rules extends React.Component {
 
 	onTimeChange = (value, target) => {
 		/**
-
+			This method is triggered when a user updates the value of a time picker (available for multiple rules).
+			If the value inputted is correct (i.e numbers set for the hour and the minutes), it triggers an update of
+			the Redux store and a save of the rules (as a change is detected).
 		*/
-		
+
 		var targets = target.split('.');
 		var category = targets[0];
 		var subsection = targets[1];

@@ -7,6 +7,10 @@ import MaiaService from '../services/MaiaService.js';
 import Utils from '../classes/Utils.js';
 
 class ModeTile extends React.Component {
+	/**
+		This component is in charge of rendering a single mode tile. It manages the interactions a user has with a single mode, 
+		such as executing it, editing and deleting it (when allowed).
+	*/
 
 	constructor(props) {
 		super(props);
@@ -22,7 +26,9 @@ class ModeTile extends React.Component {
 
 	launchMode = () => {
 		/**
-
+			This method is called whenever the user clicks on a tile, or on the edit button.
+			It updates the selected mode of the Redux store, serializes the mode model instance to pass it down to
+			MaiaService.executeMode.
 		*/
 
 		this.props.selectMode(this.state.id);
@@ -33,25 +39,29 @@ class ModeTile extends React.Component {
 
 	onEdit = () => {
 		/**
-
+			This method is called whenever the user click on the edit button.
+			It triggers the execution of the mode (launch) and passes back the reference of the mode model instance to the App
+			through a props function onEditMode.
 		*/
 
-		//lauch the mode
 		this.launchMode();
 		this.props.onEditMode(this.props.model)
 	}
 
 	onDelete = () => {
 		/**
-
+			This method is called whenever the user click on the delete button.
+			It passes back the reference of the mode model instance to the App through a props function onDeleteMode.
 		*/
 
 		this.props.onDeleteMode(this.props.model);
 	}
 
-	getThumbnail = (colors) => {
+	getThumbnail = () => {
 		/**
-
+			This method returns a gradient of colors to display on the mode tile.
+			For the non editable modes, a special set of gradients is retrieved using Utils.getSpecialGradient(id). 
+			Otherwise, the gradient is computed using the array of colors of the mode.
 		*/
 
 		if (this.state.isEditable === false) {
@@ -59,6 +69,7 @@ class ModeTile extends React.Component {
 			return { 'background':specialGradient };
 
 		} else {
+			var colors = this.props.model.colors;
 			var initialColor = Utils.convertRGBToString(colors[0]);
 
 			if (colors.length > 1) {
@@ -74,7 +85,8 @@ class ModeTile extends React.Component {
 
 	onHover = (event, bool) => {
 		/**
-
+			This method is called whenever the user hovers a tile (on desktop). It is in charge of showing the appropriate
+			icon (edit, delete or none), depending on the type of mode hovered. 
 		*/
 
 		let hoverDisplay;
@@ -104,7 +116,8 @@ class ModeTile extends React.Component {
 
 	onTouchStart = (e) => {
 		/**
-
+			This method is called whenever the user hold touch on a tile (on mobile). It is in charge of updating the state of overlay
+			to be able to show a dropdown menu with options (to edit and/or delete a mode).
 		*/
 
 		let targetMode = e.currentTarget;
@@ -123,17 +136,17 @@ class ModeTile extends React.Component {
 
 	onTouchEnd = () => {
 		/**
-
-		*/
+			As the touch hold is detected using a timeout, this method is in charge of clearing the timeout when touch is released.
+		*/	
 
 		clearTimeout(this.touchTimeout);
 	}
 
 	closeOverlay = () => {
 		/**
-
+			This method is in charge of hiding the menu dropdown.
 		*/
-		
+
 		let overlay = {...this.state.overlay};
 		overlay.display = false;
 		this.setState({ overlay })
@@ -160,7 +173,7 @@ class ModeTile extends React.Component {
 				</button>
 			)
 		} else {
-			style = this.getThumbnail(mode.colors);
+			style = this.getThumbnail();
 			style['border'] = borderStyle;
 			style['WebkitBoxShadow'] = outerBorderStyle;
 			thumbnailButton = (
