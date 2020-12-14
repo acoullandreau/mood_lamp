@@ -9,6 +9,11 @@ class BrowserWarning extends React.Component {
 	*/
 
 	componentDidMount() {
+		// remove the loader once the page is ready
+		this.setState({ 'pageLoading': false }, () => {
+			document.getElementById("loading-page").style.display = "none";
+		});
+
 		//add event listeners
 		window.addEventListener('resize', this.onWindowResize);
 		window.addEventListener('popstate', this.onLocationChange);
