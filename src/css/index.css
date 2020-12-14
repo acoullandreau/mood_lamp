@@ -391,6 +391,11 @@ button {
 		font-size: max(4vh, 30px);
 	}
 
+	.button-home-disabled {
+		width: max(50%, 250px);
+		font-size: max(4vh, 30px);
+	}
+
 }
 
 
