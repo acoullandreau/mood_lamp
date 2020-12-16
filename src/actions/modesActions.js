@@ -1,4 +1,4 @@
-import ModeModel from '../components/ModeModel.js';
+import ModeModel from '../classes/ModeModel.js';
 
 export const initModes = (modesObject) => {
 		const modesArray = modesObject['modesArray'];
