@@ -14,8 +14,6 @@ class IroColorPicker extends React.Component {
 		This component is in charge of rendering a color wheel with a saturation bar. 
 	*/
 
-
-
 	componentDidMount() {
 		const { props } = this;
 		// create a new iro color picker and pass component props to it
@@ -103,7 +101,9 @@ class ColorPicker extends React.Component {
 
 	componentWillUnmount() {
 		// as we are done editing the current instance of this.props.modeModel, we request a reset of the instance
-		this.props.resetModeModel();
+		if (this.props.type === 'new') {
+			this.props.resetModeModel();
+		}
 
 		// we clear the event listener
 		window.removeEventListener('resize', this.onWindowResize);
@@ -406,12 +406,13 @@ class ColorPicker extends React.Component {
 		var colorIndex = this.state.selectedColorIndex;
 		selectedColors[colorIndex]=color.hexString;
 		this.setState({
-			'selectedColors':selectedColors
+			'selectedColors':selectedColors,
+			'saveButtonDisabled':false
 		});
 
 		// update the mode model instance and enable the save button
 		this.editColorsModeModel();
-		this.setState({saveButtonDisabled:false});
+		// this.setState({saveButtonDisabled:false});
 		// send color to the microcontroller for live update
 		this.executeCurrentMode('color');
 
@@ -451,7 +452,8 @@ class ColorPicker extends React.Component {
 			'selectedColors':selectedColors,
 			'selectedColorIndex':selectedColorIndex,
 			'sliderDisabled':sliderDisabled,
-			'showDelete':selectedColorIndex
+			'showDelete':selectedColorIndex,
+			'saveButtonDisabled':false
 		}, () => {
 			this.colorPickerRef.current.colorPicker.color.set('FFFFFF');
 		});
@@ -485,8 +487,10 @@ class ColorPicker extends React.Component {
 			this.setState({
 				'selectedColors':selectedColors,
 				'sliderDisabled':sliderDisabled,
-				'selectedColorIndex':selectedIndex
+				'selectedColorIndex':selectedIndex,
+				'saveButtonDisabled':false
 			}, () => {
+				this.editColorsModeModel();
 				this.selectColor(selectedIndex);
 			});
 		}
@@ -721,7 +725,7 @@ class ColorPicker extends React.Component {
 	}
 
 	render() {
-		
+
 		return (
 			<div id="picker" className={['color-grid', `color-${this.props.type}`].join(' ')}>
 				{ this.renderColorPicker() }
