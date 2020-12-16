@@ -77,7 +77,7 @@ class ModeModel {
 		/**
 			This method sets the speed integer received as an argument as the speed attribute of the mode mode instance.
 		*/
-		this.speed = speed;
+		this.speed = String(speed);
 	}
 
 	setName = (name) => {
