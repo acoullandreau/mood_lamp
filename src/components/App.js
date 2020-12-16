@@ -5,7 +5,7 @@ import { Default } from 'react-spinners-css';
 import BluetoothService from '../services/BluetoothService.js';
 import ColorPicker from './ColorPicker.js';
 import MaiaService from '../services/MaiaService.js';
-import ModeModel from './ModeModel.js';
+import ModeModel from '../classes/ModeModel.js';
 import ModesList from './ModesList.js';
 import Overlay from './Overlay.js';
 import Readings from './Readings.js';
@@ -38,6 +38,7 @@ class App extends React.Component {
 
 		this.previousHeight = undefined;
 		this.onWindowResize();
+		this.getNewModeModelInstance();
 	}
 
 
@@ -525,6 +526,22 @@ class App extends React.Component {
 		MaiaService.saveRules(this.props.rules);
 	}
 
+	getNewModeModelInstance = () => {
+		/**
+			This method is called at component construction and whenever ColorPicker unmounts.
+			It guarantees that the color picker component always starts with an initialized mode model, unaltered.
+		*/
+		var mode = {
+			'id':255,
+			'orderIndex':255,
+			'isOriginMode':false,
+			'isEditable':true,
+			'colors':[{ r: 255, g: 255, b: 255 }],
+			'speed':30
+		}
+
+		this.newModeModelInstance = ModeModel.createNewModeModel(mode);
+	}
 
 	renderHome = () => {
 		let homeButton;
@@ -575,8 +592,6 @@ class App extends React.Component {
 	}
 
 
-
-
 	renderModes = () => {
 		return (
 			<ModesList
@@ -590,25 +605,14 @@ class App extends React.Component {
 
 	renderCouleurs = () => {
 
-		var mode = {
-			'id':255,
-			'orderIndex':255,
-			'isOriginMode':false,
-			'isEditable':true,
-			'category':'single',
-			'colors':[{ r: 255, g: 255, b: 255 }],
-			'speed':30
-		}
-
-		var modeModel = ModeModel.createNewModeModel(mode);
-
 		return (
 			<React.Fragment>
 				<ColorPicker
 					type='new'
-					modeModel={modeModel}
+					modeModel={this.newModeModelInstance}
 					onSaveNewMode={this.displayOverlay}
 					targetDevice={this.state.targetDevice}
+					resetModeModel={this.getNewModeModelInstance}
 				/>
 			</React.Fragment>
 		)

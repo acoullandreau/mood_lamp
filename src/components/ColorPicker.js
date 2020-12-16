@@ -4,7 +4,7 @@ import iro from '@jaames/iro';
 import { connect } from 'react-redux';
 import { selectMode } from '../actions';
 import MaiaService from '../services/MaiaService.js';
-import ModeModel from './ModeModel.js';
+import ModeModel from '../classes/ModeModel.js';
 import Slider from './Slider.js';
 import Utils from '../classes/Utils.js';
 
@@ -102,6 +102,10 @@ class ColorPicker extends React.Component {
 	}
 
 	componentWillUnmount() {
+		// as we are done editing the current instance of this.props.modeModel, we request a reset of the instance
+		this.props.resetModeModel();
+
+		// we clear the event listener
 		window.removeEventListener('resize', this.onWindowResize);
 	}
 
@@ -343,15 +347,14 @@ class ColorPicker extends React.Component {
 			A debouncer of 250ms prevent the updates to be sent too often.
 		*/
 
-
+		var serializedMode = this.props.modeModel.serialize();
 		if (this.props.modeModel.id !== this.props.selectedMode) {
-			var serializedMode = this.props.modeModel.serialize();
 			MaiaService.executeMode(serializedMode);
 		}
 		if (this.debounceTimer === undefined) {
 			this.debounceTimer = setTimeout(() => {
 				// send update to the microcontroller with whatever changed
-				var serializedMode = this.props.modeModel.serialize();
+				// var serializedMode = this.props.modeModel.serialize();
 				if (target === 'color') {
 					var color = this.state.selectedColors[this.state.selectedColorIndex];
 					color = Utils.convertHexToRGB(color);
@@ -362,6 +365,7 @@ class ColorPicker extends React.Component {
 				this.debounceTimer = undefined;
 			}, 250);
 		}
+
 	}
 
 	onSpeedChange = (speed) => {
@@ -406,7 +410,7 @@ class ColorPicker extends React.Component {
 		});
 
 		// update the mode model instance and enable the save button
-		this.editColorsModeModel()
+		this.editColorsModeModel();
 		this.setState({saveButtonDisabled:false});
 		// send color to the microcontroller for live update
 		this.executeCurrentMode('color');
@@ -415,7 +419,6 @@ class ColorPicker extends React.Component {
 		if (this.props.type === 'new') {
 			this.props.selectMode(255);
 		}
-
 	}
 
 	onColorClick = (event) => {
@@ -501,6 +504,7 @@ class ColorPicker extends React.Component {
 			var rgbColor = Utils.convertHexToRGB(selectedColors[i]);
 			modeColors.push(rgbColor);
 		}
+
 		this.props.modeModel.setColors(modeColors);
 
 	}
@@ -717,7 +721,7 @@ class ColorPicker extends React.Component {
 	}
 
 	render() {
-
+		
 		return (
 			<div id="picker" className={['color-grid', `color-${this.props.type}`].join(' ')}>
 				{ this.renderColorPicker() }
@@ -740,8 +744,8 @@ ColorPicker.propTypes = {
 	modeModel:PropTypes.instanceOf(ModeModel).isRequired,
 	onSaveNewMode:PropTypes.func,
 	onSaveEditMode:PropTypes.func,
-	targetDevice:PropTypes.string.isRequired
-
+	targetDevice:PropTypes.string.isRequired,
+	resetModeModel:PropTypes.func
 }
 
 export default connect(mapStateToProps, {selectMode}, null, {forwardRef:true})(ColorPicker);
