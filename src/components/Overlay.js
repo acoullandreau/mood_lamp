@@ -113,7 +113,7 @@ class Overlay extends React.Component {
 
 		// we request an update from the microcontroller
 		var serializedMode = this.props.settings.modeInstance.serialize();
-		MaiaService.updateMode(serializedMode, {'reset':initialSetting} );
+		MaiaService.updateMode(serializedMode, {'colors':initialSetting} );
 	} 
 
 	deleteMode = () => {

@@ -125,7 +125,7 @@ class MaiaService {
 			updateObject can be :
 				- {'speed':speed} - when the speed is being edited
 				- {'color':colorObject, 'color_index':indexInTheArray} - when a color is being updated
-				- {'reset':colorsArray} - when the user resets the colors of a preconfigured mode
+				- {'colors':colorsArray} - when the user resets the colors of a preconfigured mode, or removes a color from a saved mode
 
 			The format of modesObject received as argument is as described in the constructor of ModeModel.js.
 		*/

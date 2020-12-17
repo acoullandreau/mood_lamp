@@ -331,9 +331,6 @@ class ColorPicker extends React.Component {
 	executeCurrentMode = (target) => {
 		/**
 			This method is in charge of executing the update performed by the user on a given mode.
-			There are three types of updates :
-
-
 			If the id of the mode currently set (Redux store's selectedMode) if not the id of the mode received as props by this
 			component, MaiaService.executeMode() is called with the id of the mode.
 
@@ -342,7 +339,7 @@ class ColorPicker extends React.Component {
 				- the update object, that can be of three types
 						- {'speed':speed} - when the speed is being edited
 						- {'color':colorObject, 'color_index':indexInTheArray} - when a color is being updated
-						- {'reset':colorsArray} - when the user resets the colors of a preconfigured mode
+						- {'colors':colorsArray} - when the user resets the colors of a preconfigured mode, or removes a color from a saved mode
 
 			A debouncer of 250ms prevent the updates to be sent too often.
 		*/
@@ -351,19 +348,23 @@ class ColorPicker extends React.Component {
 		if (this.props.modeModel.id !== this.props.selectedMode) {
 			MaiaService.executeMode(serializedMode);
 		}
-		if (this.debounceTimer === undefined) {
-			this.debounceTimer = setTimeout(() => {
-				// send update to the microcontroller with whatever changed
-				// var serializedMode = this.props.modeModel.serialize();
-				if (target === 'color') {
-					var color = this.state.selectedColors[this.state.selectedColorIndex];
-					color = Utils.convertHexToRGB(color);
-					MaiaService.updateMode(serializedMode, {'color':color, 'color_index': this.state.selectedColorIndex} );
-				} else if (target === 'speed') {
-					MaiaService.updateMode(serializedMode, {'speed':this.state.animationSpeed});
-				}
-				this.debounceTimer = undefined;
-			}, 250);
+
+		if (target === 'removeColor') {
+			MaiaService.updateMode(serializedMode, {'colors':this.state.selectedColors});
+		} else {
+			if (this.debounceTimer === undefined) {
+				this.debounceTimer = setTimeout(() => {
+					// send update to the microcontroller with whatever changed
+					if (target === 'color') {
+						var color = this.state.selectedColors[this.state.selectedColorIndex];
+						color = Utils.convertHexToRGB(color);
+						MaiaService.updateMode(serializedMode, {'color':color, 'color_index': this.state.selectedColorIndex} );
+					} else if (target === 'speed') {
+						MaiaService.updateMode(serializedMode, {'speed':this.state.animationSpeed});
+					}
+					this.debounceTimer = undefined;
+				}, 250);
+			}
 		}
 
 	}
@@ -492,6 +493,7 @@ class ColorPicker extends React.Component {
 			}, () => {
 				this.editColorsModeModel();
 				this.selectColor(selectedIndex);
+				this.executeCurrentMode('removeColor')
 			});
 		}
 
