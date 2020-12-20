@@ -179,8 +179,22 @@ class Utils {
 
 
 		var gradient;
-
-		if (id === 8){
+		if (id === 1){
+			//hour of day effect
+			gradient =`
+				linear-gradient(
+					270deg, 
+					rgba(10, 10, 22,1) 8%, 
+					rgba(52, 90, 122,1) 16%, 
+					rgba(234, 203, 195,1) 29%, 
+					rgba(241, 172, 145,1) 40%,
+					rgba(251, 173, 37, 1) 62%, 
+					rgba(237, 136, 95,1) 70%, 
+					rgba(213, 68, 69,1) 74%,
+					rgba(42, 36, 71,1) 82%
+				)
+			`
+		} else if (id === 8){
 			//fish bowl effect
 			gradient =`
 				radial-gradient(circle, rgba(255,147,41,1) 2%, rgba(135,117,113,1) 20%, rgba(31,67,102,1) 100%)
@@ -200,7 +214,6 @@ class Utils {
 			gradient =`
 				linear-gradient(315deg, rgba(194,122,126,1) 10%, rgba(178,85,44,1) 20%, rgba(67,108,58,1) 30%, rgba(67,108,58,1) 70%, rgba(12,11,82,1) 80%, rgba(251,194,41,1) 90%)
 			`
-			// linear-gradient(23deg, rgba(67,108,58,1) 60%, rgba(194,122,126,1) 77%, rgba(12,11,82,1) 85%, rgba(251,194,41,1) 90%)
 		} else if (id === 21){
 			// rainbow effect
 			gradient =`
