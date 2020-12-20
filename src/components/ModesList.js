@@ -108,17 +108,20 @@ class ModesList extends React.Component {
 	}
 
 	renderAddModeButton() {
-		return (	
-			<div className='mode-sub-grid'>
-				<button 
-					id='add-mode'
-					className= "grid-row-one"
-					onClick={this.addMode}
-				>
-					+
-				</button>
-			</div>
-		)
+		if (this.state.modesListUser.length < 40) {
+			return (	
+				<div className='mode-sub-grid'>
+					<button 
+						id='add-mode'
+						className= "grid-row-one"
+						onClick={this.addMode}
+					>
+						+
+					</button>
+				</div>
+			)	
+		} 
+		return null;
 
 	}
 

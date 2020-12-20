@@ -194,7 +194,7 @@ class ModeTile extends React.Component {
 				>
 					{ thumbnailButton }
 					<div className={["mode-text", "grid-row-two"].join(' ')}>
-						<p className="colum-one">{mode.name}</p>
+						<div className="colum-one">{mode.name}</div>
 						<div className="colum-two">
 							<button className={["hover-button", "edit-button"].join(' ')} onClick={this.onEdit} >
 								<img 
@@ -227,7 +227,7 @@ class ModeTile extends React.Component {
 				>
 					{ thumbnailButton }
 					<div className={["mode-text", "grid-row-two"].join(' ')}>
-						<p>{mode.name}</p>
+						<div>{mode.name}</div>
 					</div>
 				</div>
 			)

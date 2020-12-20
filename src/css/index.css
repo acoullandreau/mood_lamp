@@ -187,7 +187,7 @@ button {
 
 #nav-bar {
 	margin-top: max(5vh,38px);
-	margin-left: max(3vh, 23px);
+	margin-left: max(5vh,38px);
 	display:grid;
 	width: 8vw;
 	height: 65vh;

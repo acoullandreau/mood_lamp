@@ -287,15 +287,13 @@ class ColorPicker extends React.Component {
 		var specialModes = [1, 2, 3, 4];
 		var maxNumberColors;
 		if (specialModes.includes(this.props.modeModel.id)) {
-			if (this.props.modeModel.id === 1) {
-				maxNumberColors = 8;
-			} else if (this.props.modeModel.id === 2) {
+			if (this.props.modeModel.id === 2) {
 				maxNumberColors = 2;
 			} else {
 				maxNumberColors = 4;
 			}
 		} else {
-			maxNumberColors = 10;
+			maxNumberColors = 6;
 		}
 		return maxNumberColors;
 	}

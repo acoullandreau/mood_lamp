@@ -171,6 +171,7 @@ class Overlay extends React.Component {
 						id="overlay-edit"
 						type="text"
 						value={valueDisplayed}
+						maxlength = "32"
 						onChange={this.onInputChange} 
 					/>
 					<img width="78" height="78" id="overlay-edit-img" src={`${process.env.PUBLIC_URL}/assets/images/edit.svg`} alt="Éditer"/>
@@ -191,6 +192,8 @@ class Overlay extends React.Component {
 						type="text" 
 						placeholder="Nom du mode" 
 						value={this.state.valueDisplayed}
+						maxLength = "32"
+						autoComplete="off"
 						onChange={this.onInputChange} 
 					/>
 					<div id="overlay-buttons">
