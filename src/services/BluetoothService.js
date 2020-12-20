@@ -185,15 +185,16 @@ class BluetoothService {
 		let modesPromise = new Promise((resolve, reject) => {
 			this.sendMessage(message).then((result) => {
 				let modesArray = [
-					{'id':0, 'orderIndex':0, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0},
-					{'id':8, 'orderIndex':8, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0},
-					{'id':10, 'orderIndex':10, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0},
-					{'id':14, 'orderIndex':14, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0},
-					{'id':19, 'orderIndex':19, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0},
-					{'id':21, 'orderIndex':21, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0},
-					{'id':23, 'orderIndex':23, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0},
-					{'id':24, 'orderIndex':24, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0},
-					{'id':25, 'orderIndex':25, 'isOriginMode':true, 'isEditable':false, 'colors':[{r: 255, g: 0, b: 0}], 'speed':0}
+					{'id':0, 'orderIndex':0, 'isOriginMode':true, 'isEditable':false, 'colors':[], 'speed':0},
+					{'id':1, 'orderIndex':1, 'isOriginMode':true, 'isEditable':false, 'colors':[], 'speed':0},
+					{'id':8, 'orderIndex':8, 'isOriginMode':true, 'isEditable':false, 'colors':[], 'speed':0},
+					{'id':10, 'orderIndex':10, 'isOriginMode':true, 'isEditable':false, 'colors':[], 'speed':0},
+					{'id':14, 'orderIndex':14, 'isOriginMode':true, 'isEditable':false, 'colors':[], 'speed':0},
+					{'id':19, 'orderIndex':19, 'isOriginMode':true, 'isEditable':false, 'colors':[], 'speed':0},
+					{'id':21, 'orderIndex':21, 'isOriginMode':true, 'isEditable':false, 'colors':[], 'speed':0},
+					{'id':23, 'orderIndex':23, 'isOriginMode':true, 'isEditable':false, 'colors':[], 'speed':0},
+					{'id':24, 'orderIndex':24, 'isOriginMode':true, 'isEditable':false, 'colors':[], 'speed':0},
+					{'id':25, 'orderIndex':25, 'isOriginMode':true, 'isEditable':false, 'colors':[], 'speed':0}
 				];
 
 				// editable modes for testing
@@ -205,12 +206,12 @@ class BluetoothService {
 					'isOriginMode':true,
 					'isEditable':true,
 					'colors':[
-						{"r": 179, "g": 60, "b": 60 },
-						{ "r": 179, "g": 60, "b": 60 },
-						{ "r": 246, "g": 232, "b": 224 },
-						{ "r": 48, "g": 71, "b": 115 },
-						{ "r": 48, "g": 71, "b": 115 },
-						{ "r": 246, "g": 232, "b": 224 }],
+						{"r": 255, "g": 0, "b": 0 },
+						{ "r": 255, "g": 0, "b": 0 },
+						{ "r": 255, "g": 255, "b": 255 },
+						{ "r": 0, "g": 0, "b": 255 },
+						{ "r": 0, "g": 0, "b": 255 },
+						{ "r": 255, "g": 255, "b": 255 }],
 					'speed':0
 				};
 				modesArray.push(modeBubbles);
