@@ -1,4 +1,5 @@
 import maia_pb from './maia_pb';
+import Utils from './Utils.js';
 
 class MaiaUtils {
     static packModesList(modesObject) {
@@ -45,20 +46,28 @@ class MaiaUtils {
         pb_mode_update.setId(mode.id);
         if ('speed' in update) {
             pb_mode_update.setSpeed(update.speed);
+            pb_mode_update.setSpeedUpdate(true);
+        }
+        if ('colors' in update) {
+            for (let i in update['colors']) {
+                let color = update['colors'][i];
+                let pb_color = new maia_pb.Color();
+                let converted = (color.r << 16) | (color.g << 8) | (color.b);
+                pb_color.setRgb(converted);
+                pb_mode_update.addColors(pb_color);
+            }
+            pb_mode_update.setModeNumColors(update['colors'].length);
             pb_mode_update.setColorIndex(255);
         }
-        if ('color' in update && 'color_index' in update) {
+        else if ('color' in update && 'color_index' in update) {
             let pb_color = new maia_pb.Color();
             let converted = (update.color.r << 16) | (update.color.g << 8) | (update.color.b);
             pb_color.setRgb(converted);
             pb_mode_update.addColors(pb_color);
             pb_mode_update.setColorIndex(update.color_index);
             pb_mode_update.setModeNumColors(mode['colors'].length);
-            pb_mode_update.setSpeed(255);
         }
-        if ('colors' in update) {
-            // update multiple colors
-        }
+
         return pb_mode_update.serializeBinary();
     }
 
@@ -181,7 +190,7 @@ class MaiaUtils {
             'autoOff':{
                 'active':pb_settings.getAutoOff(),
                 'onLightLevel':{
-                    'startTime':this.decodeHours(pb_settings.getAutoOnLlAfterTime()),
+                    'startTime':this.decodeHours(pb_settings.getAutoOffLlAfterTime()),
                     'withStartTime':pb_settings.getAutoOffLlTimeLocked(),
                     'active':pb_settings.getAutoOffMode() === maia_pb.auto_mode_t.LIGHT_LEVEL
                 },
