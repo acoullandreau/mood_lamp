@@ -298,6 +298,7 @@ class BluetoothService {
 				let command = result[0];
 				let payload = result[1];
 				console.log(command, payload);
+				resolve(command);
 			});
 		});
 		return modePromise;
@@ -314,8 +315,8 @@ class BluetoothService {
 			message.setObjectPayload(MaiaUtils.packModesList(modesObject));
 			this.sendMessage(message).then((result) => {
 				let command = result[0];
-				// let payload = result[1];
 				console.log(command);
+				resolve(command);
 			});
 		});
 		return modesPromise;
@@ -333,6 +334,7 @@ class BluetoothService {
 				let command = result[0];
 				// let payload = result[1];
 				console.log(command);
+				resolve(command);
 			});
 		});
 		return setActiveModePromise;
@@ -348,6 +350,7 @@ class BluetoothService {
 				let command = result[0];
 				let payload = result[1];
 				console.log(payload, command);
+				resolve(command);
 			});
 		});
 		return updateModePromise;
@@ -364,6 +367,7 @@ class BluetoothService {
 				let command = result[0];
 				let payload = result[1];
 				console.log(command, payload);
+				resolve(command);
 			});
 		});
 		return setActiveModePromise;
@@ -371,6 +375,17 @@ class BluetoothService {
 
 	discardChanges() {
 		console.log('Discarding changes');
+		let sensorPromise = new Promise((resolve, reject) => {
+			let message = MessageUtils.buildMessage();
+			message.setCommand(Commands.DISCARD_CHANGES);
+			this.sendMessage(message).then((result) => {
+				let command = result[0];
+				let payload = result[1];
+				console.log(command, payload);
+				resolve(command);
+			});
+		});
+		return sensorPromise;
 		//add logic to request discard of changes to the microcontroller
 	}
 
@@ -453,6 +468,7 @@ class BluetoothService {
 				let command = result[0];
 				// let payload = result[1];
 				console.log(command);
+				resolve(command);
 			});
 		});
 		return rulesPromise;
@@ -469,6 +485,7 @@ class BluetoothService {
 				let command = result[0];
 				let payload = result[1];
 				console.log(command, payload);
+				resolve(command);
 			});
 		});
 		return rulesPromise;
