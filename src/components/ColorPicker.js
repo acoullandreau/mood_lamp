@@ -236,14 +236,32 @@ class ColorPicker extends React.Component {
 
 		*/
 
-
-		var initialColors = [];
+		var hexColors = [];
 
 		for (var i = 0; i < colors.length; i++) {
 			var hexColor = Utils.convertRGBStringtoHex(colors[i]);
-			initialColors.push(hexColor);
+			hexColors.push(hexColor);
 		}
-		return initialColors;
+
+		return hexColors;
+	}
+
+	getRGBColors(colors) {
+		/**
+			This method is called to convert each color of the colors array received as an argument to RGB objects.
+			The colors array received is an array of hex strings and this methos returns an array of the form 
+			[{ r: r, g: g, b: b }, { r: r, g: g, b: b }, ...].
+
+		*/
+
+		var rgbColors = [];
+
+		for (var i = 0; i < colors.length; i++) {
+			var hexColor = Utils.convertHexToRGB(colors[i]);
+			rgbColors.push(hexColor);
+		}
+
+		return rgbColors;
 	}
 
 	getMinNumberColors() {
@@ -348,7 +366,8 @@ class ColorPicker extends React.Component {
 		}
 
 		if (target === 'removeColor') {
-			MaiaService.updateMode(serializedMode, {'colors':this.state.selectedColors});
+			var colors = this.getRGBColors(this.state.selectedColors)
+			MaiaService.updateMode(serializedMode, {'colors':colors});
 		} else {
 			if (this.debounceTimer === undefined) {
 				this.debounceTimer = setTimeout(() => {
