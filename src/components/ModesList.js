@@ -16,8 +16,8 @@ class ModesList extends React.Component {
 		super(props);
 		this.state = {
 			'modesListUser' : this.filterSortModesArray('user'), 
-			'modesListDefault' : this.filterSortModesArray('default'
-		)};
+			'modesListDefault' : this.filterSortModesArray('default')
+		};
 	}
 
 	componentDidMount() {
@@ -33,6 +33,11 @@ class ModesList extends React.Component {
 			})
 		};
 	}
+
+	onTabSelect(index) {
+		this.props.onIndexChange(index);
+		this.getGridSize();
+	} 
 
 	getGridSize() {
 		/**
@@ -179,7 +184,7 @@ class ModesList extends React.Component {
 	render() {
 		return (
 			<React.Fragment>
-				<Tabs forceRenderTabPanel={true} defaultIndex={this.props.index} onSelect={() => this.getGridSize()}>
+				<Tabs forceRenderTabPanel={true} defaultIndex={this.props.index} onSelect={(index) => this.onTabSelect(index)}>
 					<TabList>
 					<Tab>Interactifs</Tab>
 					<Tab>Personalisés</Tab>
@@ -205,6 +210,7 @@ const mapStateToProps = (state) => {
 
 ModesList.propTypes = {
 	index:PropTypes.number.isRequired,
+	onIndexChange:PropTypes.func.isRequired,
 	onEditMode:PropTypes.func.isRequired,
 	onDeleteMode:PropTypes.func.isRequired,
 	targetDevice:PropTypes.string.isRequired

@@ -240,12 +240,10 @@ class App extends React.Component {
 		// setState accepts a function rather than an object that receives the state as an argument to be able to use previous state to get new state
 		if (window.location.hash !== '') {
 			this.setState((state) => ({
-				disconnectDisplay:{'display':state.isConnected === true ? 'block':'none'}
+				'disconnectDisplay':{'display':state.isConnected === true ? 'block':'none'}
 			}));
-
 		} else {
 			this.setState({disconnectDisplay:{'display':'none'}});
-
 		}
 	}
 
@@ -307,6 +305,10 @@ class App extends React.Component {
 		})
 
 		return maxId + 1;
+	}
+
+	updateTabIndex = (index) => {
+		this.setState({'tabIndex':index})
 	}
 
 	onSaveMode = (parameters) => {
@@ -444,7 +446,6 @@ class App extends React.Component {
 		// close the connection to the lamp
 		// once the disconnection is confirmed, call onDisconnect
 
-		// this.setState({'tabIndex':0});
 		this.onDisconnect();
 	}
 
@@ -603,6 +604,7 @@ class App extends React.Component {
 				onEditMode={this.onEditMode}
 				onDeleteMode={this.onDeleteMode}
 				index={this.state.tabIndex}
+				onIndexChange={this.updateTabIndex}
 				targetDevice={this.state.targetDevice}
 			/>
 		)
