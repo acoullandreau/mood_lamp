@@ -127,8 +127,8 @@ class BluetoothService {
 	}
 
 	disconnect() {
-		if (this.socket) {
-			this.socket.close();
+		if (this.bleDevice.gatt) {
+			this.bleDevice.gatt.disconnect();
 		}
 	}
 

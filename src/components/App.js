@@ -441,12 +441,7 @@ class App extends React.Component {
 			This method is called when the user clicks on the Disconnect button.
 		*/
 
-		//BluetoothService.connect(this.setLoading, this.onConnect, this.onDisconnect, this.handleNotifications);
-
-		// close the connection to the lamp
-		// once the disconnection is confirmed, call onDisconnect
-
-		this.onDisconnect();
+		BluetoothService.disconnect();
 	}
 
 	onConnect = () => {
