@@ -443,7 +443,8 @@ class App extends React.Component {
 
 		// close the connection to the lamp
 		// once the disconnection is confirmed, call onDisconnect
-		this.setState({'tabIndex':0});
+
+		// this.setState({'tabIndex':0});
 		this.onDisconnect();
 	}
 
@@ -482,9 +483,13 @@ class App extends React.Component {
 			It is in charge of updating the state of the app to render the Home screen with the Connect button.
 		*/
 
+		var overlay = {...this.state.overlay}
+		overlay.display = false
+
 		this.setState({
 			'isConnected':false,
-			'loading':false
+			'loading':false,
+			'overlay':overlay
 		});
 		window.history.pushState({}, '', '#');
 		const navEvent = new PopStateEvent('popstate');
