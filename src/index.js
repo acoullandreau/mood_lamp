@@ -12,14 +12,16 @@ import reducers from './reducers';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
-	reducers, 
+	reducers,
 	composeEnhancers(applyMiddleware(thunk))
 );
 
 var contentToRender;
 if (/chrome/i.test( navigator.userAgent)) {
     // add a check for bluetooth
-    // if no bluetooth activated contentToRender = (<BrowserWarning type="bluetooth"/>);
+    if (!navigator.bluetooth) {
+      contentToRender = (<BrowserWarning type="bluetooth"/>);
+    }
     contentToRender = (<App/>);
 } else {
 	contentToRender = (<BrowserWarning type="browser"/>);
