@@ -23,7 +23,11 @@ class Overlay extends React.Component {
 
 	componentDidUpdate(prevProps) {
 		if (this.props !== prevProps) {
-			this.setState({'modeName':''});
+			if (this.props.settings.modeInstance) {
+				this.setState({'modeName':this.props.settings.modeInstance.name})
+			} else {
+				this.setState({'modeName':''});
+			}
 		}
 	}
 
@@ -55,10 +59,13 @@ class Overlay extends React.Component {
 			This method detects when the user inputs a name in the overlay window input field, and updates the state.
 		*/
 
-		this.setState({'modeName':input.target.value});
-		if (this.props.settings.type === 'edit') {
-			this.colorPickerRef.current.setState({saveButtonDisabled:false});
-		}
+		this.setState({'modeName':input.target.value}, () => {
+			if (this.props.settings.type === 'edit') {
+				if (this.state.modeName !== '') {
+					this.colorPickerRef.current.setState({saveButtonDisabled:false});
+				}
+			}
+		});
 	}
 
 
@@ -151,9 +158,6 @@ class Overlay extends React.Component {
 
 	renderInputField() {
 		var valueDisplayed = this.state.modeName;
-		if (this.state.modeName === '') {
-			valueDisplayed = this.props.settings.modeInstance.name;
-		} 
 
 		if (this.props.settings.modeInstance.isOriginMode) {
 			return (
@@ -173,6 +177,7 @@ class Overlay extends React.Component {
 						value={valueDisplayed}
 						onChange={this.onInputChange} 
 						maxLength = "32"
+						autoComplete="off"
 					/>
 					<img width="78" height="78" id="overlay-edit-img" src={`${process.env.PUBLIC_URL}/assets/images/edit.svg`} alt="Éditer"/>
 				</React.Fragment>
