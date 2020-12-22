@@ -217,6 +217,9 @@ Here are some of the improvements that we are thinking about:
 	- possibility to enable automatic turn on based on a noise (some ML to implement)
 	- handle user inputs with warnings when the values are not good
 	- hours as well as minutes for the time before turning off the automatisms if no noise heard
+	- more scheduling options (with adapted UI)
+	- a timeline graph to display when the light will supposedly by ON or OFF
+	- option to choose the value for low/high light level
 - add timeseries graphs to the readings menu instead of an instantaneous reading only
 - implement an iOS application (web bluetooth supported only on Chrome for desktop and Android)
 
