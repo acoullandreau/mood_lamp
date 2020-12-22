@@ -275,32 +275,32 @@
 		"temperature":{
 			"title":"Température",
 			"unit":"°C",
-			"img":"`${process.env.PUBLIC_URL}/assets/images/temperature.svg`"
+			"img":"/assets/images/temperature.svg"
 		},
 		"humidity":{
 			"title":"Humidité",
 			"unit":"%",
-			"img":"`${process.env.PUBLIC_URL}/assets/images/humidity.svg`"
+			"img":"/assets/images/humidity.svg"
 		},
 		"pressure":{
 			"title":"Pression atm.",
 			"unit":"hPa",
-			"img":"`${process.env.PUBLIC_URL}/assets/images/pressure.svg`"
+			"img":"/assets/images/pressure.svg"
 		},
-		"light":{
+		"light_level":{
 			"title":"Niveau lumineux",
 			"unit":"%",
-			"img":"`${process.env.PUBLIC_URL}/assets/images/light.svg`"
+			"img":"/assets/images/light.svg"
 		},
 		"noise":{
 			"title":"Niveau de bruit",
 			"unit":"dB",
-			"img":"`${process.env.PUBLIC_URL}/assets/images/noise.svg`"
+			"img":"/assets/images/noise.svg"
 		},
 		"battery":{
 			"title":"Batterie RTC",
 			"unit":"",
-			"img":"`${process.env.PUBLIC_URL}/assets/images/battery.svg`"
+			"img":"/assets/images/battery.svg"
 		}
 	}
 }
