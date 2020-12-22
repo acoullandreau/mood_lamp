@@ -19,11 +19,12 @@ const store = createStore(
 var contentToRender;
 if (/chrome/i.test( navigator.userAgent)) {
     // add a check for bluetooth
-    if (!navigator.bluetooth) {
-      contentToRender = (<BrowserWarning type="bluetooth"/>);
-    }
     contentToRender = (<App/>);
-} else {
+}
+else if (/CriOS/i.test( navigator.userAgent)) {
+  contentToRender = (<BrowserWarning type="bluetooth"/>);
+}
+else {
 	contentToRender = (<BrowserWarning type="browser"/>);
 }
 
