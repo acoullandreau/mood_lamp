@@ -474,6 +474,8 @@ class ColorPicker extends React.Component {
 			'saveButtonDisabled':false
 		}, () => {
 			this.colorPickerRef.current.colorPicker.color.set('FFFFFF');
+			// we pass to the microcontroller the info that a color is being edited
+			this.executeCurrentMode('color');
 		});
 	}
 
