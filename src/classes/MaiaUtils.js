@@ -142,6 +142,7 @@ class MaiaUtils {
             'temperature':pb_readings.getTemperature().toFixed(2) || '--',
             'humidity':pb_readings.getHumidity().toFixed(2) || '--',
             'pressure':pb_readings.getPressure() || '--',
+            'light_level':pb_readings.getPressure() || '--'
         }
         // currently unavailable readings
             // 'noise':'--',
