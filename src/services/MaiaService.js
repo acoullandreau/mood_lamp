@@ -96,10 +96,9 @@ class MaiaService {
 			The format of the object received as argument is as described in the constructor of ModeModel.js.
 		*/
 
-		if (modeConfig.id !== this.selectedMode) {
-			BluetoothService.setActiveMode(modeConfig);
-			this.selectedMode = modeConfig.id;
-		}
+		BluetoothService.setActiveMode(modeConfig);
+		this.selectedMode = modeConfig.id;
+
 	}
 
 	saveMode(modeObject) {
