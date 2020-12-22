@@ -1499,7 +1499,8 @@ proto.maia.Readings.toObject = function(includeInstance, msg) {
   var f, obj = {
     temperature: jspb.Message.getFloatingPointFieldWithDefault(msg, 1, 0.0),
     humidity: jspb.Message.getFloatingPointFieldWithDefault(msg, 2, 0.0),
-    pressure: jspb.Message.getFieldWithDefault(msg, 3, 0)
+    pressure: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    lightLevel: jspb.Message.getFloatingPointFieldWithDefault(msg, 4, 0.0)
   };
 
   if (includeInstance) {
@@ -1548,6 +1549,10 @@ proto.maia.Readings.deserializeBinaryFromReader = function(msg, reader) {
       var value = /** @type {number} */ (reader.readUint32());
       msg.setPressure(value);
       break;
+    case 4:
+      var value = /** @type {number} */ (reader.readFloat());
+      msg.setLightLevel(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -1595,6 +1600,13 @@ proto.maia.Readings.serializeBinaryToWriter = function(message, writer) {
   if (f !== 0) {
     writer.writeUint32(
       3,
+      f
+    );
+  }
+  f = message.getLightLevel();
+  if (f !== 0.0) {
+    writer.writeFloat(
+      4,
       f
     );
   }
@@ -1652,6 +1664,24 @@ proto.maia.Readings.prototype.getPressure = function() {
  */
 proto.maia.Readings.prototype.setPressure = function(value) {
   return jspb.Message.setProto3IntField(this, 3, value);
+};
+
+
+/**
+ * optional float light_level = 4;
+ * @return {number}
+ */
+proto.maia.Readings.prototype.getLightLevel = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 4, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.maia.Readings} returns this
+ */
+proto.maia.Readings.prototype.setLightLevel = function(value) {
+  return jspb.Message.setProto3FloatField(this, 4, value);
 };
 
 
