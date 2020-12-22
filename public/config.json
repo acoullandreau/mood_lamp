@@ -287,6 +287,11 @@
 			"unit":"hPa",
 			"img":"`${process.env.PUBLIC_URL}/assets/images/pressure.svg`"
 		},
+		"light":{
+			"title":"Niveau lumineux",
+			"unit":"%",
+			"img":"`${process.env.PUBLIC_URL}/assets/images/light.svg`"
+		},
 		"noise":{
 			"title":"Niveau de bruit",
 			"unit":"dB",

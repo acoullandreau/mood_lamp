@@ -293,7 +293,7 @@ class Rules extends React.Component {
 							onChange={this.handleOptionChange}
 							className="display-inline"
 						/>
-						<p className="display-inline">Allumer à partir de </p>
+						<p className="display-inline">Allumer chaque jour à </p>
 						<TimePicker 
 							target="autoOn.onSchedule.startTime" 
 							disabled={ this.isDisabled('autoOn.onSchedule') }
@@ -365,7 +365,7 @@ class Rules extends React.Component {
 							onChange={this.handleOptionChange}
 							className="display-inline"
 						/>
-						<p className="display-inline">Éteindre à partir de </p>
+						<p className="display-inline">Éteindre chaque jour à </p>
 						<TimePicker 
 							target="autoOff.onSchedule.startTime" 
 							disabled={ this.isDisabled("autoOff.onSchedule") }
