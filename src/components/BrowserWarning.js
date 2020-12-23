@@ -72,7 +72,7 @@ class BrowserWarning extends React.Component {
 				<div id="browser-warning">
 					<img width="146" height="146" src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`} alt='Maïa' />
 					<p>
-						Chrome does not support Web Bluetooth in iOS ! There's an iOS app coming soon.
+						Web Bluetooth ne fonctionne pas sur Chrome pour iOS ! Une application iOS sera bientôt disponible.
 					</p>
 				</div>
 			)
