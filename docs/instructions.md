@@ -125,7 +125,7 @@ Vous voilà prêts à vous connecter à la lampe !
 Pour cela, cliquer sur Connexion, et sélectionnez "Maïa" sur la fenêtre qui s'affiche.
 
 ![Home](./docs-img/mobile/home.png?raw=true "Home")
-
+![Pair device](./docs-img/desktop/pair.png?raw=true "Pair device")
 
 La connexion peut prendre quelques secondes. Si au bout de 30 secondes rien ne se passe, rafraîchissez la page et recommencez l'opération.
 
@@ -144,7 +144,7 @@ ___
 
 Vous aurez toujours accès à cette page en passant par le menu À propos de l'application ! Cliquez sur le (i) pour ouvrir ce menu !
 
-![About](./docs-img/mobile/home.png?raw=true "About")
+![About](./docs-img/mobile/about.png?raw=true "About")
 
 
 ### Le menu "Modes" <a name="modes"></a>
