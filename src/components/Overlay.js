@@ -276,7 +276,8 @@ class Overlay extends React.Component {
 					<button id="overlay-edit-close" onClick={() => this.closeModal()}>x</button>
 					<div id="about-title">{this.props.settings.title}</div>
 					<div id="about-text">
-						Cette application est conçue pour vous permettre de piloter une lampe d'ambiance nommée Maïa ! <br/> <br/>
+						Cette application est conçue pour vous permettre de piloter une lampe d'ambiance nommée Maïa ! <br/> 
+						Pour obtenir de l'aide, visitez la <a href="https://maia.acoullandreau.com/docs" target="_blank" rel="noopener noreferrer">page d'instructions</a> ! <br/> <br/>
 						Le projet est développé par 
 						<a href="https://acoullandreau.com" target="_blank" rel="noopener noreferrer"> Alexina Coullandreau </a> 
 						<span> et </span> 
