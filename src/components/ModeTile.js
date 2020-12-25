@@ -64,7 +64,9 @@ class ModeTile extends React.Component {
 			Otherwise, the gradient is computed using the array of colors of the mode.
 		*/
 
-		if (this.state.isEditable === false) {
+		let specialModes = [1, 8, 10, 14, 19, 21, 23, 24, 25]
+
+		if (specialModes.includes(this.state.id)) {
 			var specialGradient = Utils.getSpecialGradient(this.props.model.id);
 			return { 'background':specialGradient };
 

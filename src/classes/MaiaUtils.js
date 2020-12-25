@@ -1,5 +1,4 @@
 import maia_pb from './maia_pb';
-import Utils from './Utils.js';
 
 class MaiaUtils {
     static packModesList(modesObject) {
@@ -245,10 +244,10 @@ class MaiaUtils {
                 modesArray[i]['orderIndex'] = configFile.modesSettings[modeId]['orderIndex']
             }
             // temporary, while the saved models used for testing are not really user saved
-            else {
-                // assign an orderIndex using the id to sort the modes when displaying it in the app
-                modesArray[i]['orderIndex'] = modesArray[i]['id'];
-            }
+            // else {
+            //     // assign an orderIndex using the id to sort the modes when displaying it in the app
+            //     modesArray[i]['orderIndex'] = modesArray[i]['id'];
+            // }
 
         }
         return modesArray;

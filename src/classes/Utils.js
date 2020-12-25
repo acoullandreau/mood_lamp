@@ -225,12 +225,14 @@ class Utils {
 				linear-gradient(180deg, rgba(246,174,44,1) 15%, rgba(23,83,150,1) 36%, rgba(222,185,144,1) 65%, rgba(164,188,39,1) 90%)
 			`
 		} else if (id === 24) {
+			// party effect
 			gradient =`
 				linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
             	linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),
             	linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%)
 			`
 		} else if (id === 25) {
+			// discussion effect
 			gradient = `
 				linear-gradient(
 					217deg,

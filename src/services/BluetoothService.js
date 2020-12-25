@@ -186,40 +186,92 @@ class BluetoothService {
 			this.sendMessage(message).then((result) => {
 				let modesArray = [
 					{'id':0, 'orderIndex':0, 'isOriginMode':true, 'isEditable':false, 'colors':[], 'speed':0},
+					{'id':2, 'orderIndex':2, 'isOriginMode':true, 'isEditable':false, 'colors':[{ "r": 227, "g": 233, "b": 255 }, { "r": 255, "g": 180, "b": 107 }], 'speed':0},
 					{'id':1, 'orderIndex':1, 'isOriginMode':true, 'isEditable':false, 'colors':[], 'speed':0},
-					{'id':8, 'orderIndex':8, 'isOriginMode':true, 'isEditable':false, 'colors':[], 'speed':0},
 					{'id':10, 'orderIndex':10, 'isOriginMode':true, 'isEditable':false, 'colors':[], 'speed':0},
-					{'id':14, 'orderIndex':14, 'isOriginMode':true, 'isEditable':false, 'colors':[], 'speed':0},
-					{'id':19, 'orderIndex':19, 'isOriginMode':true, 'isEditable':false, 'colors':[], 'speed':0},
-					{'id':21, 'orderIndex':21, 'isOriginMode':true, 'isEditable':false, 'colors':[], 'speed':0},
 					{'id':23, 'orderIndex':23, 'isOriginMode':true, 'isEditable':false, 'colors':[], 'speed':0},
-					{'id':24, 'orderIndex':24, 'isOriginMode':true, 'isEditable':false, 'colors':[], 'speed':0},
-					{'id':25, 'orderIndex':25, 'isOriginMode':true, 'isEditable':false, 'colors':[], 'speed':0}
-				];
-
-				// editable modes for testing
-				var modeBubbles = {'id':22, 'orderIndex':22, 'isOriginMode':true, 'isEditable':true, 'colors':[{ "r": 10, "g": 10, "b": 22 }, { "r": 52, "g": 90, "b": 122 }], 'speed':0};
-				// var modeTemp = {'id':3, 'orderIndex':3, 'isOriginMode':true, 'isEditable':true, 'colors':[{ r: 67, g: 138, b: 168 }, { r: 204, g: 219, b: 254 }, { r: 245, g: 160, b: 64 }], 'speed':0};
-				var modeNationalDay = {
-					'id':12,
-					'orderIndex':12,
-					'isOriginMode':true,
-					'isEditable':true,
-					'colors':[
+					{'id':12, 'orderIndex':12, 'isOriginMode':true, 'isEditable':false, 'colors':[
 						{"r": 255, "g": 0, "b": 0 },
 						{ "r": 255, "g": 0, "b": 0 },
 						{ "r": 255, "g": 255, "b": 255 },
 						{ "r": 0, "g": 0, "b": 255 },
 						{ "r": 0, "g": 0, "b": 255 },
 						{ "r": 255, "g": 255, "b": 255 }],
-					'speed':0
-				};
-				modesArray.push(modeBubbles);
-				// modesArray.push(modeTemp);
-				modesArray.push(modeNationalDay);
+					'speed':0},
+					{'id':5, 'orderIndex':5, 'isOriginMode':true, 'isEditable':false, 'colors':[
+			        	{ "r": 235, "g": 102, "b": 98 },
+			            { "r": 230, "g": 133, "b": 171 },
+			            { "r": 237, "g": 171, "b": 208 },
+			            { "r": 247, "g": 177, "b": 114 },
+			            { "r": 247, "g": 211, "b": 126 },
+			            { "r": 168, "g": 200, "b": 154 },
+			            { "r": 130, "g": 200, "b": 129 },
+			            { "r": 32, "g": 143, "b": 148 },
+			            { "r": 32, "g": 61, "b": 133 }],
+					'speed':0},
+					{'id':6, 'orderIndex':6, 'isOriginMode':true, 'isEditable':false, 'colors':[
+			        	{ "r": 61, "g": 123, "b": 150 },
+			            { "r": 191, "g": 192, "b": 178 },
+			            { "r": 212, "g": 212, "b": 204 },
+			            { "r": 104, "g": 160, "b": 170 },
+			            { "r": 237, "g": 241, "b": 226 },
+			            { "r": 213, "g": 222, "b": 238 },
+			            { "r": 31, "g": 57, "b": 77 }],
+					'speed':0},
+					{'id':7, 'orderIndex':7, 'isOriginMode':true, 'isEditable':false, 'colors':[
+					    { "r": 97, "g": 64, "b": 78 },
+			            { "r": 195, "g": 95, "b": 95 },
+			            { "r": 226, "g": 145, "b": 50 },
+			            { "r": 191, "g": 154, "b": 115 },
+			            { "r": 224, "g": 196, "b": 137 },
+			            { "r": 167, "g": 167, "b": 98 },
+			            { "r": 131, "g": 117, "b": 25 },
+			            { "r": 197, "g": 104, "b": 23 },
+			            { "r": 59, "g": 30, "b": 16 }],
+					'speed':0},
+					{'id':11, 'orderIndex':11, 'isOriginMode':true, 'isEditable':false, 'colors':[
+			        	{ "r": 48, "g": 67, "b": 107 },
+			            { "r": 93, "g": 86, "b": 127 },
+			            { "r": 138, "g": 105, "b": 148 },
+			            { "r": 165, "g": 169, "b": 214 },
+			            { "r": 232, "g": 221, "b": 229 },
+			            { "r": 213, "g": 222, "b": 238 },
+			            { "r": 210, "g": 180, "b": 191 },
+			            { "r": 211, "g": 188, "b": 217 }],
+					'speed':0},
+					{'id':13, 'orderIndex':13, 'isOriginMode':true, 'isEditable':false, 'colors':[
+			        	{ "r": 255, "g": 0, "b": 0 },
+			            { "r": 255, "g": 0, "b": 0 },
+			            { "r": 255, "g": 255, "b": 255 },
+			            { "r": 0, "g": 0, "b": 255 },
+			            { "r": 0, "g": 0, "b": 255 },
+			            { "r": 255, "g": 255, "b": 255 }],
+					'speed':0},
+					{'id':15, 'orderIndex':15, 'isOriginMode':true, 'isEditable':false, 'colors':[
+			        	{ "r": 162, "g": 152, "b": 181 },
+			            { "r": 162, "g": 114, "b": 141 },
+			            { "r": 95, "g": 88, "b": 132 },
+			            { "r": 151, "g": 131, "b": 183 },
+			            { "r": 107, "g": 87, "b": 117 },
+			            { "r": 214, "g": 149, "b": 125 },
+			            { "r": 213, "g": 222, "b": 238 }],
+					'speed':0},
+					{'id':17, 'orderIndex':17, 'isOriginMode':true, 'isEditable':false, 'colors':[
+			        	{ "r": 121, "g": 66, "b": 98 },
+			            { "r": 238, "g": 130, "b": 127 },
+			            { "r": 252, "g": 200, "b": 193 },
+			            { "r": 251, "g": 150, "b": 76 }],
+					'speed':0},
+					{'id':18, 'orderIndex':18, 'isOriginMode':true, 'isEditable':false, 'colors':[
+			        	{ "r": 44, "g": 112, "b": 116 },
+			            { "r": 61, "g": 124, "b": 119 },
+			            { "r": 76, "g": 133, "b": 121 },
+			            { "r": 98, "g": 151, "b": 125 },
+			            { "r": 147, "g": 172, "b": 131 },
+			            { "r": 176, "g": 183, "b": 131 }],
+					'speed':0}
 
-				var testModesHardCoded = [0, 8, 10, 12, 14, 19, 21, 22, 23, 24, 25];
-
+				];
 
 				// let command = result[0];
 				let payload = result[1];
@@ -228,42 +280,19 @@ class BluetoothService {
 					let pb_modes_list = modes_list.getModesList();
 					for (let index in pb_modes_list) {
 						let mode = MaiaUtils.unpackMode(pb_modes_list[index]);
-						// modesArray.push(mode);
-
-						// check added for testing
-						if (!testModesHardCoded.includes(mode.id)) {
-							modesArray.push(mode);
-						}
+						modesArray.push(mode);
 					}
 				}
 				else {
 					console.log('list empty');
 				}
 
-				// MaiaUtils.fillNames(modesArray);
-				console.log(modesArray);
+
 				resolve(modesArray);
 			});
 		});
 		return modesPromise;
 
-
-		// 	//fake request
-		// 	const modesArray = [
-		// 		{'name':'Éteindre', 'isOriginMode':true, 'isEditable':false, 'category':'off', 'colors':[{ r: 0, g: 0, b: 0 }], 'speed':0},
-		// 		{'name':'Fête', 'isOriginMode':true, 'isEditable':false, 'category':'sound', 'colors':[{ r: 10, g: 241, b: 135 }], 'speed':0},
-		// 		{'name':'Discussion', 'isOriginMode':true, 'isEditable':false, 'category':'sound', 'colors':[{ r: 125, g: 125, b: 125 }], 'speed':0},
-		// 		{'name':'Temperature Ambiance', 'isOriginMode':true, 'isEditable':true, 'category':'temperature', 'colors':[{ r: 67, g: 138, b: 168 }, { r: 204, g: 219, b: 254 }, { r: 245, g: 160, b: 64 }], 'speed':0},
-		// 		{'name':'Humidity Ambiance', 'isOriginMode':true, 'isEditable':true, 'category':'humidity', 'colors':[{ r: 46, g: 113, b: 8 }, { r: 246, g: 215, b: 176 }], 'speed':0},
-		// 		{'name':'Saved Mode', 'isOriginMode':false, 'isEditable':true, 'category':'gradient', 'colors':[{ r: 255, g: 40, b: 50 }, { r: 255, g: 120, b: 140 }, { r: 100, g: 220, b: 240 }], 'speed':80},
-		// 		{'name':'Saved Mode', 'isOriginMode':false, 'isEditable':true, 'category':'gradient', 'colors':[{ r: 100, g: 40, b: 50 }, { r: 200, g: 120, b: 140 }, { r: 200, g: 100, b: 240 }], 'speed':80},
-		// 		{'name':'Saved Mode', 'isOriginMode':false, 'isEditable':true, 'category':'gradient', 'colors':[{ r: 30, g: 40, b: 100 }, { r: 30, g: 120, b: 140 }, { r: 150, g: 220, b: 240 }], 'speed':80},
-		// 		{'name':'Saved Mode', 'isOriginMode':false, 'isEditable':true, 'category':'gradient', 'colors':[{ r: 30, g: 255, b: 50 }, { r: 100, g: 0, b: 140 }, { r: 200, g: 220, b: 0 }], 'speed':80},
-		// 		{'name':'Saved Mode with a super long name', 'isOriginMode':false, 'isEditable':true, 'category':'gradient', 'colors':[{ r: 30, g: 40, b: 50 }, { r: 100, g: 120, b: 140 }, { r: 200, g: 220, b: 240 }], 'speed':80}
-		// 	];
-
-		// 	resolve(modesArray);
-		// });
 	}
 
 	getSelectedMode() {
@@ -279,12 +308,6 @@ class BluetoothService {
 			});
 		});
 		return selectedModePromise;
-		// var selectedModePromise = new Promise((resolve, reject) => {
-		// 	//fake request
-		// 	resolve((Math.floor(Math.random() * 5) + 1));
-		// });
-
-		// return selectedModePromise;
 	}
 
 	saveMode(modeObject) {
