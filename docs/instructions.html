@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>instructions</title>
+
+
+<style type="text/css">
+body {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+a {
+  color: #4183C4; }
+a.absent {
+  color: #cc0000; }
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUM2NjlDQjI4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUM2NjlDQjM4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QzY2OUNCMDg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QzY2OUNCMTg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsQhXeAAAABfSURBVHjaYvz//z8DJYCRUgMYQAbAMBQIAvEqkBQWXI6sHqwHiwG70TTBxGaiWwjCTGgOUgJiF1J8wMRAIUA34B4Q76HUBelAfJYSA0CuMIEaRP8wGIkGMA54bgQIMACAmkXJi0hKJQAAAABJRU5ErkJggg==) no-repeat 10px center;
+  text-decoration: none; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px; }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+hr {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0;
+}
+
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0; }
+
+li p.first {
+  display: inline-block; }
+li {
+  margin: 0; }
+ul, ol {
+  padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+  margin-top: 0; }
+
+dl {
+  padding: 0; }
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px; }
+    dl dt:first-child {
+      padding: 0; }
+    dl dt > :first-child {
+      margin-top: 0; }
+    dl dt > :last-child {
+      margin-bottom: 0; }
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px; }
+    dl dd > :first-child {
+      margin-top: 0; }
+    dl dd > :last-child {
+      margin-bottom: 0; }
+
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+  blockquote > :first-child {
+    margin-top: 0; }
+  blockquote > :last-child {
+    margin-bottom: 0; }
+
+table {
+  padding: 0;border-collapse: collapse; }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
+img {
+  max-width: 100%; }
+
+span.frame {
+  display: block;
+  overflow: hidden; }
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto; }
+  span.frame span img {
+    display: block;
+    float: left; }
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0; }
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center; }
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center; }
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right; }
+  span.align-right span img {
+    margin: 0;
+    text-align: right; }
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left; }
+  span.float-left span {
+    margin: 13px 0 0; }
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right; }
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+
+kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 11px;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb
+}
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+  body {
+    padding: 2cm; 
+  }
+}
+</style>
+
+
+</head>
+
+<body>
+
+<h1 id="toc_0">Maïa</h1>
+
+<p>Félicitations ! </p>
+
+<p>Vous voici en possession d’une lampe très spéciale, baptisée Maïa ! C’est peut-être un peu intimidant et vous ne savez pas par où commencer ? Rassurez-vous, cette page d&#39;instructions est là pour vous aider :) </p>
+
+<p><em>Note : les captures d&#39;écran montrent alternativement la version pour ordinateur et pour téléphone de l&#39;interface. Mais l&#39;ensemble des fonctionalités est disponible sur les deux plateformes !</em></p>
+
+<h2 id="toc_1">Sommaire</h2>
+
+<ol>
+<li><p><a href="#maia">Je suis Maïa</a></p>
+
+<ol>
+<li><a href="#composants">Les composants</a></li>
+<li><a href="#bouton">Focus sur le bouton</a></li>
+<li><a href="#RTC">Focus sur l&#39;horloge RTC</a></li>
+<li><a href="#d%C3%A9connecter">Déconnecter la lampe</a></li>
+</ol></li>
+<li><p><a href="#start">Pour bien commencer</a></p></li>
+<li><p><a href="#app-discover">Découverte de l&#39;application</a></p></li>
+<li><p><a href="#features">Les fonctionalités</a></p>
+
+<ol>
+<li><a href="#about">À propos</a></li>
+<li><a href="#modes">Modes</a></li>
+<li><a href="#couleurs">Couleurs</a></li>
+<li><a href="#mesures">Mesures</a></li>
+<li><a href="#rules">Règles</a></li>
+</ol></li>
+<li><p><a href="#contact">Source et contact</a></p></li>
+</ol>
+
+<p><br />
+<br /></p>
+
+<hr>
+
+<p><br /></p>
+
+<h1 id="toc_2">Je suis Maïa <a name="maia"></a></h1>
+
+<p>Maïa est une lampe d&#39;ambiance. C&#39;est-à-dire que vous pouvez l&#39;installer où vous voulez pour créer une ambiance lumineuse ! A priori, elle ne remplace pas une lampe d&#39;éclairage, sauf si vous souhaitez une faible luminosité.</p>
+
+<p>Un certain nombre de modes lumineux sont déjà configurés sur la lampe, mais vous êtes libres de créer les ambiances que vous voulez avec ! </p>
+
+<h3 id="toc_3">Les composants <a name="composants"></a></h3>
+
+<p>Petite présentation des différents composants de la lampe :</p>
+
+<ul>
+<li><p>le socle : il constitue la base de la lampe, et contient un certain nombre de composants à lui tout seul ! </p>
+
+<ul>
+<li>une prise USB pour alimenter la lampe (l&#39;alimentation est fournie avec la lampe)</li>
+<li>un bouton de commande externe</li>
+<li>un capteur de luminosité</li>
+<li>un capteur de température, humidit et pression de l&#39;air</li>
+<li>une horloge</li>
+<li>et le microcontrôleur, qui est le cerveau de l&#39;opération !</li>
+</ul></li>
+<li><p>la spère de LED est composée de 29 LED</p></li>
+<li><p>le diffuseur, que vous pouvez remplacer par tout ce que vous voulez ! Nous sommes partis sur une sphère, mais peut-être que vous préférez une forme différente, une matière différente, vous faites comme vous voulez !</p></li>
+</ul>
+
+<h3 id="toc_4">Focus sur le bouton <a name="bouton"></a></h3>
+
+<p>Le bouton vous permet de commander de manière basique la lampe, sans avoir besoin d&#39;utiliser l&#39;application. </p>
+
+<p>Pour allumer ou éteindre la lampe, presser une fois le bouton.
+Si vous maintenez le bouton appuyé, la lampe va passer d&#39;un mode à l&#39;autre, relâcher le bouton quand vous avez atteint le mode lumineux que vous préférez !</p>
+
+<h3 id="toc_5">Focus sur l&#39;horloge RTC <a name="RTC"></a></h3>
+
+<p>Comme vous le verrez plus loin, il vous est possible de configurer la lampe pour s&#39;allumer ou s&#39;éteindre automatiquement. Et pour ça, la lampe a besoin de savoir quelle heure il est à tout instant ! C&#39;est à ça que sert l&#39;horloge.</p>
+
+<p>Cette horloge fonctionne avec une pile , qui est accesible sous la lampe. 
+Pour la remplacer, presser les bagues qui maintiennent la pile pour la retirer, et insérer une nouvelle pile à la place en exerçant une pression légère</p>
+
+<h3 id="toc_6">Déconnecter la lampe <a name="déconnecter"></a></h3>
+
+<p>La lampe fonctionnera tout le temps tant qu’elle est alimentée. Elle consomme très (très) peu d&#39;énergie, rassurez-vous !</p>
+
+<p>Pour la déconnecter complètement, débranchez-la. </p>
+
+<p><br />
+<br /></p>
+
+<hr>
+
+<p><br /></p>
+
+<h1 id="toc_7">Pour bien commencer...<a name="start"></a></h1>
+
+<p>La lampe peut fonctionner de manière autonome, mais nous vous recommandons pour une première utilisation de visiter l&#39;interface utilisateur qui a été créée spécialement pour piloter la lampe !</p>
+
+<p>Pour cela, vous devez vous munir de l&#39;un des appareils suivants :</p>
+
+<ul>
+<li>d&#39;un ordinateur avec une connexion bluetooth possible</li>
+<li>d&#39;un téléphone portable Android (&gt; version 6)</li>
+</ul>
+
+<p>Et vérifier que :</p>
+
+<ul>
+<li>vous pouvez ouvrir Chrome</li>
+<li>vous avez activé le bluetooth</li>
+</ul>
+
+<p>Il n&#39;y a pas de support pour iOS pour l&#39;instant, mais ça ne saurait tarder ! </p>
+
+<p><br />
+<br /></p>
+
+<hr>
+
+<p><br /></p>
+
+<h1 id="toc_8">Découverte de l&#39;application <a name="app-discover"></a></h1>
+
+<p>Vous pouvez accéder à l&#39;application en cliquant <a href="XXXX">ici</a>.</p>
+
+<p>Si vous utilisez cette application depuis votre téléphone, nous vous recommandons de l&#39;ajouter à l&#39;écran d&#39;accueil ! 
+À la première ouverture de l&#39;application, un bandeau apparaît et vous propose d&#39;ajouter Maïa à l&#39;écran d&#39;accueil. </p>
+
+<p>Si ce bandeau n&#39;apparaît pas, suivez les étapes suivantes :</p>
+
+<ol>
+<li>Cliquer sur le menu de Chrome (les trois points en haut à droite)</li>
+<li>Un menu déroulant s&#39;affiche, cliquer que &quot;Ajouter à l&#39;écran d&#39;accueil)</li>
+</ol>
+
+<p>Vous voilà prêts à vous connecter à la lampe !</p>
+
+<p>Pour cela, cliquer sur Connexion, et sélectionnez &quot;Maïa&quot; sur la fenêtre qui s&#39;affiche.</p>
+
+<p><img src="./docs-img/mobile/home.png?raw=true" alt="Home" title="Home"></p>
+
+<p>La connexion peut prendre quelques secondes. Si au bout de 30 secondes rien ne se passe, rafraîchissez la page et recommencez l&#39;opération.</p>
+
+<p>L&#39;application fonctionne hors ligne, mais nous vous recommandons de temps en temps de l&#39;ouvrir avec une connexion internet active pour profiter d&#39;éventuelles mises à jour de l&#39;interface !</p>
+
+<p><br />
+<br /></p>
+
+<hr>
+
+<p><br /></p>
+
+<h1 id="toc_9">Les fonctionalités <a name="features"></a></h1>
+
+<h3 id="toc_10">Le menu &quot;À propos&quot; <a name="about"></a></h3>
+
+<p>Vous aurez toujours accès à cette page en passant par le menu À propos de l&#39;application ! Cliquez sur le (i) pour ouvrir ce menu !</p>
+
+<p><img src="./docs-img/mobile/home.png?raw=true" alt="About" title="About"></p>
+
+<h3 id="toc_11">Le menu &quot;Modes&quot; <a name="modes"></a></h3>
+
+<p>C&#39;est à partir de ce mode que vous pourrez sélectionner un mode pour la lampe, ou encore personaliser les couleurs, la vitesse des animations. </p>
+
+<p>Le menu est divisé en deux catégories :</p>
+
+<ul>
+<li>les modes interactifs, qui sont préconfigurés sur la lampe.</li>
+<li>les modes que vous avez vous-même enregistrés !</li>
+</ul>
+
+<p>À tout instant vous pouvez voir quel est le mode actif grâce à la bordure autour de la tuile. </p>
+
+<h5 id="toc_12">Les modes interactifs</h5>
+
+<p>Ces modes sont préconfigurés sur la lampe. </p>
+
+<p><img src="./docs-img/mobile/modes-default.png?raw=true" alt="Modes Default" title="Modes menu - Preconfigured"></p>
+
+<p>Aucun de ces modes ne peut être supprimé. Bien que certains modes ne puissent pas être édités, vous avez la possibilité pour certains modes de changer les couleurs de la palette. Vous ne pourrez cependant modifier ni la vitesse d&#39;animation ni le nom du mode. </p>
+
+<h5 id="toc_13">Les modes personalisés</h5>
+
+<p>Vous pouvez créer autant de modes que vous le souhaitez ! </p>
+
+<p><img src="./docs-img/mobile/modes-custom.png?raw=true" alt="Modes custom" title="Modes menu - user-defined"></p>
+
+<p>Plus de détails sur comment définir un nouveau mode <a href="#couleurs">ici</a>.</p>
+
+<h5 id="toc_14">Éditer un mode <a name="edit"></a></h5>
+
+<p>Sur ordinateur, passez la souris au-dessus d&#39;une tuile. Si le mode peut être édité un crayon apparaît à côté du nom du mode.</p>
+
+<p><img src="./docs-img/desktop/modes-custom-hover.png?raw=true" alt="Modes Custom" title="Edit custom mode"></p>
+
+<p>Sur téléphone ou tablette, maintenez votre doigt appuyé sur la tuile pour faire apparaître un menu.</p>
+
+<p><img src="./docs-img/mobile/modes-default-hold-touch.png?raw=true" alt="Menu default mode" title="Menu default mode"> <img src="./docs-img/mobile/modes-custom-hold-touch.png?raw=true" alt="Menu custom mode" title="Menu custom mode"></p>
+
+<p>Une fois que vous avez sélectionné &quot;éditer&quot;, une fenêtre s&#39;ouvre avec la configuration actuelle du mode.</p>
+
+<p><img src="./docs-img/mobile/modes-custom-edit.png?raw=true" alt="Custom edit" title="Custom edit"></p>
+
+<p>Dans le cas des modes préconfigurés, vous aurez toujours la possibilité de réinitialiser la configuration d&#39;origine en cliquant sur &quot;Reset&quot;.</p>
+
+<p><img src="./docs-img/desktop/modes-default-edit.png?raw=true" alt="Default edit" title="Default edit">
+<img src="./docs-img/mobile/modes-default-edit.png?raw=true" alt="Default edit" title="Default edit"></p>
+
+<p>Si vous ne cliquez pas sur &quot;Enregistrer&quot; avant de quitter la fenêtre, un message de confirmation s&#39;affichera pour vous permettre de quitter sans sauvegarder les changements.</p>
+
+<p><img src="./docs-img/mobile/discard-changes.png?raw=true" alt="Discard changes" title="Discard changes"></p>
+
+<h5 id="toc_15">Supprimer un mode</h5>
+
+<p>Uniquement les modes que vous avez définis peuvent être supprimés. Le bouton supprimé est visible en passant la souris sur une tuile depuis un ordinateur, ou en maintenant le doigt appuyé sur la tuile sur téléphone portable (cf. <a href="#edit">Éditer un mode</a>).</p>
+
+<p>Un message de confirmation s&#39;affiche, mais attention, l&#39;action est irréversible !</p>
+
+<p><img src="./docs-img/mobile/mode-delete.png?raw=true" alt="Delete mode" title="Delete mode"></p>
+
+<h3 id="toc_16">Le menu &quot;Couleurs&quot; <a name="couleurs"></a></h3>
+
+<p>Vous accédez à ce menu soit depuis la barre de navigation, soit depuis l&#39;onglet &quot;Personalisés&quot; du menu &quot;Modes&quot;, en cliquant sur le + !</p>
+
+<p>Ce menu vous permet de définir un nouveau mode, que vous le sauvegardiez ou non. Vous pouvez visualiser en direct la configuration de ce nouveau mode. </p>
+
+<p><img src="./docs-img/mobile/colors.png?raw=true" alt="Colors" title="Colors"></p>
+
+<p>Vous avez la possibilité de choisir jusqu&#39;à 10 couleurs, d&#39;ajuster la vitesse d&#39;animation, et de nommer le mode comme vous le voulez.
+L&#39;animation est par défaut un gradient qui passe aléatoirement d&#39;une couleur à l&#39;autre, dont vous pouvez ajuster la vitesse de transition.</p>
+
+<p><img src="./docs-img/desktop/colors-max-select.png?raw=true" alt="Modes max colors" title="Modes max colors"></p>
+
+<p>Pour enregistrer le mode, cliquer sur &quot;Enregistrer mode&quot;. Vous pouvez nommer le mode comme vous le souhaitez.</p>
+
+<p><img src="./docs-img/desktop/save-mode.png?raw=true" alt="Save a mode" title="Save a mode"></p>
+
+<p>Il apparaît ensuite en tête de liste !</p>
+
+<p><img src="./docs-img/desktop/save-mode-list.png?raw=true" alt="Saved modes list" title="Saved modes list"></p>
+
+<h3 id="toc_17">Le menu &quot;Mesures&quot; <a name="mesures"></a></h3>
+
+<p>Ce menu vous montre ce que mesure le capteurs météo. Actuellement vous avez accès à la température, le taux d&#39;humidité et la pression atmosphérique. Les valeurs sont mises à jour automatiquement toutes les 100ms !</p>
+
+<p><img src="./docs-img/desktop/readings.png?raw=true" alt="Readings" title="Readings menu"></p>
+
+<h3 id="toc_18">Le menu &quot;Règles&quot; <a name="rules"></a></h3>
+
+<p>C&#39;est à partir de ce menu que vous pouvez configurer toutes les règles d&#39;automatisation de la lampe !</p>
+
+<p><img src="./docs-img/desktop/rules.png?raw=true" alt="Rules" title="Rules menu"></p>
+
+<p>Voici l&#39;ensemble des règles que vous pouvez configurer :</p>
+
+<p><strong>&quot;Laisser la lampe choisir automatiquement le mode actif&quot;</strong></p>
+
+<p>La lampe choisit automatiquement le mode en fonction du moment. Par exemple, s&#39;il est 21h, un mode relaxant ou romantique. Si on est le 25 décembre, le mode &quot;Joyeux Noël&quot;,.....</p>
+
+<p><strong>&quot;Désactiver les automatismes si aucun son pendant plus de X heures&quot;</strong></p>
+
+<p>La lampe va automatiquement désactiver les règles d&#39;allumage et d&#39;extinction automatique si aucun son n&#39;est détecté pendant X heures. Cette fonctionalité peut être pratique si vous partez en vacances par exemple !</p>
+
+<p><strong>&quot;Allumage automatique / Extinction automatique&quot;</strong></p>
+
+<p>Ces deux fonctions sont construites de la mpeme manière, l&#39;une pour contrôller l&#39;allumage automatique, et l&#39;autre l&#39;extinction. Pour chacune d&#39;entre elle, vous avez deux options : </p>
+
+<ul>
+<li>baser l&#39;allumage/l&#39;extinction sur le niveau lumineux détecté ; vous avez la possibilité de définir un horaire avant lequel la lampe n&#39;exécutera pas cette commande même si le niveau est trop haut/bas. Par exemple, s&#39;il fait très sombre à 16h à cause d&#39;un orage mais que vous avez configuré l&#39;heure minimale d&#39;allumage à 18h, la lampe ne s&#39;allumera pas</li>
+<li>baser l&#39;allumage/l&#39;extinction sur une heure fixe ; vous avez la possibilité de définir un horaire de gradation, à partir duquel la lampe va soit commencer à s&#39;allumer ou à s&#39;éteindre progressivement</li>
+</ul>
+
+<p>Tous les changements que vous effectuez depuis ce menu sont sauvegardés automatiquement sur la lampe.</p>
+
+<p><br />
+<br /></p>
+
+<hr>
+
+<p><br /></p>
+
+<h1 id="toc_19">Source et contact <a name="contact"></a></h1>
+
+<p>Vous rencontrez d&#39;autres problèmes ou souhaitez nous faire part d&#39;améliorations possibles ? N’hésitez pas à nous contacter : <em>maia</em>@acoullandreau.com !</p>
+
+<p>Si par hasard vous avez envie de découvrir l&#39;envers du décor, rendez-vous sur le répositoire du <a href="XXXX">code source de la lampe</a> !</p>
+
+
+
+
+</body>
+
+</html>

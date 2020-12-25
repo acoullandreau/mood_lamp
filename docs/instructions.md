@@ -109,7 +109,7 @@ ___
 # Découverte de l'application <a name="app-discover"></a>
 
 
-Vous pouvez accéder à l'application en cliquant [ici] (XXXX).
+Vous pouvez accéder à l'application en cliquant [ici] (https://maia.acoullandreau.com).
 
 Si vous utilisez cette application depuis votre téléphone, nous vous recommandons de l'ajouter à l'écran d'accueil ! 
 À la première ouverture de l'application, un bandeau apparaît et vous propose d'ajouter Maïa à l'écran d'accueil. 
@@ -284,4 +284,4 @@ Vous rencontrez d'autres problèmes ou souhaitez nous faire part d'amélioration
 
 Si vous avez reçu cette lampe en cadeau, elle est garantie à vie ! :) 
 
-Si par hasard vous avez envie de découvrir l'envers du décor, rendez-vous sur le répositoire du [code source de la lampe] (XXXX) !
+Si par hasard vous avez envie de découvrir l'envers du décor, rendez-vous sur le répositoire du [code source de la lampe] (https://github.com/acoullandreau/mood_lamp) !
