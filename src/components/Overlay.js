@@ -277,7 +277,7 @@ class Overlay extends React.Component {
 					<div id="about-title">{this.props.settings.title}</div>
 					<div id="about-text">
 						Cette application est conçue pour vous permettre de piloter une lampe d'ambiance nommée Maïa ! <br/> 
-						Pour obtenir de l'aide, visitez la <a href="https://maia.acoullandreau.com/docs" target="_blank" rel="noopener noreferrer">page d'instructions</a> ! <br/> <br/>
+						Pour obtenir de l'aide, visitez la <a href="https://maia.acoullandreau.com/docs/" target="_blank" rel="noopener noreferrer">page d'instructions</a> ! <br/> <br/>
 						Le projet est développé par 
 						<a href="https://acoullandreau.com" target="_blank" rel="noopener noreferrer"> Alexina Coullandreau </a> 
 						<span> et </span> 
