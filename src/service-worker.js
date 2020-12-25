@@ -37,6 +37,10 @@ registerRoute(
       return false;
     } // If this looks like a URL for a resource, because it contains // a file extension, skip.
 
+    if (url.pathname.startsWith('/docs')) {
+      return false;
+    }
+
     if (url.pathname.match(fileExtensionRegexp)) {
       return false;
     } // Return true to signal that we want to use the handler.
@@ -72,7 +76,7 @@ registerRoute(
   new StaleWhileRevalidate({
     cacheName: 'google-fonts',
     plugins: [
-      new ExpirationPlugin({maxEntries: 20}),  
+      new ExpirationPlugin({maxEntries: 20}),
     ],
   })
 );
