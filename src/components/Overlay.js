@@ -296,7 +296,7 @@ class Overlay extends React.Component {
 	renderVersionOverlay = () => {
 		return (
 			<React.Fragment>
-				<div className={['OverlayWindow', 'OverlayAboutWindow'].join(' ')}>
+				<div className={['OverlayWindow', 'OverlayVersionWindow'].join(' ')}>
 					<button id="overlay-edit-close" onClick={() => this.closeModal()}>x</button>
 					<div id="overlay-title">{this.props.settings.title}</div>
 					<div id="version-overlay-list">

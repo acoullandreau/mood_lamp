@@ -820,8 +820,6 @@ class App extends React.Component {
 			)
 		}
 
-		console.log(this.state.overlay)
-
 		let page = Utils.capitalize(window.location.hash.split('#')[1])
 		if (this.state.targetDevice === "mobile") {
 			if (this.state.changeOrientationWarning) {

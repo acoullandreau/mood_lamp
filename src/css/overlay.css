@@ -94,6 +94,11 @@
 	width:333px;
 }
 
+.OverlayVersionWindow {
+	width: max(min(30%, 300px));
+	height: max(min(25%, 192px));
+}
+
 #overlay-title {
 	font-size: 17px;
 	font-weight: 700;
@@ -111,6 +116,12 @@
 	font-size:13px;
 	text-align: center;
 }
+
+#version-overlay-list {
+	height:75%;
+	overflow-y: auto;
+}
+
 
 #version-overlay-list li {
 	list-style-type: circle;
