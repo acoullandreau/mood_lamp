@@ -16,6 +16,7 @@ const store = createStore(
 	composeEnhancers(applyMiddleware(thunk))
 );
 
+// define what content to render based on the browser used
 var contentToRender;
 if (/chrome/i.test( navigator.userAgent)) {
     // add a check for bluetooth
