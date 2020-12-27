@@ -156,6 +156,14 @@ Let's go through each rule :
 Any change on this page is automatically saved to the microcontroller.
 
 
+Version management
+------------------------
+A class (VersionManager) is in charge of tracking whether the user already visited the last version of the app available. This information is stored in the local storage, and if the user last accessed a version that has since been updated, an overlay window displays a list of the changes.
+
+It is therefore important, when updating the application and deploying a new build, to ensure that:
+
+- the appVersion property of VersionManager is up to date
+- the config.json file contains the description of the last version deployed (it should be the first element of the versions object of the json).
 
 
 Mobile version screenshots
@@ -220,6 +228,7 @@ Here are some of the improvements that we are thinking about:
 	- more scheduling options (with adapted UI)
 	- a timeline graph to display when the light will supposedly by ON or OFF
 	- option to choose the value for low/high light level
+	- option which mode to use when turn ON rule is enabled
 - add timeseries graphs to the readings menu instead of an instantaneous reading only
 - implement an iOS application (web bluetooth supported only on Chrome for desktop and Android)
 
