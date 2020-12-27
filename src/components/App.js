@@ -13,11 +13,7 @@ import Route from './Route.js';
 import Rules from './Rules.js';
 import NavBar from './NavBar.js';
 import Utils from '../classes/Utils.js';
-
-// Before Prod
-	// fonts downloaded manually ?
-	// clear cache
-
+import VersionManager from '../classes/VersionManager.js';
 
 
 class App extends React.Component {
@@ -39,6 +35,7 @@ class App extends React.Component {
 		this.previousHeight = undefined;
 		this.onWindowResize();
 		this.getNewModeModelInstance();
+		this.versionManager = new VersionManager();
 	}
 
 
@@ -47,6 +44,7 @@ class App extends React.Component {
 		this.setState({ 'pageLoading': false }, () => {
 			document.getElementById("loading-page").style.display = "none";
 		});
+
 
 		//add event listeners
 		window.addEventListener('resize', this.onWindowResize);
@@ -89,6 +87,23 @@ class App extends React.Component {
 		if (this.state.targetDevice === 'mobile') {
 			this.onOrientationChange();
 		}
+
+		// check if a new version overlay should be displayed
+		this.versionManager.checkVersionUpdate().then(displayUpdate => {
+			if (displayUpdate) {
+				// display overlay with version update
+				let versionUpdate = this.versionManager.updateDescription;
+
+				var params = {
+					'type':'version',
+					'display':true,
+					'title':'Nouvelle version '+this.versionManager.appVersion,
+					'message':versionUpdate
+				};
+				this.displayOverlay(params);
+			}
+		});
+
 	}
 
 
