@@ -306,7 +306,7 @@ class Rules extends React.Component {
 						style={{'opacity':this.getOpacity('autoOn.onSchedule', true) }}
 					>
 						{this.renderSwitch('autoOn.onSchedule')}
-						<p className="rule-text">Grader à partir de</p>
+						<p className="rule-text">Progressivement à partir de</p>
 						<TimePicker 
 							target="autoOn.onSchedule.startDimmingTime" 
 							disabled={ this.isDisabled('autoOn.onSchedule') }
@@ -378,7 +378,7 @@ class Rules extends React.Component {
 						style={{'opacity':this.getOpacity('autoOff.onSchedule', true)}}
 					>
 						{this.renderSwitch('autoOff.onSchedule')}
-						<p className="rule-text">Grader à partir de</p>
+						<p className="rule-text">Progressivement à partir de</p>
 						<TimePicker 
 							target="autoOff.onSchedule.startDimmingTime" 
 							disabled={ this.isDisabled("autoOff.onSchedule") }
