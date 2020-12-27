@@ -55,8 +55,8 @@ class BluetoothService {
 		console.log('Requesting Bluetooth Device...');
 		navigator.bluetooth.requestDevice({
 			// filters: [{services: [this.bleNusServiceUUID]}]
-			filters: [{namePrefix: 'Maia'}]
-			// optionalServices: [this.bleNusServiceUUID],
+			filters: [{namePrefix: 'Maia'}],
+			optionalServices: [this.bleNusServiceUUID]
 			// acceptAllDevices: true
 		})
 		.then(device => {
