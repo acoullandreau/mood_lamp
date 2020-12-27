@@ -45,6 +45,7 @@
 	text-decoration-thickness:1px;
 }
 
+
 /*CSS for the overlay window*/
 
 
@@ -89,7 +90,7 @@
 }
 
 .OverlayAboutWindow {
-	height:250px;
+	height:300px;
 	width:333px;
 }
 
@@ -109,6 +110,15 @@
 	transform: translate(-50%, -5%); 
 	font-size:13px;
 	text-align: center;
+}
+
+#version-overlay-list li {
+	list-style-type: circle;
+	position: relative;
+	width: 90%;
+	left: 5%;
+	font-size:13px;
+	text-align: start;
 }
 
 #overlay-input {

@@ -284,7 +284,8 @@ class Overlay extends React.Component {
 						<a href="https://gbuzogany.com" target="_blank" rel="noopener noreferrer"> Gustavo Buzogany Eboli</a>.  <br/>
 						Jetez un oeil au 
 						<a href="https://github.com/acoullandreau/mood_lamp" target="_blank" rel="noopener noreferrer"> code source de cette page</a>,  
-						et n'hésitez pas à nous contacter !
+						et n'hésitez pas à nous contacter ! <br/> <br/> <br/> 
+						Version {this.props.settings.message}
 					</div>
 				</div>
 			</React.Fragment>
@@ -292,37 +293,57 @@ class Overlay extends React.Component {
 
 	}
 
+	renderVersionOverlay = () => {
+		return (
+			<React.Fragment>
+				<div className={['OverlayWindow', 'OverlayAboutWindow'].join(' ')}>
+					<button id="overlay-edit-close" onClick={() => this.closeModal()}>x</button>
+					<div id="overlay-title">{this.props.settings.title}</div>
+					<div id="version-overlay-list">
+						{
+							React.Children.toArray(
+								Object.keys(this.props.settings.message).map((item, i) => {
+									return (
+										<li>{this.props.settings.message[item]}</li>
+									)
+								})
+							)
+						}
+					</div>
+				</div>
+			</React.Fragment>
+		)
+	}
+
+
 	render() {
-		if (this.props.settings.type === 'new') {
-			return (
-				<React.Fragment>
-					<div className="Blur" onClick={() => this.closeModal()}></div>
-					{this.renderNameInputOverlay()}
-				</React.Fragment>
-			) 
-		} else if (this.props.settings.type === 'edit') {
+
+		if (this.props.settings.type === 'edit') {
 			return (
 				<React.Fragment>
 					<div className="Blur" onClick={() => this.closeModal('editConfirmation')}></div>
 					{this.renderEditModeOverlay()}
 				</React.Fragment>
 			)
-		} else if (this.props.settings.type === 'delete') {
-			return (
-				<React.Fragment>
-					<div className="Blur" onClick={() => this.closeModal()}></div>
-					{this.renderDeletetModeOverlay()}
-				</React.Fragment>
-			)
-		} else if (this.props.settings.type === 'about') {
-			return (
-				<React.Fragment>
-					<div className="Blur" onClick={() => this.closeModal()}></div>
-					{this.renderAboutOverlay()}
-				</React.Fragment>
-			)
-		}
+		} else if (['new', 'delete', 'about', 'version'].includes(this.props.settings.type)) {
+			let contentToRender;
+			if (this.props.settings.type === 'new') {
+				contentToRender = this.renderNameInputOverlay();
+			} else if (this.props.settings.type === 'delete') {
+				contentToRender = this.renderDeletetModeOverlay();
+			} else if (this.props.settings.type === 'about') {
+				contentToRender = this.renderAboutOverlay();
+			} else if (this.props.settings.type === 'version') {
+				contentToRender = this.renderVersionOverlay();
+			}
 
+			return (
+				<React.Fragment>
+					<div className="Blur" onClick={() => this.closeModal()}></div>
+					{contentToRender}
+				</React.Fragment>
+			) 
+		}
 		return null;
 
 

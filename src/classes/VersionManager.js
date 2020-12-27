@@ -2,7 +2,7 @@
 class VersionManager {
 
 	constructor() {
-		this.appVersion = "1.0.0";
+		this.appVersion = "1.0.1";
 		this.storedVersion = undefined;
 		this.updateDescription = [];
 	}
@@ -16,7 +16,8 @@ class VersionManager {
 					localStorage.setItem('version', this.appVersion)
 				} else {
 					// we compare if the stored version matches the current version of the app
-					if (this.storedVersion !== this.appVersion) {
+					// in this case we only consider the versio "upgrade", i.e we do not want the user to access a lower version
+					if (this.storedVersion < this.appVersion) {
 						// we update the stored version and display an overlay to the user with the new features
 						localStorage.setItem('version', this.appVersion)
 						displayUpdate = true;

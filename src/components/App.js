@@ -407,7 +407,7 @@ class App extends React.Component {
 			'type':'about',
 			'display':true,
 			'title':'À propos',
-			'message':'',
+			'message':this.versionManager.appVersion,
 			'modeInstance':''
 		};
 		this.displayOverlay(params);
@@ -819,6 +819,8 @@ class App extends React.Component {
 				</div>
 			)
 		}
+
+		console.log(this.state.overlay)
 
 		let page = Utils.capitalize(window.location.hash.split('#')[1])
 		if (this.state.targetDevice === "mobile") {

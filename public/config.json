@@ -304,11 +304,9 @@
 		}
 	},
 	"versions":{
-		"1.0.2":[
-			"Autre nouvelle version", "Autre fonctionalité"
-		],
 		"1.0.1":[
-			"Nouvelle version"
+			"Ajout d'un message pour informer des fonctionalités de la nouvelle version.",
+			"Correction de bogues."
 		],
 		"1.0.0":[
 			"Version initiale"
