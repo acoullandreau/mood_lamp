@@ -48,7 +48,7 @@
 }
 
 .reading-icon img{
-	width: 80%;
+	width: 90%;
 	height:auto;
 }
 
@@ -69,7 +69,18 @@
 
 	.reading-measure {
 		font-size:clamp(40px, min(6.5vh, 12vw), 45px);
+		margin-top:2vh;
+		align-items: start;
+		height: 60%;
+	}
 
+	.reading-title {
+		font-size:clamp(17px, min(4vh, 7vw), 20px);
+		margin-top:2vh;
+	}
+
+	.reading-icon img{
+		width: 8vh;
 	}
 
 }
