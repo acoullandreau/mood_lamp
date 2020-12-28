@@ -1,5 +1,4 @@
 import React from 'react';
-import TimePicker from 'react-time-picker';
 
 function Picker(props) {
 	/**
@@ -14,16 +13,17 @@ function Picker(props) {
 	const { disabled, target, time, onTimeChange } = props;
 
 	return (
-		<TimePicker
-			className="time-picker"
+		<input 
+			type="time" 
+			className="time-picker" 
 			disabled={disabled}
-			disableClock={true}
-			clearIcon={null}
-			format={"HH:mm"}
+			min="00:00" 
+			max="23:59" 
+			required
 			onChange={e => onTimeChange(e, target)}
 			value={time}
 		/>
-	);
+    )
 }
 
 export default Picker;

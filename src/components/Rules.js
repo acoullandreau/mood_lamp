@@ -193,13 +193,14 @@ class Rules extends React.Component {
 		});
 	}
 
-	onTimeChange = (value, target) => {
+	onTimeChange = (event, target) => {
 		/**
 			This method is triggered when a user updates the value of a time picker (available for multiple rules).
 			If the value inputted is correct (i.e numbers set for the hour and the minutes), it triggers an update of
 			the Redux store and a save of the rules (as a change is detected).
 		*/
 
+		var value = event.target.value
 		var targets = target.split('.');
 		var category = targets[0];
 		var subsection = targets[1];

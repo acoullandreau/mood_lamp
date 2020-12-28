@@ -30,7 +30,6 @@ The app relies on a few dependencies:
 - iro color picker (^5.2.3)
 - react-tabs (^3.1.1)
 - react-spinners-css (^1.2.2)
-- react-time-picker (^4.0.1)
 - react-redux (^7.2.2)
 - (redux-thunk (^2.3.0) not currently used - no middleware)
 
