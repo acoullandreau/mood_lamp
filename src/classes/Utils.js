@@ -155,6 +155,83 @@ class Utils {
 		return object != null && typeof object === 'object';
 	}
 
+	static storageAvailable(type) {
+		/**
+			This function checks whether the local storage is available. 
+		*/
+	    var storage;
+	    try {
+	        storage = window[type];
+	        var x = '__storage_test__';
+	        storage.setItem(x, x);
+	        storage.removeItem(x);
+	        return true;
+	    }
+	    catch(e) {
+	        return e instanceof DOMException && (
+	            // everything except Firefox
+	            e.code === 22 ||
+	            // Firefox
+	            e.code === 1014 ||
+	            // test name field too, because code might not be present
+	            // everything except Firefox
+	            e.name === 'QuotaExceededError' ||
+	            // Firefox
+	            e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
+	            // acknowledge QuotaExceededError only if there's something already stored
+	            (storage && storage.length !== 0);
+	    }
+	}
+
+	static compareVersions(version1, version2) {
+		/**
+			This function compares two version objects in the form {"major":Int, "minor":Int, "patch":Int}. It returns
+			either higer, lower or equal, depending on whether version1 is higher, lower, or equal to version2. 
+			The order the two versions to compare therefore matters! 
+		*/
+		let comparison;
+		if (version1 === undefined) {
+			version1 = {"major":0, "minor":0, "patch":0}
+		}
+		if (version2 === undefined) {
+			version2 = {"major":0, "minor":0, "patch":0}
+		}
+
+		if (version1.major > version2.major) {
+			comparison = 'higher';
+		} else if (version1.major < version2.major) {
+			comparison = 'lower';
+		} else {
+			// major are the same, so we compare minor
+			if (version1.minor > version2.minor) {
+				comparison = 'higher';
+			} else if (version1.minor < version2.minor) {
+				comparison = 'lower';
+			} else {
+				// minor are the same, so we compare patch			
+				if (version1.patch > version2.patch) {
+					comparison = 'higher';
+				} else if (version1.patch < version2.patch) {
+					comparison = 'lower';
+				} else {
+					comparison = 'equal';
+				}
+			}
+		}
+		return comparison
+	}
+
+	static versionObjectToString(versionObject) {
+		let versionString = `${versionObject.major}.${versionObject.minor}.${versionObject.patch}`;
+		return versionString;
+	}
+
+	static versionStringToObject(versionString) {
+		let versionItems = versionString.split(".");
+		let versionObject = {"major":parseInt(versionItems[0]), "minor":parseInt(versionItems[1]), "patch":parseInt(versionItems[2])};
+		return versionObject;
+	}
+
 	static getGradient(colors) {
 		/**
 			This function returns a gradient (CSS style string) using the colors passed as input.

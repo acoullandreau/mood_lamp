@@ -97,7 +97,7 @@ class App extends React.Component {
 				var params = {
 					'type':'version',
 					'display':true,
-					'title':'Nouvelle version '+this.versionManager.appVersion,
+					'title':'Nouvelle version '+Utils.versionObjectToString(this.versionManager.appVersion),
 					'message':versionUpdate
 				};
 				this.displayOverlay(params);
@@ -407,7 +407,7 @@ class App extends React.Component {
 			'type':'about',
 			'display':true,
 			'title':'À propos',
-			'message':this.versionManager.appVersion,
+			'message':Utils.versionObjectToString(this.versionManager.appVersion),
 			'modeInstance':''
 		};
 		this.displayOverlay(params);
