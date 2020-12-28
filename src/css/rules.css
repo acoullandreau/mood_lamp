@@ -195,7 +195,7 @@ input:checked + .slider:before {
 
 	.rule-text {
 		width: 80%;
-		font-size: max(2.5vh, 15px);
+		font-size: max(2vh, 15px);
 	}
 
 	.subsection p {
@@ -206,8 +206,10 @@ input:checked + .slider:before {
 	}
 
 	.long-rule-text {
-		width: 80% !important;
+		width: 85% !important;
 		vertical-align:middle;
+		font-size: 2vh;
+		font-size: max(2vh, 15px);
 	}
 
 }

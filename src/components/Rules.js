@@ -266,7 +266,7 @@ class Rules extends React.Component {
 							onChange={this.handleOptionChange}
 							className="display-inline"
 						/>
-						<p className="display-inline">Allumer si le niveau lumineux est bas </p>
+						<p className="display-inline long-rule-text">Allumer si le niveau lumineux est bas </p>
 					</div>
 					<div 
 						className="subsection-sublevel" 
@@ -293,7 +293,7 @@ class Rules extends React.Component {
 							onChange={this.handleOptionChange}
 							className="display-inline"
 						/>
-						<p className="display-inline">Allumer chaque jour à </p>
+						<p className="display-inline rule-text">Allumer chaque jour à </p>
 						<TimePicker 
 							target="autoOn.onSchedule.startTime" 
 							disabled={ this.isDisabled('autoOn.onSchedule') }
@@ -306,7 +306,7 @@ class Rules extends React.Component {
 						style={{'opacity':this.getOpacity('autoOn.onSchedule', true) }}
 					>
 						{this.renderSwitch('autoOn.onSchedule')}
-						<p className="rule-text">Progressivement à partir de</p>
+						<p className="rule-text">Progressif dès </p>
 						<TimePicker 
 							target="autoOn.onSchedule.startDimmingTime" 
 							disabled={ this.isDisabled('autoOn.onSchedule') }
@@ -365,7 +365,7 @@ class Rules extends React.Component {
 							onChange={this.handleOptionChange}
 							className="display-inline"
 						/>
-						<p className="display-inline">Éteindre chaque jour à </p>
+						<p className="rule-text display-inline">Éteindre chaque jour à </p>
 						<TimePicker 
 							target="autoOff.onSchedule.startTime" 
 							disabled={ this.isDisabled("autoOff.onSchedule") }
@@ -378,7 +378,7 @@ class Rules extends React.Component {
 						style={{'opacity':this.getOpacity('autoOff.onSchedule', true)}}
 					>
 						{this.renderSwitch('autoOff.onSchedule')}
-						<p className="rule-text">Progressivement à partir de</p>
+						<p className="rule-text">Progressif dès </p>
 						<TimePicker 
 							target="autoOff.onSchedule.startDimmingTime" 
 							disabled={ this.isDisabled("autoOff.onSchedule") }
