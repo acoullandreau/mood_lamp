@@ -259,6 +259,13 @@
 		width: 90%;
 	}
 
+	.OverlayVersionWindow {
+		width: max(min(75%, 300px));
+		height: max(min(40%, 225px));
+	}
+
+
+
 	#overlay-edit {
 		font-size: min(30px, 5vw);
 		max-width: 55%;
