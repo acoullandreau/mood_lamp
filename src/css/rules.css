@@ -75,36 +75,22 @@ input[type="radio"]:checked {
 
 
 /*CSS for the time picker*/
-.react-time-picker__wrapper {
-	border:none !important;
-	border-bottom: 1px solid #FEEDDF3A !important;
-}
-
-.react-time-picker__inputGroup {
-	width: 30%;
-	min-width: 0px !important;
-	color:#FEEDDF !important;
-	font-size:25px !important;
-	text-align: center !important;
-}
-
-.react-time-picker__inputGroup__input{
-	color:#FEEDDF !important;
-	font-size:25px !important;
-	text-align: center !important;
-}
-
-.react-time-picker--disabled {
-	background-color:transparent !important;
-	color:#FEEDDF !important;
-	opacity: 0.5;
-
-}
 
 .time-picker {
 	display:inline-block;
 	margin-left: 1%;
-	width:30%;
+	max-width:35%;
+	border:none;
+	border-bottom: 1px solid #FEEDDF3A;
+	background-color:transparent;
+	color:#FEEDDF;
+	font-size: max(2.5vh, 20px);
+	outline: none;
+	text-align: center;
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+	filter: invert(80%) sepia(25%) ;
 }
 
 /*CSS for the switch*/
