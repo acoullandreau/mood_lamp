@@ -84,20 +84,23 @@ class Readings extends React.Component {
 	}
 
 	renderTile(item) {
-		var measure = this.state.measures[item];
-		var title = this.config.readingsSettings[item]['title'];
-		var unit = this.config.readingsSettings[item]['unit'];
-		var img = this.config.readingsSettings[item]['img'];
+		if (this.config !== undefined) {		
+			var measure = this.state.measures[item];
+			var title = this.config.readingsSettings[item]['title'];
+			var unit = this.config.readingsSettings[item]['unit'];
+			var img = this.config.readingsSettings[item]['img'];
 
-		return (
-			<div className="reading-tile">
-				<div className={["reading-title", "grid-row-one"].join(' ')}>{title}</div>
-				<div className="reading-measure">
-					<div className={["reading-icon", "column-one"].join(' ')}><img width="80" height="80" src={`${process.env.PUBLIC_URL}${img}`} alt={title} /></div>
-					<div className={["reading-text", "column-two"].join(' ')}>{measure} {unit}</div>
+			return (
+				<div className="reading-tile">
+					<div className={["reading-title", "grid-row-one"].join(' ')}>{title}</div>
+					<div className="reading-measure">
+						<div className={["reading-icon", "column-one"].join(' ')}><img width="80" height="80" src={`${process.env.PUBLIC_URL}${img}`} alt={title} /></div>
+						<div className={["reading-text", "column-two"].join(' ')}>{measure} {unit}</div>
+					</div>
 				</div>
-			</div>
-		)
+			)
+		}
+		return null;
 	}
 
 	render() {
