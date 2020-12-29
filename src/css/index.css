@@ -10,7 +10,7 @@
 
 body {
 	background-color: #0D0828;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Roboto', sans-serif !important;
 	font-weight: 400;
 	font-size:max(1.8vh, 15px);
 	color:#FEEDDF;
@@ -278,7 +278,7 @@ button {
 }
 
 
-@media only screen and (max-width:930px) and (any-hover: none) and (orientation: portrait) {
+@media only screen and (max-width:930px) and (orientation: portrait) {
 	body {
 		min-width:360px;
 		text-size-adjust:none;

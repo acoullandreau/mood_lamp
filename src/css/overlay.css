@@ -214,7 +214,7 @@
 	cursor: pointer;
 }
 
-@media only screen and (max-width:930px) and (any-hover: none) and (orientation: portrait) {
+@media only screen and (max-width:930px) and (orientation: portrait) {
 	.about-icon-mobile {
 		position: absolute;
 		top: 30%;
