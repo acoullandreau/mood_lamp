@@ -9,12 +9,21 @@ import App from './components/App.js';
 import BrowserWarning from './components/BrowserWarning.js';
 import reducers from './reducers';
 
-
+// set up of the Redux dev tool
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+// create a redux store and add the middleware 
 const store = createStore(
 	reducers,
 	composeEnhancers(applyMiddleware(thunk))
 );
+
+// Reference code to receive messages from SW
+// navigator.serviceWorker.addEventListener('message', event => {
+//     if (event.data && event.data.type === 'NEW_SW') {
+//         window.location.reload();
+//     }
+// });
+
 
 // define what content to render based on the browser used
 var contentToRender;
