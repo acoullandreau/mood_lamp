@@ -306,7 +306,7 @@
 	"versions":{
 		"1.1.0":[
 			"Ajout d'un message pour informer des fonctionalités de la nouvelle version.",
-			"Nouvelle interface pour la sélection d'un horaire d'allumage/extinction automatique."
+			"Nouvelle interface pour la sélection d'un horaire d'allumage/extinction automatique.",
 			"Correction de bogues."
 		],
 		"1.0.0":[
