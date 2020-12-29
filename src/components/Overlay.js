@@ -41,13 +41,13 @@ class Overlay extends React.Component {
 		*/
 
 		if (source === undefined) {
-			this.props.onClose({'display':false});
+			this.props.onClose({'type':this.props.settings.type, 'display':false});
 		} else if (source === 'editConfirmation') {
 			this.setState({'showDiscardChangesModal':true});
 		} else if (source === 'discardChanges') {
 			this.setState({'showDiscardChangesModal':false}, () => {
 				MaiaService.discardChanges();
-				this.props.onClose({'display':false});
+				this.props.onClose({'type':this.props.settings.type, 'display':false});
 			});
 		} else if (source === 'keepChanges') {
 			this.setState({'showDiscardChangesModal':false});
@@ -294,25 +294,24 @@ class Overlay extends React.Component {
 	}
 
 	renderVersionOverlay = () => {
-		return (
-			<React.Fragment>
-				<div className={['OverlayWindow', 'OverlayVersionWindow'].join(' ')}>
-					<button id="overlay-edit-close" onClick={() => this.closeModal()}>x</button>
-					<div id="overlay-title">{this.props.settings.title}</div>
-					<div id="version-overlay-list">
-						{
-							React.Children.toArray(
-								Object.keys(this.props.settings.message).map((item, i) => {
-									return (
-										<li>{this.props.settings.message[item]}</li>
-									)
-								})
-							)
-						}
+		if (this.props.settings.message !== undefined) {
+			return (
+				<React.Fragment>
+					<div className={['OverlayWindow', 'OverlayVersionWindow'].join(' ')}>
+						<button id="overlay-edit-close" onClick={() => this.closeModal()}>x</button>
+						<div id="overlay-title">{this.props.settings.title}</div>
+						<div id="version-overlay-list">
+							{this.props.settings.message.map((item, index) => {
+								return (
+									<li key={index}>{item}</li>
+								)							
+							})}
+						</div>
 					</div>
-				</div>
-			</React.Fragment>
-		)
+				</React.Fragment>
+			)
+		}
+		return null;
 	}
 
 

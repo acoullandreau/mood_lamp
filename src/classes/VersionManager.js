@@ -19,8 +19,8 @@ class VersionManager {
 					// we compare if the stored version matches the current version of the app
 					// in this case we only consider the versio "upgrade", i.e we do not want the user to access a lower version
 					if (Utils.compareVersions(this.storedVersion, this.appVersion) === 'lower') {
-						// we update the stored version and display an overlay to the user with the new features
-						localStorage.setItem('version', JSON.stringify(this.appVersion))
+						// we display an overlay to the user with the new features
+						// the version is updated in local storage when this overlay window is closed
 						displayUpdate = true;
 					}
 				}
@@ -32,6 +32,14 @@ class VersionManager {
 	getUpdateDescription() {
 		// fetch all the items that were added since last version was stored
 		return this.updateDescription;
+	}
+
+	saveVersionToLocalStorage() {
+		if (Utils.storageAvailable('localStorage')) {
+			localStorage.setItem('version', JSON.stringify(this.appVersion))
+		} else {
+		  console.log("Local storage not available")
+		}
 	}
 
 	getVersions = () => {

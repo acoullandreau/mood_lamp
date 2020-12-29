@@ -97,7 +97,7 @@ class App extends React.Component {
 				var params = {
 					'type':'version',
 					'display':true,
-					'title':'Nouvelle version '+Utils.versionObjectToString(this.versionManager.appVersion),
+					'title':'Nouvelle version '+ Utils.versionObjectToString(this.versionManager.appVersion),
 					'message':versionUpdate
 				};
 				this.displayOverlay(params);
@@ -267,6 +267,11 @@ class App extends React.Component {
 			This method changes the component's state to display an overlay window with the parameters received.
 			The object parameters received is an object is as described in the method onEditMode of this component.
 		*/
+
+		if (parameters.type === 'version' && parameters.display === false) {
+			// we store the version the user is accessing when the overlay message is dismissed
+			this.versionManager.saveVersionToLocalStorage();
+		}
 		var overlay = parameters;
 		this.setState({ overlay });
 	}
