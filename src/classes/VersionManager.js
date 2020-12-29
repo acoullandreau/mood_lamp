@@ -45,8 +45,6 @@ class VersionManager {
 					// version comparison - if the version of the config file is lower or equal to the app version, and higher than the stored
 					// version, then it means that there was a version update and we want to list all the delta features added
 					if ((compareVersionToApp === 'lower' || compareVersionToApp === 'equal') && compareVersionToStored === 'higher') {
-						console.log(compareVersionToApp)
-						console.log(updateArray)
 						for (var k = 0; k < versions[version].length; k++) {
 							updateArray.push(versions[version][k]);
 						}
