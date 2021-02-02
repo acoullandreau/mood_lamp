@@ -280,8 +280,8 @@ ___
 
 # Source et contact <a name="contact"></a>
 
-Vous rencontrez d'autres problèmes ou souhaitez nous faire part d'améliorations possibles ? N’hésitez pas à nous contacter : _maia_@acoullandreau.com !
+Vous rencontrez d'autres problèmes ou souhaitez nous faire part d'améliorations possibles ? N’hésitez pas à nous contacter : \_maia_@acoullandreau.com !
 
-Si vous avez reçu cette lampe en cadeau, elle est garantie à vie ! :) 
+Si vous avez reçu cette lampe en cadeau de la part d'Alexina et Gustavo, elle est garantie à vie ! :) 
 
 Si par hasard vous avez envie de découvrir l'envers du décor, rendez-vous sur le répositoire du [code source de la lampe] (https://github.com/acoullandreau/mood_lamp) !

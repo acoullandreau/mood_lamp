@@ -7,8 +7,7 @@ Note : il n'y a pas de version en français de ce document (du moins pour l'inst
 Welcome!
 This repository contains all the code we put together to build the application that allows you to control a Maïa mood lamp! Maïa is a lamp that can be assembled with very few (and cheap) components, 3D printed parts, and controlled remotely from your phone or computer using bluetooth!
 
-If you already have a lamp, get the app [here](XXXXXXX) now! 
-If you wish to build your own lamp, check out the other sections of [this repository] (XXXX).
+If you already have a lamp, get the app [here](https://maia.acoullandreau.com) now! 
 
 
 Structure of the app
@@ -19,7 +18,7 @@ It therefore has a desktop version (minimal screen size targeted of 1024 x 768),
 
 Because it relies on web bluetooth to communicate with the lamp, the app only runs on Chrome for Android and desktop (no other browser supports web bluetooth, and CHrome for iOS neither).
 
-The following graph shows how the app is structured showing its main components. If you want to be able to look at it bigger, it is available [here](XXXXXXX).
+The following graph shows how the app is structured showing its main components. If you want to be able to look at it bigger, it is available [here](https://github.com/acoullandreau/mood_lamp/blob/master/StructureGraph.png).
 
 
 ![Structure](StructureGraph.png?raw=true "App structure")
