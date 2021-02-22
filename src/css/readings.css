@@ -52,6 +52,18 @@
 	height:auto;
 }
 
+#temp-unit-button {
+	opacity: 0.75;
+	position: relative;
+	float: right;
+	margin-right: 4%;
+	color:#FEEDDF;
+	background-color:#0D0828;
+	border:1px solid #FEEDDF1F;
+	border-radius: 8px;
+	cursor: pointer;
+	font-size: max(min(2.5vh, 2vw), 20px);
+}
 
 
 

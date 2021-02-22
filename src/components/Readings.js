@@ -78,27 +78,62 @@ class Readings extends React.Component {
 		.then(measures => {
 			if (this.shouldRefreshReadings) {
 				this.setState({ 'lastUpdate':Date.now(), measures: {...measures} });
-				this.intervalID = setTimeout(this.getReadings, 100);
+				this.intervalID = setTimeout(this.getReadings, 3000);
 			}
 		})
 	}
 
-	renderTile(item) {
-		if (this.config !== undefined) {		
-			var measure = this.state.measures[item];
-			var title = this.config.readingsSettings[item]['title'];
-			var unit = this.config.readingsSettings[item]['unit'];
-			var img = this.config.readingsSettings[item]['img'];
+	onTempUnitChange = () => {
+		let curr_unit = localStorage.getItem('temperature_unit') || this.config.readingsSettings['temperature']['unit'];
+		let new_unit = curr_unit === '°C' ? '°F' : '°C';
+		localStorage.setItem('temperature_unit', new_unit)
+	}
 
-			return (
-				<div className="reading-tile">
-					<div className={["reading-title", "grid-row-one"].join(' ')}>{title}</div>
-					<div className="reading-measure">
-						<div className={["reading-icon", "column-one"].join(' ')}><img width="80" height="80" src={`${process.env.PUBLIC_URL}${img}`} alt={title} /></div>
-						<div className={["reading-text", "column-two"].join(' ')}>{measure} {unit}</div>
-					</div>
+	getFarTemp(temp) {
+		// calculate temp in Farenheit
+		return (temp * 9 / 5 + 32).toFixed(2)
+	}
+
+	renderTemperatureTile() {
+		var unit = localStorage.getItem('temperature_unit') || this.config.readingsSettings['temperature']['unit'];
+		var measure = unit === '°C' ? this.state.measures['temperature'] : this.getFarTemp(this.state.measures['temperature']);
+		var img = this.config.readingsSettings['temperature']['img'];
+		var title = this.config.readingsSettings['temperature']['title'];
+
+		return (
+			<div className="reading-tile">
+				<div className={["reading-title", "grid-row-one"].join(' ')}>
+					{title}
+					<button id="temp-unit-button" onClick={this.onTempUnitChange} >{unit === '°C' ? '°F' : '°C'}</button>
 				</div>
-			)
+				<div className="reading-measure">
+					<div className={["reading-icon", "column-one"].join(' ')}><img width="80" height="80" src={`${process.env.PUBLIC_URL}${img}`} alt={title} /></div>
+					<div className={["reading-text", "column-two"].join(' ')}>{measure} {unit}</div>
+				</div>
+			</div>
+		)
+	}
+
+	renderTile(item) {
+		if (this.config !== undefined) {	
+			if (item === 'temperature') {
+				return this.renderTemperatureTile(item);
+			} else {
+				var measure = this.state.measures[item];
+				var unit = this.config.readingsSettings[item]['unit'];
+				var img = this.config.readingsSettings[item]['img'];
+				var title = this.config.readingsSettings[item]['title'];
+
+				return (
+					<div className="reading-tile">
+						<div className={["reading-title", "grid-row-one"].join(' ')}>{title}</div>
+						<div className="reading-measure">
+							<div className={["reading-icon", "column-one"].join(' ')}><img width="80" height="80" src={`${process.env.PUBLIC_URL}${img}`} alt={title} /></div>
+							<div className={["reading-text", "column-two"].join(' ')}>{measure} {unit}</div>
+						</div>
+					</div>
+				)
+			}
 		}
 		return null;
 	}
