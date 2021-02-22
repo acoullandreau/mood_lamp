@@ -452,7 +452,8 @@ class App extends React.Component {
 				- handleNotifications, to be able to handle any message coming from the microcontroller or the BluetoothService
 		*/
 
-		BluetoothService.connect(this.setLoading, this.onConnect, this.onDisconnect, this.handleNotifications);
+		this.onConnect();
+		// BluetoothService.connect(this.setLoading, this.onConnect, this.onDisconnect, this.handleNotifications);
 
 	}
 
@@ -473,19 +474,22 @@ class App extends React.Component {
 				- setting the state to connected and triggering a navigation event to the modes menu
 		*/
 
+		this.setState({'isConnected':true, 'disconnectDisplay':{ 'display':'block' }});
+
+
 		// we get a set of promises
-		var initPromise = MaiaService.getInitSetting();
-		initPromise.then(initSettings => {
-			// connection is established, so we set loading to false
-			this.setLoading(false);
-			// we call redux actions to store the modes, the rules and the factoryModes
-			this.props.initModes(initSettings['modes']);
-			this.props.initRules(initSettings['rules']);
-			var factoryModes = this.parseEditableModes(initSettings['config']);
-			this.props.getFactorySettings(factoryModes);
-			MaiaService.setCurrentTime();
-			this.setState({'isConnected':true, 'disconnectDisplay':{ 'display':'block' }});
-		})
+		// var initPromise = MaiaService.getInitSetting();
+		// initPromise.then(initSettings => {
+		// 	// connection is established, so we set loading to false
+		// 	this.setLoading(false);
+		// 	// we call redux actions to store the modes, the rules and the factoryModes
+		// 	this.props.initModes(initSettings['modes']);
+		// 	this.props.initRules(initSettings['rules']);
+		// 	var factoryModes = this.parseEditableModes(initSettings['config']);
+		// 	this.props.getFactorySettings(factoryModes);
+		// 	MaiaService.setCurrentTime();
+		// 	this.setState({'isConnected':true, 'disconnectDisplay':{ 'display':'block' }});
+		// })
 
 		window.history.pushState({}, '', '#modes');
 		const navEvent = new PopStateEvent('popstate');
@@ -661,7 +665,7 @@ class App extends React.Component {
 					<div className="grid-content">
 						<div className="content-one">
 							<div id='logo'>
-								<a href='/#'><img width="238" height="146" src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`} alt='Maïa' /></a>
+								<a href='/#'><img src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`} alt='Maïa' /></a>
 							</div>
 						</div>
 						<div className={["content-two", "column-two"].join(' ')}>
