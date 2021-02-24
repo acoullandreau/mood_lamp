@@ -302,7 +302,9 @@ class BluetoothService {
 			//fake request
 			let modesArray = [
 					{'id':0, 'orderIndex':0, 'isOriginMode':true, 'isEditable':false, 'colors':[], 'speed':0},
-					{'id':2, 'orderIndex':2, 'isOriginMode':true, 'isEditable':false, 'colors':[{ "r": 227, "g": 233, "b": 255 }, { "r": 255, "g": 180, "b": 107 }], 'speed':0},
+					{'id':2, 'orderIndex':2, 'isOriginMode':true, 'isEditable':false, 'colors':[
+						{ "r": 227, "g": 233, "b": 255 }, { "r": 255, "g": 180, "b": 107 }], 
+					'speed':0},
 					{'id':1, 'orderIndex':1, 'isOriginMode':true, 'isEditable':false, 'colors':[], 'speed':0},
 					{'id':10, 'orderIndex':10, 'isOriginMode':true, 'isEditable':false, 'colors':[], 'speed':0},
 					{'id':23, 'orderIndex':23, 'isOriginMode':true, 'isEditable':false, 'colors':[], 'speed':0},
@@ -614,8 +616,6 @@ class BluetoothService {
 
 	saveRules(rulesObject) {
 		console.log('Saving Rules to micro-controller');
-		console.log(rulesObject.autoOn.weekdays)
-		console.log(rulesObject.autoOff.weekdays)
 		let message = MessageUtils.buildMessage();
 		message.setCommand(Commands.SET_SETTINGS);
 		message.setObjectPayload(MaiaUtils.packRules(rulesObject));

@@ -98,10 +98,14 @@ class Rules extends React.Component {
 		if (targetArray.length > 1) {
 			if (this.state[targetArray[0]]['active'] === false) {
 				isDisabled = true;
-			} else if (this.state[targetArray[0]].activeOption !== targetArray[1]) {
-				isDisabled = true;
+			} 
+			if (targetArray[1] !== 'weekdays') {
+				if (this.state[targetArray[0]].activeOption !== targetArray[1]) {
+					isDisabled = true;
+				}
 			}
 		}
+
 		return isDisabled;
 	}
 
@@ -287,7 +291,7 @@ class Rules extends React.Component {
 										type="checkbox" 
 										id={`${target}_${dow_idx}`}
 										checked={ stateTarget[dow_idx] } 
-										disabled={ this.isDisabled(target) }
+										disabled={ this.isDisabled(`${target}.weekdays`) }
 										onChange={ this.handleWeekdaySelectionChange } 
 									/>
 									<label htmlFor={`${target}_${dow_idx}`}>{dow_name}</label>
