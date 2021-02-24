@@ -576,6 +576,7 @@ class BluetoothService {
 				'silentAutoOff': {'active':false, 'duration':12},
 				'autoOn':{
 					'active':false,
+					'weekdays':[false, true, true, true, true, true, false],
 					'onLightLevel':{
 						'startTime':'20:00',
 						'withStartTime':false,
@@ -590,6 +591,7 @@ class BluetoothService {
 				},
 				'autoOff':{
 					'active':true,
+					'weekdays':[false, true, false, false, true, true, false],
 					'onLightLevel':{
 						'startTime':'23:00',
 						'withStartTime':false,
@@ -612,6 +614,8 @@ class BluetoothService {
 
 	saveRules(rulesObject) {
 		console.log('Saving Rules to micro-controller');
+		console.log(rulesObject.autoOn.weekdays)
+		console.log(rulesObject.autoOff.weekdays)
 		let message = MessageUtils.buildMessage();
 		message.setCommand(Commands.SET_SETTINGS);
 		message.setObjectPayload(MaiaUtils.packRules(rulesObject));

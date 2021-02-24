@@ -159,6 +159,32 @@ input:checked + .slider:before {
 }
 
 
+/*Weekday selector*/
+
+.dowPicker {
+
+}
+
+.dowPickerOption {
+	display: inline-block;
+	margin: 2%;
+}
+
+.dowPickerOption input[type=checkbox] {
+	display: none;
+}
+
+.dowPickerOption label {
+	cursor: pointer;
+	border: 1px solid #FEEDDF3A;
+	border-radius: 8%;
+	padding: 12%;
+}
+
+.dowPickerOption input[type=checkbox]:checked ~ label {
+	background-color:#FA4D3D;
+}
+
 @media only screen and (max-width:930px) and (orientation: portrait){
 
 	#rules-page {

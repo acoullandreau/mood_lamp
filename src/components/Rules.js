@@ -24,6 +24,7 @@ class Rules extends React.Component {
 			},
 			'autoOn':{
 				'active':this.props.rulesConfig.autoOn.active,
+				'weekdays':this.props.rulesConfig.autoOn.weekdays,
 				'activeOption':this.getActiveOption('autoOn'),
 				'onLightLevel':{
 					'startTime':this.props.rulesConfig.autoOn.onLightLevel.startTime,
@@ -37,6 +38,7 @@ class Rules extends React.Component {
 			},
 			'autoOff':{
 				'active':this.props.rulesConfig.autoOff.active,
+				'weekdays':this.props.rulesConfig.autoOff.weekdays,
 				'activeOption':this.getActiveOption('autoOff'),
 				'onLightLevel':{
 					'startTime':this.props.rulesConfig.autoOff.onLightLevel.startTime,
@@ -115,11 +117,13 @@ class Rules extends React.Component {
 		rules.silentAutoOff = Object.assign({}, this.state.silentAutoOff);
 		rules.autoOn = {
 			'active':this.state.autoOn.active, 
+			'weekdays':Object.assign([], this.state.autoOn.weekdays), 
 			'onLightLevel':Object.assign({}, this.state.autoOn.onLightLevel), 
 			'onSchedule':Object.assign({}, this.state.autoOn.onSchedule)
 		};
 		rules.autoOff = {
 			'active':this.state.autoOff.active, 
+			'weekdays':Object.assign([], this.state.autoOff.weekdays), 
 			'onLightLevel':Object.assign({}, this.state.autoOff.onLightLevel), 
 			'onSchedule':Object.assign({}, this.state.autoOff.onSchedule)
 		};
@@ -193,6 +197,23 @@ class Rules extends React.Component {
 		});
 	}
 
+	handleWeekdaySelectionChange = (event) => {
+		/**
+			This method is triggered when a user updates the selected weekdays on which auto On or auto Off should be executed.
+			It triggers an update of the Redux store and a save of the rules (as a change is detected).
+		*/
+
+		var currentState = {...this.state};
+		var target = event.target.id.split('_')[0];
+		var idx = parseInt(event.target.id.split('_')[1]);
+		currentState[target]['weekdays'][idx] = !currentState[target]['weekdays'][idx];
+		
+		this.setState(currentState, () => {
+			this.parseStateToRules();
+		});
+	}
+
+
 	onTimeChange = (event, target) => {
 		/**
 			This method is triggered when a user updates the value of a time picker (available for multiple rules).
@@ -248,6 +269,38 @@ class Rules extends React.Component {
 		)
 	}
 
+	renderWeekDaySelector(target) {
+
+		var stateTarget = this.state[target]['weekdays'];
+		var dow = {0: ['Lun', 1], 1: ['Mar', 2], 2: ['Mer', 3], 3: ['Jeu', 4], 4: ['Ven', 5], 5: ['Sam', 6], 6: ['Dim', 0]};
+
+		return (
+			<div className="dowPicker">
+				{
+					React.Children.toArray(
+						Object.keys(dow).map((item, i) => {
+							var dow_name = dow[i][0]
+							var dow_idx = dow[i][1]
+							return (
+								<div className="dowPickerOption">
+									<input 
+										type="checkbox" 
+										id={`${target}_${dow_idx}`}
+										checked={ stateTarget[dow_idx] } 
+										disabled={ this.isDisabled(target) }
+										onChange={ this.handleWeekdaySelectionChange } 
+									/>
+									<label htmlFor={`${target}_${dow_idx}`}>{dow_name}</label>
+							    </div>
+
+							)
+						})
+					)
+				}
+			</div>
+		)
+	} 
+
 	renderAutoOnSection() {
 
 		return (
@@ -255,6 +308,9 @@ class Rules extends React.Component {
 				<div>
 					{this.renderSwitch('autoOn')}
 					<p className="rule-text">Allumage automatique</p>
+				</div>
+				<div className="subsection" style={{'opacity':this.getOpacity('autoOn', false)}}>
+					{this.renderWeekDaySelector('autoOn')}
 				</div>
 				<div className="subsection" style={{'opacity':this.getOpacity('autoOn.onLightLevel', false)}}> 
 					<div>
@@ -327,6 +383,9 @@ class Rules extends React.Component {
 				<div>
 					{this.renderSwitch('autoOff')}
 					<p className="rule-text">Extinction automatique</p>
+				</div>
+				<div className="subsection" style={{'opacity':this.getOpacity('autoOff', false)}}>
+					{this.renderWeekDaySelector('autoOff')}
 				</div>
 				<div className="subsection" style={{'opacity':this.getOpacity('autoOff.onLightLevel', false)}}>
 					<div>
