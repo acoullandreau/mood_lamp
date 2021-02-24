@@ -304,6 +304,12 @@
 		}
 	},
 	"versions":{
+		"2.1.0":[
+			"Nouvelle fonctionalité pour sélectionner les jours de la semaine pour lequels Auto On et/ou Auto Off s'appliquent."
+		],
+		"1.2.0":[
+			"Nouveau bouton pour changer l'unité de température (°C/°F)"
+		],
 		"1.1.0":[
 			"Ajout d'un message pour informer des fonctionalités de la nouvelle version.",
 			"Nouvelle interface pour la sélection d'un horaire d'allumage/extinction automatique.",
