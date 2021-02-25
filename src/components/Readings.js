@@ -9,7 +9,7 @@ class Readings extends React.Component {
 
 
 	intervalID;
-	state = {'lastUpdate':'', 'measures':{}};
+	state = {'lastUpdate':'', 'measures':{}, 'temperature_unit':localStorage.getItem('temperature_unit')};
 	shouldRefreshReadings = false;
 	config = undefined;
 
@@ -87,6 +87,7 @@ class Readings extends React.Component {
 		let curr_unit = localStorage.getItem('temperature_unit') || this.config.readingsSettings['temperature']['unit'];
 		let new_unit = curr_unit === '°C' ? '°F' : '°C';
 		localStorage.setItem('temperature_unit', new_unit)
+		this.setState({ 'temperature_unit':new_unit });
 	}
 
 	getFarTemp(temp) {
@@ -95,7 +96,7 @@ class Readings extends React.Component {
 	}
 
 	renderTemperatureTile() {
-		var unit = localStorage.getItem('temperature_unit') || this.config.readingsSettings['temperature']['unit'];
+		var unit = this.state.temperature_unit;
 		var measure = unit === '°C' ? this.state.measures['temperature'] : this.getFarTemp(this.state.measures['temperature']);
 		var img = this.config.readingsSettings['temperature']['img'];
 		var title = this.config.readingsSettings['temperature']['title'];
