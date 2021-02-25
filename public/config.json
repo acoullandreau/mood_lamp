@@ -304,7 +304,7 @@
 		}
 	},
 	"versions":{
-		"2.1.0":[
+		"2.0.0":[
 			"Nouvelle fonctionalité pour sélectionner les jours de la semaine pour lequels Auto On et/ou Auto Off s'appliquent."
 		],
 		"1.2.0":[
