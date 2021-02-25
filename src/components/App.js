@@ -452,8 +452,10 @@ class App extends React.Component {
 				- handleNotifications, to be able to handle any message coming from the microcontroller or the BluetoothService
 		*/
 
-		this.onConnect();
-		// BluetoothService.connect(this.setLoading, this.onConnect, this.onDisconnect, this.handleNotifications);
+		// uncomment for testing
+		// this.onConnect();
+		
+		BluetoothService.connect(this.setLoading, this.onConnect, this.onDisconnect, this.handleNotifications);
 
 	}
 
