@@ -275,34 +275,37 @@ class Rules extends React.Component {
 
 	renderWeekDaySelector(target) {
 
-		var stateTarget = this.state[target]['weekdays'];
-		var dow = {0: ['Lun', 1], 1: ['Mar', 2], 2: ['Mer', 3], 3: ['Jeu', 4], 4: ['Ven', 5], 5: ['Sam', 6], 6: ['Dim', 0]};
+		if (this.state[target]['weekdays']) {
+			var stateTarget = this.state[target]['weekdays'];
+			var dow = {0: ['Lun', 1], 1: ['Mar', 2], 2: ['Mer', 3], 3: ['Jeu', 4], 4: ['Ven', 5], 5: ['Sam', 6], 6: ['Dim', 0]};
 
-		return (
-			<div className="dowPicker">
-				{
-					React.Children.toArray(
-						Object.keys(dow).map((item, i) => {
-							var dow_name = dow[i][0]
-							var dow_idx = dow[i][1]
-							return (
-								<div className="dowPickerOption">
-									<input 
-										type="checkbox" 
-										id={`${target}_${dow_idx}`}
-										checked={ stateTarget[dow_idx] } 
-										disabled={ this.isDisabled(`${target}.weekdays`) }
-										onChange={ this.handleWeekdaySelectionChange } 
-									/>
-									<label htmlFor={`${target}_${dow_idx}`}>{dow_name}</label>
-							    </div>
+			return (
+				<div className="dowPicker">
+					{
+						React.Children.toArray(
+							Object.keys(dow).map((item, i) => {
+								var dow_name = dow[i][0]
+								var dow_idx = dow[i][1]
+								return (
+									<div className="dowPickerOption">
+										<input 
+											type="checkbox" 
+											id={`${target}_${dow_idx}`}
+											checked={ stateTarget[dow_idx] } 
+											disabled={ this.isDisabled(`${target}.weekdays`) }
+											onChange={ this.handleWeekdaySelectionChange } 
+										/>
+										<label htmlFor={`${target}_${dow_idx}`}>{dow_name}</label>
+								    </div>
 
-							)
-						})
-					)
-				}
-			</div>
-		)
+								)
+							})
+						)
+					}
+				</div>
+			)
+		}
+		return null;
 	} 
 
 	renderAutoOnSection() {
