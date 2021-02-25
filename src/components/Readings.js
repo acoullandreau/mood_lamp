@@ -78,7 +78,7 @@ class Readings extends React.Component {
 		.then(measures => {
 			if (this.shouldRefreshReadings) {
 				this.setState({ 'lastUpdate':Date.now(), measures: {...measures} });
-				this.intervalID = setTimeout(this.getReadings, 3000);
+				this.intervalID = setTimeout(this.getReadings, 200);
 			}
 		})
 	}
