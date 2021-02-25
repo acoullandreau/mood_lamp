@@ -305,7 +305,7 @@
 	},
 	"versions":{
 		"1.2.0":[
-			"Nouveau bouton pour changer l'unité de température (°C/°F)",
+			"Nouveau bouton pour changer l'unité de température (°C/°F)"
 		],
 		"1.1.0":[
 			"Ajout d'un message pour informer des fonctionalités de la nouvelle version.",
