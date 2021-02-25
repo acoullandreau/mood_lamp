@@ -3,7 +3,7 @@ import Utils from './Utils.js';
 class VersionManager {
 
 	constructor() {
-		this.appVersion = {"major":1, "minor":1, "patch":0};
+		this.appVersion = {"major":1, "minor":2, "patch":0};
 		this.storedVersion = undefined;
 		this.updateDescription = [];
 	}
